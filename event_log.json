@@ -1,0 +1,94 @@
+[
+  {
+    "case_id": "Case_1",
+    "event_id": "Event_1",
+    "activity": "Order Received",
+    "timestamp": "2023-11-15T08:00:00",
+    "event_level": 1,
+    "sub_activities": [
+      {
+        "event_id": "Event_1_1",
+        "activity": "Validate Order",
+        "timestamp": "2023-11-15T08:05:00",
+        "event_level": 2,
+        "sub_activities": [
+          {
+            "event_id": "Event_1_1_1",
+            "activity": "Check Inventory",
+            "timestamp": "2023-11-15T08:06:00",
+            "event_level": 3
+          },
+          {
+            "event_id": "Event_1_1_2",
+            "activity": "Credit Check",
+            "timestamp": "2023-11-15T08:07:00",
+            "event_level": 3
+          }
+        ]
+      },
+      {
+        "event_id": "Event_1_2",
+        "activity": "Process Payment",
+        "timestamp": "2023-11-15T08:10:00",
+        "event_level": 2
+      }
+    ]
+  },
+  {
+    "case_id": "Case_1",
+    "event_id": "Event_2",
+    "activity": "Order Fulfilled",
+    "timestamp": "2023-11-15T09:00:00",
+    "event_level": 1
+  },
+  {
+    "case_id": "Case_2",
+    "event_id": "Event_3",
+    "activity": "Order Received",
+    "timestamp": "2023-11-16T10:00:00",
+    "event_level": 1,
+    "sub_activities": [
+      {
+        "event_id": "Event_3_1",
+        "activity": "Validate Order",
+        "timestamp": "2023-11-16T10:05:00",
+        "event_level": 2
+      }
+    ]
+  },
+  {
+    "case_id": "Case_2",
+    "event_id": "Event_4",
+    "activity": "Order Canceled",
+    "timestamp": "2023-11-16T11:00:00",
+    "event_level": 1
+  },
+  {
+    "case_id": "Case_3",
+    "event_id": "Event_5",
+    "activity": "Order Received",
+    "timestamp": "2023-11-17T08:00:00",
+    "event_level": 1,
+    "sub_activities": [
+      {
+        "event_id": "Event_5_1",
+        "activity": "Validate Order",
+        "timestamp": "2023-11-17T08:05:00",
+        "event_level": 2
+      },
+      {
+        "event_id": "Event_5_2",
+        "activity": "Process Payment",
+        "timestamp": "2023-11-17T08:15:00",
+        "event_level": 2
+      }
+    ]
+  },
+  {
+    "case_id": "Case_3",
+    "event_id": "Event_6",
+    "activity": "Order Fulfilled",
+    "timestamp": "2023-11-17T09:00:00",
+    "event_level": 1
+  }
+]

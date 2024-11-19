@@ -1,0 +1,52 @@
+[
+  {
+    "case_id": "Case_1",
+    "events": [
+      {
+        "event_id": "Event_1",
+        "activity": "Validate Username",
+        "timestamp": "2023-01-01T08:00:00"
+      },
+      {
+        "event_id": "Event_2",
+        "activity": "Validate Password",
+        "timestamp": "2023-01-01T08:00:05"
+      },
+      {
+        "event_id": "Event_3",
+        "activity": "Check Permissions",
+        "timestamp": "2023-01-01T08:00:10"
+      },
+      {
+        "event_id": "Event_4",
+        "activity": "Load Dashboard",
+        "timestamp": "2023-01-01T08:00:15"
+      }
+    ]
+  },
+  {
+    "case_id": "Case_2",
+    "events": [
+      {
+        "event_id": "Event_5",
+        "activity": "Validate Username",
+        "timestamp": "2023-01-01T09:00:00"
+      },
+      {
+        "event_id": "Event_6",
+        "activity": "Validate Password",
+        "timestamp": "2023-01-01T09:00:05"
+      },
+      {
+        "event_id": "Event_7",
+        "activity": "Check Permissions",
+        "timestamp": "2023-01-01T09:00:10"
+      },
+      {
+        "event_id": "Event_8",
+        "activity": "Load Dashboard",
+        "timestamp": "2023-01-01T09:00:15"
+      }
+    ]
+  }
+]
