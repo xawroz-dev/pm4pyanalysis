@@ -661,7 +661,6 @@ Storing event logs effectively is crucial for successful process mining, whether
 - **Use metadata and correlation IDs** to link events across applications.
 - **Utilize scalable storage solutions** like NoSQL databases for large datasets.
 
-By following these best practices, you can effectively store event logs to support process mining activities across single or multiple applications, enabling comprehensive analysis and insights into your processes.
 
 ---
 
@@ -1002,4 +1001,3 @@ By following the outlined strategy and best practices, organizations can design 
 
 ---
 
-**Note:** The implementation of this strategy requires careful planning and collaboration between data engineers, process analysts, and stakeholders to ensure that the event logs meet the analytical requirements and are compatible with the chosen process mining tools.
