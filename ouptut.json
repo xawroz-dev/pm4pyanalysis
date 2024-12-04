@@ -1,0 +1,226 @@
+Here’s a detailed example for a **credit card application process**, with 10 activities, generating event logs and demonstrating the key **process mining use cases** using PM4Py.
+
+---
+
+### **Credit Card Application Process**
+Activities involved in the credit card application process:
+1. **Submit Application**
+2. **Validate Application**
+3. **Perform Credit Check**
+4. **Perform KYC (Know Your Customer) Verification**
+5. **Approve Application**
+6. **Generate Card**
+7. **Deliver Card**
+8. **Activate Card**
+9. **Notify Customer**
+10. **Reject Application** (optional, based on business rules)
+
+---
+
+### **Step 1: Generate Synthetic Event Logs**
+
+This Python script generates an event log with the above activities:
+
+```python
+import random
+import time
+from pm4py.objects.log.obj import EventLog, Trace, Event
+
+# Define the activities for the credit card process
+activities = [
+    "Submit Application",
+    "Validate Application",
+    "Perform Credit Check",
+    "Perform KYC Verification",
+    "Approve Application",
+    "Generate Card",
+    "Deliver Card",
+    "Activate Card",
+    "Notify Customer",
+    "Reject Application"
+]
+
+# Generate synthetic event logs
+def generate_credit_card_log(num_cases=100):
+    log = EventLog()
+
+    for case_id in range(1, num_cases + 1):
+        trace = Trace()
+        trace.attributes["case_id"] = f"Case-{case_id}"
+
+        # Simulate whether the application is approved or rejected
+        approved = random.choice([True, False])
+
+        # Add events to the trace
+        trace.append(Event({"concept:name": "Submit Application", "time:timestamp": time.time()}))
+        trace.append(Event({"concept:name": "Validate Application", "time:timestamp": time.time() + random.randint(1, 10)}))
+        trace.append(Event({"concept:name": "Perform Credit Check", "time:timestamp": time.time() + random.randint(11, 20)}))
+        trace.append(Event({"concept:name": "Perform KYC Verification", "time:timestamp": time.time() + random.randint(21, 30)}))
+
+        if approved:
+            trace.append(Event({"concept:name": "Approve Application", "time:timestamp": time.time() + random.randint(31, 40)}))
+            trace.append(Event({"concept:name": "Generate Card", "time:timestamp": time.time() + random.randint(41, 50)}))
+            trace.append(Event({"concept:name": "Deliver Card", "time:timestamp": time.time() + random.randint(51, 60)}))
+            trace.append(Event({"concept:name": "Activate Card", "time:timestamp": time.time() + random.randint(61, 70)}))
+            trace.append(Event({"concept:name": "Notify Customer", "time:timestamp": time.time() + random.randint(71, 80)}))
+        else:
+            trace.append(Event({"concept:name": "Reject Application", "time:timestamp": time.time() + random.randint(31, 40)}))
+
+        log.append(trace)
+
+    return log
+
+# Generate a log with 100 cases
+credit_card_log = generate_credit_card_log()
+```
+
+---
+
+### **Step 2: Process Discovery**
+
+Discover a process model from the generated event log:
+
+```python
+from pm4py.algo.discovery.alpha import factory as alpha_miner
+from pm4py.visualization.petrinet import factory as pn_visualizer
+
+# Discover process model using Alpha Miner
+net, initial_marking, final_marking = alpha_miner.apply(credit_card_log)
+
+# Visualize the discovered Petri net
+gviz = pn_visualizer.apply(net, initial_marking, final_marking)
+pn_visualizer.view(gviz)
+```
+
+**Findings:**
+- Discover the sequence of activities in the process.
+- Visualize how events flow through the credit card application process.
+
+---
+
+### **Step 3: Conformance Checking**
+
+Check if the event logs conform to the discovered process model:
+
+```python
+from pm4py.algo.conformance.tokenreplay import factory as token_replay
+
+# Perform token replay conformance checking
+replay_results = token_replay.apply(credit_card_log, net, initial_marking, final_marking)
+print("Replay Results:", replay_results)
+```
+
+**Findings:**
+- Identify deviations from the process model.
+- Detect cases where unexpected activities occurred.
+
+---
+
+### **Step 4: Performance Analysis**
+
+Analyze the time taken for each activity and identify bottlenecks:
+
+```python
+from pm4py.statistics.performance_spectrum import factory as performance_spectrum
+
+# Analyze performance metrics
+performance_results = performance_spectrum.apply(credit_card_log, parameters={"format": "dict"})
+print("Performance Metrics:", performance_results)
+```
+
+**Findings:**
+- Measure the total time taken for the process.
+- Identify slow activities causing delays.
+
+---
+
+### **Step 5: Classification-Based Comparison**
+
+Compare performance metrics across different dimensions (e.g., approved vs. rejected applications):
+
+```python
+from pm4py.algo.filtering.log.attributes import factory as attributes_filter
+
+# Split the log by approved vs. rejected cases
+approved_log = attributes_filter.apply(credit_card_log, parameters={"attribute_key": "concept:name", "attribute_value": "Approve Application"})
+rejected_log = attributes_filter.apply(credit_card_log, parameters={"attribute_key": "concept:name", "attribute_value": "Reject Application"})
+
+# Discover models for each log
+net_approved, im_approved, fm_approved = alpha_miner.apply(approved_log)
+net_rejected, im_rejected, fm_rejected = alpha_miner.apply(rejected_log)
+
+# Compare conformance and performance metrics
+from pm4py.algo.evaluation.replay_fitness import factory as replay_fitness
+fitness_approved = replay_fitness.apply(approved_log, net_approved, im_approved, fm_approved)
+fitness_rejected = replay_fitness.apply(rejected_log, net_rejected, im_rejected, fm_rejected)
+
+print("Fitness Approved:", fitness_approved)
+print("Fitness Rejected:", fitness_rejected)
+```
+
+**Findings:**
+- Understand differences in behavior between approved and rejected cases.
+- Analyze if rejected cases deviate more from the standard process.
+
+---
+
+### **Step 6: Continuous Monitoring**
+
+Monitor the process in real-time for deviations or SLA violations:
+
+```python
+import time
+
+# Monitor events in real time
+def monitor_events(log, net, initial_marking, final_marking, sla_threshold=10):
+    while True:
+        # Simulate new events (replace this with live event data)
+        new_event = {"concept:name": random.choice(activities), "time:timestamp": time.time()}
+        log.append(new_event)
+
+        # Check conformance and SLA
+        replay_results = token_replay.apply(log, net, initial_marking, final_marking)
+        deviations = [r for r in replay_results if not r["is_fit"]]
+        if deviations:
+            print("Deviation Detected:", deviations)
+
+        # Check SLA violations
+        if new_event["time:timestamp"] - log[-1]["time:timestamp"] > sla_threshold:
+            print("SLA Violation Detected for Event:", new_event)
+
+        time.sleep(5)
+
+# Start monitoring
+monitor_events(credit_card_log, net, initial_marking, final_marking)
+```
+
+**Findings:**
+- Detect deviations and SLA violations in real time.
+- Enable proactive interventions to address issues.
+
+---
+
+### **Summary of Findings**
+
+| **Use Case**            | **Possible Findings**                                                                 |
+|--------------------------|---------------------------------------------------------------------------------------|
+| **Process Discovery**    | Identify sequences, loops, and bottlenecks in the credit card application process.    |
+| **Conformance Checking** | Detect deviations (e.g., skipping validation or extra steps in rejected cases).       |
+| **Performance Analysis** | Measure total time taken and identify delays in activities (e.g., KYC bottlenecks).   |
+| **Comparison**           | Analyze differences between approved and rejected cases (e.g., faster for approved). |
+| **Continuous Monitoring**| Detect SLA violations, unexpected deviations, and delays in real-time.                |
+
+---
+
+This script provides a **complete example** tailored for the credit card domain, covering all requested process mining use cases. You can use it as a foundation for building a more complex analysis pipeline. Let me know if you need further assistance!
+
+
+
+
+
+
+
+
+
+
+
