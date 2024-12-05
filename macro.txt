@@ -1,0 +1,572 @@
+import pm4py
+from pm4py.objects.log.importer.xes import importer as xes_importer
+from pm4py.algo.discovery.inductive import factory as inductive_miner
+from pm4py.visualization.petri_net import factory as pn_vis_factory
+from pm4py.objects.log.util import filtering_utils
+from pm4py.objects.petri_net.exporter import exporter as pnml_exporter
+from pm4py.objects.log.exporter.xes import exporter as xes_exporter
+
+# Step 1: Load the event log
+log = xes_importer.apply('your_event_log.xes')
+
+# Step 2: High-level process discovery
+net, initial_marking, final_marking = inductive_miner.apply(log)
+gviz = pn_vis_factory.apply(net, initial_marking, final_marking)
+pn_vis_factory.view(gviz)
+pn_vis_factory.save(gviz, 'high_level_process.png')
+
+# Step 3: Identify activity for drill-down (e.g., 'Activity A')
+
+# Step 4: Filter the log for 'Activity A'
+filtered_log = filtering_utils.filter_traces_containing_event_attribute(log, "concept:name", ["Activity A"])
+xes_exporter.apply(filtered_log, 'filtered_log_level_1.xes')
+
+# Step 5: Drill-down process discovery
+sub_net, sub_initial_marking, sub_final_marking = inductive_miner.apply(filtered_log)
+sub_gviz = pn_vis_factory.apply(sub_net, sub_initial_marking, sub_final_marking)
+pn_vis_factory.view(sub_gviz)
+pn_vis_factory.save(sub_gviz, 'subprocess_model_level_1.png')
+pnml_exporter.apply(sub_net, sub_initial_marking, 'subprocess_model_level_1.pnml', final_marking=sub_final_marking)
+
+# Step 6: Repeat for deeper levels if necessary
+
+
+
+
+
+
+
+Certainly! Let's delve into how you can use the "micro" attribute in XES event logs to perform multi-level process mining using PM4Py. We'll cover:
+
+1. **Understanding the "micro" Attribute in XES**
+2. **Creating an XES Event Log with Macro and Micro Levels**
+3. **Python Code Using PM4Py for Multi-Level Process Mining**
+4. **Visualizing and Analyzing the Process Models**
+
+---
+
+## 1. Understanding the "micro" Attribute in XES
+
+The "micro" attribute is a custom event attribute that you can use to indicate the level of granularity of each event in your process. By tagging events as macro-level or micro-level, you can:
+
+- **Macro-Level Events**: Represent high-level activities or phases in your process.
+- **Micro-Level Events**: Represent detailed steps or sub-activities within macro activities.
+
+This hierarchical structuring allows you to:
+
+- **Filter** the event log based on the level of interest.
+- **Perform process discovery** separately on macro and micro levels.
+- **Drill down** from macro activities to their detailed micro activities.
+
+---
+
+## 2. Creating an XES Event Log with Macro and Micro Levels
+
+Let's create a simple XES event log that includes both macro and micro-level events. We'll define two cases (process instances) with events annotated with the "micro" attribute.
+
+### XES Event Log Example
+
+Here's a sample XES file content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XES Event Log with Macro and Micro Levels -->
+<log xes.version="1.0" xes.features="nested-attributes" xmlns="http://www.xes-standard.org/">
+  <extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext"/>
+  <global scope="trace">
+    <string key="concept:name" value="__INVALID__"/>
+  </global>
+  <global scope="event">
+    <string key="concept:name" value="__INVALID__"/>
+    <string key="micro" value="__INVALID__"/>
+  </global>
+
+  <!-- Case 1 -->
+  <trace>
+    <string key="concept:name" value="Case1"/>
+    <!-- Macro-Level Events -->
+    <event>
+      <string key="concept:name" value="Start Process"/>
+      <string key="micro" value="0"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Approve Application"/>
+      <string key="micro" value="0"/>
+    </event>
+    <event>
+      <string key="concept:name" value="End Process"/>
+      <string key="micro" value="0"/>
+    </event>
+    <!-- Micro-Level Events -->
+    <event>
+      <string key="concept:name" value="Receive Application"/>
+      <string key="micro" value="1"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Verify Documents"/>
+      <string key="micro" value="1"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Credit Check"/>
+      <string key="micro" value="1"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Approve Loan"/>
+      <string key="micro" value="1"/>
+    </event>
+  </trace>
+
+  <!-- Case 2 -->
+  <trace>
+    <string key="concept:name" value="Case2"/>
+    <!-- Macro-Level Events -->
+    <event>
+      <string key="concept:name" value="Start Process"/>
+      <string key="micro" value="0"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Reject Application"/>
+      <string key="micro" value="0"/>
+    </event>
+    <event>
+      <string key="concept:name" value="End Process"/>
+      <string key="micro" value="0"/>
+    </event>
+    <!-- Micro-Level Events -->
+    <event>
+      <string key="concept:name" value="Receive Application"/>
+      <string key="micro" value="1"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Verify Documents"/>
+      <string key="micro" value="1"/>
+    </event>
+    <event>
+      <string key="concept:name" value="Reject Loan"/>
+      <string key="micro" value="1"/>
+    </event>
+  </trace>
+
+</log>
+```
+
+**Explanation:**
+
+- **Case 1** represents a process instance where an application is approved.
+- **Case 2** represents a process instance where an application is rejected.
+- Each case contains macro-level events (with `micro="0"`) and micro-level events (with `micro="1"`).
+- Macro-level events are high-level representations of the process.
+- Micro-level events provide detailed steps within the macro activities.
+
+**Save this content as `multi_level_event_log.xes`.**
+
+---
+
+## 3. Python Code Using PM4Py for Multi-Level Process Mining
+
+Now, let's write Python code using PM4Py to:
+
+- Load the XES event log.
+- Filter events based on the "micro" attribute.
+- Perform process discovery at both macro and micro levels.
+- Visualize the process models.
+
+### Install PM4Py
+
+If you haven't installed PM4Py, install it using:
+
+```bash
+pip install pm4py
+```
+
+### Python Code
+
+```python
+import pm4py
+from pm4py.objects.log.importer.xes import importer as xes_importer
+from pm4py.objects.log.util import filtering
+from pm4py.algo.discovery.inductive import factory as inductive_miner
+from pm4py.visualization.petri_net import factory as pn_vis_factory
+from pm4py.objects.conversion.log import converter as log_converter
+
+# Step 1: Load the event log
+log = xes_importer.apply('multi_level_event_log.xes')
+
+# Step 2: Filter Macro-Level Events (micro == "0")
+macro_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["0"])
+
+# Step 3: Filter Micro-Level Events (micro == "1")
+micro_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["1"])
+
+# Convert filtered logs to EventLog objects (if necessary)
+macro_log = log_converter.apply(macro_log, variant=log_converter.Variants.TO_EVENT_LOG)
+micro_log = log_converter.apply(micro_log, variant=log_converter.Variants.TO_EVENT_LOG)
+
+# Step 4: Perform Process Discovery on Macro-Level Log
+macro_net, macro_im, macro_fm = inductive_miner.apply(macro_log)
+macro_gviz = pn_vis_factory.apply(macro_net, macro_im, macro_fm)
+pn_vis_factory.view(macro_gviz)
+
+# Step 5: Perform Process Discovery on Micro-Level Log
+micro_net, micro_im, micro_fm = inductive_miner.apply(micro_log)
+micro_gviz = pn_vis_factory.apply(micro_net, micro_im, micro_fm)
+pn_vis_factory.view(micro_gviz)
+
+# Step 6: Drill-Down Analysis
+# Suppose we want to drill down into the "Approve Application" macro activity
+
+# Filter cases where "Approve Application" occurs in macro-level log
+from pm4py.objects.log.util import filtering_utils
+
+cases_with_approve_application = filtering_utils.filter_traces_containing_event_attribute(
+    macro_log, "concept:name", ["Approve Application"])
+
+# Get case IDs
+case_ids = [trace.attributes["concept:name"] for trace in cases_with_approve_application]
+
+# Filter micro-level log for these cases
+micro_drill_down_log = [trace for trace in micro_log if trace.attributes["concept:name"] in case_ids]
+
+# Perform process discovery on the filtered micro-level log
+drill_down_net, drill_down_im, drill_down_fm = inductive_miner.apply(micro_drill_down_log)
+drill_down_gviz = pn_vis_factory.apply(drill_down_net, drill_down_im, drill_down_fm)
+pn_vis_factory.view(drill_down_gviz)
+```
+
+### Explanation
+
+- **Loading the Event Log**: We load the event log using PM4Py's XES importer.
+- **Filtering Macro and Micro Events**: We filter the log to separate macro-level and micro-level events based on the "micro" attribute.
+- **Process Discovery**:
+  - **Macro Level**: We apply the Inductive Miner to the macro-level log to discover the high-level process model.
+  - **Micro Level**: We apply the Inductive Miner to the micro-level log to discover the detailed process model.
+- **Drill-Down Analysis**:
+  - We identify cases where the macro activity "Approve Application" occurs.
+  - We filter the micro-level log to include only these cases.
+  - We perform process discovery on this filtered micro-level log to analyze the detailed steps within the "Approve Application" activity.
+
+---
+
+## 4. Visualizing and Analyzing the Process Models
+
+Let's discuss what you can expect from the visualizations.
+
+### Macro-Level Process Model
+
+When you visualize the macro-level process model (`macro_gviz`), you should see a high-level representation showing:
+
+- **Start Process** leading to either:
+  - **Approve Application** or
+  - **Reject Application**
+- Followed by **End Process**.
+
+This reflects the main paths in your process at a macro level.
+
+### Micro-Level Process Model
+
+Visualizing the micro-level process model (`micro_gviz`), you should see a more detailed process model showing:
+
+- **Receive Application**
+- **Verify Documents**
+- Either:
+  - **Credit Check** followed by **Approve Loan**
+  - Or **Reject Loan**
+
+This model represents the detailed steps involved in processing applications.
+
+### Drill-Down Process Model
+
+The drill-down process model (`drill_down_gviz`) focuses on cases where the application was approved. It should show:
+
+- **Receive Application**
+- **Verify Documents**
+- **Credit Check**
+- **Approve Loan**
+
+This allows you to analyze the specific steps that lead to an approved application.
+
+---
+
+## Additional Considerations
+
+### Saving the Models and Logs
+
+You can save the models and filtered logs for documentation or further analysis.
+
+```python
+from pm4py.objects.petri_net.exporter import exporter as pnml_exporter
+from pm4py.objects.log.exporter.xes import exporter as xes_exporter
+
+# Save macro-level process model
+pnml_exporter.apply(macro_net, macro_im, 'macro_level_model.pnml', final_marking=macro_fm)
+pn_vis_factory.save(macro_gviz, 'macro_level_model.png')
+
+# Save micro-level process model
+pnml_exporter.apply(micro_net, micro_im, 'micro_level_model.pnml', final_marking=micro_fm)
+pn_vis_factory.save(micro_gviz, 'micro_level_model.png')
+
+# Save drill-down process model
+pnml_exporter.apply(drill_down_net, drill_down_im, 'drill_down_model.pnml', final_marking=drill_down_fm)
+pn_vis_factory.save(drill_down_gviz, 'drill_down_model.png')
+
+# Save filtered logs
+xes_exporter.apply(macro_log, 'macro_level_log.xes')
+xes_exporter.apply(micro_log, 'micro_level_log.xes')
+```
+
+### Customizing the "micro" Attribute
+
+If you have more than two levels (e.g., macro, meso, micro), you can adjust the "micro" attribute accordingly:
+
+- `micro="0"`: Macro level
+- `micro="1"`: Meso level
+- `micro="2"`: Micro level
+
+Modify your filtering code to include the desired levels.
+
+```python
+# For meso-level events
+meso_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["1"])
+
+# For micro-level events
+micro_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["2"])
+```
+
+---
+
+## Conclusion
+
+By using the "micro" attribute in your XES event logs, you can effectively perform multi-level process mining in PM4Py. This approach allows you to:
+
+- **Start with a high-level overview** of your process using macro-level events.
+- **Drill down into detailed activities** by analyzing micro-level events.
+- **Focus on specific paths** or cases by filtering based on activities or attributes.
+
+This method provides a structured way to analyze complex processes with multiple levels of granularity.
+
+---
+
+## Additional Tips
+
+- **Consistent Event Tagging**: Ensure that all events are correctly tagged with the "micro" attribute.
+- **Event Attributes**: Besides "micro", you can use other attributes (e.g., "department", "role") to create different perspectives.
+- **Visualization Tools**: Use the visualizations to compare and contrast different levels of your process.
+- **Performance Considerations**: For large event logs, consider optimizing your filtering and discovery steps to improve performance.
+
+---
+
+## Resources
+
+- **PM4Py Documentation**: [https://pm4py.fit.fraunhofer.de/documentation](https://pm4py.fit.fraunhofer.de/documentation)
+- **XES Standard**: [http://www.xes-standard.org/](http://www.xes-standard.org/)
+- **Process Mining Book**: *Process Mining: Data Science in Action* by Wil van der Aalst.
+
+---
+
+If you have any questions or need further clarification on any of the steps, feel free to ask!
+
+
+
+
+Yes, incorporating the "micro" attribute in your XES event logs can indeed facilitate multi-level process mining in PM4Py. The "micro" attribute allows you to represent different levels of granularity within your event log, effectively tagging events as belonging to a particular level (e.g., micro-level for detailed activities and macro-level for high-level activities). This hierarchical structuring can significantly enhance your ability to perform multi-level process discovery and drill-down analyses.
+
+## Understanding the "micro" Attribute in XES
+
+In XES (eXtensible Event Stream), you can define custom extensions and attributes to enrich your event logs with additional context. The "micro" attribute isn't a standard XES attribute but can be defined as a custom event attribute to indicate the level of granularity for each event.
+
+For example:
+
+- **Level 0 (Macro Level)**: High-level activities or phases.
+- **Level 1 (Micro Level)**: Detailed activities or steps within high-level phases.
+
+By tagging each event with a level indicator, you can filter and aggregate events based on their assigned levels, enabling multi-level process analysis.
+
+## How It Helps in Multi-Level Process Mining
+
+Using the "micro" attribute helps you:
+
+- **Organize Events Hierarchically**: Structure your event log to reflect the hierarchy of your process.
+- **Efficient Filtering**: Easily filter events to focus on a specific level of detail.
+- **Consistent Aggregation**: Aggregate events at the desired level without losing important context.
+
+## Implementing Multi-Level Process Mining with the "micro" Attribute in PM4Py
+
+Here's how you can leverage the "micro" attribute in PM4Py to perform multi-level process mining.
+
+### Step 1: Annotate Your Event Log with the "micro" Attribute
+
+First, ensure that your event log includes the "micro" attribute for each event. This attribute should indicate the level of the event.
+
+Example of an event in XES with the "micro" attribute:
+
+```xml
+<event>
+  <string key="concept:name" value="Approve Application"/>
+  <string key="org:resource" value="User A"/>
+  <date key="time:timestamp" value="2021-01-01T08:30:00.000+00:00"/>
+  <string key="micro" value="0"/>
+</event>
+```
+
+In this example, the "micro" attribute is set to "0", indicating a macro-level event.
+
+### Step 2: Load the Event Log in PM4Py
+
+Load your annotated event log using PM4Py's XES importer.
+
+```python
+from pm4py.objects.log.importer.xes import importer as xes_importer
+
+log = xes_importer.apply('your_event_log_with_micro.xes')
+```
+
+### Step 3: Filter Events Based on the "micro" Attribute
+
+Filter the event log to include only events at a specific level.
+
+#### For Macro-Level (Level 0)
+
+```python
+from pm4py.objects.log.util import filtering
+
+# Filter events where micro == "0"
+macro_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["0"])
+```
+
+#### For Micro-Level (Level 1)
+
+```python
+# Filter events where micro == "1"
+micro_log = filtering.filter_log_events_attribute(log, attribute_key="micro", attribute_values=["1"])
+```
+
+### Step 4: Perform Process Discovery at Each Level
+
+#### Macro-Level Process Discovery
+
+```python
+from pm4py.algo.discovery.inductive import factory as inductive_miner
+from pm4py.visualization.petri_net import factory as pn_vis_factory
+
+# Discover the process model at macro level
+macro_net, macro_im, macro_fm = inductive_miner.apply(macro_log)
+macro_gviz = pn_vis_factory.apply(macro_net, macro_im, macro_fm)
+pn_vis_factory.view(macro_gviz)
+```
+
+#### Micro-Level Process Discovery
+
+```python
+# Discover the process model at micro level
+micro_net, micro_im, micro_fm = inductive_miner.apply(micro_log)
+micro_gviz = pn_vis_factory.apply(micro_net, micro_im, micro_fm)
+pn_vis_factory.view(micro_gviz)
+```
+
+### Step 5: Drill-Down Analysis
+
+If you identify a macro-level activity that you want to explore in more detail, you can:
+
+1. Filter the micro-level log for events related to the macro activity.
+2. Perform process discovery on this filtered micro-level log.
+
+#### Example: Drill-Down into "Approve Application" Activity
+
+```python
+# Filter micro-level log for cases containing the macro activity "Approve Application"
+from pm4py.objects.log.util import filtering_utils
+
+# First, get cases containing "Approve Application" at macro level
+macro_activity_cases = [trace for trace in macro_log if any(event["concept:name"] == "Approve Application" for event in trace)]
+
+# Get case IDs
+case_ids = [trace.attributes["concept:name"] for trace in macro_activity_cases]
+
+# Filter micro-level log for these cases
+micro_drill_down_log = [trace for trace in micro_log if trace.attributes["concept:name"] in case_ids]
+
+# Perform process discovery on the filtered micro-level log
+drill_down_net, drill_down_im, drill_down_fm = inductive_miner.apply(micro_drill_down_log)
+drill_down_gviz = pn_vis_factory.apply(drill_down_net, drill_down_im, drill_down_fm)
+pn_vis_factory.view(drill_down_gviz)
+```
+
+### Step 6: Storing the Multi-Level Data
+
+Save your filtered logs and discovered models for future reference.
+
+```python
+from pm4py.objects.log.exporter.xes import exporter as xes_exporter
+from pm4py.objects.petri_net.exporter import exporter as pnml_exporter
+
+# Save macro-level log and model
+xes_exporter.apply(macro_log, 'macro_level_log.xes')
+pnml_exporter.apply(macro_net, macro_im, 'macro_level_model.pnml', final_marking=macro_fm)
+
+# Save micro-level log and model
+xes_exporter.apply(micro_log, 'micro_level_log.xes')
+pnml_exporter.apply(micro_net, micro_im, 'micro_level_model.pnml', final_marking=micro_fm)
+```
+
+## Benefits of Using the "micro" Attribute
+
+- **Simplified Filtering**: Easily filter logs without complex conditions.
+- **Consistent Level Definitions**: Maintain a clear distinction between levels across your dataset.
+- **Enhanced Clarity**: Improves the interpretability of your process models by focusing on the relevant level of detail.
+
+## Tips for Effective Usage
+
+- **Consistent Tagging**: Ensure that all events are correctly tagged with the appropriate "micro" level.
+- **Event Aggregation**: For macro-level events, you might need to aggregate several micro-level events.
+- **Extensions**: Consider defining a custom XES extension for "micro" levels to standardize your approach.
+
+## Advanced Techniques
+
+### Using XES Extensions
+
+Define a custom extension for hierarchical levels.
+
+```xml
+<extension name="Hierarchical Levels" prefix="hl" uri="http://yourdomain.com/xesextensions/hierarchicallevels.xesext"/>
+```
+
+Then, in your events:
+
+```xml
+<event>
+  <string key="concept:name" value="Approve Application"/>
+  <string key="hl:level" value="0"/>
+</event>
+```
+
+In PM4Py, you can access this custom attribute:
+
+```python
+# Filter using the custom extension attribute
+macro_log = filtering.filter_log_events_attribute(log, attribute_key="hl:level", attribute_values=["0"])
+```
+
+### Combining Levels in Visualization
+
+You might want to visualize both macro and micro activities in a single model, using annotations or different shapes/colors to distinguish levels.
+
+However, PM4Py's standard visualization might not support multi-level representations directly. In such cases, consider exporting your models to a format compatible with tools like ProM or BPMN editors that support hierarchical modeling.
+
+## Conclusion
+
+Utilizing the "micro" attribute in your XES event logs can significantly enhance your ability to perform multi-level process mining in PM4Py. It allows for a structured approach to drilling down into process details and provides clarity when navigating between different levels of process granularity.
+
+By tagging events with level indicators and filtering based on these tags, you can:
+
+- Start with a high-level overview of your process.
+- Identify areas of interest for detailed analysis.
+- Drill down into micro-level activities seamlessly.
+- Store and manage your multi-level data effectively.
+
+## Additional Resources
+
+- **PM4Py Documentation**: [https://pm4py.fit.fraunhofer.de/documentation](https://pm4py.fit.fraunhofer.de/documentation)
+- **XES Standard**: [http://www.xes-standard.org/](http://www.xes-standard.org/)
+- **Process Mining Book**: *Process Mining: Data Science in Action* by Wil van der Aalst.
+
+If you need further assistance or have additional questions on implementing multi-level process mining, feel free to ask!
