@@ -1,0 +1,3468 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<log xes.version="1849-2016" xes.features="nested-attributes" xmlns="http://www.xes-standard.org/">
+	<extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext" />
+	<extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext" />
+	<string key="origin" value="csv" />
+	<trace>
+		<string key="concept:name" value="case_1" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612407+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.612425+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.819840+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.819851+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:08.819852+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028916+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_2" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028964+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.028967+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.235613+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.235627+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.235628+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.337613+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441490+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_3" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441545+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.441554+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.649153+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850768+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_4" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850782+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:09.850784+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.058563+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.258991+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_5" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259007+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.259010+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.460685+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.561474+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665836+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_6" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665851+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.665859+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.873109+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:10.977632+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082487+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_7" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082500+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.082501+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.290425+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.290505+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.290508+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499112+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_8" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499128+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.499130+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.706227+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.706235+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.706236+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908884+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_9" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908902+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:11.908904+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.116789+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.116796+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.116797+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320849+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_10" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320862+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.320864+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.526861+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.526870+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.629981+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.732972+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_11" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733002+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.733007+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.940379+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:12.940399+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149064+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_12" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149077+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.149081+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.354212+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.354226+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.354227+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560664+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_13" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560681+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.560683+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.768731+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.768744+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.768745+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.869626+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973937+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_14" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973951+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:13.973953+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.178213+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.178224+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385209+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_15" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385225+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.385227+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.586836+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793848+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_16" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793889+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.793894+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.999086+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.999093+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:14.999094+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.099468+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201793+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_17" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201809+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.201810+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.408028+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.408039+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.408041+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609046+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_18" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609059+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.609061+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.815805+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:15.815815+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023587+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_19" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023605+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.023607+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.232079+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.232088+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440507+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_20" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440523+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.440525+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.643316+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.643324+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.643327+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845642+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_21" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845661+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:16.845663+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.047572+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250391+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_22" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250404+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.250406+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.453343+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.453353+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.453354+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.557979+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660343+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_23" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660357+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.660359+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:17.865436+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071334+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_24" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071351+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.071352+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.275654+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.275664+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.275666+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479649+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_25" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479671+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.479673+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.688800+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.688829+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894161+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_26" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894175+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:18.894177+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.099157+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301021+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_27" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301063+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.301065+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.502630+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.502639+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.502641+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704651+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_28" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704667+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.704669+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.910172+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.910180+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:19.910181+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.010234+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112947+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_29" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112973+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.112976+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.321152+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.321160+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.321162+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527150+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_30" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527165+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.527168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.735334+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.735346+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.735348+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941353+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_31" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941367+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:20.941369+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.146065+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.247527+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349152+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_32" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349167+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.349168+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.557984+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.557995+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.659343+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763297+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_33" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763334+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.763336+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:21.964003+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169541+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_34" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169565+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.169567+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.376692+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.376705+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577592+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_35" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577608+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.577611+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.778957+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.882398+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985225+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_36" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985242+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:22.985244+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.191370+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.191381+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397477+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_37" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397502+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.397504+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.602209+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.602237+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.602239+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807858+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_38" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807870+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:23.807871+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.009003+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.009010+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.009011+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.112087+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212568+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_39" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212585+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.212587+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.418738+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.418747+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624570+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_40" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624594+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.624596+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.830487+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.830495+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:24.930702+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031682+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_41" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031694+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.031696+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.237784+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.237792+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.341288+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441442+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_42" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441455+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.441457+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.644410+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.644422+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.644423+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.749150+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850317+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_43" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850328+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:25.850329+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.057355+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260650+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_44" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260663+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.260665+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.468724+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.468733+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.468738+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674561+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_45" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674604+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.674606+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:26.882573+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086896+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_46" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086910+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.086912+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.293057+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.293069+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Error_Handler" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.393156+00:00" />
+			<string key="type" value="error" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493277+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_47" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493347+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.493355+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.695311+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.695327+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.695328+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899079+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_48" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899092+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:27.899095+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.106276+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.106286+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.106288+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308086+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="case_49" />
+		<event>
+			<string key="concept:name" value="Start" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308109+00:00" />
+			<string key="type" value="start" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_3" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_4" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_1" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_6" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_5" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_7" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_8" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_9" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Parallel_2" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.308113+00:00" />
+			<string key="type" value="parallel" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.514962+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.514970+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="Cyclic" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.514971+00:00" />
+			<string key="type" value="cyclic" />
+		</event>
+		<event>
+			<string key="concept:name" value="End" />
+			<date key="time:timestamp" value="2024-12-31T13:07:28.719786+00:00" />
+			<string key="type" value="end" />
+		</event>
+	</trace>
+</log>
