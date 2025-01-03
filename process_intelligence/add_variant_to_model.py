@@ -1,3 +1,5 @@
+import multiprocessing
+
 import multithreading
 from typing import List, Any
 
@@ -14,20 +16,20 @@ from cortado_core.freezing.apply import add_trace_to_pt_language_with_freezing
 from cortado_core.lca_approach import add_trace_to_pt_language
 from pm4py.objects.process_tree.obj import ProcessTree
 from tqdm import tqdm
-
-class InputAddVariantsToProcessModel(BaseModel):
-    fitting_variants: List[Any]
-    variants_to_add: List[Any]
-    pt: dict
-
-
-@router.post("/addConcurrencyVariantsToProcessModel")
-async def add_cvariants_to_process_model(d: InputAddVariantsToProcessModel):
-    fitting_variants = get_traces_from_variants(d.fitting_variants)
-    to_add = get_traces_from_variants(d.variants_to_add)
-    return add_variants_to_process_model(
-        d.pt, fitting_variants, to_add, PoolFactory.instance().get_pool()
-    )
+#
+# class InputAddVariantsToProcessModel(BaseModel):
+#     fitting_variants: List[Any]
+#     variants_to_add: List[Any]
+#     pt: dict
+#
+#
+# @router.post("/addConcurrencyVariantsToProcessModel")
+# async def add_cvariants_to_process_model(d: InputAddVariantsToProcessModel):
+#     fitting_variants = get_traces_from_variants(d.fitting_variants)
+#     to_add = get_traces_from_variants(d.variants_to_add)
+#     return add_variants_to_process_model(
+#         d.pt, fitting_variants, to_add, PoolFactory.instance().get_pool()
+#     )
 
 
 class BaseModel:
@@ -67,7 +69,7 @@ def add_variants_to_process_model(
     pt_dict: dict,
     fitting_traces: List[TypedTrace],
     traces_to_be_added: List[TypedTrace],
-    pool: multithreading.pool.Pool,
+    pool: multiprocessing.Pool,
 ):
     pt: ProcessTree
     frozen_subtrees: List[ProcessTree]

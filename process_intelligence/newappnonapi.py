@@ -4,7 +4,7 @@ from collections import defaultdict
 import pm4py
 from cortado_core.utils.alignment_utils import typed_trace_fits_process_tree
 from cortado_core.utils.collapse_variants import collapse_variants
-from flask import Flask, request, jsonify, session
+# from flask import Flask, request, jsonify, session
 from cortado_core.utils.cvariants import get_detailed_variants, get_concurrency_variants
 from cortado_core.utils.split_graph import Group
 from cortado_core.utils.timestamp_utils import TimeUnit
@@ -23,7 +23,7 @@ from pm4py.discovery import discover_process_tree_inductive
 #     model_adjustment,
 #     conformance_check,
 # )
-from flask_caching import Cache
+# from flask_caching import Cache
 from cortado_core.process_tree_utils.reduction import apply_reduction_rules
 
 from add_variant_to_model import add_variants_to_process_model
@@ -128,26 +128,24 @@ def get_variants():
     global collapse_variants_list
 
     # data = request.get_json()
-    xes_log = xes_importer.apply("/Users/sashrestha/PycharmProjects/process_intelligence/output.xes")
+    xes_log = xes_importer.apply("output.xes")
     xes_log_renamed = rename_event_attributes(xes_log, "activity", "concept:name")
     xes_log_renamed = rename_event_attributes(xes_log_renamed, "timestamp", "time:timestamp")
     xes_log_renamed = rename_event_attributes(xes_log, "case", "case:concept:name")
     # ev
-    # if (
-    #         DEFAULT_TRANSITION_KEY not in event_log[0][0]
-    #         and DEFAULT_START_TIMESTAMP_KEY not in event_log[0][0]
-    # ):
-    #     event_log = to_interval(event_log)
+    if (
+            DEFAULT_TRANSITION_KEY not in xes_log_renamed[0][0]
+            and DEFAULT_START_TIMESTAMP_KEY not in xes_log_renamed[0][0]
+    ):
+        xes_log_renamed = to_interval(xes_log_renamed)
     # else:
     #     print("Lifecycle available")
     #     # lifecycleavailable = True
     collapse_variants_flag = True
-    if not xes_log_renamed:
-        return jsonify({"error": "xes_log is required"}), 400
+    # if not xes_log_renamed:
+    #     return jsonify({"error": "xes_log is required"}), 400
 
     time_granularity = TimeUnit.MS
-    logging.info(xes_log)
-    xes_log_renamed = to_interval(xes_log_renamed)
     # Perform variant analysis
     variants: dict[Group, list[Trace]] = get_concurrency_variants(xes_log_renamed, True, time_granularity)
     collapse_variants_list = collapse_variants(variants)
@@ -237,25 +235,25 @@ def discover_process(variants):
 # print(resutt['variants'])
 print("\n\nStarting discover")
 model = discover_process(resutt['variants'])
-
-def add_cvariants_to_process_model_unknown_conformance(selected_variants):
-    selected_variants = get_traces_from_variants(selected_variants)
-
-    fitting_traces = set()
-    traces_to_add = set()
-    process_tree, _ = dict_to_process_tree(d.pt)
-    for selected_variant in selected_variants:
-        if typed_trace_fits_process_tree(selected_variant, process_tree):
-            fitting_traces.add(selected_variant)
-        else:
-            traces_to_add.add(selected_variant)
-
-    return add_variants_to_process_model(
-        pt,
-        list(fitting_traces),
-        list(traces_to_add),
-        PoolFactory.instance().get_pool(),
-    )
+#
+# def add_cvariants_to_process_model_unknown_conformance(selected_variants):
+#     selected_variants = get_traces_from_variants(selected_variants)
+#
+#     fitting_traces = set()
+#     traces_to_add = set()
+#     process_tree, _ = dict_to_process_tree(d.pt)
+#     for selected_variant in selected_variants:
+#         if typed_trace_fits_process_tree(selected_variant, process_tree):
+#             fitting_traces.add(selected_variant)
+#         else:
+#             traces_to_add.add(selected_variant)
+#
+#     return add_variants_to_process_model(
+#         pt,
+#         list(fitting_traces),
+#         list(traces_to_add),
+#         PoolFactory.instance().get_pool(),
+#     )
 
 #
 # print()

@@ -487,7 +487,7 @@ def alignment_conformance_check(log, net, im, fm):
     }
     align_result = alignments_algo.apply_log(log, net, im, fm, parameters=parameters)
 
-    model_soundness = check_soundness(net, im, fm, True)
+    model_soundness = check_soundness(net, im, fm)
     print(model_soundness)
     fitness_info = pm4py.fitness_token_based_replay(log, net, im, fm)
     alignments = pm4py.conformance_diagnostics_alignments(log, net, im, fm)
@@ -605,6 +605,8 @@ def cortado_enhanced_pipeline(file_path):
     # Step 3) Extract variants
     variants_dict = extract_variants(log)
 
+
+
     print("[INFO] Number of variants:", len(variants_dict))
     print("[INFO] Variants:", variants_dict)
 
@@ -626,6 +628,10 @@ def cortado_enhanced_pipeline(file_path):
 
     # Step 5) Merge partial orders
     merged_po, merged_labels = merge_all_variants(variant_partial_orders)
+    print("Merged po\n")
+    print(merged_po)
+    print("Merge labels\n")
+    print(merged_labels)
 
     # Step 6) Build Petri net from merged PO
     net, im, fm = partial_order_to_petrinet(merged_po, merged_labels)
