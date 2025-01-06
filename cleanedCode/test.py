@@ -1,4 +1,5 @@
 # test_pipeline.py
+from pm4py.objects.petri_net.importer import importer as petrinet_importer
 
 def main():
     from global_storage import GlobalStorage
@@ -29,7 +30,14 @@ def main():
     print(model_data)
     print("Discovered model data metrics:", model_data["metrics"])
 
+    print("pnml\n")
+    # print("\n"+model_data['pnml'])
     # 4) Check fitness on just ["Variant_Custom"]
+    net, im, fm = petrinet_importer.deserialize(model_data['pnml'])
+
+    # print(service.petrinet_to_bpmn_string(model_data['net'], model_data['im'], model_data['fm']))
+    print(service.petrinet_to_bpmn_string(net, im, fm))
+
     fit_result = service.check_fitness_only(model_id, log_id, ["Variant_1"])
     print("Fitness result:", fit_result)
 

@@ -5,6 +5,7 @@ import uuid
 from typing import List, Dict, Any
 from datetime import datetime
 import statistics
+from typing import Dict, List, Any, Optional
 
 import pm4py
 from cortado_core.utils.cvariants import get_concurrency_variants
@@ -18,7 +19,10 @@ from pm4py.algo.conformance.alignments.petri_net import algorithm as alignments_
 from pm4py.objects.log.util.interval_lifecycle import to_interval
 from pm4py.objects.petri_net.exporter.exporter import pnml
 from pm4py.util.xes_constants import DEFAULT_TIMESTAMP_KEY, DEFAULT_TRANSITION_KEY, DEFAULT_START_TIMESTAMP_KEY
+from pm4py.objects.bpmn.exporter import exporter as bpmn_exporter
+from pm4py.objects.process_tree.exporter import exporter as process_tree_exporter
 
+from VariantAnalysis.entireanalysis import initial_marking
 from global_storage import GlobalStorage
 from process_intelligence.collapse_variants import collapse_variants
 
@@ -184,7 +188,8 @@ class ProcessMiningService:
         avg_fitness = total_fit / len(alignment_results) if alignment_results else 1.0
 
         # Export PNML
-        pnml_string = pnml.export_petri_as_string(net, im, fm)
+        pnml_string = pnml.export_petri_as_string(petrinet=net,marking= im, final_marking=fm)
+        process_tree_string = process_tree_exporter.serialize(process_tree)
 
         # Placeholder for extra metrics (soundness, precision, etc.)
         model_metrics = {
@@ -199,6 +204,7 @@ class ProcessMiningService:
             "im": im,
             "fm": fm,
             "pnml": pnml_string,
+            "process_tree": process_tree_string,
             "metrics": model_metrics,
             "variants_used": variant_names
         }
@@ -319,6 +325,91 @@ class ProcessMiningService:
         logger.info(f"Snapshot '{snapshot_id}' created with {total_journeys} journeys across {len(variant_details)} variants.")
         return {"snapshot": snapshot_json}
 
+    def petrinet_to_bpmn_string(self, net, im, fm) -> str:
+        """
+        Converts a Petri net (net, im, fm) to a BPMN diagram in XML string format.
+        1) Petri net -> process tree
+        2) process tree -> BPMN object
+        3) BPMN object -> BPMN XML string
+        """
+        # 1) Convert Petri net to bpmn
+        bpmn_graph = pm4py.convert_to_bpmn(net, im, fm)
+
+        # 2) Export BPMN as XML string
+        # We use 'output_mode=OUTPUT_MODE_RETURN' to get a string instead of writing to file
+        bpmn_str = bpmn_exporter.serialize(
+            bpmn_graph
+        )
+
+        return bpmn_str
+
+    def filter_log(
+            self,
+            log_id: str,
+            start_activities: Optional[List[str]] = None,
+            end_activities: Optional[List[str]] = None,
+            remove_activities: Optional[List[str]] = None,
+            directly_follows: Optional[List[List[str]]] = None,
+            eventually_follows: Optional[List[List[str]]] = None,
+            event_attributes: Optional[Dict[str, Any]] = None
+    ) -> EventLog:
+        """
+        Filters the log associated with log_id based on multiple parameters.
+        The resulting log overwrites the old log in storage.
+
+        :param start_activities: Keep only traces that start with any of these activity names
+        :param end_activities: Keep only traces that end with any of these activity names
+        :param remove_activities: Globally remove events with these activity names
+        :param directly_follows: A list of pairs [ [A, B], ... ] meaning "A directly followed by B"
+                                 Keep only traces that contain A->B or remove them? (We can choose)
+        :param eventually_follows: A list of pairs meaning "A eventually followed by B"
+                                   (again, we can keep or remove traces that do or do not have that pattern)
+        :param event_attributes: e.g. { "org:resource": "john", "cost": 100 }
+                                 Keep or remove events/traces matching these attributes?
+                                 For demonstration, we show how to remove events that don't match.
+
+        Returns a summary about how many traces remain, etc.
+        """
+        log = self.storage.get_log(log_id)
+        if not log:
+            raise ValueError(f"No log found for log_id='{log_id}'")
+
+        # 1) Start activity filter
+        if start_activities:
+            log = pm4py.filter_start_activities(log, start_activities)
+
+        # 2) End activity filter
+        if end_activities:
+            log = pm4py.filter_end_activities(log, end_activities)
+
+        # 3) Remove unwanted activities
+        # if remove_activities:
+        #     log = events_filter.apply(
+        #         log,
+        #         parameters={
+        #             events_filter.Parameters.ATTRIBUTE_KEY: DEFAULT_NAME_KEY,
+        #             events_filter.Parameters.VALUES: set(remove_acts),
+        #             events_filter.Parameters.POSITIVE: False
+        #         }
+        #     )
+
+        # 4) Keep only certain activities (if desired)
+        if eventually_follows:
+            log = pm4py.filter_eventually_follows_relation(log, eventually_follows)
+
+        # 5) Filter by event attributes
+        #    For example, keep only events that have attribute=value if attribute_filters is given
+        if event_attributes:
+            for attr_key, values_set in event_attributes.items():
+                # keep only events with attr_key in values_set
+                log = pm4py.filter_event_attribute_values(attr_key, values_set)
+
+
+        # 6) Directly follows constraints: keep only traces containing each direct path
+        if directly_follows:
+            log = pm4py.filter_directly_follows_relation(log, directly_follows)
+
+        return log
     # ------------------------------------------------------------------
     # A) For each variant, compute metrics + journeys
     # ------------------------------------------------------------------

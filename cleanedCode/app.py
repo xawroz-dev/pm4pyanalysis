@@ -174,5 +174,87 @@ def get_snapshot(snapshot_id):
     return jsonify(snap), 200
 
 
+@app.route("/api/petrinet-to-bpmn", methods=["POST"])
+def petrinet_to_bpmn():
+    """
+    POST /api/petrinet-to-bpmn
+    JSON body: { "model_id": "model_123" }
+    Returns: { "bpmn": "<bpmn_xml_string>" }
+    """
+    data = request.json
+    if not data:
+        return jsonify({"error": "No JSON payload"}), 400
+
+    model_id = data.get("model_id")
+    if not model_id:
+        return jsonify({"error": "model_id is required"}), 400
+
+    # Retrieve the Petri net from storage
+    model_data = storage.get_model(model_id)
+    if not model_data:
+        return jsonify({"error": f"Model '{model_id}' not found."}), 404
+
+    net = model_data.get("net")
+    im = model_data.get("im")
+    fm = model_data.get("fm")
+    if not net or not im or not fm:
+        return jsonify({"error": "Invalid Petri net data in model storage"}), 500
+
+    try:
+        # Convert to BPMN string
+        bpmn_str = service.petrinet_to_bpmn_string(net, im, fm)
+        return jsonify({"bpmn": bpmn_str}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/filter-log", methods=["POST"])
+def filter_log():
+    """
+    POST /api/filter-log
+    Request JSON example:
+    {
+      "log_id": "my_log_1",
+      "start_activities": ["A","B"],
+      "end_activities": ["C"],
+      "remove_activities": ["X","Y"],
+      "directly_follows": [["A","C"]],  # keep traces that have A->C
+      "eventually_follows": [["A","Z"]],
+      "event_attributes": {"org:resource": "john"}
+    }
+    The method filters the log by these parameters and overwrites it in storage.
+    Returns how many traces remain, etc.
+    """
+    data = request.json
+    if not data:
+        return jsonify({"error": "No JSON body"}), 400
+
+    log_id = data.get("log_id")
+    if not log_id:
+        return jsonify({"error": "log_id is required"}), 400
+
+    try:
+        start_activities = data.get("start_activities")
+        end_activities = data.get("end_activities")
+        remove_activities = data.get("remove_activities")
+        directly_follows = data.get("directly_follows")
+        eventually_follows = data.get("eventually_follows")
+        event_attributes = data.get("event_attributes")
+
+        # Call the service method
+        result = service.filter_log(
+            log_id=log_id,
+            start_activities=start_activities,
+            end_activities=end_activities,
+            remove_activities=remove_activities,
+            directly_follows=directly_follows,
+            eventually_follows=eventually_follows,
+            event_attributes=event_attributes
+        )
+        return jsonify(result), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     app.run(debug=True)
