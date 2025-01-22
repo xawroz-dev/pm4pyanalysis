@@ -1,0 +1,10 @@
+schedule:
+  cron: "0 2 * * *"   # run daily at 2am, for instance
+indexes:
+  variants_index: "variants_data"
+  snapshots_index: "snapshots_data"
+attributes:
+  first_level: ["org:resource", "costCenter"]
+  second_level: ["region", "department"]
+time_windows:
+  default_window_days: 7
