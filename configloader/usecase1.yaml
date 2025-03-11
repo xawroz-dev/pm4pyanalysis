@@ -1,0 +1,36 @@
+snapshot_creation: true
+label: "Sales APAC - Level 1 vs. Level 2"
+
+# We can store multiple "filter levels" or "granular" criteria in a list.
+# Each entry can define how you want to filter or label your data for analysis.
+filter_levels:
+  - level: 1
+    criteria:
+      department: "Sales"
+      region: "APAC"
+  - level: 2
+    criteria:
+      department: "Sales"
+      region: "APAC"
+      product_line: "Hardware"
+
+schedule:
+  interval_hours: 3  # If you choose to handle per-use-case scheduling
+
+process_definitions:
+  start_activities:
+    - "START_ORDER"
+    - "APPLICATION_RECEIVED"
+  end_activities:
+    - "ORDER_COMPLETED"
+    - "APPLICATION_CLOSED"
+
+source_data:
+  path: "data/event_logs_usecase1.csv"
+
+snapshot:
+  path: "snapshots/usecase1_snapshot.csv"
+
+additional_settings:
+  check_duplicates: true
+  # You could add more flags here (e.g., cleanup_old_data: false, advanced_mode: true, etc.)

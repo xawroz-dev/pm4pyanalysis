@@ -1,0 +1,13 @@
+use_cases:
+  - name: "usecase1"
+    active: true
+    config_file: "usecase1.yaml"
+
+  - name: "usecase2"
+    active: false
+    config_file: "usecase2.yaml"
+
+  # You can list as many as you want
+  # - name: "usecase3"
+  #   active: true
+  #   config_file: "usecase3.yaml"
