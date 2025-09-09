@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Mining - Variant Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Variant Explorer</h1>
+            <div class="header-actions">
+                <button id="bpmnPreviewBtn" class="action-btn">
+                    📜 Preview BPMN
+                </button>
+            </div>
+        </header>
+
+        <div class="filter-container">
+            <div id="filter-builder">
+                </div>
+            <div class="filter-actions">
+                <button id="addFilterGroupBtn" class="secondary-btn">+ Add OR Group</button>
+                <button id="applyFilterBtn" class="primary-btn">Apply Filters</button>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="variant-list-header">
+                <div class="col-main">Variant Path / Case Count</div>
+                <div class="col-metric">Avg. Duration</div>
+                <div class="col-actions">Actions</div>
+            </div>
+            <div id="variant-list-container">
+                </div>
+        </main>
+
+        <aside id="drilldown-panel" class="drilldown-panel">
+            <button id="close-panel-btn" class="close-btn">&times;</button>
+            <div id="drilldown-content">
+                </div>
+        </aside>
+
+        <div id="bpmnModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal-btn">&times;</span>
+                <h2>Combined BPMN Preview</h2>
+                <div class="modal-body">
+                    <div id="bpmn-container"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

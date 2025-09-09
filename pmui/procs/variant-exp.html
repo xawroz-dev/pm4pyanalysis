@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Variant Management — Process Mining</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --text:#0b1220;
+      --primary:#2563eb;
+      --accent:#06b6d4;
+      --card-border:#e6eefb;
+      --chip-alpha:0.10;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial;line-height:1.4}
+    header{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--card-border);padding:14px 20px;z-index:40}
+    .container{max-width:1600px;margin:0 auto}
+    h1{margin:0;font-size:20px}
+    .sub{font-size:13px;color:var(--muted);margin-top:4px}
+
+    /* toolbar */
+    .toolbar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px}
+    .filter{display:flex;flex-direction:column;gap:6px}
+    label{font-size:12px;color:var(--muted)}
+    input[type="text"], select{background:#fff;border:1px solid var(--card-border);padding:10px 12px;border-radius:10px;color:var(--text);min-width:220px}
+    .btn{background:var(--primary);color:white;border:0;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--primary);border:1px solid var(--card-border);padding:9px 12px}
+
+    /* main layout: variant list wider (~42%) */
+    main{display:grid;grid-template-columns:42% 1fr;gap:18px;padding:18px 20px;height:calc(100vh - 118px);max-width:1600px;margin:0 auto}
+    .panel{background:var(--panel);border-radius:12px;border:1px solid var(--card-border);padding:14px;overflow:auto}
+
+    /* LEFT: variant management */
+    .left-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .left-head .title{font-weight:700;font-size:16px}
+    .groups{display:flex;flex-direction:column;gap:12px}
+    .group-card{border:1px solid var(--card-border);border-radius:10px;padding:10px}
+    .group-card .group-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .group-hdr .name{font-weight:700}
+    .group-hdr .meta{font-size:13px;color:var(--muted)}
+
+    .variant{background:#fff;border:1px solid var(--card-border);border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer;transition:box-shadow .12s,transform .12s}
+    .variant:hover{box-shadow:0 8px 24px rgba(16,24,40,0.06);transform:translateY(-3px)}
+    .variant.selected{box-shadow:0 10px 28px rgba(37,99,235,0.12);border-color: rgba(37,99,235,0.14)}
+    .variant-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .variant-id{font-weight:700}
+    .meta-pill{font-size:12px;color:var(--muted);background:#fbfdff;border-radius:999px;padding:6px 10px;border:1px solid var(--card-border)}
+    /* activities row: wider chips + arrows */
+    .activities{display:flex;gap:10px;align-items:center;margin-top:10px;overflow:auto;padding-bottom:6px}
+    .chip{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.04);white-space:nowrap;font-weight:600}
+    .arrow{font-weight:700;color:var(--muted);margin:0 4px}
+
+    /* RIGHT: tabs & details (more compact) */
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:8px 12px;border-radius:8px;border:1px solid var(--card-border);background:transparent;cursor:pointer;font-weight:600;color:var(--muted)}
+    .tab.active{background:var(--primary);color:white;border-color:transparent}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .card{background:var(--panel);border:1px solid var(--card-border);border-radius:10px;padding:12px}
+
+    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .table thead th{font-size:12px;color:var(--muted);padding:6px 8px;text-align:left}
+    .table tbody td{background:#fff;border:1px solid var(--card-border);padding:8px}
+
+    /* modal (BPMN placeholder) */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(3,7,18,0.35);display:flex;align-items:center;justify-content:center;z-index:80}
+    .modal{width:92%;max-width:1000px;background:var(--panel);border-radius:12px;padding:18px;border:1px solid var(--card-border)}
+    .modal .m-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .modal img, .modal svg{width:100%;height:auto;border-radius:8px}
+
+    /* utility */
+    .spacer{flex:1}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Variant Management</h1>
+      <div class="sub">Enterprise process mining — manage and inspect trace variants, group them, preview BPMN</div>
+
+      <div class="toolbar">
+        <div class="filter">
+          <label>Filter builder (AND / OR)</label>
+          <div id="filterBuilder" style="display:flex;gap:8px;align-items:center;">
+            <!-- simple default: contains 'Approve' -->
+            <select id="fb_type">
+              <option value="contains">contains</option>
+              <option value="startsWith">startsWith</option>
+              <option value="endsWith">endsWith</option>
+              <option value="sequence">sequence (comma)</option>
+              <option value="regex">regex</option>
+            </select>
+            <input id="fb_value" type="text" placeholder="e.g. Approve or Receive,Validate" />
+            <select id="fb_logic"><option value="AND">AND</option><option value="OR">OR</option></select>
+            <button id="addFilterBtn" class="btn secondary">Add</button>
+          </div>
+        </div>
+
+   
+
+        <div class="filter">
+          <label>Sort</label>
+          <select id="sortBy">
+            <option value="freq-desc">Frequency ↓</option>
+            <option value="freq-asc">Frequency ↑</option>
+            <option value="len-desc">Length ↓</option>
+          </select>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px">
+          <button id="applyFilters" class="btn">Apply</button>
+          <button id="resetFilters" class="btn secondary">Reset</button>
+        </div>
+
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+          <button id="previewBpmnBtn" class="btn secondary">Preview BPMN</button>
+          <button id="generateGroupBpmnBtn" class="btn">Generate Group BPMN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: variant list (dominant) -->
+    <section class="panel" id="leftPanel">
+      <div class="left-head">
+        <div class="title">Variants & Groups</div>
+        <div class="muted">Shift+Click to multi-select variants for BPMN</div>
+      </div>
+
+      <div id="groupsRoot" class="groups"></div>
+    </section>
+
+    <!-- RIGHT: details / charts -->
+    <section class="panel" id="rightPanel">
+      <div class="tabs" role="tablist">
+        <div class="tab active" data-tab="overview">Overview</div>
+        <div class="tab" data-tab="group">Variant Group</div>
+        <div class="tab" data-tab="variant">Variant</div>
+        <div class="tab" data-tab="bpmn">BPMN Preview</div>
+      </div>
+
+      <div id="tab-overview" class="tabpanel">
+        <div class="grid">
+          <div class="card"><h3>Throughput by Variant</h3><canvas id="chartThroughput"></canvas></div>
+          <div class="card"><h3>Top Activities</h3><canvas id="chartActivities"></canvas></div>
+          <div class="card"><h3>Variant Distribution</h3><canvas id="chartDistribution"></canvas></div>
+          <div class="card"><h3>KPIs</h3><div id="overviewKpis"></div></div>
+        </div>
+      </div>
+
+      <div id="tab-group" class="tabpanel hidden">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div id="groupTitle" style="font-weight:700">No group selected</div>
+          <div class="spacer"></div>
+          <button id="exportGroupCsvBtn" class="btn secondary">Export Cases (CSV)</button>
+        </div>
+
+        <div class="grid">
+          <div class="card"><h3>Group Outcomes</h3><canvas id="chartGroupOutcomes"></canvas></div>
+          <div class="card"><h3>Group Stats</h3><div id="groupStats"></div></div>
+        </div>
+
+        <div class="card" style="margin-top:12px"><h3>Cases (sample)</h3>
+          <table class="table"><thead><tr><th>Case ID</th><th>Variant</th><th>Start</th><th>End</th><th>Dur (d)</th></tr></thead>
+            <tbody id="groupCases"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-variant" class="tabpanel hidden">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div id="variantTitle" style="font-weight:700">No variant selected</div>
+          <div class="spacer"></div>
+          <button id="exportVariantCsvBtn" class="btn secondary">Export Occurrences</button>
+        </div>
+
+        <div class="grid">
+          <div class="card"><h3>Signature</h3><div id="variantSignature" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+          <div class="card"><h3>KPIs</h3><div id="variantKpis"></div></div>
+          <div class="card"><h3>Duration Spread</h3><canvas id="chartVariantDuration"></canvas></div>
+          <div class="card"><h3>Activity Times</h3><canvas id="chartVariantActivityTimes"></canvas></div>
+        </div>
+
+        <div class="card" style="margin-top:12px"><h3>Occurrences</h3>
+          <table class="table"><thead><tr><th>Case</th><th>Start</th><th>End</th><th>Dur</th></tr></thead>
+            <tbody id="variantCases"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-bpmn" class="tabpanel hidden">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div style="font-weight:700">BPMN Preview</div>
+          <div class="spacer"></div>
+          <button id="downloadBpmnBtn" class="btn secondary">Download BPMN</button>
+        </div>
+        <div class="card"><p id="bpmnHint">Select variants and press Preview to open a placeholder BPMN. In production this will render generated BPMN XML.</p>
+          <div id="bpmnPreviewArea"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- modal root -->
+  <div id="modalRoot"></div>
+
+  <script>
+    /* ---------------------------
+       Seeded demo data (groups + variants + cases)
+       - Three groups: Order-to-Cash, Procure-to-Pay, Customer Onboarding
+       - Each group contains several variants with real-looking sequences
+    --------------------------- */
+
+    const ACTIVITY_PALETTE = {
+      "Receive":"#2563eb","Register":"#06b6d4","Validate":"#f59e0b","Review":"#10b981",
+      "Approve":"#7c3aed","Reject":"#ef4444","Enrich":"#ec4899","Escalate":"#f97316",
+      "Fulfill":"#059669","Close":"#2563eb","Create Order":"#0ea5a4","Pick":"#34d399",
+      "Pack":"#60a5fa","Ship":"#1e40af","Invoice":"#db2777","Pay":"#16a34a","Onboard":"#7dd3fc"
+    };
+
+    // Utility
+    function hexToRgba(hex, a=1){
+      const h = hex.replace('#',''); const bi = parseInt(h,16);
+      const r = (bi >> 16) & 255; const g = (bi >> 8) & 255; const b = bi & 255;
+      return `rgba(${r},${g},${b},${a})`;
+    }
+
+    // Seed groups and variants explicitly for clarity
+    const GROUPS = [
+      {
+        id: 'otc',
+        name: 'Order-to-Cash',
+        variants: [
+          { id: 'OTC-01', sequence: ['Receive','Validate','Create Order','Pick','Pack','Ship','Invoice','Close'], frequency: 120, avgDuration: 7, outcome: 'Completed' },
+          { id: 'OTC-02', sequence: ['Receive','Validate','Create Order','Pick','Pack','Ship','Invoice','Close'], frequency: 60, avgDuration: 9, outcome: 'Completed' },
+          { id: 'OTC-03', sequence: ['Receive','Review','Validate','Create Order','Invoice','Close'], frequency: 20, avgDuration: 4, outcome: 'Completed' },
+          { id: 'OTC-04', sequence: ['Receive','Validate','Escalate','Approve','Create Order','Pick','Ship','Invoice','Close'], frequency: 15, avgDuration: 12, outcome: 'Completed' }
+        ]
+      },
+      {
+        id: 'ptp',
+        name: 'Procure-to-Pay',
+        variants: [
+          { id: 'PTP-01', sequence: ['Register','Validate','Approve','Enrich','Pay','Close'], frequency: 80, avgDuration: 11, outcome: 'Completed' },
+          { id: 'PTP-02', sequence: ['Register','Review','Validate','Reject','Close'], frequency: 25, avgDuration: 6, outcome: 'Rejected' },
+          { id: 'PTP-03', sequence: ['Register','Validate','Approve','Pay','Close'], frequency: 50, avgDuration: 9, outcome: 'Completed' }
+        ]
+      },
+      {
+        id: 'cob',
+        name: 'Customer Onboarding',
+        variants: [
+          { id: 'COB-01', sequence: ['Register','Validate','Onboard','Close'], frequency: 200, avgDuration: 3, outcome: 'Completed' },
+          { id: 'COB-02', sequence: ['Register','Validate','Escalate','Onboard','Close'], frequency: 30, avgDuration: 7, outcome: 'Completed' }
+        ]
+      }
+    ];
+
+    // Build VARIANTS list and CASES by variant id (generate synthetic case rows)
+    const VARIANTS = [];
+    const CASES = {}; // variantId -> [cases]
+    GROUPS.forEach(g=>{
+      g.variants.forEach(v=>{
+        VARIANTS.push({...v, group: g.name});
+        // generate cases:
+        const cases = [];
+        for(let i=0;i<v.frequency;i++){
+          const dur = Math.max(1, Math.round(v.avgDuration + (Math.random()*6 - 3)));
+          const start = new Date(2025, Math.floor(Math.random()*8), 1 + Math.floor(Math.random()*27));
+          const end = new Date(start.getTime() + dur*24*3600*1000);
+          const outcome = Math.random() < 0.9 ? v.outcome : (Math.random()<0.5?'Cancelled':'Rejected');
+          cases.push({ caseId: `${v.id}-C${String(i+1).padStart(4,'0')}`, variantId: v.id, start, end, durationDays: dur, outcome });
+        }
+        CASES[v.id] = cases;
+      });
+    });
+
+    /* ---------------------------
+       State
+    --------------------------- */
+    const state = {
+      filters: [],        // each: {type, value}
+      logic: 'AND',      // AND or OR
+      groupBy: 'none',
+      sortBy: 'freq-desc',
+      selectedVariantId: null,
+      selectedVariantIdsForBpmn: new Set(),
+      selectedGroupKey: null,
+      selectedGroupForBpmn: new Set()
+    };
+
+    /* ---------------------------
+       Helpers
+    --------------------------- */
+    function el(tag, attrs={}, children=[]){
+      const e = document.createElement(tag);
+      if(attrs.class) e.className = attrs.class;
+      Object.entries(attrs).forEach(([k,v])=>{
+        if(k==='html') e.innerHTML = v;
+        else if(k!=='class') e.setAttribute(k,v);
+      });
+      (Array.isArray(children) ? children : [children]).filter(Boolean).forEach(c=>{
+        if(typeof c === 'string') e.appendChild(document.createTextNode(c));
+        else e.appendChild(c);
+      });
+      return e;
+    }
+
+    function activityChip(name){
+      const color = ACTIVITY_PALETTE[name] || '#94a3b8';
+      const chip = el('span',{class:'chip'}, [name]);
+      chip.style.borderColor = hexToRgba(color, 0.12);
+      chip.style.background = hexToRgba(color, varAlphaFor(name) || 0.06);
+      chip.style.color = color;
+      return chip;
+    }
+    function varAlphaFor(name){
+      // slightly stronger alpha for custom colors
+      return 0.12;
+    }
+    function arrowEl(){ return el('span',{class:'arrow'}, ['→']); }
+
+    function fmtDate(d){
+      if(!d) return '';
+      return d.toISOString().slice(0,10);
+    }
+
+    /* ---------------------------
+       Filter logic: supports multiple conditions + AND/OR
+       types: contains, startsWith, endsWith, sequence (comma), regex, activity (single)
+    --------------------------- */
+    function matchesCondition(variant, cond){
+      const seq = variant.sequence;
+      const val = (cond.value || '').trim();
+      if(!val) return true;
+      switch(cond.type){
+        case 'contains': {
+          // comma-separated tokens: all must appear
+          const toks = val.split(',').map(t=>t.trim()).filter(Boolean);
+          return toks.every(t => seq.includes(t));
+        }
+        case 'startsWith': return seq[0] === val;
+        case 'endsWith': return seq[seq.length-1] === val;
+        case 'sequence': {
+          const toks = val.split(',').map(t=>t.trim()).filter(Boolean);
+          return toks.join('>') === seq.join('>');
+        }
+        case 'regex':
+          try { return new RegExp(val).test(seq.join('>')); } catch(e) { return false; }
+        case 'activity':
+          return seq.includes(val);
+        default: return true;
+      }
+    }
+
+    function applyFiltersToVariants(){
+      if(!state.filters.length) return VARIANTS.slice();
+      return VARIANTS.filter(v=>{
+        const results = state.filters.map(f => matchesCondition(v, f));
+        return state.logic === 'AND' ? results.every(Boolean) : results.some(Boolean);
+      });
+    }
+
+    function groupKey(v){
+      if(state.groupBy==='none') return v.group;
+      if(state.groupBy==='length') return `${v.sequence.length} steps`;
+      if(state.groupBy==='firstAct') return v.sequence[0];
+      if(state.groupBy==='lastAct') return v.sequence[v.sequence.length-1];
+      return v.group;
+    }
+
+    function sortVariants(list){
+      const arr = list.slice();
+      const dir = state.sortBy.endsWith('desc') ? -1 : 1;
+      if(state.sortBy.startsWith('freq')) arr.sort((a,b)=> (a.frequency - b.frequency) * dir);
+      if(state.sortBy.startsWith('len')) arr.sort((a,b)=> (a.sequence.length - b.sequence.length) * dir);
+      return arr;
+    }
+
+    /* ---------------------------
+       Rendering: LEFT (groups + variants)
+    --------------------------- */
+    function renderLeft(){
+      const root = document.getElementById('groupsRoot');
+      root.innerHTML = '';
+      let filtered = applyFiltersToVariants();
+      filtered = sortVariants(filtered);
+
+      // group by groupKey
+      const groups = {};
+      filtered.forEach(v=>{
+        const k = groupKey(v);
+        if(!groups[k]) groups[k] = [];
+        groups[k].push(v);
+      });
+
+      Object.entries(groups).forEach(([k, list])=>{
+        const gCard = el('div',{class:'group-card'});
+        const hdr = el('div',{class:'group-hdr'});
+        hdr.appendChild(el('div',{html:`<div class="name">${k}</div><div class="meta">${list.length} variants • ${list.reduce((s,v)=>s+v.frequency,0)} cases</div>`}));
+        // checkbox to mark group variants for BPMN generation
+        const cb = el('input',{type:'checkbox'});
+        cb.checked = list.every(v=> state.selectedGroupForBpmn.has(v.id));
+        cb.addEventListener('change', (e)=>{
+          if(e.target.checked) list.forEach(v=> state.selectedGroupForBpmn.add(v.id));
+          else list.forEach(v=> state.selectedGroupForBpmn.delete(v.id));
+          renderLeft();
+        });
+        hdr.appendChild(cb);
+        gCard.appendChild(hdr);
+
+        // variants list
+        list.forEach(v=>{
+          const vEl = el('div',{class:'variant','data-vid':v.id});
+          if(state.selectedVariantIdsForBpmn.has(v.id)) vEl.classList.add('selected');
+
+          const row = el('div',{class:'variant-row'});
+          row.appendChild(el('div',{class:'variant-id', html:`${v.id}`}));
+          row.appendChild(el('div',{class:'meta-pill', html:`freq: <b>${v.frequency}</b> • dur: <b>${v.avgDuration}d</b>`}));
+          vEl.appendChild(row);
+
+          const acts = el('div',{class:'activities'});
+          v.sequence.forEach((a, idx) => {
+            acts.appendChild(activityChip(a));
+            if(idx < v.sequence.length-1) acts.appendChild(arrowEl());
+          });
+          vEl.appendChild(acts);
+
+          // click behavior: shift-click for multi-select, single click opens variant detail
+          vEl.addEventListener('click', (e)=>{
+            if(e.shiftKey){
+              if(state.selectedVariantIdsForBpmn.has(v.id)) state.selectedVariantIdsForBpmn.delete(v.id);
+              else state.selectedVariantIdsForBpmn.add(v.id);
+              renderLeft();
+              return;
+            }
+            // select variant
+            state.selectedVariantId = v.id;
+            state.selectedGroupKey = k;
+            switchTab('variant');
+            renderRightVariant();
+          });
+
+          gCard.appendChild(vEl);
+        });
+
+        root.appendChild(gCard);
+      });
+    }
+
+    /* ---------------------------
+       Rendering: RIGHT (tabs and charts)
+    --------------------------- */
+    let charts = {};
+    function drawChart(id, type, data, opts={}){
+      const ctxEl = document.getElementById(id);
+      if(!ctxEl) return;
+      const ctx = ctxEl.getContext('2d');
+      if(charts[id]) charts[id].destroy();
+      charts[id] = new Chart(ctx, { type, data, options: { responsive:true, plugins:{legend:{position:'bottom'}}, ...opts }});
+    }
+
+    function renderOverview(){
+      const filtered = applyFiltersToVariants();
+      // throughput: use avgDuration
+      const labels = filtered.map(v => v.id);
+      drawChart('chartThroughput','bar',{ labels, datasets: [{ label: 'Avg duration (d)', data: filtered.map(v=>v.avgDuration) }] }, {});
+
+      // top activities
+      const actCounts = {};
+      filtered.forEach(v => v.sequence.forEach(a => actCounts[a] = (actCounts[a]||0) + 1));
+      drawChart('chartActivities','bar',{ labels: Object.keys(actCounts), datasets: [{ label: 'Appearances', data: Object.values(actCounts) }] });
+
+      // distribution (frequency)
+      drawChart('chartDistribution','bar',{ labels, datasets: [{ label: 'Frequency', data: filtered.map(v=>v.frequency) }] });
+
+      document.getElementById('overviewKpis').innerHTML = `<div>Total variants: <b>${filtered.length}</b></div><div>Total cases: <b>${filtered.reduce((s,v)=>s+v.frequency,0)}</b></div>`;
+    }
+
+    function renderRightGroup(){
+      const key = state.selectedGroupKey;
+      if(!key) return;
+      const all = applyFiltersToVariants();
+      const list = all.filter(v => groupKey(v) === key);
+      document.getElementById('groupTitle').textContent = key;
+      const outcomes = {};
+      list.forEach(v => outcomes[v.outcome] = (outcomes[v.outcome]||0) + v.frequency);
+      drawChart('chartGroupOutcomes','doughnut',{ labels: Object.keys(outcomes), datasets: [{ data: Object.values(outcomes) }]});
+      document.getElementById('groupStats').innerHTML = `<div>Variants: <b>${list.length}</b></div><div>Cases: <b>${list.reduce((s,v)=>s+v.frequency,0)}</b></div>`;
+
+      const tbody = document.getElementById('groupCases');
+      tbody.innerHTML = '';
+      list.forEach(v => {
+        CASES[v.id].slice(0, 50).forEach(c => {
+          const tr = el('tr');
+          tr.innerHTML = `<td>${c.caseId}</td><td>${v.id}</td><td>${fmtDate(c.start)}</td><td>${fmtDate(c.end)}</td><td>${c.durationDays}</td>`;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+
+    function renderRightVariant(){
+      const vid = state.selectedVariantId;
+      if(!vid) return;
+      const v = VARIANTS.find(x => x.id === vid);
+      if(!v) return;
+      document.getElementById('variantTitle').textContent = `${v.id} — ${v.frequency} cases`;
+      const sig = document.getElementById('variantSignature');
+      sig.innerHTML = '';
+      v.sequence.forEach((a, idx) => {
+        sig.appendChild(activityChip(a));
+        if(idx < v.sequence.length-1) sig.appendChild(arrowEl());
+      });
+      document.getElementById('variantKpis').innerHTML = `<div>Avg duration: <b>${v.avgDuration}d</b></div><div>Length: <b>${v.sequence.length} steps</b></div><div>Group: <b>${v.group}</b></div>`;
+
+      drawChart('chartVariantDuration','bar',{ labels: CASES[vid].slice(0,60).map((c,i)=>`#${i+1}`), datasets: [{ label: 'Duration (d)', data: CASES[vid].slice(0,60).map(c=>c.durationDays) }]});
+      drawChart('chartVariantActivityTimes','bar',{ labels: v.sequence, datasets: [{ label: 'Avg activity time (d)', data: v.sequence.map(_=> 1 + Math.floor(Math.random()*6)) }] });
+
+      const tb = document.getElementById('variantCases');
+      tb.innerHTML = '';
+      CASES[vid].slice(0,80).forEach(c => {
+        const tr = el('tr');
+        tr.innerHTML = `<td>${c.caseId}</td><td>${fmtDate(c.start)}</td><td>${fmtDate(c.end)}</td><td>${c.durationDays}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+
+    /* ---------------------------
+       BPMN preview (placeholder modal)
+       - For demo we show random placeholder SVGs. In prod this is where you render real BPMN XML.
+    --------------------------- */
+    const BPMN_PLACEHOLDERS = [
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="100%" height="100%" fill="#eff6ff"/><g fill="#0f172a" font-family="sans-serif"><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="28">BPMN Preview (placeholder)</text></g></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="100%" height="100%" fill="#ecfeff"/><g fill="#042f2e" font-family="sans-serif"><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="28">Generated Diagram (demo)</text></g></svg>`
+    ];
+
+    function openModal(svgHtml){
+      const root = document.getElementById('modalRoot');
+      root.innerHTML = ''; // reset
+      const backdrop = el('div',{class:'modal-backdrop'});
+      const box = el('div',{class:'modal'});
+      const head = el('div',{class:'m-head'});
+      head.appendChild(el('div',{html:'<b>BPMN Preview</b>'}));
+      const closeBtn = el('button',{class:'btn secondary'},['Close']);
+      closeBtn.addEventListener('click', ()=> root.innerHTML = '');
+      head.appendChild(closeBtn);
+      box.appendChild(head);
+      const content = el('div',{html: svgHtml});
+      box.appendChild(content);
+      backdrop.appendChild(box);
+      root.appendChild(backdrop);
+      // click outside to close
+      backdrop.addEventListener('click', (e)=> { if(e.target === backdrop) root.innerHTML = ''; });
+    }
+
+    function previewSelectedBpmn(){
+      const ids = [...state.selectedVariantIdsForBpmn];
+      if(ids.length === 0) { alert('Shift+Click to select one or more variants, then click Preview BPMN.'); return; }
+      // In a real app: generate XML from selected variants; for demo show placeholder
+      openModal(BPMN_PLACEHOLDERS[Math.floor(Math.random()*BPMN_PLACEHOLDERS.length)]);
+      switchTab('bpmn');
+      document.getElementById('bpmnPreviewArea').innerHTML = '<div class="muted">Opened preview modal (placeholder).</div>';
+    }
+
+    function generateGroupBpmn(){
+      const ids = [...state.selectedGroupForBpmn];
+      if(ids.length === 0){ alert('Check a group checkbox to mark its variants, then click Generate Group BPMN.'); return; }
+      openModal(BPMN_PLACEHOLDERS[Math.floor(Math.random()*BPMN_PLACEHOLDERS.length)]);
+      switchTab('bpmn');
+      document.getElementById('bpmnPreviewArea').innerHTML = `<div class="muted">${ids.length} variants included (placeholder)</div>`;
+    }
+
+    /* ---------------------------
+       CSV export (group / variant)
+    --------------------------- */
+    function download(text, name, type='text/csv'){
+      const a = document.createElement('a');
+      const file = new Blob([text], { type });
+      a.href = URL.createObjectURL(file);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function exportGroupCsv(){
+      const key = state.selectedGroupKey;
+      if(!key){ alert('Select a group by clicking a variant or double-click a group header'); return; }
+      const list = applyFiltersToVariants().filter(v => groupKey(v) === key);
+      const rows = [['caseId','variantId','start','end','durationDays','outcome']];
+      list.forEach(v => {
+        CASES[v.id].forEach(c => rows.push([c.caseId, v.id, fmtDate(c.start), fmtDate(c.end), c.durationDays, c.outcome]));
+      });
+      download(rows.map(r=>r.join(',')).join('\n'), `group_${key.replace(/\W+/g,'_')}.csv`);
+    }
+
+    function exportVariantCsv(){
+      const vid = state.selectedVariantId;
+      if(!vid){ alert('Select a variant first'); return; }
+      const rows = [['caseId','variantId','start','end','durationDays','outcome']];
+      CASES[vid].forEach(c => rows.push([c.caseId, vid, fmtDate(c.start), fmtDate(c.end), c.durationDays, c.outcome]));
+      download(rows.map(r=>r.join(',')).join('\n'), `variant_${vid}.csv`);
+    }
+
+    /* ---------------------------
+       Tabs & events
+    --------------------------- */
+    function switchTab(name){
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+      document.querySelectorAll('.tabpanel').forEach(p => p.classList.add('hidden'));
+      document.getElementById('tab-' + name).classList.remove('hidden');
+    }
+
+    function bindEvents(){
+      // tab buttons
+      document.querySelectorAll('.tab').forEach((t, idx) => {
+        const tabs = ['overview','group','variant','bpmn'];
+        t.dataset.tab = tabs[idx];
+        t.addEventListener('click', ()=> {
+          switchTab(t.dataset.tab);
+          // render loaded content if needed
+          if(t.dataset.tab === 'overview') renderOverview();
+          if(t.dataset.tab === 'group') renderRightGroup();
+          if(t.dataset.tab === 'variant') renderRightVariant();
+        });
+      });
+
+      // filter builder add
+      document.getElementById('addFilterBtn').addEventListener('click', ()=>{
+        const type = document.getElementById('fb_type').value;
+        const value = document.getElementById('fb_value').value.trim();
+        const logic = document.getElementById('fb_logic').value;
+        if(!value){ alert('Enter value for the filter'); return; }
+        state.filters.push({ type, value });
+        state.logic = logic;
+        document.getElementById('fb_value').value = '';
+        renderLeft(); renderOverview();
+      });
+
+      document.getElementById('applyFilters').addEventListener('click', ()=>{
+        state.groupBy = document.getElementById('groupBy').value;
+        state.sortBy = document.getElementById('sortBy').value;
+        // if fb_value has some text, add as transient contains filter
+        const transVal = document.getElementById('fb_value').value.trim();
+        if(transVal) {
+          const transType = document.getElementById('fb_type').value;
+          state.filters.push({ type: transType, value: transVal });
+          document.getElementById('fb_value').value = '';
+        }
+        renderLeft(); renderOverview();
+      });
+
+      document.getElementById('resetFilters').addEventListener('click', ()=>{
+        state.filters = [];
+        state.logic = 'AND';
+        document.getElementById('fb_value').value = '';
+        document.getElementById('fb_type').value = 'contains';
+        renderLeft(); renderOverview();
+      });
+
+      document.getElementById('previewBpmnBtn').addEventListener('click', previewSelectedBpmn);
+      document.getElementById('generateGroupBpmnBtn').addEventListener('click', generateGroupBpmn);
+      document.getElementById('exportGroupCsvBtn').addEventListener('click', exportGroupCsv);
+      document.getElementById('exportVariantCsvBtn').addEventListener('click', exportVariantCsv);
+      document.getElementById('downloadBpmnBtn').addEventListener('click', ()=> alert('In demo: BPMN download would export XML.'));
+
+      // double-click group header: set group and open group tab (detect clicks on group headers)
+      document.getElementById('groupsRoot').addEventListener('dblclick', (e)=>{
+        // if we double-click on group header area, find nearest .group-card and set selectedGroupKey to its first variant's key
+        let elNode = e.target;
+        while(elNode && !elNode.classList.contains('group-card')) elNode = elNode.parentElement;
+        if(!elNode) return;
+        // pick first variant inside
+        const vidEl = elNode.querySelector('.variant');
+        if(vidEl){
+          const vid = vidEl.getAttribute('data-vid');
+          const v = VARIANTS.find(x => x.id === vid);
+          if(v){
+            state.selectedGroupKey = groupKey(v);
+            switchTab('group');
+            renderRightGroup();
+          }
+        }
+      });
+
+      // keyboard focus on filter
+      document.addEventListener('keydown', (e) => {
+        if(e.key === '/' && !(e.metaKey || e.ctrlKey)) {
+          e.preventDefault();
+          document.getElementById('fb_value').focus();
+        }
+      });
+    }
+
+    /* ---------------------------
+       Init
+    --------------------------- */
+    function init(){
+      renderLeft();
+      renderOverview();
+      bindEvents();
+      // by default, show overview
+      switchTab('overview');
+    }
+
+    init();
+  </script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
