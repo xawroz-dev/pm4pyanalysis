@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Process Mining Onboarding — Enterprise POC</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- SortableJS (drag/drop) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<!-- Mermaid (BPMN-like) -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#fff; --muted:#6b7280; --accent:#0b69ff; --accent-2:#ff8a00;
+    --shadow: 0 10px 30px rgba(11,24,44,0.06);
+    --radius:12px;
+  }
+  body{ background:var(--bg); font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:#0b1220; }
+  header{ background:var(--card); border-radius:10px; box-shadow:var(--shadow); padding:18px; margin:18px auto; max-width:1200px; }
+  .container-xl{ max-width:1200px; margin:0 auto; padding:0 18px; }
+  .wizard { max-width:1200px; margin: 12px auto 60px; }
+  .wizard .stage-card { background:var(--card); padding:18px; border-radius:10px; box-shadow:var(--shadow); }
+  .muted{ color:var(--muted); }
+  .json-preview{ background:#0f1724; color:#e6eef8; padding:12px; border-radius:8px; font-family:monospace; font-size:13px; max-height:320px; overflow:auto; }
+  .json-tree{ background:#fff; padding:10px; border-radius:8px; border:1px solid #eef2ff; max-height:320px; overflow:auto; font-family:monospace; font-size:13px; }
+  .chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:#f1f6ff; color:var(--accent); border:1px solid #dfefff; margin:4px; cursor:grab; }
+  .mapping-slot{ min-height:56px; border-radius:8px; border:2px dashed #e6eefc; padding:8px; background:#fbfdff; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .mapping-slot .chip{ cursor:default; }
+  .app-card { border-radius:12px; padding:12px; background:linear-gradient(180deg,#ffffff,#fbfdff); border:1px solid #eef5ff; box-shadow:0 6px 18px rgba(7,24,44,0.04); }
+  .app-tile { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px; border-radius:10px; background:linear-gradient(180deg,#fff,#fcfeff); border:1px solid #eef6ff; }
+  .journey-canvas{ min-height:110px; border-radius:10px; border:2px dashed #e8f0ff; padding:12px; background:#fbfdff; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .activity-item{ padding:6px 10px; background:#fff; border-radius:8px; border:1px solid #eef2ff; display:inline-flex; gap:8px; align-items:center; cursor:grab; margin:6px 0; }
+  .level-box{ min-height:160px; padding:10px; border-radius:8px; background:#fff; border:1px solid #eef2ff; }
+  .selected { outline: 3px dashed rgba(11,105,255,0.15); background:#eef6ff; }
+  .btn-ghost { background:transparent; border:1px dashed #e6eefc; color:var(--accent); }
+  .progress { height:10px; border-radius:10px; overflow:hidden; background:#eef4ff }
+  .progress-bar { background:linear-gradient(90deg,var(--accent),#1aa3ff); }
+  .mermaid { background:#fff; padding:12px; border-radius:8px; border:1px solid #eef2ff; min-height:220px; overflow:auto; }
+  @media (max-width:900px){
+    .json-preview, .json-tree { max-height:180px }
+    .level-box { min-height:120px }
+  }
+</style>
+</head>
+<body>
+  <div class="container-xl">
+
+    <header class="d-flex align-items-center gap-3">
+      <div style="width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--accent),#005ecb);color:#fff;font-weight:700">PM</div>
+      <div>
+        <h3 class="mb-0">Process Mining — Self Onboarding POC</h3>
+        <div class="muted">Enterprise-style demo — add apps, map event logs, stitch journeys, level & preview BPMN</div>
+      </div>
+      <div class="ms-auto text-end muted small"><div>Local demo • saved in browser</div></div>
+    </header>
+
+    <main class="wizard mt-4">
+      <!-- top progress + nav -->
+      <div class="stage-card mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div><strong id="stage-title">1 • Applications</strong><div class="muted small" id="stage-sub">Add applications and map event fields</div></div>
+          <div style="width:360px">
+            <div class="progress" title="Wizard progress"><div id="wizard-progress" class="progress-bar" style="width:16%"></div></div>
+          </div>
+        </div>
+
+        <ul class="nav nav-pills gap-2 mb-2" id="wizardNav">
+          <li class="nav-item"><a class="nav-link active" data-step="1">Applications</a></li>
+          <li class="nav-item"><a class="nav-link disabled" data-step="2">Journeys</a></li>
+          <li class="nav-item"><a class="nav-link disabled" data-step="3">Stitching</a></li>
+          <li class="nav-item"><a class="nav-link disabled" data-step="4">Leveling</a></li>
+          <li class="nav-item"><a class="nav-link disabled" data-step="5">BPMN</a></li>
+        </ul>
+      </div>
+
+      <!-- Step 1: Applications -->
+      <section class="stage-card mb-3 wizard-step" data-step="1">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="app-card">
+              <h5 class="mb-1">Quick actions</h5>
+              <div class="muted small mb-2">Start with sample Credit Card apps, or add your own.</div>
+              <div class="d-grid gap-2">
+                <button id="btn-load-samples" class="btn btn-primary">Load Credit Card Sample Apps</button>
+                <button id="btn-clear" class="btn btn-ghost">Clear Data</button>
+              </div>
+              <hr class="my-3"/>
+              <h6 class="mb-1">Onboarded Applications</h6>
+              <div class="muted small mb-2">Drag chips into Journey later.</div>
+              <div id="apps-list" class="d-flex flex-column gap-2" style="min-height:120px"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="app-card">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Add / Edit Application</h5>
+                <div class="muted small">Fill details, paste/upload sample, map fields, save</div>
+              </div>
+
+              <form id="app-form" class="row g-3 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">Application Name</label>
+                  <input id="app-name" class="form-control" placeholder="Card Authorization">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">PRC Group</label>
+                  <input id="app-prc" class="form-control" placeholder="Payments">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Owner</label>
+                  <input id="app-owner" class="form-control" placeholder="Auth Team">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Data Source</label>
+                  <select id="app-source" class="form-select">
+                    <option value="">Select source...</option>
+                    <option value="splunk">Splunk</option>
+                    <option value="kibana">Kibana</option>
+                    <option value="elk">ELK</option>
+                    <option value="upload">Upload JSON</option>
+                  </select>
+                </div>
+
+                <div id="source-extra-row" class="col-md-6" style="display:none">
+                  <label class="form-label" id="source-extra-label"></label>
+                  <input id="source-extra-val" class="form-control" placeholder="">
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Sample JSON (paste array or NDJSON); or use file</label>
+                  <textarea id="sample-text" class="form-control" rows="4" placeholder='[{"event_time":"2025-09-21T10:00:00Z","transaction_id":"TX1001","activity":"Auth Requested"}]'></textarea>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Or select file (.json)</label>
+                  <input id="sample-file" type="file" accept=".json" class="form-control">
+                </div>
+                <div class="col-md-8 d-flex align-items-end justify-content-end gap-2">
+                  <button id="btn-parse" type="button" class="btn btn-outline-primary">Parse Sample</button>
+                  <button id="btn-save-app" type="button" class="btn btn-success">Save Application</button>
+                </div>
+              </form>
+
+              <hr/>
+
+              <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">Sample Preview</label>
+                  <div id="sample-preview" class="json-tree">No sample loaded</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Field Mapping (drag fields → targets)</label>
+
+                  <div class="mt-2">
+                    <div class="small-muted mb-1">Available fields</div>
+                    <div id="fields-bank" style="min-height:80px;padding:10px;border-radius:8px;border:1px solid #eef6ff;background:#fbfdff"></div>
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="small-muted">Timestamp</div>
+                    <div id="slot-timestamp" class="mapping-slot mb-2"></div>
+                    <div class="small-muted">Correlation (ID)</div>
+                    <div id="slot-corr" class="mapping-slot mb-2"></div>
+                    <div class="small-muted">Activity</div>
+                    <div id="slot-activity" class="mapping-slot mb-2"></div>
+                    <div class="small-muted">Extras</div>
+                    <div id="slot-extras" class="mapping-slot mb-2"></div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- step footer -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="muted">Pro tip: parse sample, drag the correct fields to the mapping slots before saving.</div>
+          <div>
+            <button id="prevBtn" class="btn btn-outline-secondary btn-prev" disabled>← Prev</button>
+            <button id="nextBtn" class="btn btn-primary btn-next" data-to="2">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2: Journeys -->
+      <section class="stage-card mb-3 wizard-step" data-step="2" style="display:none">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="app-card">
+              <h5>Create Journey</h5>
+              <div class="muted small mb-2">Name, owner, purpose — then drag apps into the canvas (left-to-right)</div>
+              <div class="mb-2">
+                <label class="form-label">Journey Name</label>
+                <input id="journey-name" class="form-control" placeholder="Credit Card Processing">
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Owner</label>
+                <input id="journey-owner" class="form-control" placeholder="Payments Team">
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Purpose</label>
+                <input id="journey-purpose" class="form-control" placeholder="End-to-end card processing">
+              </div>
+              <div class="mt-2 d-grid">
+                <button id="btn-save-journey" class="btn btn-success">Save Journey</button>
+              </div>
+            </div>
+
+            <div class="mt-3 app-card">
+              <h6 class="mb-1">Available Apps (drag)</h6>
+              <div id="journey-app-bank" style="min-height:120px" class="mt-2"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="app-card">
+              <h5>Journey Canvas</h5>
+              <div class="muted small mb-2">Order matters — drag chips here to build the journey</div>
+              <div id="journey-canvas" class="journey-canvas">Drop apps here</div>
+              <div class="mt-2">
+                <small class="muted">Saved journeys:</small>
+                <div id="saved-journeys" class="mt-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+          <div class="muted">After saving a journey, continue to Stitching to configure correlation keys.</div>
+          <div>
+            <button class="btn btn-outline-secondary btn-prev" data-to="1">← Prev</button>
+            <button class="btn btn-primary btn-next" data-to="3">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 3: Stitching -->
+      <section class="stage-card mb-3 wizard-step" data-step="3" style="display:none">
+        <h5>Stitching</h5>
+        <div class="muted small mb-2">Pick a correlation key for each app, then choose a correlation value to preview a stitched trace.</div>
+
+        <div id="stitching-area" class="mb-3"></div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Select correlation value (trace)</label>
+            <select id="corr-value-select" class="form-select"></select>
+            <div class="mt-2">
+              <button id="btn-preview-trace" class="btn btn-primary">Preview Trace</button>
+              <button id="btn-preview-sample" class="btn btn-outline-secondary">Preview Sample of All</button>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Stitched Timeline (sorted by timestamp)</label>
+            <div id="stitched-preview" class="json-preview">No stitch yet</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+          <div class="muted">Use the stitched timeline to select activities for leveling.</div>
+          <div>
+            <button class="btn btn-outline-secondary btn-prev" data-to="2">← Prev</button>
+            <button class="btn btn-primary btn-next" data-to="4">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 4: Leveling -->
+      <section class="stage-card mb-3 wizard-step" data-step="4" style="display:none">
+        <h5>Leveling & Merge</h5>
+        <div class="muted small mb-2">Drag activities into levels. Click to multi-select, then merge into a business function.</div>
+
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="app-card">
+              <h6>Activity Bank</h6>
+              <div id="activities-bank" style="min-height:220px; margin-top:10px;"></div>
+              <div class="mt-2">
+                <small class="muted">Click to select multiple activities (selected highlight)</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="app-card">
+              <h6>Levels</h6>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="small-muted">Level 1 (Business Functions)</div>
+                  <div id="level-1" class="level-box mt-2"></div>
+                </div>
+                <div class="col-md-4">
+                  <div class="small-muted">Level 2 (Sub-processes)</div>
+                  <div id="level-2" class="level-box mt-2"></div>
+                </div>
+                <div class="col-md-4">
+                  <div class="small-muted">Level 3 (Atomic)</div>
+                  <div id="level-3" class="level-box mt-2"></div>
+                </div>
+              </div>
+
+              <div class="mt-3 d-flex gap-2">
+                <input id="merge-name" class="form-control" placeholder="Name for merged function (e.g., Transaction Processing)">
+                <button id="btn-merge" class="btn btn-outline-primary">Merge Selected</button>
+                <button id="btn-clear-selection" class="btn btn-outline-secondary">Clear Selection</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+          <div class="muted">Leveling config is stored locally; use BPMN to visualize.</div>
+          <div>
+            <button class="btn btn-outline-secondary btn-prev" data-to="3">← Prev</button>
+            <button class="btn btn-primary btn-next" data-to="5">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 5: BPMN -->
+      <section class="stage-card mb-3 wizard-step" data-step="5" style="display:none">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h5>BPMN-like Preview</h5>
+            <div class="muted small">Choose which level to visualize and export Mermaid code.</div>
+          </div>
+          <div class="d-flex gap-2">
+            <select id="bpmn-level" class="form-select" style="width:160px">
+              <option value="1">Level 1</option>
+              <option value="2">Level 2</option>
+              <option value="3" selected>Level 3</option>
+            </select>
+            <button id="btn-copy-mermaid" class="btn btn-outline-secondary">Copy Mermaid</button>
+          </div>
+        </div>
+
+        <div class="mt-3 mermaid" id="bpmn-canvas">graph LR; Start --> End;</div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button class="btn btn-outline-secondary btn-prev" data-to="4">← Prev</button>
+          <button id="btn-finish" class="btn btn-success ms-2">Finish</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script>
+/* Enterprise POC - fully functional single file
+   - state persisted to localStorage
+   - sample apps preloaded
+   - parse JSON (array or NDJSON)
+   - extract nested keys (dot notation)
+   - drag/drop mapping and journey building
+   - stitching with trace selection
+   - leveling + merging
+   - Mermaid BPMN preview
+*/
+
+mermaid.initialize({ startOnLoad: false });
+
+/* ---------- State ---------- */
+const LS_KEY = 'pm_onboard_poc_v2';
+const state = {
+  apps: [],        // {id,name,prc,owner,source,sourceInfo,sample:Array, mapping:{timestamp,corr,activity,extras:[]}}
+  journeys: [],    // {id,name,owner,purpose,apps:[appId],levels:{}}
+  selectedAppEditId: null,
+  currentStage: 1,
+  stitchedTimeline: [], // current stitched events (for preview)
+  levelSelection: {} // for saved level config per journey
+};
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const q = sel => document.querySelector(sel);
+const genId = (p='id') => p + '_' + Math.random().toString(36).slice(2,9);
+
+function saveAll(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+function loadAll(){ const raw = localStorage.getItem(LS_KEY); if(raw){ try{ Object.assign(state, JSON.parse(raw)); }catch(e){ console.warn(e); } } }
+
+/* nested key extraction: returns dot paths for nested objects/arrays (first level sample) */
+function extractPathsFromObj(obj, prefix=''){
+  const paths = [];
+  if(obj && typeof obj === 'object' && !Array.isArray(obj)){
+    for(const k of Object.keys(obj)){
+      const full = prefix ? `${prefix}.${k}` : k;
+      const val = obj[k];
+      if(val !== null && typeof val === 'object'){
+        // if array of primitives, keep path; if array of objects, explore first element
+        if(Array.isArray(val)){
+          if(val.length>0 && typeof val[0] === 'object') paths.push(...extractPathsFromObj(val[0], full));
+          else paths.push(full);
+        } else {
+          paths.push(...extractPathsFromObj(val, full));
+        }
+      } else {
+        paths.push(full);
+      }
+    }
+  } else {
+    // not object - skip
+  }
+  return paths;
+}
+
+function getValueByPath(obj, path){
+  if(!path) return undefined;
+  const parts = path.split('.');
+  let cur = obj;
+  for(const p of parts){
+    if(cur == null) return undefined;
+    cur = cur[p];
+  }
+  return cur;
+}
+
+/* parse sample text - supports array, single object, NDJSON */
+function parseSampleText(txt){
+  if(!txt) return [];
+  try{
+    const trimmed = txt.trim();
+    if(trimmed.startsWith('[')){
+      const v = JSON.parse(trimmed);
+      if(Array.isArray(v)) return v;
+      return [v];
+    }
+    // try as object
+    if(trimmed.startsWith('{')){
+      return [JSON.parse(trimmed)];
+    }
+    // try NDJSON: lines of JSON
+    const lines = trimmed.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+    if(lines.length>0){
+      const arr = lines.map(l => JSON.parse(l));
+      return arr;
+    }
+  } catch(err){
+    throw new Error('Invalid JSON: ' + err.message);
+  }
+  return [];
+}
+
+/* try to find a timestamp-like key */
+function guessTimestampKeyFromSample(sample){
+  if(!sample || sample.length===0) return null;
+  const keys = Array.from(new Set(sample.flatMap(r => Object.keys(r))));
+  const prefer = keys.find(k => /time|date|ts|timestamp/i.test(k));
+  return prefer || keys[0];
+}
+function guessCorrelationKeyFromSample(sample){
+  if(!sample || sample.length===0) return null;
+  const keys = Array.from(new Set(sample.flatMap(r => Object.keys(r))));
+  const prefer = keys.find(k => /trans|transaction|order|case|correlation|id$/i.test(k));
+  return prefer || keys[0];
+}
+function guessActivityKeyFromSample(sample){
+  if(!sample || sample.length===0) return null;
+  const keys = Array.from(new Set(sample.flatMap(r => Object.keys(r))));
+  const prefer = keys.find(k => /activity|event|action|type/i.test(k));
+  return prefer || keys[0];
+}
+
+/* load/save */
+loadAll();
+
+/* ---------- UI wiring & rendering ---------- */
+
+function setStage(n){
+  // update nav and progress
+  state.currentStage = n;
+  document.querySelectorAll('.wizard-step').forEach(s => s.style.display = 'none');
+  const el = document.querySelector(`.wizard-step[data-step="${n}"]`);
+  if(el) el.style.display = '';
+  // update nav pills
+  document.querySelectorAll('#wizardNav .nav-link').forEach(a=> {
+    a.classList.toggle('active', Number(a.dataset.step)===n);
+  });
+  // progress percent
+  const pct = Math.round((n/5) * 100);
+  q('#wizard-progress').style.width = pct + '%';
+  // stage title
+  const titles = ['Applications','Journeys','Stitching','Leveling','BPMN'];
+  $('stage-title') && ($('stage-title').textContent = `${n} • ${titles[n-1]}`);
+  // show/hide prev/next disabled appropriately
+}
+
+/* nav next/prev buttons */
+document.addEventListener('click', (e)=>{
+  if(e.target.matches('.btn-next')){
+    const to = Number(e.target.dataset.to) || (state.currentStage + 1);
+    setStage(Math.min(5,to));
+    if(to===3) onEnterStitching();
+    if(to===4) onEnterLeveling();
+    if(to===5) renderMermaid();
+  }
+  if(e.target.matches('.btn-prev')){
+    const to = Number(e.target.dataset.to) || (state.currentStage - 1);
+    setStage(Math.max(1,to));
+  }
+});
+
+/* top nav click */
+document.querySelectorAll('#wizardNav .nav-link').forEach(a=>{
+  a.addEventListener('click', (ev)=>{
+    const step = Number(a.dataset.step);
+    setStage(step);
+    if(step===3) onEnterStitching();
+    if(step===4) onEnterLeveling();
+    if(step===5) renderMermaid();
+  });
+});
+
+/* ---------- Samples to load quickly ---------- */
+const sampleApps = [
+  {
+    id: genId('app'),
+    name: 'Card Authorization', prc:'Payments', owner:'Auth Team',
+    source:'splunk', sourceInfo:{topic:'prod_cc_auth_events'},
+    sample:[
+      { event_time:'2025-09-21T10:00:00Z', transaction_id:'TX1001', activity:'Auth Requested', amount:120.5, status:'Requested' },
+      { event_time:'2025-09-21T10:00:01Z', transaction_id:'TX1001', activity:'Card Authorized', amount:120.5, status:'Approved' },
+      { event_time:'2025-09-21T10:05:00Z', transaction_id:'TX1002', activity:'Auth Requested', amount:12.00, status:'Requested' },
+      { event_time:'2025-09-21T10:05:01Z', transaction_id:'TX1002', activity:'Card Declined', amount:12.00, status:'Declined' }
+    ],
+    mapping: {}
+  },
+  {
+    id: genId('app'),
+    name: 'Fraud Check', prc:'Risk', owner:'Fraud Team',
+    source:'kibana', sourceInfo:{index:'cc_fraud_index'},
+    sample:[
+      { event_time:'2025-09-21T10:00:02Z', transaction_id:'TX1001', activity:'Fraud Score Calculated', score:12, result:'NoFlag' },
+      { event_time:'2025-09-21T10:05:02Z', transaction_id:'TX1002', activity:'Fraud Score Calculated', score:92, result:'Flagged' }
+    ],
+    mapping: {}
+  },
+  {
+    id: genId('app'),
+    name: 'Settlement', prc:'Settlement', owner:'Settle Team',
+    source:'elk', sourceInfo:{path:'/var/logs/cc/settlement.log'},
+    sample:[
+      { event_time:'2025-09-21T10:30:00Z', transaction_id:'TX1001', activity:'Settled', amount:120.5, status:'Completed' },
+      { event_time:'2025-09-21T10:35:00Z', transaction_id:'TX1003', activity:'Settled', amount:5.00, status:'Completed' }
+    ],
+    mapping: {}
+  }
+];
+
+/* ---------- Renderers ---------- */
+
+function renderAppsList(){
+  const cont = $('apps-list'); cont.innerHTML = '';
+  if(state.apps.length===0){ cont.innerHTML = '<div class="muted small">No apps onboarded yet</div>'; return; }
+  state.apps.forEach((a, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'app-tile';
+    div.innerHTML = `<div><strong>${escapeHtml(a.name)}</strong><div class="muted small">${escapeHtml(a.prc)} • ${escapeHtml(a.owner)} • ${escapeHtml((a.source||'').toUpperCase())}</div></div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm btn-outline-primary" data-action="edit" data-id="${a.id}">Edit</button>
+        <button class="btn btn-sm btn-outline-danger" data-action="delete" data-id="${a.id}">Delete</button>
+        <div class="chip" draggable="true" data-appid="${a.id}">${escapeHtml(a.name)}</div>
+      </div>`;
+    cont.appendChild(div);
+  });
+  // bind edit/delete buttons
+}
+
+/* safe html */
+function escapeHtml(s){ if(s===undefined || s===null) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* render journey app bank (draggable chips) */
+function renderJourneyAppBank(){
+  const bank = $('journey-app-bank'); bank.innerHTML = '';
+  state.apps.forEach(a=>{
+    const chip = document.createElement('div'); chip.className = 'chip'; chip.draggable = true; chip.dataset.appid = a.id;
+    chip.textContent = a.name + ' · ' + (a.source || '').toUpperCase();
+    bank.appendChild(chip);
+  });
+}
+
+/* render saved journeys list */
+function renderSavedJourneys(){
+  const cont = $('saved-journeys'); cont.innerHTML = '';
+  state.journeys.forEach(j=>{
+    const el = document.createElement('div'); el.className = 'd-flex align-items-center gap-2 mb-2';
+    el.innerHTML = `<div style="flex:1"><strong>${escapeHtml(j.name)}</strong> <div class="muted small">${escapeHtml(j.owner || '')} · ${escapeHtml(j.purpose || '')}</div></div>
+      <div><button class="btn btn-sm btn-outline-secondary" data-action="open-journey" data-id="${j.id}">Open</button></div>`;
+    cont.appendChild(el);
+  });
+}
+
+/* render mapping fields bank and slots for selected sample */
+function renderFieldsForSample(sample){
+  // sample - array
+  const bank = $('fields-bank'); bank.innerHTML = '';
+  if(!sample || sample.length === 0){ bank.innerHTML = '<div class="muted small">No sample</div>'; $('sample-preview').textContent = 'No sample loaded'; return; }
+  // flatten keys across sample (top-level + nested)
+  const keys = Array.from(new Set(sample.flatMap(s => extractPathsFromObj(s))));
+  // also include top-level keys not nested
+  keys.forEach(k=>{
+    const chip = document.createElement('div'); chip.className = 'chip'; chip.draggable = true; chip.dataset.key = k; chip.textContent = k;
+    bank.appendChild(chip);
+  });
+  $('sample-preview').textContent = JSON.stringify(sample.slice(0,40), null, 2);
+  // clear slots
+  ['slot-timestamp','slot-corr','slot-activity','slot-extras'].forEach(id => $(id).innerHTML = '');
+  attachFieldDrag();
+}
+
+/* attach field drag/drop using Sortable */
+function attachFieldDrag(){
+  // fields bank: clone on drag
+  new Sortable($('fields-bank'), { group:{name:'fields', pull:'clone', put:false}, sort:false, animation:150 });
+  ['slot-timestamp','slot-corr','slot-activity','slot-extras'].forEach(id=>{
+    new Sortable($(id), {
+      group:'fields',
+      animation:150,
+      onAdd: (evt)=>{
+        // if slot is single-only, remove earlier chips
+        if(id !== 'slot-extras'){
+          const children = Array.from($(id).querySelectorAll('.chip'));
+          if(children.length > 1){
+            // keep last only
+            children[0].remove();
+          }
+        }
+        // add remove button to slot chip
+        const chip = evt.item;
+        ensureSlotChipEnhancements(chip);
+        // save mapping to current edit app immediate
+        saveMappingForEditingApp();
+      }
+    });
+  });
+}
+
+/* Ensure chip inside slot has a remove 'x' */
+function ensureSlotChipEnhancements(chip){
+  if(!chip) return;
+  // remove draggable attributes to prevent re-clone issues
+  chip.draggable = false;
+  if(!chip.querySelector('.remove-chip')){
+    const btn = document.createElement('button'); btn.className = 'btn btn-sm btn-link text-danger remove-chip'; btn.innerHTML = '✕';
+    btn.style.marginLeft = '6px'; btn.addEventListener('click', () => { chip.remove(); saveMappingForEditingApp(); });
+    chip.appendChild(btn);
+  }
+}
+
+/* Save mapping for currently edited app */
+function saveMappingForEditingApp(){
+  const id = state.selectedAppEditId;
+  if(!id) return;
+  const app = state.apps.find(a=>a.id===id);
+  if(!app) return;
+  const getSlotKey = (slotId) => {
+    const n = $(slotId).querySelector('.chip');
+    return n ? n.dataset.key : '';
+  };
+  const extras = Array.from($('slot-extras').querySelectorAll('.chip')).map(c=>c.dataset.key);
+  app.mapping = {
+    timestamp: getSlotKey('slot-timestamp'),
+    corr: getSlotKey('slot-corr'),
+    activity: getSlotKey('slot-activity'),
+    extras
+  };
+  saveAll();
+}
+
+/* ---------- App form: parse + save + edit + delete ---------- */
+
+$('btn-load-samples').addEventListener('click', ()=>{
+  // if no apps exist, load sample set
+  if(state.apps.length === 0){
+    sampleApps.forEach(s => {
+      s.mapping.timestamp = guessTimestampKeyFromSample(s.sample);
+      s.mapping.corr = guessCorrelationKeyFromSample(s.sample);
+      s.mapping.activity = guessActivityKeyFromSample(s.sample);
+      s.mapping.extras = (Array.from(new Set(s.sample.flatMap(r => Object.keys(r)))) || []).filter(k => ![s.mapping.timestamp, s.mapping.corr, s.mapping.activity].includes(k));
+      state.apps.push(s);
+    });
+    saveAll();
+    renderAll();
+    alert('Loaded sample Credit Card apps.');
+  } else {
+    if(confirm('Replace existing apps with sample apps? This will remove your current apps.')){
+      state.apps = [];
+      sampleApps.forEach(s => {
+        s.mapping.timestamp = guessTimestampKeyFromSample(s.sample);
+        s.mapping.corr = guessCorrelationKeyFromSample(s.sample);
+        s.mapping.activity = guessActivityKeyFromSample(s.sample);
+        s.mapping.extras = (Array.from(new Set(s.sample.flatMap(r => Object.keys(r)))) || []).filter(k => ![s.mapping.timestamp, s.mapping.corr, s.mapping.activity].includes(k));
+        state.apps.push(s);
+      });
+      saveAll();
+      renderAll();
+      alert('Replaced with sample apps.');
+    }
+  }
+});
+
+/* clear local data */
+$('btn-clear').addEventListener('click', ()=>{
+  if(confirm('Clear all demo data from browser?')){
+    localStorage.removeItem(LS_KEY);
+    state.apps = []; state.journeys = []; state.selectedAppEditId = null; state.stitchedTimeline = [];
+    renderAll();
+    alert('Cleared');
+  }
+});
+
+/* parse sample button: tries textarea first, then file if provided */
+$('btn-parse').addEventListener('click', ()=>{
+  const text = $('sample-text').value.trim();
+  const file = $('sample-file').files && $('sample-file').files[0];
+  if(file){
+    const r = new FileReader();
+    r.onload = (e) => {
+      try{
+        const arr = parseSampleText(e.target.result);
+        $('sample-preview').textContent = JSON.stringify(arr.slice(0,40), null, 2);
+        // show keys bank
+        renderFieldsForSample(arr);
+        // keep temporary sample on form (not saved to state until save app)
+        $('sample-text').dataset.parsed = JSON.stringify(arr);
+      }catch(err){ alert(err.message); }
+    };
+    r.readAsText(file);
+    return;
+  }
+  if(!text){ alert('Paste JSON sample or choose a file'); return; }
+  try{
+    const arr = parseSampleText(text);
+    $('sample-preview').textContent = JSON.stringify(arr.slice(0,40), null, 2);
+    renderFieldsForSample(arr);
+    $('sample-text').dataset.parsed = JSON.stringify(arr);
+  }catch(err){ alert(err.message); }
+});
+
+/* when user selects source, show extra field label */
+$('app-source').addEventListener('change', (e)=>{
+  const v = e.target.value;
+  const row = $('source-extra-row'); if(!v){ row.style.display = 'none'; return; }
+  row.style.display = '';
+  const lab = $('source-extra-label'); const inp = $('source-extra-val');
+  if(v === 'splunk'){ lab.textContent = 'Splunk Topic'; inp.placeholder='e.g., prod_cc_auth_events'; }
+  else if(v === 'kibana'){ lab.textContent = 'Kibana Index'; inp.placeholder='e.g., cc_fraud_index'; }
+  else if(v === 'elk'){ lab.textContent = 'ELK Log Path'; inp.placeholder='/var/logs/cc/settlement.log'; }
+  else { row.style.display = 'none'; }
+});
+
+/* save application */
+$('btn-save-app').addEventListener('click', ()=>{
+  const name = $('app-name').value.trim();
+  if(!name) return alert('App name required');
+  const appObj = {
+    id: state.selectedAppEditId || genId('app'),
+    name,
+    prc: $('app-prc').value.trim(),
+    owner: $('app-owner').value.trim(),
+    source: $('app-source').value,
+    sourceInfo: {},
+    sample: [],
+    mapping: {}
+  };
+  if(appObj.source === 'splunk') appObj.sourceInfo.topic = $('source-extra-val').value.trim();
+  if(appObj.source === 'kibana') appObj.sourceInfo.index = $('source-extra-val').value.trim();
+  if(appObj.source === 'elk') appObj.sourceInfo.path = $('source-extra-val').value.trim();
+  // sample (parsed)
+  try{
+    if($('sample-text').dataset.parsed){
+      appObj.sample = JSON.parse($('sample-text').dataset.parsed);
+    } else if($('sample-text').value.trim()){
+      appObj.sample = parseSampleText($('sample-text').value.trim());
+    } else {
+      appObj.sample = [];
+    }
+  }catch(err){ return alert('Sample parse error: ' + err.message); }
+  // mapping from slots
+  const slotKey = (id) => { const n = $(id).querySelector('.chip'); return n ? n.dataset.key : ''; };
+  appObj.mapping.timestamp = slotKey('slot-timestamp') || guessTimestampKeyFromSample(appObj.sample) || '';
+  appObj.mapping.corr = slotKey('slot-corr') || guessCorrelationKeyFromSample(appObj.sample) || '';
+  appObj.mapping.activity = slotKey('slot-activity') || guessActivityKeyFromSample(appObj.sample) || '';
+  appObj.mapping.extras = Array.from($('slot-extras').querySelectorAll('.chip')).map(c=>c.dataset.key);
+  // if editing, replace existing
+  const idx = state.apps.findIndex(a => a.id === appObj.id);
+  if(idx >= 0) state.apps[idx] = appObj; else state.apps.push(appObj);
+  // reset form
+  state.selectedAppEditId = null;
+  $('app-form').reset();
+  $('sample-text').dataset.parsed = '';
+  $('sample-preview').textContent = 'No sample loaded';
+  ['slot-timestamp','slot-corr','slot-activity','slot-extras'].forEach(id => $(id).innerHTML = '');
+  saveAll();
+  renderAll();
+});
+
+/* apps list click handler: edit/delete */
+$('apps-list').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const action = btn.dataset.action;
+  const id = btn.dataset.id;
+  if(action === 'edit'){
+    const app = state.apps.find(a => a.id === id);
+    if(!app) return;
+    state.selectedAppEditId = app.id;
+    $('app-name').value = app.name;
+    $('app-prc').value = app.prc || '';
+    $('app-owner').value = app.owner || '';
+    $('app-source').value = app.source || '';
+    if(app.source) { $('app-source').dispatchEvent(new Event('change')); $('source-extra-val').value = (app.sourceInfo && (app.sourceInfo.topic||app.sourceInfo.index||app.sourceInfo.path)) || ''; }
+    // fill sample into textarea and preview
+    $('sample-text').value = JSON.stringify(app.sample || [], null, 2);
+    $('sample-text').dataset.parsed = JSON.stringify(app.sample || []);
+    $('sample-preview').textContent = JSON.stringify((app.sample||[]).slice(0,40), null, 2);
+    // populate fields bank and mapping
+    renderFieldsForSample(app.sample || []);
+    // place mapping keys into slots
+    if(app.mapping){
+      if(app.mapping.timestamp) addFieldToSlot(app.mapping.timestamp, 'slot-timestamp');
+      if(app.mapping.corr) addFieldToSlot(app.mapping.corr, 'slot-corr');
+      if(app.mapping.activity) addFieldToSlot(app.mapping.activity, 'slot-activity');
+      (app.mapping.extras || []).forEach(k => addFieldToSlot(k, 'slot-extras'));
+    }
+    setStage(1);
+  }
+  if(action === 'delete'){
+    if(confirm('Delete application?')) {
+      state.apps = state.apps.filter(a => a.id !== id);
+      saveAll(); renderAll();
+    }
+  }
+});
+
+/* allow dragging chips from apps-list into journey canvas: add listener for chip drag event */
+document.addEventListener('dragstart', (e)=>{
+  const chip = e.target.closest('.chip');
+  if(chip && chip.dataset.appid){
+    e.dataTransfer.setData('text/app-id', chip.dataset.appid);
+  }
+});
+/* also allow chips in apps-list produced by app-tile (chip inside app-tile) */
+document.addEventListener('dragstart', (e)=>{
+  const insideChip = e.target.closest('.chip[data-appid]');
+  if(insideChip) e.dataTransfer.setData('text/app-id', insideChip.dataset.appid);
+});
+
+/* helper to add a field chip to slot by key name (used when editing existing mapping) */
+function addFieldToSlot(key, slotId){
+  if(!key) return;
+  // create chip
+  const chip = document.createElement('div'); chip.className = 'chip'; chip.dataset.key = key; chip.textContent = key;
+  ensureSlotChipEnhancements(chip);
+  $(slotId).appendChild(chip);
+}
+
+/* render all UI components */
+function renderAll(){
+  renderAppsList();
+  renderJourneyAppBank();
+  renderSavedJourneys();
+  setupJourneyCanvasDrag();
+}
+
+/* ---------- Journey Canvas & save ---------- */
+
+function setupJourneyCanvasDrag(){
+  // make bank chips draggable (handled by chip dataset dragstart)
+  // allow drop into canvas - we'll create a Sortable to accept clones
+  try{ new Sortable($('journey-canvas'), { group: { name:'journey', pull:'clone', put:true }, animation:150, onAdd: function(evt){
+    // convert incoming element into an app-chip with remove button and set dataset
+    const node = evt.item;
+    // set app id if not present
+    if(!node.dataset.appid){
+      // item may be text node; find app by text
+      const name = node.textContent.trim();
+      const found = state.apps.find(a => name.startsWith(a.name));
+      if(found) node.dataset.appid = found.id;
+    }
+    node.classList.add('chip');
+    // add remove button if not exists
+    if(!node.querySelector('.remove-app')){
+      const btn = document.createElement('button'); btn.className = 'btn btn-sm btn-link text-danger remove-app'; btn.innerHTML = '✕';
+      btn.style.marginLeft = '6px'; btn.addEventListener('click', ()=> node.remove());
+      node.appendChild(btn);
+    }
+  } }); } catch(err){ console.warn(err); }
+}
+
+/* Save journey */
+$('btn-save-journey').addEventListener('click', ()=>{
+  const name = $('journey-name').value.trim();
+  if(!name) return alert('Journey name required');
+  const owner = $('journey-owner').value.trim();
+  const purpose = $('journey-purpose').value.trim();
+  const appIds = Array.from($('journey-canvas').querySelectorAll('.chip')).map(n => n.dataset.appid).filter(Boolean);
+  if(appIds.length === 0) return alert('Add at least one app to the canvas');
+  const j = { id: genId('journey'), name, owner, purpose, apps: appIds, levels: {} };
+  state.journeys.push(j);
+  saveAll();
+  renderSavedJourneys();
+  alert('Journey saved');
+});
+
+/* open saved journey to canvas (simple open) */
+$('saved-journeys').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-action="open-journey"]');
+  if(!btn) return;
+  const id = btn.dataset.id;
+  const j = state.journeys.find(x => x.id === id);
+  if(!j) return;
+  // empty canvas and add app chips in order
+  $('journey-canvas').innerHTML = '';
+  j.apps.forEach(appId => {
+    const app = state.apps.find(a=>a.id===appId);
+    if(!app) return;
+    const chip = document.createElement('div'); chip.className = 'chip'; chip.dataset.appid = app.id; chip.textContent = app.name;
+    const btnRem = document.createElement('button'); btnRem.className = 'btn btn-sm btn-link text-danger remove-app'; btnRem.innerHTML = '✕';
+    btnRem.style.marginLeft='6px'; btnRem.addEventListener('click', ()=> chip.remove());
+    chip.appendChild(btnRem);
+    $('journey-canvas').appendChild(chip);
+  });
+  $('journey-name').value = j.name;
+  $('journey-owner').value = j.owner;
+  $('journey-purpose').value = j.purpose;
+  setStage(2);
+});
+
+/* ---------- On Enter Stitching ---------- */
+function onEnterStitching(){
+  // build stitching area based on canvas apps
+  const canvasApps = Array.from($('journey-canvas').querySelectorAll('.chip')).map(n => n.dataset.appid).filter(Boolean);
+  const area = $('stitching-area'); area.innerHTML = '';
+  if(canvasApps.length === 0){ area.innerHTML = '<div class="muted">No apps in journey canvas. Go to Journeys and add apps.</div>'; return; }
+  canvasApps.forEach(appId => {
+    const app = state.apps.find(a=>a.id===appId);
+    const row = document.createElement('div'); row.className = 'd-flex align-items-center gap-2 mb-2';
+    const label = document.createElement('div'); label.style.minWidth='220px';
+    label.innerHTML = `<strong>${escapeHtml(app.name)}</strong><div class="muted small">${escapeHtml(app.source || '')}</div>`;
+    const sel = document.createElement('select'); sel.className = 'form-select'; sel.dataset.appid = app.id;
+    sel.style.maxWidth = '360px';
+    // populate options with keys from sample
+    const keys = app.sample && app.sample.length>0 ? Array.from(new Set(app.sample.flatMap(s => extractPathsFromObj(s)))) : [];
+    sel.innerHTML = `<option value="">-- select correlation key (suggested: ${app.mapping?.corr || 'none'}) --</option>` + keys.map(k => `<option value="${k}">${k}</option>`).join('');
+    if(app.mapping && app.mapping.corr) sel.value = app.mapping.corr;
+    row.appendChild(label); row.appendChild(sel);
+    area.appendChild(row);
+  });
+  // gather corr values for selection
+  updateCorrValueOptions();
+}
+
+/* collect corr values across apps with selected corr keys and populate dropdown */
+function updateCorrValueOptions(){
+  const selects = Array.from(document.querySelectorAll('#stitching-area select'));
+  if(selects.length===0) return;
+  // if not all selects set, we can still show union of corr values using default mapping
+  const appKeyPairs = selects.map(s => ({ appId: s.dataset.appid, key: s.value }));
+  // get values union
+  const corrValsSet = new Set();
+  appKeyPairs.forEach(pair=>{
+    const app = state.apps.find(a=>a.id===pair.appId);
+    const key = pair.key || (app.mapping && app.mapping.corr) || guessCorrelationKeyFromSample(app.sample);
+    if(!key) return;
+    app.sample.forEach(evt=>{ const v = getValueByPath(evt, key); if(v !== undefined && v !== null) corrValsSet.add(String(v)); });
+  });
+  const arr = Array.from(corrValsSet).slice(0,200);
+  const sel = $('corr-value-select'); sel.innerHTML = '';
+  if(arr.length === 0){ sel.innerHTML = '<option value="">No correlation values found</option>'; return; }
+  sel.innerHTML = '<option value="">-- choose trace value --</option>' + arr.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+}
+
+/* on clicking Preview Trace */
+$('btn-preview-trace').addEventListener('click', ()=>{
+  const value = $('corr-value-select').value;
+  if(!value) return alert('Pick a correlation value');
+  generateStitchedForValue(value);
+});
+$('btn-preview-sample').addEventListener('click', ()=>{
+  // show sample of stitched traces grouped - show limited
+  generateStitchedSamplePreview();
+});
+
+/* generate stitched timeline for a single corr value */
+function generateStitchedForValue(value){
+  const selects = Array.from(document.querySelectorAll('#stitching-area select'));
+  if(selects.length===0) return alert('No apps configured in stitching area');
+  let events = [];
+  selects.forEach(sel=>{
+    const appId = sel.dataset.appid;
+    const app = state.apps.find(a=>a.id===appId);
+    const key = sel.value || (app.mapping && app.mapping.corr) || guessCorrelationKeyFromSample(app.sample);
+    if(!key) return;
+    (app.sample || []).forEach(evt=>{
+      const val = getValueByPath(evt, key);
+      if(String(val) === String(value)){
+        const tsKey = app.mapping && app.mapping.timestamp ? app.mapping.timestamp : guessTimestampKeyFromSample(app.sample);
+        const tsRaw = getValueByPath(evt, tsKey);
+        const ts = tryParseDate(tsRaw);
+        events.push(Object.assign({ __app: app.name, __appid: app.id, __corrkey: key, __corrvalue: value, __tsRaw: tsRaw, __ts: ts }, evt));
+      }
+    });
+  });
+  events.sort((a,b)=> (a.__ts||0) - (b.__ts||0));
+  state.stitchedTimeline = events;
+  $('stitched-preview').textContent = JSON.stringify(events, null, 2);
+}
+
+/* parse many traces and show a sample */
+function generateStitchedSamplePreview(){
+  const selects = Array.from(document.querySelectorAll('#stitching-area select'));
+  if(selects.length===0) return alert('No apps configured in stitching area');
+  // pick first 20 corr values across first app
+  const firstSelect = selects[0];
+  const firstApp = state.apps.find(a=>a.id===firstSelect.dataset.appid);
+  const firstKey = firstSelect.value || (firstApp.mapping && firstApp.mapping.corr) || guessCorrelationKeyFromSample(firstApp.sample);
+  if(!firstKey) return alert('No correlation key available for the first app');
+  const corrVals = Array.from(new Set(firstApp.sample.map(s => getValueByPath(s, firstKey)).filter(Boolean))).slice(0,20);
+  const output = [];
+  corrVals.forEach(val => {
+    // build stitched for val
+    let events = [];
+    selects.forEach(sel=>{
+      const app = state.apps.find(a=>a.id===sel.dataset.appid);
+      const key = sel.value || (app.mapping && app.mapping.corr) || guessCorrelationKeyFromSample(app.sample);
+      if(!key) return;
+      (app.sample||[]).forEach(evt => {
+        const v = getValueByPath(evt, key);
+        if(String(v) === String(val)){
+          const tsKey = app.mapping && app.mapping.timestamp ? app.mapping.timestamp : guessTimestampKeyFromSample(app.sample);
+          const ts = tryParseDate(getValueByPath(evt, tsKey));
+          events.push(Object.assign({ __app: app.name, __corr: val, __ts: ts }, evt));
+        }
+      });
+    });
+    events.sort((a,b)=> (a.__ts||0) - (b.__ts||0));
+    output.push({ trace: String(val), events: events });
+  });
+  $('stitched-preview').textContent = JSON.stringify(output.slice(0,10), null, 2);
+  state.stitchedTimeline = output.length>0 && output[0].events ? output[0].events : [];
+}
+
+/* try parse date into timestamp (ms) fallback null */
+function tryParseDate(v){
+  if(!v) return null;
+  if(typeof v === 'number') return v;
+  const d = new Date(v);
+  if(!isNaN(d.getTime())) return d.getTime();
+  // try numeric parse
+  const n = Number(v);
+  if(!isNaN(n)) return n;
+  return null;
+}
+
+/* ---------- Leveling behaviors ---------- */
+
+function onEnterLeveling(){
+  // build activities bank from stitchedTimeline (if present) else union across journey apps
+  let acts = [];
+  if(state.stitchedTimeline && state.stitchedTimeline.length>0){
+    acts = Array.from(new Set(state.stitchedTimeline.map(e => e.activity || e.event || e.action || e.type || (e['activity'] ? e['activity'] : null) ).filter(Boolean)));
+  } else {
+    // union across apps in canvas
+    const appIds = Array.from($('journey-canvas').querySelectorAll('.chip')).map(c=>c.dataset.appid).filter(Boolean);
+    const union = new Set();
+    appIds.forEach(id => {
+      const app = state.apps.find(a=>a.id===id);
+      (app.sample||[]).forEach(evt => {
+        const act = evt[ (app.mapping && app.mapping.activity) || guessActivityKeyFromSample(app.sample) ] || evt.activity || evt.event || null;
+        if(act) union.add(String(act));
+      });
+    });
+    acts = Array.from(union);
+  }
+  populateActivitiesBank(acts);
+}
+
+/* populate activity bank with activity-item elements */
+function populateActivitiesBank(acts){
+  const bank = $('activities-bank'); bank.innerHTML = '';
+  if(!acts || acts.length === 0){ bank.innerHTML = '<div class="muted small">No activities found</div>'; return; }
+  acts.forEach(a=>{
+    const div = document.createElement('div'); div.className = 'activity-item'; div.draggable = true; div.dataset.activity = a;
+    div.innerHTML = `<span>${escapeHtml(a)}</span>`;
+    // click toggles selection
+    div.addEventListener('click', (e)=> {
+      div.classList.toggle('selected');
+    });
+    bank.appendChild(div);
+  });
+  // make bank draggable (clone)
+  new Sortable($('activities-bank'), { group:{name:'activities', pull:'clone', put:false}, sort:false, animation:150 });
+  // levels accept items
+  ['level-1','level-2','level-3'].forEach(id => {
+    new Sortable($(id), { group:'activities', animation:150, onAdd: () => {} });
+  });
+}
+
+/* Merge selected items into a named business function - adds new node to Level1 */
+$('btn-merge').addEventListener('click', ()=>{
+  const name = $('merge-name').value.trim();
+  if(!name) return alert('Enter merge name');
+  const selected = Array.from(document.querySelectorAll('.activity-item.selected'));
+  if(selected.length === 0) return alert('Select activities (click them) to merge');
+  // create node
+  const merged = document.createElement('div'); merged.className = 'activity-item'; merged.dataset.activity = name;
+  merged.innerHTML = `<strong>${escapeHtml(name)}</strong>`;
+  // store metadata of members
+  merged.dataset.members = JSON.stringify(selected.map(s=>s.dataset.activity));
+  // remove originals
+  selected.forEach(s => s.remove());
+  // append to level-1
+  $('level-1').appendChild(merged);
+  // make it draggable by Sortable (already applies)
+  $('merge-name').value = '';
+});
+
+/* clear selection */
+$('btn-clear-selection').addEventListener('click', ()=>{
+  document.querySelectorAll('.activity-item.selected').forEach(n => { n.classList.remove('selected'); n.style.outline = 'none'; });
+});
+
+/* ---------- Mermaid generation for BPMN ---------- */
+
+function generateMermaidForLevel(level){
+  const elems = Array.from($(`level-${level}`).querySelectorAll('.activity-item')).map(n => {
+    const members = n.dataset.members ? JSON.parse(n.dataset.members) : null;
+    const label = members ? `${n.dataset.activity}` : n.dataset.activity || n.textContent.trim();
+    return label;
+  });
+  if(elems.length === 0) return 'graph LR; Start([Start]) --> End([End]);';
+  // build sequence
+  let m = 'graph LR;\n';
+  m += 'Start([Start]) --> N0["' + safeMermaid(elems[0]) + '"];\n';
+  for(let i=0;i<elems.length-1;i++){
+    m += `N${i}["${safeMermaid(elems[i])}"] --> N${i+1}["${safeMermaid(elems[i+1])}"];\n`;
+  }
+  m += `N${elems.length-1}["${safeMermaid(elems[elems.length-1])}"] --> End([End]);`;
+  return m;
+}
+function safeMermaid(s){ return String(s).replace(/"/g,"'"); }
+
+$('bpmn-level').addEventListener('change', ()=> renderMermaid());
+
+function renderMermaid(){
+  const lvl = $('bpmn-level').value || '3';
+  const code = generateMermaidForLevel(lvl);
+  const container = $('bpmn-canvas');
+  // render using mermaid API
+  try{
+    mermaid.mermaidAPI.render('pm_graph', code, (svg) => { container.innerHTML = svg; });
+  }catch(err){
+    container.textContent = 'Diagram render failed: ' + err.message;
+  }
+}
+
+/* copy mermaid */
+$('btn-copy-mermaid').addEventListener('click', ()=>{
+  const lvl = $('bpmn-level').value || '3';
+  const code = generateMermaidForLevel(lvl);
+  navigator.clipboard.writeText(code).then(()=> alert('Mermaid code copied to clipboard'));
+});
+
+/* ---------- Utilities ---------- */
+
+/* when document loads, set up initial UI and event handlers */
+function initUI(){
+  // load state or seed sample apps if none
+  if(!state.apps || state.apps.length === 0){
+    // don't auto-load sample apps unless user asked; keep empty to let user choose
+  } else {
+    // ensure mapping defaults exist
+    state.apps.forEach(a=>{
+      a.mapping = a.mapping || {};
+    });
+  }
+  renderAll();
+  setStage(1);
+}
+
+/* render all components when state changes */
+function renderAll(){
+  renderAppsList();
+  renderJourneyAppBank();
+  renderSavedJourneys();
+  setupJourneyCanvasDrag();
+  // set up mapping attach (ensures Sortable created)
+  attachFieldDrag();
+}
+
+/* helper to attach drag from apps list chips to journey bank if chips are inside app tiles */
+document.addEventListener('dragstart', (e) => {
+  const chip = e.target.closest('.chip[data-appid]');
+  if(chip){
+    e.dataTransfer.setData('text/appid', chip.dataset.appid);
+  }
+});
+
+/* make journey bank accept clones and journey canvas accept clones */
+function setupJourneyCanvasDrag(){
+  // bank is static (chips represent apps)
+  // make journey canvas a Sortable that accepts clones
+  try{ new Sortable($('journey-canvas'), { group: { name:'journey', pull:'clone', put:true }, animation:150, onAdd: function(evt){
+    const node = evt.item;
+    // if cloned element lacks dataset, attempt to set from text
+    if(!node.dataset.appid){
+      const name = node.textContent.trim();
+      const found = state.apps.find(a=>name.startsWith(a.name));
+      if(found) node.dataset.appid = found.id;
+    }
+    // add remove button
+    if(!node.querySelector('.remove-app')){
+      const btn = document.createElement('button'); btn.className = 'btn btn-sm btn-link text-danger remove-app'; btn.innerHTML = '✕';
+      btn.style.marginLeft='6px'; btn.addEventListener('click', ()=> node.remove());
+      node.appendChild(btn);
+    }
+    node.classList.add('chip');
+  } }); } catch(e){ console.warn(e); }
+
+  // also make journey-app-bank sortable cloneable
+  try{ new Sortable($('journey-app-bank'), { group: { name:'journey', pull:'clone', put:false }, animation:150, sort:false }); } catch(e){ console.warn(e); }
+}
+
+/* small helper to render saved journey list */
+function renderSavedJourneys(){
+  const el = $('saved-journeys'); el.innerHTML = '';
+  if(!state.journeys || state.journeys.length === 0){ el.innerHTML = '<div class="muted small">No journeys saved yet</div>'; return; }
+  state.journeys.forEach(j=> {
+    const node = document.createElement('div'); node.className = 'd-flex align-items-center gap-2 mb-2';
+    node.innerHTML = `<div style="flex:1"><strong>${escapeHtml(j.name)}</strong><div class="muted small">${escapeHtml(j.owner || '')} • ${escapeHtml(j.purpose || '')}</div></div>
+      <div><button class="btn btn-sm btn-outline-secondary" data-open="${j.id}">Open</button></div>`;
+    el.appendChild(node);
+  });
+}
+
+/* clicking open saved journey button */
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-open]');
+  if(btn){
+    const id = btn.dataset.open;
+    const j = state.journeys.find(x => x.id === id);
+    if(!j) return;
+    // populate canvas
+    $('journey-canvas').innerHTML = '';
+    j.apps.forEach(appId => {
+      const app = state.apps.find(a=>a.id===appId);
+      if(!app) return;
+      const chip = document.createElement('div'); chip.className='chip'; chip.dataset.appid = app.id; chip.textContent = app.name;
+      const rem = document.createElement('button'); rem.className = 'btn btn-sm btn-link text-danger remove-app'; rem.innerHTML='✕'; rem.style.marginLeft='6px'; rem.addEventListener('click', ()=> chip.remove());
+      chip.appendChild(rem);
+      $('journey-canvas').appendChild(chip);
+    });
+    $('journey-name').value = j.name; $('journey-owner').value = j.owner; $('journey-purpose').value = j.purpose;
+    setStage(2);
+  }
+});
+
+/* clicking edit/delete in saved journey not implemented (not required) */
+
+/* update corr values whenever select changes */
+document.addEventListener('input', (e)=>{
+  if(e.target.closest('#stitching-area')) updateCorrValueOptions();
+});
+
+/* init and render at load */
+initUI();
+
+/* helper to escape used in selects */
+function escapeForAttribute(s){ return String(s).replace(/"/g,'&quot;'); }
+
+</script>
+</body>
+</html>
