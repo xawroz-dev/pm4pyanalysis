@@ -1,0 +1,425 @@
+
+---
+
+# Why a graph is best for stitching
+
+1) **Transitive linking is native.**  
+If A shares key₁ with C and B shares key₂ with C, graph connectivity (weakly connected components / union-find) puts **A, B, C in the same group** automatically—no brittle chains of SQL joins or manual propagation logic.
+
+2) **Many-to-many keys, mixed strength.**  
+Journeys often carry multiple identifiers (pcn_id, order_id, session_id, device_id, email_hash…). Graphs model this naturally as a **bipartite** structure (`AppJourney ↔ Key`). You can include/exclude keys, add weights, or limit “hubby” keys without schema churn.
+
+3) **Late data converges correctly.**  
+When C arrives two days later and bridges A and B, the **next WCC run** folds all three into one canonical journey. No re-architecting—just re-compute components over your chosen time window.
+
+4) **Explainable and auditable.**  
+You can show *why* two journeys unified: “A ↔ (pcn_id=PCN-7) ↔ C ↔ (session_id=S-9) ↔ B.” Investigators and auditors can **see the path**, not just an opaque match score.
+
+5) **Decouples structure from volume.**  
+Keep raw, wide events in ES/OLAP (cheap at scale); put only **structure** in the graph (journeys, keys, edges). That keeps Neo4j hot, small, and fast while your heavy analytics stay columnar.
+
+6) **Controlled accuracy.**  
+You can add **time windows** (only recent edges count) and **fan-out caps** (ignore keys seen in >N journeys) to prevent over-merging—tunable without touching event pipelines.
+
+7) **Deterministic, concurrency-safe merges.**  
+Run connectivity in batches; when multiple canonicals unify, pick a deterministic **winner** and alias/repoint the losers. Downstream stores get a single **canonical_journey_id** every time.
+
+---
+
+# How to do it (Neo4j, end-to-end)
+
+**Concepts you’ll use**
+- `event_id` (deterministic) to dedupe upstream.
+- `local_journey_id` (what each app emits) is treated as **just another key**.
+- `canonical_journey_id` (computed from the graph) is what you use everywhere else.
+
+## 1) Model the structure (lean)
+- **Nodes**
+  - `(:AppJourney {app, id})` – per-app journey (A-123, B-9…)
+  - `(:Key {type, value})` – identifiers (pcn_id, session_id, email_hash…)
+  - `(:CanonicalJourney {id, version})` – global journey you’ll attach members to
+- **Rels**
+  - `(aj)-[:USES_KEY {ts: datetime}]->(key)`
+  - `(cj)-[:HAS_APP_JOURNEY]->(aj)`
+- **Constraints**
+  ```cypher
+  CREATE CONSTRAINT appjourney_unique IF NOT EXISTS
+  FOR (n:AppJourney) REQUIRE (n.app, n.id) IS UNIQUE;
+  CREATE CONSTRAINT key_unique IF NOT EXISTS
+  FOR (n:Key) REQUIRE (n.type, n.value) IS UNIQUE;
+  CREATE CONSTRAINT canonical_unique IF NOT EXISTS
+  FOR (n:CanonicalJourney) REQUIRE (n.id) IS UNIQUE;
+  ```
+
+## 2) Ingest micro-batches (idempotent)
+From your normalized “silver” events (already deduped by `event_id`), upsert the structure:
+```cypher
+// params: $app, $localJourneyId, $eventTime, $keys = [{type:'pcn_id',value:'PCN-7'}, ...]
+MERGE (aj:AppJourney {app:$app, id:$localJourneyId})
+UNWIND $keys AS k
+  MERGE (key:Key {type:k.type, value:k.value})
+  MERGE (aj)-[r:USES_KEY]->(key)
+  ON CREATE SET r.ts = datetime($eventTime)
+```
+(Do not push full payloads into Neo4j—keep those in ES/OLAP.)
+
+## 3) Build a GDS projection (windowed + hub-key cap)
+Every N minutes (e.g., 15–60), project an in-memory graph where **AppJourneys are connected if they share a Key** in your business window and the key isn’t a hub:
+```cypher
+CALL gds.graph.project.cypher(
+  'journeyProjection',
+  'MATCH (aj:AppJourney) RETURN id(aj) AS id',
+  '
+  MATCH (k:Key)<-[r:USES_KEY]-(a:AppJourney)
+  WHERE r.ts >= datetime() - duration("P90D")   // time window
+  WITH k, collect(a) AS js
+  WHERE size(js) <= 200                         // fan-out cap
+  UNWIND js AS a
+  UNWIND js AS b
+  WITH a,b WHERE a<>b
+  RETURN id(a) AS source, id(b) AS target
+  '
+);
+```
+
+## 4) Compute connectivity and label members
+```cypher
+CALL gds.wcc.write('journeyProjection', { writeProperty: 'componentId' });
+CALL gds.graph.drop('journeyProjection');
+```
+
+## 5) Mint/refresh Canonicals and attach members
+Use a **stable id function** so canonical ids don’t flap (e.g., hash of the lexicographically smallest `(app|id)` in the component):
+```cypher
+CALL {
+  MATCH (aj:AppJourney)
+  WITH aj.componentId AS comp, collect(aj.app + '|' + aj.id) AS ids
+  WITH comp, apoc.coll.sort(ids)[0] AS minToken
+  WITH comp, 'CJ:' + toString(apoc.util.sha256([minToken])) AS cjId
+  MERGE (cj:CanonicalJourney {id:cjId})
+  ON CREATE SET cj.version = 1, cj.created_at = timestamp()
+  ON MATCH  SET cj.version = cj.version + 1, cj.updated_at = timestamp()
+  WITH cj, comp
+  MATCH (m:AppJourney {componentId: comp})
+  MERGE (cj)-[:HAS_APP_JOURNEY]->(m)
+} IN TRANSACTIONS OF 10000 ROWS;
+```
+
+## 6) Merge canonicals when a component contains >1
+(Handles the “A and B were separate, C arrives later and binds both” case.)
+```cypher
+MATCH (aj:AppJourney)
+WITH aj.componentId AS comp, collect(aj) AS members
+CALL {
+  WITH members
+  MATCH (c:CanonicalJourney)-[:HAS_APP_JOURNEY]->(m)
+  WHERE m IN members
+  WITH collect(DISTINCT c) AS cjs, members
+  WHERE size(cjs) > 1
+  WITH apoc.coll.sortNodes(cjs,'id') AS sorted, members
+  WITH head(sorted) AS winner, tail(sorted) AS losers, members
+  FOREACH (loser IN losers |
+    MERGE (loser)-[:ALIAS_OF]->(winner)
+    WITH loser, winner, members
+    MATCH (loser)-[r:HAS_APP_JOURNEY]->(m) WHERE m IN members
+    MERGE (winner)-[:HAS_APP_JOURNEY]->(m)
+    DELETE r
+  )
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+## 7) Export the mapping and enrich downstream
+Publish `(app, local_journey_id) → canonical_journey_id` so ES/OLAP can tag events (update prior A/B when C caused a merge):
+```cypher
+MATCH (cj:CanonicalJourney)-[:HAS_APP_JOURNEY]->(aj:AppJourney)
+RETURN aj.app AS app, aj.id AS local_journey_id, cj.id AS canonical_journey_id;
+```
+Store this in a KV (Spanner/Redis/Postgres) or emit as a Kafka topic of deltas.
+
+## 8) Operate & tune
+- **Cadence:** run steps 3–7 every 15–60 minutes (fits “not real-time, high volume”).  
+- **Windows:** pick ≥ your worst-case lateness (e.g., 30–90 days).  
+- **Caps:** tune fan-out threshold per key type (e.g., device_id stricter than pcn_id).  
+- **Metrics:** merges/run, largest component size, % edges dropped by caps, time-to-converge.  
+- **Privacy:** HMAC/hash sensitive keys (email, phone).  
+- **Backfill:** you can replay silver events; upserts keep graph consistent.
+
+---
+
+## Quick mental model
+- **ES/OLAP:** fast search, dashboards, heavy payloads.  
+- **Neo4j:** the *map* of how things connect.  
+- **GDS WCC:** the “glue” that turns many local journeys + many keys into **one canonical journey**—even when links are indirect or late.
+
+If you want, I can trim this into a one-page “design rationale + runbook” and a ready-to-paste Cypher + GDS job template you can schedule in your environment.
+
+
+
+
+
+Awesome—here’s what you asked for:
+
+# References (why this works)
+
+* **Transitive stitching = Connected Components (WCC).** WCC groups all nodes that are connected by *any* path, exactly matching “A↔B via key₁, B↔C via key₂ ⇒ {A,B,C} one journey.” (Neo4j GDS WCC docs; explainer blog). ([Graph Database & Analytics][1])
+* **Build the analysis graph on-the-fly with Cypher projection.** You can project a filtered, in-memory graph from your stored `AppJourney`↔`Key` structure—add time windows and drop hub keys *before* WCC. (Neo4j GDS Cypher projection + “projecting graphs” docs). ([Graph Database & Analytics][2])
+* **Entity Resolution (ER) is well-established as a graph/collective problem.** Classic research shows higher accuracy when you use relationships, not only attributes (collective ER). (Bhattacharya & Getoor; survey/overviews). ([LINQS][3])
+* **Record linkage theory (Fellegi–Sunter).** Canonical background on match/merge; your “canonical_journey” is the merged entity. ([Cornell Computer Science][4])
+* **Neo4j’s official ER guidance.** Practical notes and patterns using GDS for ER. ([Graph Database & Analytics][5])
+* **Performance tuning WCC.** Neo4j engineering tips for efficient WCC projections (handy at your volume). ([Graph Database & Analytics][6])
+
+---
+
+# Step-by-step: from Docker → Python → ingestion → stitching
+
+## 1) Run Neo4j (with APOC + GDS) via Docker
+
+Create `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+services:
+  neo4j:
+    image: neo4j:5-enterprise
+    container_name: neo4j-gds
+    ports:
+      - "7474:7474"   # HTTP
+      - "7687:7687"   # Bolt
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_AUTH: "neo4j/test123"             # change me
+      NEO4J_server_memory_heap_initial__size: "8G"
+      NEO4J_server_memory_heap_max__size: "8G"
+      NEO4J_server_memory_pagecache_size: "6G"
+      NEO4JLABS_PLUGINS: '["apoc","graph-data-science"]'
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_import_file_enabled: "true"
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/logs:/logs
+      - ./neo4j/conf:/conf
+      - ./neo4j/import:/import
+```
+
+Run it:
+
+```bash
+docker compose up -d
+```
+
+Why these settings?
+
+* **Plugins** via `NEO4JLABS_PLUGINS` load APOC + GDS automatically in Docker. ([GitHub][7])
+* **Memory** env keys use the Dockerized form of config (dots → double underscores). Use `server.memory.heap.initial_size/max_size` & `server.memory.pagecache.size`. ([Graph Database & Analytics][8])
+
+Open Neo4j Browser at `http://localhost:7474` and log in with your password.
+
+---
+
+## 2) Create constraints (idempotent upserts)
+
+In Neo4j Browser:
+
+```cypher
+CREATE CONSTRAINT appjourney_unique IF NOT EXISTS
+FOR (n:AppJourney) REQUIRE (n.app, n.id) IS UNIQUE;
+
+CREATE CONSTRAINT key_unique IF NOT EXISTS
+FOR (n:Key) REQUIRE (n.type, n.value) IS UNIQUE;
+
+CREATE CONSTRAINT canonical_unique IF NOT EXISTS
+FOR (n:CanonicalJourney) REQUIRE (n.id) IS UNIQUE;
+```
+
+---
+
+## 3) Connect from Python
+
+Install drivers:
+
+```bash
+pip install neo4j graphdatascience
+```
+
+Connect:
+
+```python
+from neo4j import GraphDatabase
+from graphdatascience import GraphDataScience
+
+NEO4J_URI = "neo4j://localhost:7687"
+AUTH = ("neo4j", "test123")
+
+driver = GraphDatabase.driver(NEO4J_URI, auth=AUTH)
+gds = GraphDataScience(NEO4J_URI, auth=AUTH)
+```
+
+(Official Neo4j Python driver + GDS Python client docs). ([Graph Database & Analytics][9])
+
+---
+
+## 4) Ingest (micro-batches) the *structure* only
+
+Keep raw payloads in ES/OLAP; send only structure to Neo4j:
+
+```python
+UPSERT_CYPHER = """
+UNWIND $batch AS row
+MERGE (aj:AppJourney {app: row.app, id: row.local_journey_id})
+WITH aj, row
+UNWIND row.keys AS k
+  MERGE (key:Key {type: k.type, value: k.value})
+  MERGE (aj)-[r:USES_KEY]->(key)
+  ON CREATE SET r.ts = datetime(row.event_time)
+"""
+
+def ingest_batch(session, batch):
+    session.run(UPSERT_CYPHER, batch=batch)
+
+# Example batch
+batch = [
+  {
+    "app": "A",
+    "local_journey_id": "A-123",
+    "event_time": "2025-10-19T21:10:00Z",
+    "keys": [{"type":"pcn_id","value":"PCN-7"},
+             {"type":"session_id","value":"S-9"}]
+  },
+  # ... more rows
+]
+
+with driver.session() as s:
+    ingest_batch(s, batch)
+```
+
+* Use micro-batches (1k–10k rows) and `UNWIND` for throughput.
+* Relationship property `ts` lets you **window** your analysis later. (Projection/windowing in GDS). ([Graph Database & Analytics][10])
+
+---
+
+## 5) Stitch (compute *canonical* journeys) with GDS
+
+### 5.1 Project the in-memory graph (windowed + “hub key” capped)
+
+```python
+from datetime import datetime, timedelta
+since = (datetime.utcnow() - timedelta(days=90)).isoformat() + "Z"
+
+G, _ = gds.graph.project_cypher(
+    "journeyProjection",
+    "MATCH (aj:AppJourney) RETURN id(aj) AS id",
+    """
+    MATCH (k:Key)<-[r:USES_KEY]-(a:AppJourney)
+    WHERE r.ts >= datetime($since)
+    WITH k, collect(a) AS js
+    WHERE size(js) <= $maxFanout
+    UNWIND js AS a
+    UNWIND js AS b
+    WITH a,b WHERE a<>b
+    RETURN id(a) AS source, id(b) AS target
+    """,
+    params={"since": since, "maxFanout": 200}
+)
+```
+
+(Cypher projection lets you build exactly the subgraph you need.) ([Graph Database & Analytics][2])
+
+### 5.2 Run WCC (connected components) and write labels
+
+```python
+gds.wcc.write(G, writeProperty="componentId")
+gds.graph.drop("journeyProjection")
+```
+
+(WCC groups all transitively connected app-journeys—your stitched sets.) ([Graph Database & Analytics][1])
+
+### 5.3 Create/refresh *CanonicalJourney* + membership
+
+Use a **stable** canonical id (hash of the lexicographically smallest `(app|id)` in the component) so ids don’t flap:
+
+```python
+CREATE_CJ = """
+CALL {
+  MATCH (aj:AppJourney)
+  WITH aj.componentId AS comp, collect(aj.app + '|' + aj.id) AS ids
+  WITH comp, apoc.coll.sort(ids)[0] AS minToken
+  WITH comp, 'CJ:' + toString(apoc.util.sha256([minToken])) AS cjId
+  MERGE (cj:CanonicalJourney {id:cjId})
+  ON CREATE SET cj.version = 1, cj.created_at = timestamp()
+  ON MATCH  SET cj.version = cj.version + 1, cj.updated_at = timestamp()
+  WITH cj, comp
+  MATCH (m:AppJourney {componentId: comp})
+  MERGE (cj)-[:HAS_APP_JOURNEY]->(m)
+} IN TRANSACTIONS OF 10000 ROWS;
+"""
+
+with driver.session() as s:
+    s.run(CREATE_CJ)
+```
+
+(You installed APOC via Docker env; that’s where `apoc.coll.sort`/`apoc.util.sha256` come from.) ([Graph Database & Analytics][11])
+
+### 5.4 (Optional) Merge Canonicals if a component contains >1
+
+If earlier runs created multiple canonicals that later unify (late data), merge by deterministic **winner** and alias/repoint losers in small batches.
+
+*(You can use the merge block I shared earlier—same logic, executed from Python with `session.run`.)*
+
+---
+
+## 6) Export the AJ→CJ mapping (for ES/OLAP enrichment)
+
+```python
+READ_MAP = """
+MATCH (cj:CanonicalJourney)-[:HAS_APP_JOURNEY]->(aj:AppJourney)
+RETURN aj.app AS app, aj.id AS local_journey_id, cj.id AS canonical_journey_id
+"""
+with driver.session() as s:
+    rows = s.run(READ_MAP).data()
+# Write rows to your KV store (Spanner/Redis/Postgres) or publish to Kafka
+```
+
+---
+
+## 7) Put it on a schedule
+
+* Wrap **5.1 → 6** in a Python script (`stitch.py`) and schedule with cron/Airflow (e.g., every 15–60 minutes).
+* Choose a **window ≥ worst-case lateness** (you said “2 days”; use 30–90 days for safety).
+* Tune **`maxFanout`** per key type to avoid hub keys (device_id stricter than pcn_id).
+* For performance tips on WCC projections, see Neo4j’s guidance. ([Graph Database & Analytics][6])
+
+---
+
+## 8) Why this is robust for late and transitive links
+
+* C can arrive days later and bridge A & B. Next batch WCC recomputes components; your **canonical** membership updates accordingly—then you export a fresh mapping and update downstream. (WCC definition + ER background.) ([Graph Database & Analytics][1])
+
+---
+
+### Handy docs you’ll likely revisit
+
+* GDS **WCC** algorithm page. ([Graph Database & Analytics][1])
+* GDS **graph projection** with Cypher. ([Graph Database & Analytics][2])
+* GDS manual (catalog + algorithms). ([Graph Database & Analytics][12])
+* Neo4j **Python driver** & examples. ([Graph Database & Analytics][9])
+* **GDS Python client** (`graphdatascience`) intro & API. ([Graph Database & Analytics][13])
+* Docker **config env** names & memory settings. ([Graph Database & Analytics][8])
+* **Entity Resolution** with GDS (Neo4j blog). ([Graph Database & Analytics][5])
+
+---
+
+If you want, I can package this into a ready-to-run Git repo (compose file, Python scripts, and a small demo dataset) so you can try the full loop locally.
+
+[1]: https://neo4j.com/docs/graph-data-science/current/algorithms/wcc/?utm_source=chatgpt.com "Weakly Connected Components - Neo4j Graph Data Science"
+[2]: https://neo4j.com/docs/graph-data-science/current/management-ops/graph-creation/graph-project-cypher-projection/?utm_source=chatgpt.com "Cypher projection - Neo4j Graph Data Science"
+[3]: https://linqs.org/assets/resources/bhattacharya-tkdd07.pdf?utm_source=chatgpt.com "Collective Entity Resolution in Relational Data - LINQS"
+[4]: https://www.cs.cornell.edu/~shmat/courses/cs6434/fellegi-sunter.pdf?utm_source=chatgpt.com "A theory for record linkage"
+[5]: https://neo4j.com/blog/graph-data-science/graph-data-science-use-cases-entity-resolution/?utm_source=chatgpt.com "Graph Data Science Use Cases: Entity Resolution"
+[6]: https://neo4j.com/blog/developer/optimize-weakly-connected-component-projections/?utm_source=chatgpt.com "Optimize Weakly Connected Component Projections"
+[7]: https://github.com/neo4j/docker-neo4j/issues/300?utm_source=chatgpt.com "Unable to load GDS and APOC plugins in docker container"
+[8]: https://neo4j.com/docs/operations-manual/current/docker/ref-settings/?utm_source=chatgpt.com "Docker-specific configuration settings - Operations Manual"
+[9]: https://neo4j.com/docs/python-manual/current/install/?utm_source=chatgpt.com "Installation - Neo4j Python Driver Manual"
+[10]: https://neo4j.com/docs/graph-data-science/current/common-usage/projecting-graphs/?utm_source=chatgpt.com "Projecting graphs - Neo4j Graph Data Science"
+[11]: https://neo4j.com/docs/apoc/current/installation/?utm_source=chatgpt.com "Installation - APOC Core Documentation"
+[12]: https://neo4j.com/docs/graph-data-science/current/?utm_source=chatgpt.com "The Neo4j Graph Data Science Library Manual v2.22"
+[13]: https://neo4j.com/docs/graph-data-science-client/current/?utm_source=chatgpt.com "Neo4j Graph Data Science Python Client"
