@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""
+Neo4j Graph Stitching Demo – WCC End‑to‑End (9 Journeys, 3 Apps Each)
+---------------------------------------------------------------------
+
+What this script does (end‑to‑end):
+1) Connects to Neo4j (requires APOC + GDS enabled; Aura or self‑hosted).
+2) Creates constraints/indexes and clears prior demo data (safe to rerun).
+3) Ingests **9 complete multi‑app journeys** (A/B/C apps for each journey id 1..9):
+   - For each journey i: AppA:Ai, AppB:Bi, AppC:Ci
+   - Keys: pcn = PCN‑i, corr = TOK‑i (so all three apps link transitively)
+4) Builds RELATED_TO edges by exact key match across AppJourneys.
+5) Projects a GDS in‑memory graph over strong edges and runs **Weakly Connected Components (WCC)**.
+6) Materializes **CanonicalJourney** nodes and INCLUDES edges → (CJ)‑[:INCLUDES]→(AJ).
+7) Provides `get_linked_nodes(app, app_id)` to fetch **all linked nodes** in the same CJ.
+8) Verifies correctness by asserting each Ai ↔ {Bi, Ci}, each Bi ↔ {Ai, Ci}, each Ci ↔ {Ai, Bi} across all 9 journeys.
+
+Prereqs
+- Python package: neo4j (pip install neo4j)
+- Neo4j 5.x (or Aura) with GDS installed; APOC recommended
+- Env vars for auth: NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
+
+NOTE
+- Demo schema; adjust labels/props to your domain.
+- Events are modeled minimally for clarity (no separate :Event nodes here).
+"""
+from __future__ import annotations
+import os
+from neo4j import GraphDatabase
+from typing import List, Dict, Any, Tuple
+
+NEO4J_URI = os.getenv("NEO4J_URI", "neo4j://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
+
+RULE_VERSION = "v1"
+EDGE_WEIGHT_STRONG = 1.0
+WCC_THRESHOLD = 0.75  # project edges >= threshold (we store all as 1.0)
+GDS_GRAPH_NAME = "journeys_demo"
+
+# --------------------------------------------------
+# Cypher helpers
+# --------------------------------------------------
+SCHEMA_CYPHER = [
+    # Constraints (idempotent)
+    "CREATE CONSTRAINT appjourney_pk IF NOT EXISTS FOR (n:AppJourney) REQUIRE (n.app, n.app_id) IS UNIQUE",
+    "CREATE CONSTRAINT corrkey_pk    IF NOT EXISTS FOR (n:CorrelationKey) REQUIRE (n.key_type, n.key_hash) IS UNIQUE",
+    "CREATE CONSTRAINT cj_pk         IF NOT EXISTS FOR (n:CanonicalJourney) REQUIRE n.cj_id IS UNIQUE",
+    # For faster lookups
+    "CREATE INDEX aj_last_ts IF NOT EXISTS FOR (n:AppJourney) ON (n.last_event_ts)",
+]
+
+CLEAR_DEMO_DATA = [
+    # Delete only our demo data by labels
+    "MATCH (n:CanonicalJourney) DETACH DELETE n",
+    "MATCH (n:AppJourney) DETACH DELETE n",
+    "MATCH (n:CorrelationKey) DETACH DELETE n",
+]
+
+UPSERT_AJ_AND_KEYS = """
+UNWIND $events AS ev
+MERGE (aj:AppJourney {app: ev.app, app_id: ev.app_id})
+  ON CREATE SET aj.aj_id = coalesce(ev.aj_id, 'AJ_' + ev.app + '_' + ev.app_id),
+                aj.first_event_ts = ev.ts,
+                aj.last_event_ts  = ev.ts,
+                aj.created_at = timestamp()
+  ON MATCH  SET aj.last_event_ts  = CASE WHEN aj.last_event_ts < ev.ts THEN ev.ts ELSE aj.last_event_ts END,
+                aj.first_event_ts = CASE WHEN aj.first_event_ts > ev.ts THEN ev.ts ELSE aj.first_event_ts END,
+                aj.updated_at = timestamp()
+WITH ev, aj
+UNWIND ev.keys AS k
+WITH aj, k.key_type AS key_type, k.raw_value AS raw_value
+WITH aj, key_type, toLower(trim(raw_value)) AS norm
+WITH aj, key_type, norm, apoc.util.sha256([norm]) AS key_hash
+MERGE (ck:CorrelationKey {key_type: key_type, key_hash: key_hash})
+  ON CREATE SET ck.first_seen_ts = timestamp(), ck.source_app = aj.app
+  ON MATCH  SET ck.last_seen_ts  = timestamp()
+MERGE (aj)-[r:HAS_KEY]->(ck)
+  ON CREATE SET r.first_seen_ts = timestamp(), r.source_app = aj.app
+  ON MATCH  SET r.last_seen_ts  = timestamp();
+"""
+
+# Build RELATED_TO edges for exact key matches across AppJourneys
+BUILD_EDGES_BY_KEYS = """
+// For each CorrelationKey connected to 2+ AppJourneys, connect the AJs
+MATCH (ck:CorrelationKey)<-[:HAS_KEY]-(a:AppJourney)
+WITH ck, collect(DISTINCT a) AS ajs WHERE size(ajs) > 1
+UNWIND range(0, size(ajs)-2) AS i
+UNWIND range(i+1, size(ajs)-1) AS j
+WITH ck, ajs[i] AS a, ajs[j] AS b
+MERGE (a)-[r:RELATED_TO {evidence: ck.key_type, rule_version: $rule_version}]->(b)
+  ON CREATE SET r.weight = $edge_weight,
+                r.established_at = timestamp()
+  ON MATCH  SET r.weight = $edge_weight,
+                r.updated_at = timestamp();
+"""
+
+# Drop old projection (ignore if missing), project graph, run WCC writing componentId
+GDS_DROP_IF_EXISTS = """
+CALL gds.graph.drop($gname, false) YIELD graphName RETURN graphName
+"""
+
+GDS_PROJECT = """
+CALL gds.graph.project(
+  $gname,
+  ['AppJourney'],
+  {
+    RELATED_TO: {
+      type: 'RELATED_TO',
+      orientation: 'UNDIRECTED',
+      properties: ['weight']
+    }
+  }
+)
+YIELD graphName, nodeCount, relationshipCount
+"""
+
+GDS_WCC_WRITE = """
+CALL gds.wcc.write($gname, {
+  relationshipWeightProperty: 'weight',
+  writeProperty: 'componentId'
+})
+YIELD componentCount, nodePropertiesWritten
+"""
+
+# Materialize CanonicalJourney nodes from componentId
+MATERIALIZE_CJ = """
+// Create a CanonicalJourney for each component and link all AppJourneys
+CALL {
+  MATCH (aj:AppJourney)
+  WHERE aj.componentId IS NOT NULL
+  WITH aj, aj.componentId AS comp
+  ORDER BY aj.aj_id ASC
+  WITH comp, collect(aj) AS members
+  WITH comp, members, head(members) AS firstAj
+  MERGE (cj:CanonicalJourney {cj_id: 'CJ_' + firstAj.aj_id})
+    ON CREATE SET cj.created_at = timestamp(), cj.rule_version = $rule_version
+    ON MATCH  SET cj.updated_at = timestamp(), cj.rule_version = $rule_version
+  WITH cj, members
+  UNWIND members AS m
+  MERGE (cj)-[incl:INCLUDES]->(m)
+    ON CREATE SET incl.since_ts = timestamp()
+}
+RETURN count(*) AS wrote;
+"""
+
+# Helper query: Given (app, app_id), find all other AppJourneys in same CJ
+GET_LINKED_NODES = """
+MATCH (src:AppJourney {app: $app, app_id: $app_id})
+OPTIONAL MATCH (cj:CanonicalJourney)-[:INCLUDES]->(src)
+WITH src, cj
+MATCH (cj)-[:INCLUDES]->(other:AppJourney)
+WHERE other <> src
+RETURN other.app AS app, other.app_id AS app_id, other.aj_id AS aj_id, cj.cj_id AS cj_id
+ORDER BY app, app_id
+"""
+
+# --------------------------------------------------
+# Demo data: 9 complete journeys with 3 apps each
+# --------------------------------------------------
+
+def demo_events_9() -> List[Dict[str, Any]]:
+    """For journey i in 1..9, create AppA:Ai, AppB:Bi, AppC:Ci.
+    Each shares PCN‑i across A and B; C shares CORR token TOK‑i with A.
+    Result: A‑B via PCN, A‑C via CORR → WCC unifies A,B,C per i.
+    """
+    import time as _t
+    t0 = _t.time()
+    events: List[Dict[str, Any]] = []
+    for i in range(1, 10):
+        pcn = f"PCN-{i:03d}"
+        tok = f"TOK-{i:03d}"
+        # AppA (two events, one with PCN+CORR, one update with PCN)
+        events.append({"app":"AppA","app_id":f"A{i}","ts":t0 + i*10 + 0,
+                       "keys":[{"key_type":"pcn","raw_value":pcn},{"key_type":"corr","raw_value":tok}]})
+        events.append({"app":"AppA","app_id":f"A{i}","ts":t0 + i*10 + 1,
+                       "keys":[{"key_type":"pcn","raw_value":pcn}]})
+        # AppB (shares PCN)
+        events.append({"app":"AppB","app_id":f"B{i}","ts":t0 + i*10 + 2,
+                       "keys":[{"key_type":"pcn","raw_value":pcn}]})
+        # AppC (shares CORR with A)
+        events.append({"app":"AppC","app_id":f"C{i}","ts":t0 + i*10 + 3,
+                       "keys":[{"key_type":"corr","raw_value":tok}]})
+    return events
+
+# --------------------------------------------------
+# Driver
+# --------------------------------------------------
+
+class Neo4jDemo:
+    def __init__(self, uri: str, user: str, pwd: str):
+        self.driver = GraphDatabase.driver(uri, auth=(user, pwd))
+
+    def close(self):
+        self.driver.close()
+
+    def run(self, cypher: str, params: Dict[str, Any] | None = None):
+        with self.driver.session() as sess:
+            return list(sess.run(cypher, params or {}))
+
+    def setup_schema(self):
+        for stmt in SCHEMA_CYPHER:
+            self.run(stmt)
+
+    def clear_demo(self):
+        for stmt in CLEAR_DEMO_DATA:
+            self.run(stmt)
+
+    def ingest_events(self, events: List[Dict[str, Any]]):
+        # Batch in chunks to avoid large transactions if needed
+        CHUNK = 200
+        for i in range(0, len(events), CHUNK):
+            self.run(UPSERT_AJ_AND_KEYS, {"events": events[i:i+CHUNK]})
+
+    def build_edges(self):
+        self.run(BUILD_EDGES_BY_KEYS, {"rule_version": RULE_VERSION, "edge_weight": EDGE_WEIGHT_STRONG})
+
+    def wcc(self):
+        # Drop if exists (ignore errors)
+        try:
+            self.run(GDS_DROP_IF_EXISTS, {"gname": GDS_GRAPH_NAME})
+        except Exception:
+            pass
+        # Project graph
+        self.run(GDS_PROJECT, {"gname": GDS_GRAPH_NAME})
+        # Run WCC writing componentId to nodes
+        self.run(GDS_WCC_WRITE, {"gname": GDS_GRAPH_NAME})
+
+    def materialize_cj(self):
+        self.run(MATERIALIZE_CJ, {"rule_version": RULE_VERSION})
+
+    def get_linked_nodes(self, app: str, app_id: str) -> List[Tuple[str, str, str, str]]:
+        rows = self.run(GET_LINKED_NODES, {"app": app, "app_id": app_id})
+        return [(r["app"], r["app_id"], r["aj_id"], r["cj_id"]) for r in rows]
+
+# --------------------------------------------------
+# Main Demo Flow
+# --------------------------------------------------
+
+if __name__ == "__main__":
+    demo = Neo4jDemo(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
+    try:
+        print("Setting up schema…")
+        demo.setup_schema()
+
+        print("Clearing prior demo data…")
+        demo.clear_demo()
+
+        print("Ingesting events for 9 journeys × 3 apps…")
+        demo.ingest_events(demo_events_9())
+
+        print("Building RELATED_TO edges via exact key matches…")
+        demo.build_edges()
+
+        print("Running GDS WCC…")
+        demo.wcc()
+
+        print("Materializing CanonicalJourneys and INCLUDES links…")
+        demo.materialize_cj()
+
+        # Verification: for each i, Ai should link to {Bi, Ci}; similarly for Bi and Ci
+        def verify(i: int):
+            a_links = {(a, aid) for (a, aid, _, _) in demo.get_linked_nodes("AppA", f"A{i}")}
+            b_links = {(a, aid) for (a, aid, _, _) in demo.get_linked_nodes("AppB", f"B{i}")}
+            c_links = {(a, aid) for (a, aid, _, _) in demo.get_linked_nodes("AppC", f"C{i}")}
+            assert ("AppB", f"B{i}") in a_links and ("AppC", f"C{i}") in a_links, f"A{i} missing links: {a_links}"
+            assert ("AppA", f"A{i}") in b_links and ("AppC", f"C{i}") in b_links, f"B{i} missing links: {b_links}"
+            assert ("AppA", f"A{i}") in c_links and ("AppB", f"B{i}") in c_links, f"C{i} missing links: {c_links}"
+
+        print("
+Verifying stitched connectivity for all 9 journeys…")
+        for i in range(1, 10):
+            verify(i)
+        print("All journeys verified ✅")
+
+        # Show sample outputs for a few journeys
+        def show(i: int):
+            print(f"
+Linked nodes for (AppA, A{i}) →")
+            for row in demo.get_linked_nodes("AppA", f"A{i}"):
+                print("  ", row)
+            print(f"Linked nodes for (AppB, B{i}) →")
+            for row in demo.get_linked_nodes("AppB", f"B{i}"):
+                print("  ", row)
+            print(f"Linked nodes for (AppC, C{i}) →")
+            for row in demo.get_linked_nodes("AppC", f"C{i}"):
+                print("  ", row)
+
+        for i in [1, 5, 9]:
+            show(i)
+
+        print("
+Done. Visualize in Neo4j Browser:")
+        print("  MATCH (cj:CanonicalJourney)-[:INCLUDES]->(aj:AppJourney) RETURN cj, aj ORDER BY cj.cj_id LIMIT 300;")
+        print("  MATCH (a:AppJourney)-[r:RELATED_TO]->(b:AppJourney) RETURN a,r,b LIMIT 300;")
+
+    finally:
+        demo.close()
+
+
+
+MATCH (cj:CanonicalJourney)-[:INCLUDES]->(aj:AppJourney) RETURN cj, aj ORDER BY cj.cj_id LIMIT 300;
+MATCH (a:AppJourney)-[r:RELATED_TO]->(b:AppJourney) RETURN a,r,b LIMIT 300;
