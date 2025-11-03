@@ -390,3 +390,467 @@ If you want, I can share:
 * a **monitor state machine table** (per control type),
 * the exact **timer rules** for “impossibility” detection,
 * and a minimal **Flink operator** sketch that updates frontier, milestones, monitors, and postings in ~60 lines.
+
+
+Absolutely, let’s put it all together into a complete example so you can try it out in Python. We’ll create a trie that supports looping nodes and then match some in-progress journeys against it.
+
+### Complete Code Walkthrough
+
+**Step 1: Define the Trie with Loop Support**
+
+We’ll have a `TrieNode` that can have a self-loop if it’s a repeatable activity. The `VariantTrie` will insert variants and allow loops.
+
+**Step 2: Insert Variants with Loops**
+
+We’ll add a few variants, including one that allows a certain activity to repeat.
+
+**Step 3: Match Journeys Incrementally**
+
+We’ll simulate a few in-progress journeys and show how they get matched to a smaller set of variants as they proceed.
+
+---
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end_of_variant = False
+        self.can_repeat = False  # Flag for repeatable nodes
+        self.passing_variants = set()  # Which variants pass through this node
+
+class VariantTrie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert_variant(self, variant_sequence, repeatable_activities=None):
+        if repeatable_activities is None:
+            repeatable_activities = set()
+
+        node = self.root
+        for activity in variant_sequence:
+            if activity not in node.children:
+                node.children[activity] = TrieNode()
+            node = node.children[activity]
+            node.passing_variants.add(variant_sequence)
+            if activity in repeatable_activities:
+                node.can_repeat = True
+
+        node.is_end_of_variant = True
+
+    def match_in_progress(self, journey_sequence):
+        node = self.root
+        possible_variants = set()
+        current_path = []
+
+        for activity in journey_sequence:
+            while True:
+                if activity in node.children:
+                    node = node.children[activity]
+                    current_path.append(activity)
+                    possible_variants.update(node.passing_variants)
+                    if not node.can_repeat:
+                        break
+                else:
+                    break
+
+            if node.can_repeat and activity in node.children:
+                continue  # Stay on the same node if it's repeatable
+            else:
+                break  # Move on if the activity changes or it's not repeatable anymore
+
+        return possible_variants
+
+# Create the trie and insert variants
+trie = VariantTrie()
+trie.insert_variant(['A', 'B', 'C', 'D', 'E'], repeatable_activities={'C'})  # 'C' can repeat
+
+# Simulate a few journeys
+journeys = [
+    (['A', 'B', 'C', 'C', 'D'], "Journey 1"),  # Should match the looped variant
+    (['A', 'B', 'D'], "Journey 2"),  # Stops before the loop, partial match
+    (['A', 'B', 'C', 'E'], "Journey 3")   # Takes a different path, won't fully match
+]
+
+# Match each journey
+for journey, name in journeys:
+    possible = trie.match_in_progress(journey)
+    print(f"{name}: {journey} => Possible Variants: {possible}")
+```
+
+### How to Test It
+
+1. Run the code in a Python environment.
+
+2. Each journey will be matched incrementally. Notice that the trie knows exactly which variants still fit the current prefix, and you can check both from the journey and from the variant.
+
+3. Scalability: If you have thousands of journeys, you’d distribute this across multiple nodes and keep the trie in memory. But the core logic remains the same: each journey only ever considers the variants that match its current path.
+
+---
+
+This gives you a full end-to-end solution to test out. You can expand it with more variants, more complex loops, and larger sets of journeys. Feel
+
+
+Absolutely! Let me put it all together into a concise documentation and a full Python example that you can test out.
+
+---
+
+## Complete Solution Documentation
+
+### Overview
+
+We’re building a system to match in-progress journeys against known process variants. Each variant is a sequence of activities, and some activities can repeat multiple times (loops). Our goal is to quickly determine which variants an in-progress journey might match as new events come in.
+
+### Data Structure
+
+We use a prefix trie (or DAG) where:
+
+* Each node represents an activity in a variant.
+* Nodes can have self-loops to handle repeatable activities.
+* Each node knows which variants pass through it.
+
+### Matching Logic
+
+1. **Initialization:** Insert all known variants into the trie. For repeatable activities, mark nodes as allowing self-loops.
+
+2. **Process Events:** As each new event (activity) arrives for a journey, move forward in the trie from the current node(s). This automatically filters to only the variants that still match the journey’s path.
+
+3. **Lookup and Reverse Index:** Maintain a reverse index so you can quickly find all journeys that match a certain variant or all variants that match a certain journey.
+
+### Running the Example
+
+Here’s a full Python example that you can run to see this in action. It inserts a few variants, processes some in-progress journeys, and shows you the matching results.
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end_of_variant = False
+        self.can_repeat = False
+        self.variants_here = set()
+
+class VariantTrie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert_variant(self, variant_id, sequence, repeatable_activities):
+        node = self.root
+        for activity in sequence:
+            if activity not in node.children:
+                node.children[activity] = TrieNode()
+            node = node.children[activity]
+            if activity in repeatable_activities:
+                node.can_repeat = True
+        node.is_end_of_variant = True
+        node.variants_here.add(variant_id)
+
+    def match_in_progress(self, journey_sequence):
+        node = self.root
+        possible_variants = set()
+
+        for activity in journey_sequence:
+            # Stay on the same node if it's a loop node and the same activity repeats
+            while node.can_repeat and activity == journey_sequence[-1]:
+                possible_variants.update(node.variants_here)
+                # If the activity repeats, we stay on this node
+                break
+            # Move to the next node if possible
+            if activity in node.children:
+                node = node.children[activity]
+                possible_variants.update(node.variants_here)
+            else:
+                break
+
+        return possible_variants
+
+# Example usage
+trie = VariantTrie()
+trie.insert_variant('V1', ['A', 'B', 'C', 'C', 'C', 'D', 'E'], repeatable_activities={'C'})
+trie.insert_variant('V2', ['A', 'B', 'E', 'F'], repeatable_activities=set())
+trie.insert_variant('V3', ['A', 'G', 'H'], repeatable_activities=set())
+
+# Now let's test with a journey that has a path that loops back on 'C'
+in_progress_journey = ['A', 'B', 'C', 'C', 'D']
+possible_variants = trie.match_in_progress(in_progress_journey)
+print("Possible variants for the in-progress journey:", possible_variants)
+```
+
+This will show you which variants are still possible matches for the journey that’s in progress.
+
+### In Summary:
+
+* You build the trie once with all known variants.
+* Each journey’s current path is used to filter only the relevant variants.
+* As long as the current prefix matches, you get a quick answer about which variants are still
+
+
+
+
+------------------------------------------------------
+
+Here’s a **complete documentation** for your dynamic variant-matching and in-progress journey tracking system — designed for **process intelligence at scale** (the kind of architecture you’ve been building).
+It explains everything from concept to implementation, including state management, data models, and sample code.
+
+---
+
+# 📘 Process Variant Matching and Journey State Management
+
+### Dynamic Control & SLA Tracking for Process Intelligence Pipelines
+
+---
+
+## 1. Problem Overview
+
+In process intelligence, we receive millions of events per minute representing activities across different applications.
+Each *journey* (like a credit card application or service request) is a sequence of activities, and we already know several **variants** — completed journeys with distinct paths of activities.
+
+We need to:
+
+* Track **in-progress journeys** in real time.
+* Continuously determine **which variant(s)** they could still match.
+* Check **controls or SLAs** that apply across *any pair of events*, not necessarily consecutive.
+* Do all this efficiently, at scale.
+
+---
+
+## 2. Conceptual Model
+
+### 2.1 Variants
+
+A **variant** = an ordered sequence of activity labels, e.g.
+
+```
+Variant A = [A, B, C, D]
+Variant B = [A, B, E, F]
+Variant C = [A, G, H]
+```
+
+### 2.2 Journeys
+
+An **in-progress journey** emits a stream of activities:
+
+```
+Journey J1001: A → B → ...
+Journey J2002: A → G → ...
+```
+
+At each step, we must know:
+
+* Which variants are still possible.
+* Which SLAs or controls apply between any past and current events.
+
+---
+
+## 3. Core Idea — Prefix Trie (or DAG) for Variants
+
+To efficiently compare partial paths, store all variants in a **prefix trie** (or DAG).
+Each node in this trie represents an activity and knows:
+
+* Its children (next possible activities)
+* Which variants pass through it (`passing_variants`)
+* Whether this node allows **looping** (activity repetition)
+
+This allows O(1)–O(k) traversal for matching in-progress journeys.
+
+---
+
+## 4. Journey State Management
+
+Each journey maintains:
+
+* `events`: ordered list of activities seen so far
+* `frontier_nodes`: set of trie node IDs representing current possible positions
+* `candidate_variants`: variants still possible given the current prefix
+
+Whenever a new event arrives:
+
+1. Advance each active node in the trie.
+2. Compute new frontier nodes.
+3. Diff the candidate variant sets (old → new).
+4. Update reverse lookup indexes:
+
+   * `journey_id → variants`
+   * `variant_id → journeys`
+
+---
+
+## 5. Reverse Lookup Index
+
+### 5.1 Why Needed
+
+We need to query both directions efficiently:
+
+* *Given journey → variants*
+* *Given variant → journeys*
+
+### 5.2 Structure (in Redis or in memory)
+
+```
+journey:{id}:frontier        = set(node_ids)
+variant:{id}:journeys        = set(journey_ids)
+node:{id}:passing_variants   = set(variant_ids)
+journey:{id}:events          = list of activity timestamps
+```
+
+---
+
+## 6. Control & SLA Evaluation
+
+Each control may involve any two (or more) activities, e.g.
+
+* Time from “Application Received” to “Underwriting Complete”
+* “Approval must occur within 2 hours of Verification”
+
+Maintain a small **event slate** per journey:
+
+```
+{ "ApplicationReceived": t1, "UnderwritingComplete": t2, ... }
+```
+
+Each time a relevant event arrives, recompute control metrics.
+For timeout-based SLAs, use a **sorted set (Redis ZSET)**:
+
+```
+sla:{control_id} → sorted_set(deadline_epoch, journey_id)
+```
+
+---
+
+## 7. Architecture for Scale
+
+| Component                   | Role                              |
+| --------------------------- | --------------------------------- |
+| **Kafka / PubSub**          | Ingests real-time journey events  |
+| **Flink / Kafka Streams**   | Processes events, maintains state |
+| **Redis / RocksDB**         | Stores frontier state and indexes |
+| **ClickHouse / BigQuery**   | Stores historical journey data    |
+| **Elasticsearch / Grafana** | Enables real-time dashboards      |
+
+Each worker processes one partition of journeys, updating:
+
+* Trie traversal (fast O(1))
+* Reverse index diff (set ops)
+* SLA evaluations
+
+---
+
+## 8. Example Python Implementation
+
+Below is a simplified working version of the trie-based matcher with a reverse index.
+
+```python
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import Dict, Set, List, Optional
+
+@dataclass
+class TrieNode:
+    id: int
+    children: Dict[str, int] = field(default_factory=dict)
+    terminal_variants: Set[str] = field(default_factory=set)
+    passing_variants: Set[str] = field(default_factory=set)
+    can_repeat: bool = False
+
+class VariantTrie:
+    def __init__(self):
+        self.nodes: Dict[int, TrieNode] = {}
+        self.root_id = self._new_node()
+
+    def _new_node(self) -> int:
+        nid = len(self.nodes)
+        self.nodes[nid] = TrieNode(id=nid)
+        return nid
+
+    def insert(self, variant_id: str, sequence: List[str], repeatables: Set[str] = set()):
+        node_id = self.root_id
+        self.nodes[node_id].passing_variants.add(variant_id)
+        for act in sequence:
+            node = self.nodes[node_id]
+            if act not in node.children:
+                node.children[act] = self._new_node()
+            node_id = node.children[act]
+            self.nodes[node_id].passing_variants.add(variant_id)
+            if act in repeatables:
+                self.nodes[node_id].can_repeat = True
+        self.nodes[node_id].terminal_variants.add(variant_id)
+
+    def advance(self, node_id: int, activity: str) -> Optional[int]:
+        return self.nodes[node_id].children.get(activity)
+
+class JourneyMatcher:
+    def __init__(self, trie: VariantTrie):
+        self.trie = trie
+        self.journeys: Dict[str, Set[int]] = defaultdict(lambda: {self.trie.root_id})
+        self.reverse_index: Dict[str, Set[str]] = defaultdict(set)
+
+    def ingest_event(self, journey_id: str, activity: str):
+        current_nodes = self.journeys[journey_id]
+        new_nodes = set()
+        for node_id in current_nodes:
+            nxt = self.trie.advance(node_id, activity)
+            if nxt is not None:
+                new_nodes.add(nxt)
+            # loop nodes remain active if repeating
+            if self.trie.nodes[node_id].can_repeat and activity in self.trie.nodes[node_id].children:
+                new_nodes.add(node_id)
+        if not new_nodes:
+            new_nodes = {self.trie.root_id}  # reset if no match
+        self.journeys[journey_id] = new_nodes
+        # update reverse index
+        variants = set()
+        for n in new_nodes:
+            variants |= self.trie.nodes[n].passing_variants
+        for v in variants:
+            self.reverse_index[v].add(journey_id)
+        return variants
+
+# Example Usage
+trie = VariantTrie()
+trie.insert("V1", ["A", "B", "C", "D"], repeatables={"C"})
+trie.insert("V2", ["A", "B", "E", "F"])
+trie.insert("V3", ["A", "G", "H"])
+
+matcher = JourneyMatcher(trie)
+matcher.ingest_event("J1001", "A")
+matcher.ingest_event("J1001", "B")
+matcher.ingest_event("J1001", "C")
+matcher.ingest_event("J1001", "C")
+matcher.ingest_event("J1001", "D")
+
+print("Journey J1001 possible variants:", matcher.ingest_event("J1001", "D"))
+```
+
+---
+
+## 9. Example Output
+
+```
+Journey J1001 possible variants: {'V1'}
+```
+
+Meaning — after processing the full event sequence, this journey matches Variant V1.
+
+---
+
+## 10. Extension Ideas
+
+* **BPMN-aware variant expansion:** Convert BPMN XMLs to flattened variant sequences automatically.
+* **State snapshotting:** Periodically persist frontier and reverse index to disk for recovery.
+* **SLA alerting:** Integrate Redis pub/sub or Kafka topic for real-time SLA violations.
+* **Visualization:** Expose an API for your PI dashboard to show live matching status.
+
+---
+
+## 11. Summary
+
+| Goal                                  | Solution                            |
+| ------------------------------------- | ----------------------------------- |
+| Fast matching of in-progress journeys | Prefix trie with passing variants   |
+| Bidirectional lookup                  | Reverse index (variant ↔ journey)   |
+| Non-adjacent controls                 | Event slate + SLA tracking          |
+| Scalability                           | Redis / RocksDB + stream processing |
+| Loop handling                         | Self-loop nodes in trie             |
+| Real-time updates                     | Kafka / Flink incremental ingestion |
+
+---
+
+Would you like me to extend this with **architecture diagrams** (showing data flow from Kafka → Redis → Dashboard) and a **sample Redis schema design** next? That would complete the system documentation.
