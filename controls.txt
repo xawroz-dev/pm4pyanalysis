@@ -1,0 +1,392 @@
+Awesome—let’s go deeper on the two things you asked for:
+
+1. how to model **variants & states** so they work even when controls relate **non-consecutive** events (first, last, “any-to-any”);
+2. how to manage **in-progress state** + fast **lookups** (both “case → variants” and **reverse** “variant → in-progress cases”), at scale.
+
+I’ll keep it concrete with examples and lightweight pseudo-schemas.
+
+---
+
+# 1) What is a “Variant” (precisely)
+
+A **variant** is a canonicalized description of a *completed* journey: what activities happened, in what legal orders/branches, with optional attribute guards.
+
+## 1.1 Runtime form: Automaton + Monitors
+
+At runtime we compile each variant into two parts:
+
+* **Main automaton** (preferably DFA; NFA is fine if branches/loops are needed)
+
+  * **States** represent positions between activities.
+  * **Transitions** are labeled by an activity (optionally with guards).
+* **Control monitors** (orthogonal to transitions)
+
+  * Small pieces of logic that watch for **non-consecutive** relations (e.g., “first A to last D ≤ 2h”, “no X after Y”, “count(Z) ≥ 3 before F”).
+  * They use **milestone registers** (see next) to remember first/last/counters/time windows.
+
+> Think “automaton drives progress; monitors watch facts across the whole path.”
+
+---
+
+# 2) States, frontiers, and milestones
+
+## 2.1 Automaton states (progress)
+
+* A variant’s DFA has states `S0..Sn`.
+* For in-progress journeys we keep a **frontier** = the set (often just 1) of states the journey could be in *for this variant* given what we’ve seen.
+
+If there is branching, the frontier can hold multiple states. As events arrive, impossible states drop out.
+
+## 2.2 Milestone registers (memory for non-consecutive checks)
+
+We keep a small, typed “scratchpad” per `(case_id, variant)`:
+
+* `first[A]`: timestamp of the **first** A we observed (null if unseen)
+* `last[A]`: timestamp of the **latest** A we’ve seen so far
+* `count[A]`: integer
+* `between[A,B]`: e.g., last A before first B, with both timestamps if known
+* `window[X]`: rolling aggregates (min/max/avg amount while in certain subpath)
+* `occurred`: boolean set `{A, B, C, …}` for fast checks
+
+**Why?** Because controls can reference *any* occurrences, not just neighbors:
+
+* “time from **first SubmitApp** to **last Underwrite** ≤ 4h”
+* “**No ManualOverride after** Underwrite”
+* “**At least 2** RiskScore events **before** Fund”
+
+These all read from milestone registers.
+
+---
+
+# 3) Controls that aren’t between consecutive events
+
+Controls are compiled into **monitors** that attach to the variant but run independently of any one edge.
+
+### Examples
+
+1. **First→Last temporal**
+
+```
+CONTROL C1 (temporal):
+  from: FIRST(SubmitApp)
+  to:   LAST(Underwrite)
+  within: 4h
+```
+
+* When we see the first `SubmitApp`, set `first[SubmitApp]`.
+* As we advance, `last[Underwrite]` updates each time we see Underwrite.
+* We cannot *finalize* this control until the journey either:
+
+  * completes the variant (then “last Underwrite” is final), or
+  * reaches a point where **no future Underwrite is possible** (DFA says there’s no path).
+* But we **can** fire a violation early if, given current time and the automaton’s **shortest remaining time** to any Underwrite, it’s already impossible to meet 4h (see “impossibility timers” below).
+
+2. **Forbidden order**
+
+```
+CONTROL C2 (order):
+  forbid: ManualOverride AFTER Underwrite
+```
+
+* If `occurred[Underwrite]` is true and we now see `ManualOverride`, flag immediately.
+* If `ManualOverride` appeared earlier, we’re still OK; this control is only “after”.
+
+3. **Counting**
+
+```
+CONTROL C3 (count):
+  require: COUNT(RiskScore) >= 2 BEFORE Fund
+```
+
+* Maintain `count[RiskScore]`.
+* If we reach (or it becomes inevitable we will reach) `Fund` and count < 2 → violation.
+* “Inevitable” can be detected: if all frontier states’ remaining paths to completion have no RiskScore edges, the deficit is unrecoverable.
+
+4. **Gap anywhere in the path**
+
+```
+CONTROL C4 (gap):
+  forbid: GAP(Between VerifyID and Underwrite) > 30m  // irrespective of intermediates
+```
+
+* Record `t_VerifyID_last` and `t_Underwrite_first`.
+* As time passes, start **relative timers** after VerifyID to re-check at +30m unless Underwrite arrives earlier.
+
+> The engine never needs to scan all cases; it only maintains these registers for cases that are actually candidates for the variant.
+
+---
+
+# 4) In-progress state (what we store per case)
+
+Per `case_id` we maintain a compact structure; here’s a practical JSON shape:
+
+```json
+{
+  "case_id": "C-8821",
+  "last_k_activities": ["SubmitApp","VerifyID"],
+
+  "attr_buckets": { "amount_bucket": "5k-10k", "channel": "web" },
+
+  "candidates": [
+    {
+      "variant_id": "V1@v3",
+      "frontier": ["S2"],              // DFA state ids
+      "milestones": {
+        "first": { "SubmitApp": 1730282400000 },
+        "last":  { "VerifyID": 1730282700000 },
+        "count": { "RiskScore": 1 }
+      },
+      "monitors": [
+        {
+          "control_id": "C1",
+          "type": "FIRST_TO_LAST",
+          "from":"SubmitApp", "to":"Underwrite",
+          "limit_ms": 14400000,
+          "status": "ticking|satisfied|violated|impossible",
+          "next_check_at": 1730290000000  // optional
+        },
+        {
+          "control_id": "C2",
+          "type": "FORBID_AFTER",
+          "after":"Underwrite", "forbid":"ManualOverride",
+          "status": "ticking"
+        }
+      ],
+      "event_time_bounds": {
+        "min_to_completion_ms": 0,
+        "max_to_completion_ms": 5400000   // conservative bound, optional
+      },
+      "active_timers": [
+        { "timer_id": "C1:impossibility", "fire_at": 1730290000000 },
+        { "timer_id": "C4:verify_gap",   "fire_at": 1730284500000 }
+      ]
+    },
+
+    { "variant_id": "V2@v1", "frontier": ["S1","S2"], "milestones": {...}, "monitors": [...], "active_timers": [...] }
+  ],
+
+  "last_event_time": 1730282700000
+}
+```
+
+**Notes**
+
+* `frontier` keeps progress *within* each variant.
+* `milestones` are tiny dictionaries; we only store what’s needed by that variant’s monitors.
+* `monitors` hold the per-control status.
+* `active_timers` are event-time timers (SLA deadlines or “impossible to recover” checks).
+* This whole blob is a few KB and lives in the stream processor’s keyed state, plus mirrored to a KV table for APIs.
+
+---
+
+# 5) Matching fast (case → variants)
+
+We don’t “re-match” against everything; we **narrow** aggressively every event:
+
+### 5.1 Variant Prefix Index (VPI)
+
+* A small **trie** over the last `k` activities (k=2 or 3 is enough in practice).
+* Each node lists **candidate variants** and the **possible DFA states** compatible with that prefix, plus any coarse **attribute buckets** needed.
+
+**Lookup on event arrival**
+
+1. Update `last_k_activities`.
+2. VPI lookup → tiny set of `candidate` (variant_id, viable_states).
+3. For each candidate, advance its DFA with the new activity, update milestones/monitors, add/cancel timers.
+4. Remove candidates that can’t consume the event.
+
+> Cost is O(#candidates), typically 1–5, not O(#variants or #cases).
+
+---
+
+# 6) Reverse lookup (variant → in-progress cases)
+
+We maintain a **posting list** incrementally so the UI can ask:
+
+> “For Variant V, show all in-progress journeys that **could still** end as V, optionally limited to a state bucket or a control status.”
+
+### 6.1 Keys and buckets
+
+* **State bucket**: a small code representing frontier position(s).
+
+  * For DFA, `state_bucket = state_id` is enough.
+  * For NFA, canonicalize the set of states to a stable small ID (bitset hash).
+* **Control bucket** (optional but powerful):
+
+  * e.g., `C1: ticking`, `C1: at_risk` (deadline < 5m), `C1: violated`, `C2: ticking`.
+* **Attribute bucket** (optional): `channel=web`, `tier=GOLD`.
+
+**Posting key examples**
+
+```
+(V1, S2) → {C-8821, C-0031, ...}
+(V1, S2, C1:ticking) → {C-8821, C-2149, ...}
+(V1, S2, channel:web) → {...}
+```
+
+### 6.2 Maintenance
+
+* Whenever a candidate’s **frontier** changes, we:
+
+  * remove `case_id` from old `(V, old_state_bucket, ...)`,
+  * add it to new `(V, new_state_bucket, ...)`.
+* Whenever a **monitor status** changes (e.g., ticking → violated), move the `case_id` between control buckets.
+* This is done **inside** the streaming operator in constant time per change—no batch jobs.
+
+**Storage**
+
+* Small to medium: **Redis/KeyDB** sets (fast).
+* Very large: **Cassandra/Bigtable** wide rows with compressed `case_id` lists; shard when needed.
+
+**APIs**
+
+* `GET /variants/{id}/in-progress?state=S2&control=C1:ticking`
+* `GET /variants/{id}/counts` → histogram for dashboard cards.
+
+---
+
+# 7) Timers beyond consecutive events (how we fire violations on time)
+
+Because controls can reference far-apart points, we use **two timer styles**:
+
+1. **SLA timers** (deadline relative to a known start):
+
+   * When `FIRST(A)` occurs, set `timer = ts(A) + limit`.
+   * Cancel if/when `B` occurs in time.
+
+2. **Impossibility timers** (detect when compliance becomes **unreachable**):
+
+   * Based on the DFA frontier, compute a conservative **minimum time** to reach the satisfier (e.g., any `Underwrite`).
+   * If `now + min_time > ts(start) + limit`, schedule immediate fire (or fire now).
+   * Also re-evaluate this at each event/watermark; if it flips to “impossible”, emit violation without waiting for the end.
+
+This is how “first to last within X” works **before** the journey ends.
+
+---
+
+# 8) Detailed example: non-consecutive control
+
+**Variant V3 (DFA path):**
+
+```
+S0 --SubmitApp--> S1 --(B|C)*--> S2 --Underwrite--> S3 --Fund--> S4
+```
+
+**Control:** “FIRST(SubmitApp) to LAST(Underwrite) ≤ 2h” (others may happen in between)
+
+**In-progress updates:**
+
+* At `SubmitApp@10:00`: set `first[SubmitApp]=10:00`, start SLA timer for `12:00`.
+  Also compute `min_time_to_any_Underwrite` from current frontier (perhaps ~5m); schedule **impossibility check** at `10:00 + 2h - 5m = 11:55`.
+
+* We see many B/C events 10:05–11:56 but no `Underwrite`.
+  At `11:55` the **impossibility timer** fires:
+
+  * Looking at frontier, the fastest path to `Underwrite` is ≥ 5m → already impossible to meet 12:00.
+  * Emit **violation** now (no scan), set monitor status `violated`.
+
+* If we had seen `Underwrite@11:40`, we’d update `last[Underwrite]=11:40`, satisfy the control immediately, and cancel both timers.
+
+**Reverse postings**
+
+* While ticking: `(V3, S2, C1:ticking) ← C-8821`
+* After violation: move to `(V3, S2, C1:violated)`
+
+The UI can filter “show me all cases at risk/violated for C1”.
+
+---
+
+# 9) How everything fits together (flow per event)
+
+1. **Event in** (for `case_id`): update `last_k_activities`, `attr_buckets`.
+2. **Lookup candidates** from VPI (tiny set).
+3. For each candidate:
+
+   * **Advance DFA frontier** with the event (drop if impossible).
+   * **Update milestones** (`first/last/count` etc.).
+   * **Evaluate monitors** (some may transition ticking→satisfied; ticking→violated; ticking→at_risk).
+   * **Register/cancel timers** (SLA & impossibility).
+   * **Adjust reverse postings** (frontier bucket and any control buckets).
+4. **Persist** the compact case state (keyed state + snapshot topic → KV).
+5. **Emit** violations (topic/webhooks) immediately when they happen.
+
+All of this is O(1) per candidate and happens only on events or timer fires—**never** on a global rescan.
+
+---
+
+# 10) Data shapes you can implement today
+
+### 10.1 Compiled variant (snippet)
+
+```json
+{
+  "variant_id": "V3@v2",
+  "dfa": {
+    "start": "S0",
+    "final": ["S4"],
+    "transitions": [
+      {"from":"S0","on":"SubmitApp","to":"S1"},
+      {"from":"S1","on":"B","to":"S1"},
+      {"from":"S1","on":"C","to":"S1"},
+      {"from":"S1","on":"Underwrite","to":"S2"},
+      {"from":"S2","on":"Fund","to":"S3"}
+    ]
+  },
+  "monitors": [
+    {"id":"C1","type":"FIRST_TO_LAST","from":"SubmitApp","to":"Underwrite","limit_ms":7200000},
+    {"id":"C2","type":"FORBID_AFTER","after":"Underwrite","forbid":"ManualOverride"},
+    {"id":"C3","type":"COUNT_BEFORE","event":"RiskScore","min":2,"before":"Fund"}
+  ],
+  "prefix_index": {
+    // k=2 example; node keys are activity pairs (with * for wildcard/short)
+    "*":            {"candidates":[{"state":"S0"}]},
+    "SubmitApp":    {"candidates":[{"state":"S1"}]},
+    "SubmitApp,B":  {"candidates":[{"state":"S1"}]},
+    "SubmitApp,C":  {"candidates":[{"state":"S1"}]},
+    "...,Underwrite":{"candidates":[{"state":"S2"}]}
+  }
+}
+```
+
+### 10.2 CaseState KV row (externalized)
+
+```json
+{
+  "case_id":"C-8821",
+  "last_event_time":"2025-10-30T10:56:00Z",
+  "last_k_activities":["SubmitApp","C"],
+  "candidates":[
+    {"variant_id":"V3@v2","frontier":["S1"],"monitors":[{"control_id":"C1","status":"ticking"}]}
+  ],
+  "status":"IN_PROGRESS",
+  "updated_at":"2025-10-30T10:56:01Z"
+}
+```
+
+---
+
+# 11) Practical engineering choices
+
+* **Streaming engine:** Apache Flink (event-time + per-key timers + RocksDB).
+* **Partitioning:** by `case_id` so order is preserved per journey.
+* **State:** a few KB per `(case, variant)` candidate; snapshots to Kafka compacted topic.
+* **CaseState KV:** Spanner/DynamoDB/Cassandra (serve `/cases/{id}`).
+* **Reverse postings:** Redis for sub-ms dashboards; Cassandra/Bigtable when sets are huge.
+* **Variant registry:** source of truth; compiles to DFA + monitors + VPI; broadcast to the job.
+
+---
+
+# 12) Why this meets your requirements
+
+* **Controls on any events (first/last/any pair)** → handled by **milestones + monitors**, not just adjacent edges.
+* **Repeat matching as events arrive** → cheap via **VPI** and tiny per-case candidate sets.
+* **Show all in-progress cases for variant** → instant via **reverse postings**, maintained incrementally.
+* **Scale** → work is proportional to event rate and a tiny frontier, not to #journeys or #variants.
+
+---
+
+If you want, I can share:
+
+* a **monitor state machine table** (per control type),
+* the exact **timer rules** for “impossibility” detection,
+* and a minimal **Flink operator** sketch that updates frontier, milestones, monitors, and postings in ~60 lines.
