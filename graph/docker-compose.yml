@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  postgres-age:
+    image: apache/age
+    container_name: age_pipeline_100k
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: journey_db
+    ports:
+      - "5432:5432"
+    # 2GB Shared Memory is recommended for 100k+ node graphs
+    shm_size: '2gb'
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d journey_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

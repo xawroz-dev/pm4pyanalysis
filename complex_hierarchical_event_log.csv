@@ -1,0 +1,1906 @@
+case_id,activity,timestamp,resource,lifecycle
+1,A - Validate Payment,2024-01-01T08:15:00,Orchestrator,start
+1,A - Validate Payment,2024-01-01T08:15:04,Orchestrator,complete
+1,A.1 - Basic Validation,2024-01-01T08:15:07,Validator,start
+1,A.1.1 - Check Card Number,2024-01-01T08:15:11,Validator,start
+1,A.1.1 - Check Card Number,2024-01-01T08:15:12,Validator,complete
+1,A.1.2 - Check Expiry,2024-01-01T08:15:16,Validator,start
+1,A.1.2 - Check Expiry,2024-01-01T08:15:20,Validator,complete
+1,A.1.3 - Check CVV,2024-01-01T08:15:23,Validator,start
+1,A.1.3 - Check CVV,2024-01-01T08:15:26,Validator,complete
+1,A.1 - Basic Validation,2024-01-01T08:15:30,Validator,complete
+1,A.2 - Advanced Validation,2024-01-01T08:15:31,Validator,start
+1,A.2.1 - Validate Address,2024-01-01T08:15:32,Validator,start
+1,A.2.2 - Validate Zip Code,2024-01-01T08:15:33,Validator,start
+1,A.2.1 - Validate Address,2024-01-01T08:15:36,Validator,complete
+1,A.2.2 - Validate Zip Code,2024-01-01T08:15:38,Validator,complete
+1,A.2 - Advanced Validation,2024-01-01T08:15:42,Validator,complete
+1,B - Fraud Checks,2024-01-01T08:15:44,FraudOrchestrator,start
+1,B.1 - Run Fraud Engine,2024-01-01T08:15:47,FraudSystem,start
+1,B.1 - Run Fraud Engine,2024-01-01T08:15:51,FraudSystem,complete
+1,B.2 - Fraud Notification Call (Case 1),2024-01-01T08:15:54,AsyncNotifier,start
+1,B.2 - Fraud Notification Call (Case 1),2024-01-01T08:15:56,AsyncNotifier,complete
+1,B.3 - Parallel Checks,2024-01-01T08:15:59,FraudSystem,start
+1,B.3.1 - Check Geolocation,2024-01-01T08:16:00,GeoSystem,start
+1,B.3.2 - Check Transaction History,2024-01-01T08:16:01,HistorySystem,start
+1,B.3.1 - Check Geolocation,2024-01-01T08:16:05,GeoSystem,complete
+1,B.3.2 - Check Transaction History,2024-01-01T08:16:06,HistorySystem,complete
+1,B.3 - Parallel Checks,2024-01-01T08:16:10,FraudSystem,complete
+1,B - Fraud Checks,2024-01-01T08:16:14,FraudOrchestrator,complete
+1,C - Fund Authorization,2024-01-01T08:16:15,FinanceSystem,start
+1,C.1 - Bank API Call (Case 1),2024-01-01T08:16:19,BankSystem,start
+1,C.1 - Bank API Call (Case 1),2024-01-01T08:16:20,BankSystem,complete
+1,C.2 - Receive Bank Response,2024-01-01T08:16:24,BankSystem,start
+1,C.2 - Receive Bank Response,2024-01-01T08:16:27,BankSystem,complete
+1,C - Fund Authorization,2024-01-01T08:16:31,FinanceSystem,complete
+1,D - Charge Card,2024-01-01T08:16:35,ChargeSystem,start
+1,D.1 - Charge Request (Case 1),2024-01-01T08:16:39,ChargeSystem,start
+1,D.1 - Charge Request (Case 1),2024-01-01T08:16:41,ChargeSystem,complete
+1,D.2 - Receive Charge Response,2024-01-01T08:16:44,ChargeSystem,start
+1,D.2 - Receive Charge Response,2024-01-01T08:16:48,ChargeSystem,complete
+1,D - Charge Card,2024-01-01T08:16:52,ChargeSystem,complete
+1,E - Notification & Reconciliation,2024-01-01T08:16:54,Orchestrator,start
+1,E.1 - Customer Notification (Case 1),2024-01-01T08:16:57,Notifier,start
+1,E.1 - Customer Notification (Case 1),2024-01-01T08:17:00,Notifier,complete
+1,E.2 - Merchant Notification (Case 1),2024-01-01T08:17:04,Notifier,start
+1,E.2 - Merchant Notification (Case 1),2024-01-01T08:17:07,Notifier,complete
+1,E.3 - Update Ledger,2024-01-01T08:17:10,LedgerSystem,start
+1,E.3.1 - Insert Transaction Record,2024-01-01T08:17:13,LedgerSystem,start
+1,E.3.1 - Insert Transaction Record,2024-01-01T08:17:16,LedgerSystem,complete
+1,E.3.2 - Close Ledger Entry,2024-01-01T08:17:19,LedgerSystem,start
+1,E.3.2 - Close Ledger Entry,2024-01-01T08:17:21,LedgerSystem,complete
+1,E.3 - Update Ledger,2024-01-01T08:17:23,LedgerSystem,complete
+1,E.4 - Reconcile Batch,2024-01-01T08:17:25,BatchSystem,start
+1,E.4.1 - Aggregate Transactions,2024-01-01T08:17:26,BatchSystem,start
+1,E.4.2 - Generate Batch Report,2024-01-01T08:17:27,ReportSystem,start
+1,E.4.1 - Aggregate Transactions,2024-01-01T08:17:31,BatchSystem,complete
+1,E.4.2 - Generate Batch Report,2024-01-01T08:17:34,ReportSystem,complete
+1,E.4 - Reconcile Batch,2024-01-01T08:17:37,BatchSystem,complete
+1,E - Notification & Reconciliation,2024-01-01T08:17:41,Orchestrator,complete
+2,A - Validate Payment,2024-01-01T08:30:00,Orchestrator,start
+2,A - Validate Payment,2024-01-01T08:30:01,Orchestrator,complete
+2,A.1 - Basic Validation,2024-01-01T08:30:04,Validator,start
+2,A.1.1 - Check Card Number,2024-01-01T08:30:05,Validator,start
+2,A.1.1 - Check Card Number,2024-01-01T08:30:06,Validator,complete
+2,A.1.2 - Check Expiry,2024-01-01T08:30:09,Validator,start
+2,A.1.2 - Check Expiry,2024-01-01T08:30:11,Validator,complete
+2,A.1.3 - Check CVV,2024-01-01T08:30:14,Validator,start
+2,A.1.3 - Check CVV,2024-01-01T08:30:18,Validator,complete
+2,A.1 - Basic Validation,2024-01-01T08:30:20,Validator,complete
+2,A.2 - Advanced Validation,2024-01-01T08:30:24,Validator,start
+2,A.2.1 - Validate Address,2024-01-01T08:30:25,Validator,start
+2,A.2.2 - Validate Zip Code,2024-01-01T08:30:26,Validator,start
+2,A.2.1 - Validate Address,2024-01-01T08:30:29,Validator,complete
+2,A.2.2 - Validate Zip Code,2024-01-01T08:30:31,Validator,complete
+2,A.2 - Advanced Validation,2024-01-01T08:30:34,Validator,complete
+2,B - Fraud Checks,2024-01-01T08:30:37,FraudOrchestrator,start
+2,B.1 - Run Fraud Engine,2024-01-01T08:30:38,FraudSystem,start
+2,B.1 - Run Fraud Engine,2024-01-01T08:30:40,FraudSystem,complete
+2,B.2 - Fraud Notification Call (Case 2),2024-01-01T08:30:43,AsyncNotifier,start
+2,B.2 - Fraud Notification Call (Case 2),2024-01-01T08:30:44,AsyncNotifier,complete
+2,B.3 - Parallel Checks,2024-01-01T08:30:46,FraudSystem,start
+2,B.3.1 - Check Geolocation,2024-01-01T08:30:47,GeoSystem,start
+2,B.3.2 - Check Transaction History,2024-01-01T08:30:48,HistorySystem,start
+2,B.3.1 - Check Geolocation,2024-01-01T08:30:52,GeoSystem,complete
+2,B.3.2 - Check Transaction History,2024-01-01T08:30:53,HistorySystem,complete
+2,B.3 - Parallel Checks,2024-01-01T08:30:56,FraudSystem,complete
+2,B - Fraud Checks,2024-01-01T08:31:00,FraudOrchestrator,complete
+2,C - Fund Authorization,2024-01-01T08:31:04,FinanceSystem,start
+2,C.1 - Bank API Call (Case 2),2024-01-01T08:31:08,BankSystem,start
+2,C.1 - Bank API Call (Case 2),2024-01-01T08:31:12,BankSystem,complete
+2,C.2 - Receive Bank Response,2024-01-01T08:31:15,BankSystem,start
+2,C.2 - Receive Bank Response,2024-01-01T08:31:17,BankSystem,complete
+2,C - Fund Authorization,2024-01-01T08:31:21,FinanceSystem,complete
+2,D - Charge Card,2024-01-01T08:31:22,ChargeSystem,start
+2,D.1 - Charge Request (Case 2),2024-01-01T08:31:23,ChargeSystem,start
+2,D.1 - Charge Request (Case 2),2024-01-01T08:31:26,ChargeSystem,complete
+2,D.2 - Receive Charge Response,2024-01-01T08:31:30,ChargeSystem,start
+2,D.2 - Receive Charge Response,2024-01-01T08:31:32,ChargeSystem,complete
+2,D.3 - Handle Charge Error,2024-01-01T08:31:34,ErrorHandler,start
+2,D.3 - Handle Charge Error,2024-01-01T08:31:35,ErrorHandler,complete
+2,D.1 - Charge Request Retry (Case 2),2024-01-01T08:31:38,ChargeSystem,start
+2,D.1 - Charge Request Retry (Case 2),2024-01-01T08:31:40,ChargeSystem,complete
+2,D.2 - Receive Charge Response Retry,2024-01-01T08:31:44,ChargeSystem,start
+2,D.2 - Receive Charge Response Retry,2024-01-01T08:31:47,ChargeSystem,complete
+2,D - Charge Card,2024-01-01T08:31:49,ChargeSystem,complete
+2,E - Notification & Reconciliation,2024-01-01T08:31:53,Orchestrator,start
+2,E.1 - Customer Notification (Case 2),2024-01-01T08:31:56,Notifier,start
+2,E.1 - Customer Notification (Case 2),2024-01-01T08:31:59,Notifier,complete
+2,E.2 - Merchant Notification (Case 2),2024-01-01T08:32:03,Notifier,start
+2,E.2 - Merchant Notification (Case 2),2024-01-01T08:32:04,Notifier,complete
+2,E.3 - Update Ledger,2024-01-01T08:32:05,LedgerSystem,start
+2,E.3.1 - Insert Transaction Record,2024-01-01T08:32:06,LedgerSystem,start
+2,E.3.1 - Insert Transaction Record,2024-01-01T08:32:10,LedgerSystem,complete
+2,E.3.2 - Close Ledger Entry,2024-01-01T08:32:11,LedgerSystem,start
+2,E.3.2 - Close Ledger Entry,2024-01-01T08:32:12,LedgerSystem,complete
+2,E.3 - Update Ledger,2024-01-01T08:32:13,LedgerSystem,complete
+2,E.4 - Reconcile Batch,2024-01-01T08:32:16,BatchSystem,start
+2,E.4.1 - Aggregate Transactions,2024-01-01T08:32:17,BatchSystem,start
+2,E.4.2 - Generate Batch Report,2024-01-01T08:32:18,ReportSystem,start
+2,E.4.1 - Aggregate Transactions,2024-01-01T08:32:21,BatchSystem,complete
+2,E.4.2 - Generate Batch Report,2024-01-01T08:32:23,ReportSystem,complete
+2,E.4 - Reconcile Batch,2024-01-01T08:32:26,BatchSystem,complete
+2,E - Notification & Reconciliation,2024-01-01T08:32:29,Orchestrator,complete
+3,A - Validate Payment,2024-01-01T08:45:00,Orchestrator,start
+3,A - Validate Payment,2024-01-01T08:45:03,Orchestrator,complete
+3,A.1 - Basic Validation,2024-01-01T08:45:06,Validator,start
+3,A.1.1 - Check Card Number,2024-01-01T08:45:08,Validator,start
+3,A.1.1 - Check Card Number,2024-01-01T08:45:11,Validator,complete
+3,A.1.2 - Check Expiry,2024-01-01T08:45:13,Validator,start
+3,A.1.2 - Check Expiry,2024-01-01T08:45:15,Validator,complete
+3,A.1.3 - Check CVV,2024-01-01T08:45:16,Validator,start
+3,A.1.3 - Check CVV,2024-01-01T08:45:20,Validator,complete
+3,A.1 - Basic Validation,2024-01-01T08:45:22,Validator,complete
+3,A.2 - Advanced Validation,2024-01-01T08:45:24,Validator,start
+3,A.2.1 - Validate Address,2024-01-01T08:45:25,Validator,start
+3,A.2.2 - Validate Zip Code,2024-01-01T08:45:26,Validator,start
+3,A.2.1 - Validate Address,2024-01-01T08:45:30,Validator,complete
+3,A.2.2 - Validate Zip Code,2024-01-01T08:45:34,Validator,complete
+3,A.2 - Advanced Validation,2024-01-01T08:45:38,Validator,complete
+3,B - Fraud Checks,2024-01-01T08:45:42,FraudOrchestrator,start
+3,B.1 - Run Fraud Engine,2024-01-01T08:45:44,FraudSystem,start
+3,B.1 - Run Fraud Engine,2024-01-01T08:45:47,FraudSystem,complete
+3,B.2 - Fraud Notification Call (Case 3),2024-01-01T08:45:50,AsyncNotifier,start
+3,B.2 - Fraud Notification Call (Case 3),2024-01-01T08:45:52,AsyncNotifier,complete
+3,B.3 - Parallel Checks,2024-01-01T08:45:54,FraudSystem,start
+3,B.3.1 - Check Geolocation,2024-01-01T08:45:55,GeoSystem,start
+3,B.3.2 - Check Transaction History,2024-01-01T08:45:56,HistorySystem,start
+3,B.3.1 - Check Geolocation,2024-01-01T08:45:57,GeoSystem,complete
+3,B.3.2 - Check Transaction History,2024-01-01T08:45:58,HistorySystem,complete
+3,B.3 - Parallel Checks,2024-01-01T08:46:02,FraudSystem,complete
+3,B - Fraud Checks,2024-01-01T08:46:04,FraudOrchestrator,complete
+3,C - Fund Authorization,2024-01-01T08:46:07,FinanceSystem,start
+3,C.1 - Bank API Call (Case 3),2024-01-01T08:46:09,BankSystem,start
+3,C.1 - Bank API Call (Case 3),2024-01-01T08:46:13,BankSystem,complete
+3,C.2 - Receive Bank Response,2024-01-01T08:46:15,BankSystem,start
+3,C.2 - Receive Bank Response,2024-01-01T08:46:16,BankSystem,complete
+3,C.3 - Request Additional Info,2024-01-01T08:46:17,FinanceSystem,start
+3,C.3 - Request Additional Info,2024-01-01T08:46:18,FinanceSystem,complete
+3,C.3 - Request Additional Info,2024-01-01T08:46:20,FinanceSystem,start
+3,C.3 - Request Additional Info,2024-01-01T08:46:24,FinanceSystem,complete
+3,C.3 - Request Additional Info,2024-01-01T08:46:28,FinanceSystem,complete
+3,C - Fund Authorization,2024-01-01T08:46:30,FinanceSystem,complete
+3,D - Charge Card,2024-01-01T08:46:33,ChargeSystem,start
+3,D.1 - Charge Request (Case 3),2024-01-01T08:46:34,ChargeSystem,start
+3,D.1 - Charge Request (Case 3),2024-01-01T08:46:37,ChargeSystem,complete
+3,D.2 - Receive Charge Response,2024-01-01T08:46:40,ChargeSystem,start
+3,D.2 - Receive Charge Response,2024-01-01T08:46:41,ChargeSystem,complete
+3,D - Charge Card,2024-01-01T08:46:43,ChargeSystem,complete
+3,E - Notification & Reconciliation,2024-01-01T08:46:47,Orchestrator,start
+3,E.1 - Customer Notification (Case 3),2024-01-01T08:46:49,Notifier,start
+3,E.1 - Customer Notification (Case 3),2024-01-01T08:46:53,Notifier,complete
+3,E.2 - Merchant Notification (Case 3),2024-01-01T08:46:57,Notifier,start
+3,E.2 - Merchant Notification (Case 3),2024-01-01T08:47:01,Notifier,complete
+3,E.3 - Update Ledger,2024-01-01T08:47:05,LedgerSystem,start
+3,E.3.1 - Insert Transaction Record,2024-01-01T08:47:09,LedgerSystem,start
+3,E.3.1 - Insert Transaction Record,2024-01-01T08:47:11,LedgerSystem,complete
+3,E.3.2 - Close Ledger Entry,2024-01-01T08:47:14,LedgerSystem,start
+3,E.3.2 - Close Ledger Entry,2024-01-01T08:47:15,LedgerSystem,complete
+3,E.3 - Update Ledger,2024-01-01T08:47:17,LedgerSystem,complete
+3,E.4 - Reconcile Batch,2024-01-01T08:47:19,BatchSystem,start
+3,E.4.1 - Aggregate Transactions,2024-01-01T08:47:20,BatchSystem,start
+3,E.4.2 - Generate Batch Report,2024-01-01T08:47:21,ReportSystem,start
+3,E.4.1 - Aggregate Transactions,2024-01-01T08:47:24,BatchSystem,complete
+3,E.4.2 - Generate Batch Report,2024-01-01T08:47:28,ReportSystem,complete
+3,E.4 - Reconcile Batch,2024-01-01T08:47:31,BatchSystem,complete
+3,E - Notification & Reconciliation,2024-01-01T08:47:33,Orchestrator,complete
+4,A - Validate Payment,2024-01-01T09:00:00,Orchestrator,start
+4,A - Validate Payment,2024-01-01T09:00:01,Orchestrator,complete
+4,A.1 - Basic Validation,2024-01-01T09:00:02,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:03,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:05,Validator,complete
+4,A.1.2 - Check Expiry,2024-01-01T09:00:09,Validator,start
+4,A.1.2 - Check Expiry,2024-01-01T09:00:12,Validator,complete
+4,A.1.3 - Check CVV,2024-01-01T09:00:16,Validator,start
+4,A.1.3 - Check CVV,2024-01-01T09:00:19,Validator,complete
+4,A.1.1 - Check Card Number,2024-01-01T09:00:22,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:24,Validator,complete
+4,A.1.1 - Check Card Number,2024-01-01T09:00:25,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:26,Validator,complete
+4,A.1.1 - Check Card Number,2024-01-01T09:00:28,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:32,Validator,complete
+4,A.1.1 - Check Card Number,2024-01-01T09:00:33,Validator,start
+4,A.1.1 - Check Card Number,2024-01-01T09:00:37,Validator,complete
+4,A.1 - Basic Validation,2024-01-01T09:00:38,Validator,complete
+4,A.2 - Advanced Validation,2024-01-01T09:00:41,Validator,start
+4,A.2.1 - Validate Address,2024-01-01T09:00:42,Validator,start
+4,A.2.2 - Validate Zip Code,2024-01-01T09:00:43,Validator,start
+4,A.2.1 - Validate Address,2024-01-01T09:00:46,Validator,complete
+4,A.2.2 - Validate Zip Code,2024-01-01T09:00:48,Validator,complete
+4,A.2 - Advanced Validation,2024-01-01T09:00:49,Validator,complete
+4,B - Fraud Checks,2024-01-01T09:00:50,FraudOrchestrator,start
+4,B.1 - Run Fraud Engine,2024-01-01T09:00:51,FraudSystem,start
+4,B.1 - Run Fraud Engine,2024-01-01T09:00:55,FraudSystem,complete
+4,B.2 - Fraud Notification Call (Case 4),2024-01-01T09:00:58,AsyncNotifier,start
+4,B.2 - Fraud Notification Call (Case 4),2024-01-01T09:01:00,AsyncNotifier,complete
+4,B.3 - Parallel Checks,2024-01-01T09:01:01,FraudSystem,start
+4,B.3.1 - Check Geolocation,2024-01-01T09:01:02,GeoSystem,start
+4,B.3.2 - Check Transaction History,2024-01-01T09:01:03,HistorySystem,start
+4,B.3.1 - Check Geolocation,2024-01-01T09:01:05,GeoSystem,complete
+4,B.3.2 - Check Transaction History,2024-01-01T09:01:07,HistorySystem,complete
+4,B.3 - Parallel Checks,2024-01-01T09:01:09,FraudSystem,complete
+4,B - Fraud Checks,2024-01-01T09:01:10,FraudOrchestrator,complete
+4,C - Fund Authorization,2024-01-01T09:01:14,FinanceSystem,start
+4,C.1 - Bank API Call (Case 4),2024-01-01T09:01:18,BankSystem,start
+4,C.1 - Bank API Call (Case 4),2024-01-01T09:01:22,BankSystem,complete
+4,C.2 - Receive Bank Response,2024-01-01T09:01:23,BankSystem,start
+4,C.2 - Receive Bank Response,2024-01-01T09:01:26,BankSystem,complete
+4,C - Fund Authorization,2024-01-01T09:01:29,FinanceSystem,complete
+4,D - Charge Card,2024-01-01T09:01:30,ChargeSystem,start
+4,D.1 - Charge Request (Case 4),2024-01-01T09:01:33,ChargeSystem,start
+4,D.1 - Charge Request (Case 4),2024-01-01T09:01:37,ChargeSystem,complete
+4,D.2 - Receive Charge Response,2024-01-01T09:01:38,ChargeSystem,start
+4,D.2 - Receive Charge Response,2024-01-01T09:01:39,ChargeSystem,complete
+4,D - Charge Card,2024-01-01T09:01:40,ChargeSystem,complete
+4,E - Notification & Reconciliation,2024-01-01T09:01:44,Orchestrator,start
+4,E.1 - Customer Notification (Case 4),2024-01-01T09:01:48,Notifier,start
+4,E.1 - Customer Notification (Case 4),2024-01-01T09:01:49,Notifier,complete
+4,E.2 - Merchant Notification (Case 4),2024-01-01T09:01:51,Notifier,start
+4,E.2 - Merchant Notification (Case 4),2024-01-01T09:01:52,Notifier,complete
+4,E.3 - Update Ledger,2024-01-01T09:01:53,LedgerSystem,start
+4,E.3.1 - Insert Transaction Record,2024-01-01T09:01:56,LedgerSystem,start
+4,E.3.1 - Insert Transaction Record,2024-01-01T09:01:59,LedgerSystem,complete
+4,E.3.2 - Close Ledger Entry,2024-01-01T09:02:01,LedgerSystem,start
+4,E.3.2 - Close Ledger Entry,2024-01-01T09:02:04,LedgerSystem,complete
+4,E.3 - Update Ledger,2024-01-01T09:02:05,LedgerSystem,complete
+4,E.4 - Reconcile Batch,2024-01-01T09:02:08,BatchSystem,start
+4,E.4.1 - Aggregate Transactions,2024-01-01T09:02:09,BatchSystem,start
+4,E.4.2 - Generate Batch Report,2024-01-01T09:02:10,ReportSystem,start
+4,E.4.1 - Aggregate Transactions,2024-01-01T09:02:14,BatchSystem,complete
+4,E.4.2 - Generate Batch Report,2024-01-01T09:02:17,ReportSystem,complete
+4,E.4 - Reconcile Batch,2024-01-01T09:02:20,BatchSystem,complete
+4,E - Notification & Reconciliation,2024-01-01T09:02:21,Orchestrator,complete
+5,A - Validate Payment,2024-01-01T09:15:00,Orchestrator,start
+5,A - Validate Payment,2024-01-01T09:15:02,Orchestrator,complete
+5,A.1 - Basic Validation,2024-01-01T09:15:06,Validator,start
+5,A.1.1 - Check Card Number,2024-01-01T09:15:09,Validator,start
+5,A.1.1 - Check Card Number,2024-01-01T09:15:11,Validator,complete
+5,A.1.2 - Check Expiry,2024-01-01T09:15:14,Validator,start
+5,A.1.2 - Check Expiry,2024-01-01T09:15:16,Validator,complete
+5,A.1.3 - Check CVV,2024-01-01T09:15:18,Validator,start
+5,A.1.3 - Check CVV,2024-01-01T09:15:20,Validator,complete
+5,A.1 - Basic Validation,2024-01-01T09:15:23,Validator,complete
+5,A.2 - Advanced Validation,2024-01-01T09:15:25,Validator,start
+5,A.2.1 - Validate Address,2024-01-01T09:15:26,Validator,start
+5,A.2.2 - Validate Zip Code,2024-01-01T09:15:27,Validator,start
+5,A.2.1 - Validate Address,2024-01-01T09:15:30,Validator,complete
+5,A.2.2 - Validate Zip Code,2024-01-01T09:15:31,Validator,complete
+5,A.2 - Advanced Validation,2024-01-01T09:15:32,Validator,complete
+5,B - Fraud Checks,2024-01-01T09:15:34,FraudOrchestrator,start
+5,B.1 - Run Fraud Engine,2024-01-01T09:15:38,FraudSystem,start
+5,B.1 - Run Fraud Engine,2024-01-01T09:15:40,FraudSystem,complete
+5,B.2 - Fraud Notification Call (Case 5),2024-01-01T09:15:41,AsyncNotifier,start
+5,B.2 - Fraud Notification Call (Case 5),2024-01-01T09:15:42,AsyncNotifier,complete
+5,B.3 - Parallel Checks,2024-01-01T09:15:46,FraudSystem,start
+5,B.3.1 - Check Geolocation,2024-01-01T09:15:47,GeoSystem,start
+5,B.3.2 - Check Transaction History,2024-01-01T09:15:48,HistorySystem,start
+5,B.3.1 - Check Geolocation,2024-01-01T09:15:52,GeoSystem,complete
+5,B.3.2 - Check Transaction History,2024-01-01T09:15:54,HistorySystem,complete
+5,B.3 - Parallel Checks,2024-01-01T09:15:55,FraudSystem,complete
+5,B - Fraud Checks,2024-01-01T09:15:59,FraudOrchestrator,complete
+5,C - Fund Authorization,2024-01-01T09:16:01,FinanceSystem,start
+5,C.1 - Bank API Call (Case 5),2024-01-01T09:16:05,BankSystem,start
+5,C.1 - Bank API Call (Case 5),2024-01-01T09:16:07,BankSystem,complete
+5,C.2 - Receive Bank Response,2024-01-01T09:16:11,BankSystem,start
+5,C.2 - Receive Bank Response,2024-01-01T09:16:15,BankSystem,complete
+5,C.3 - Request Additional Info,2024-01-01T09:16:17,FinanceSystem,start
+5,C.3 - Request Additional Info,2024-01-01T09:16:21,FinanceSystem,complete
+5,C.3 - Request Additional Info,2024-01-01T09:16:23,FinanceSystem,start
+5,C - Fund Authorization,2024-01-01T09:16:26,FinanceSystem,complete
+5,D - Charge Card,2024-01-01T09:16:30,ChargeSystem,start
+5,D.1 - Charge Request (Case 5),2024-01-01T09:16:33,ChargeSystem,start
+5,D.1 - Charge Request (Case 5),2024-01-01T09:16:37,ChargeSystem,complete
+5,D.2 - Receive Charge Response,2024-01-01T09:16:38,ChargeSystem,start
+5,D.2 - Receive Charge Response,2024-01-01T09:16:42,ChargeSystem,complete
+5,D - Charge Card,2024-01-01T09:16:45,ChargeSystem,complete
+5,E - Notification & Reconciliation,2024-01-01T09:16:49,Orchestrator,start
+5,E.1 - Customer Notification (Case 5),2024-01-01T09:16:52,Notifier,start
+5,E.1 - Customer Notification (Case 5),2024-01-01T09:16:53,Notifier,complete
+5,E.2 - Merchant Notification (Case 5),2024-01-01T09:16:56,Notifier,start
+5,E.2 - Merchant Notification (Case 5),2024-01-01T09:16:57,Notifier,complete
+5,E.3 - Update Ledger,2024-01-01T09:16:58,LedgerSystem,start
+5,E.3.1 - Insert Transaction Record,2024-01-01T09:16:59,LedgerSystem,start
+5,E.3.1 - Insert Transaction Record,2024-01-01T09:17:03,LedgerSystem,complete
+5,E.3.2 - Close Ledger Entry,2024-01-01T09:17:05,LedgerSystem,start
+5,E.3.2 - Close Ledger Entry,2024-01-01T09:17:09,LedgerSystem,complete
+5,E.3 - Update Ledger,2024-01-01T09:17:11,LedgerSystem,complete
+5,E.4 - Reconcile Batch,2024-01-01T09:17:15,BatchSystem,start
+5,E.4.1 - Aggregate Transactions,2024-01-01T09:17:16,BatchSystem,start
+5,E.4.2 - Generate Batch Report,2024-01-01T09:17:17,ReportSystem,start
+5,E.4.1 - Aggregate Transactions,2024-01-01T09:17:21,BatchSystem,complete
+5,E.4.2 - Generate Batch Report,2024-01-01T09:17:25,ReportSystem,complete
+5,E.4 - Reconcile Batch,2024-01-01T09:17:29,BatchSystem,complete
+5,E - Notification & Reconciliation,2024-01-01T09:17:33,Orchestrator,complete
+6,A - Validate Payment,2024-01-01T09:30:00,Orchestrator,start
+6,A - Validate Payment,2024-01-01T09:30:03,Orchestrator,complete
+6,A.1 - Basic Validation,2024-01-01T09:30:06,Validator,start
+6,A.1.1 - Check Card Number,2024-01-01T09:30:09,Validator,start
+6,A.1.1 - Check Card Number,2024-01-01T09:30:10,Validator,complete
+6,A.1.2 - Check Expiry,2024-01-01T09:30:13,Validator,start
+6,A.1.2 - Check Expiry,2024-01-01T09:30:15,Validator,complete
+6,A.1.3 - Check CVV,2024-01-01T09:30:17,Validator,start
+6,A.1.3 - Check CVV,2024-01-01T09:30:20,Validator,complete
+6,A.1 - Basic Validation,2024-01-01T09:30:22,Validator,complete
+6,A.2 - Advanced Validation,2024-01-01T09:30:25,Validator,start
+6,A.2.1 - Validate Address,2024-01-01T09:30:26,Validator,start
+6,A.2.2 - Validate Zip Code,2024-01-01T09:30:27,Validator,start
+6,A.2.1 - Validate Address,2024-01-01T09:30:31,Validator,complete
+6,A.2.2 - Validate Zip Code,2024-01-01T09:30:34,Validator,complete
+6,A.2 - Advanced Validation,2024-01-01T09:30:35,Validator,complete
+6,B - Fraud Checks,2024-01-01T09:30:39,FraudOrchestrator,start
+6,B.1 - Run Fraud Engine,2024-01-01T09:30:42,FraudSystem,start
+6,B.1 - Run Fraud Engine,2024-01-01T09:30:43,FraudSystem,complete
+6,B.2 - Fraud Notification Call (Case 6),2024-01-01T09:30:47,AsyncNotifier,start
+6,B.2 - Fraud Notification Call (Case 6),2024-01-01T09:30:50,AsyncNotifier,complete
+6,B.3 - Parallel Checks,2024-01-01T09:30:54,FraudSystem,start
+6,B.3.1 - Check Geolocation,2024-01-01T09:30:55,GeoSystem,start
+6,B.3.2 - Check Transaction History,2024-01-01T09:30:56,HistorySystem,start
+6,B.3.1 - Check Geolocation,2024-01-01T09:30:57,GeoSystem,complete
+6,B.3.2 - Check Transaction History,2024-01-01T09:31:01,HistorySystem,complete
+6,B.3 - Parallel Checks,2024-01-01T09:31:04,FraudSystem,complete
+6,B - Fraud Checks,2024-01-01T09:31:06,FraudOrchestrator,complete
+6,C - Fund Authorization,2024-01-01T09:31:07,FinanceSystem,start
+6,C.1 - Bank API Call (Case 6),2024-01-01T09:31:09,BankSystem,start
+6,C.1 - Bank API Call (Case 6),2024-01-01T09:31:13,BankSystem,complete
+6,C.2 - Receive Bank Response,2024-01-01T09:31:17,BankSystem,start
+6,C.2 - Receive Bank Response,2024-01-01T09:31:20,BankSystem,complete
+6,C - Fund Authorization,2024-01-01T09:31:24,FinanceSystem,complete
+6,D - Charge Card,2024-01-01T09:31:26,ChargeSystem,start
+6,D.1 - Charge Request (Case 6),2024-01-01T09:31:27,ChargeSystem,start
+6,D.1 - Charge Request (Case 6),2024-01-01T09:31:29,ChargeSystem,complete
+6,D.2 - Receive Charge Response,2024-01-01T09:31:31,ChargeSystem,start
+6,D.2 - Receive Charge Response,2024-01-01T09:31:32,ChargeSystem,complete
+6,D.3 - Handle Charge Error,2024-01-01T09:31:36,ErrorHandler,start
+6,D.3 - Handle Charge Error,2024-01-01T09:31:37,ErrorHandler,complete
+6,D.1 - Charge Request Retry (Case 6),2024-01-01T09:31:41,ChargeSystem,start
+6,D.1 - Charge Request Retry (Case 6),2024-01-01T09:31:42,ChargeSystem,complete
+6,D.2 - Receive Charge Response Retry,2024-01-01T09:31:46,ChargeSystem,start
+6,D.2 - Receive Charge Response Retry,2024-01-01T09:31:50,ChargeSystem,complete
+6,D - Charge Card,2024-01-01T09:31:52,ChargeSystem,complete
+6,E - Notification & Reconciliation,2024-01-01T09:31:56,Orchestrator,start
+6,E.1 - Customer Notification (Case 6),2024-01-01T09:31:58,Notifier,start
+6,E.1 - Customer Notification (Case 6),2024-01-01T09:32:02,Notifier,complete
+6,E.2 - Merchant Notification (Case 6),2024-01-01T09:32:04,Notifier,start
+6,E.2 - Merchant Notification (Case 6),2024-01-01T09:32:07,Notifier,complete
+6,E.3 - Update Ledger,2024-01-01T09:32:09,LedgerSystem,start
+6,E.3.1 - Insert Transaction Record,2024-01-01T09:32:12,LedgerSystem,start
+6,E.3.1 - Insert Transaction Record,2024-01-01T09:32:13,LedgerSystem,complete
+6,E.3.2 - Close Ledger Entry,2024-01-01T09:32:16,LedgerSystem,start
+6,E.3.2 - Close Ledger Entry,2024-01-01T09:32:19,LedgerSystem,complete
+6,E.3 - Update Ledger,2024-01-01T09:32:20,LedgerSystem,complete
+6,E.4 - Reconcile Batch,2024-01-01T09:32:21,BatchSystem,start
+6,E.4.1 - Aggregate Transactions,2024-01-01T09:32:22,BatchSystem,start
+6,E.4.2 - Generate Batch Report,2024-01-01T09:32:23,ReportSystem,start
+6,E.4.1 - Aggregate Transactions,2024-01-01T09:32:24,BatchSystem,complete
+6,E.4.2 - Generate Batch Report,2024-01-01T09:32:27,ReportSystem,complete
+6,E.4 - Reconcile Batch,2024-01-01T09:32:31,BatchSystem,complete
+6,E - Notification & Reconciliation,2024-01-01T09:32:35,Orchestrator,complete
+7,A - Validate Payment,2024-01-01T09:45:00,Orchestrator,start
+7,A - Validate Payment,2024-01-01T09:45:01,Orchestrator,complete
+7,A.1 - Basic Validation,2024-01-01T09:45:05,Validator,start
+7,A.1.1 - Check Card Number,2024-01-01T09:45:09,Validator,start
+7,A.1.1 - Check Card Number,2024-01-01T09:45:10,Validator,complete
+7,A.1.2 - Check Expiry,2024-01-01T09:45:12,Validator,start
+7,A.1.2 - Check Expiry,2024-01-01T09:45:15,Validator,complete
+7,A.1.3 - Check CVV,2024-01-01T09:45:19,Validator,start
+7,A.1.3 - Check CVV,2024-01-01T09:45:20,Validator,complete
+7,A.1.1 - Check Card Number,2024-01-01T09:45:22,Validator,start
+7,A.1.1 - Check Card Number,2024-01-01T09:45:26,Validator,complete
+7,A.1.1 - Check Card Number,2024-01-01T09:45:29,Validator,start
+7,A.1.1 - Check Card Number,2024-01-01T09:45:33,Validator,complete
+7,A.1 - Basic Validation,2024-01-01T09:45:35,Validator,complete
+7,A.2 - Advanced Validation,2024-01-01T09:45:37,Validator,start
+7,A.2.1 - Validate Address,2024-01-01T09:45:38,Validator,start
+7,A.2.2 - Validate Zip Code,2024-01-01T09:45:39,Validator,start
+7,A.2.1 - Validate Address,2024-01-01T09:45:41,Validator,complete
+7,A.2.2 - Validate Zip Code,2024-01-01T09:45:43,Validator,complete
+7,A.2 - Advanced Validation,2024-01-01T09:45:46,Validator,complete
+7,B - Fraud Checks,2024-01-01T09:45:48,FraudOrchestrator,start
+7,B.1 - Run Fraud Engine,2024-01-01T09:45:51,FraudSystem,start
+7,B.1 - Run Fraud Engine,2024-01-01T09:45:52,FraudSystem,complete
+7,B.2 - Fraud Notification Call (Case 7),2024-01-01T09:45:56,AsyncNotifier,start
+7,B.2 - Fraud Notification Call (Case 7),2024-01-01T09:45:57,AsyncNotifier,complete
+7,B.3 - Parallel Checks,2024-01-01T09:45:58,FraudSystem,start
+7,B.3.1 - Check Geolocation,2024-01-01T09:45:59,GeoSystem,start
+7,B.3.2 - Check Transaction History,2024-01-01T09:46:00,HistorySystem,start
+7,B.3.1 - Check Geolocation,2024-01-01T09:46:03,GeoSystem,complete
+7,B.3.2 - Check Transaction History,2024-01-01T09:46:04,HistorySystem,complete
+7,B.3 - Parallel Checks,2024-01-01T09:46:05,FraudSystem,complete
+7,B - Fraud Checks,2024-01-01T09:46:08,FraudOrchestrator,complete
+7,C - Fund Authorization,2024-01-01T09:46:11,FinanceSystem,start
+7,C.1 - Bank API Call (Case 7),2024-01-01T09:46:13,BankSystem,start
+7,C.1 - Bank API Call (Case 7),2024-01-01T09:46:15,BankSystem,complete
+7,C.2 - Receive Bank Response,2024-01-01T09:46:17,BankSystem,start
+7,C.2 - Receive Bank Response,2024-01-01T09:46:21,BankSystem,complete
+7,C - Fund Authorization,2024-01-01T09:46:22,FinanceSystem,complete
+7,D - Charge Card,2024-01-01T09:46:23,ChargeSystem,start
+7,D.1 - Charge Request (Case 7),2024-01-01T09:46:26,ChargeSystem,start
+7,D.1 - Charge Request (Case 7),2024-01-01T09:46:27,ChargeSystem,complete
+7,D.2 - Receive Charge Response,2024-01-01T09:46:28,ChargeSystem,start
+7,D.2 - Receive Charge Response,2024-01-01T09:46:31,ChargeSystem,complete
+7,D.3 - Handle Charge Error,2024-01-01T09:46:32,ErrorHandler,start
+7,D.3 - Handle Charge Error,2024-01-01T09:46:35,ErrorHandler,complete
+7,D.1 - Charge Request Retry (Case 7),2024-01-01T09:46:39,ChargeSystem,start
+7,D.1 - Charge Request Retry (Case 7),2024-01-01T09:46:41,ChargeSystem,complete
+7,D.2 - Receive Charge Response Retry,2024-01-01T09:46:42,ChargeSystem,start
+7,D.2 - Receive Charge Response Retry,2024-01-01T09:46:43,ChargeSystem,complete
+7,D - Charge Card,2024-01-01T09:46:46,ChargeSystem,complete
+7,E - Notification & Reconciliation,2024-01-01T09:46:48,Orchestrator,start
+7,E.1 - Customer Notification (Case 7),2024-01-01T09:46:51,Notifier,start
+7,E.1 - Customer Notification (Case 7),2024-01-01T09:46:55,Notifier,complete
+7,E.2 - Merchant Notification (Case 7),2024-01-01T09:46:56,Notifier,start
+7,E.2 - Merchant Notification (Case 7),2024-01-01T09:46:59,Notifier,complete
+7,E.3 - Update Ledger,2024-01-01T09:47:02,LedgerSystem,start
+7,E.3.1 - Insert Transaction Record,2024-01-01T09:47:06,LedgerSystem,start
+7,E.3.1 - Insert Transaction Record,2024-01-01T09:47:10,LedgerSystem,complete
+7,E.3.2 - Close Ledger Entry,2024-01-01T09:47:13,LedgerSystem,start
+7,E.3.2 - Close Ledger Entry,2024-01-01T09:47:15,LedgerSystem,complete
+7,E.3 - Update Ledger,2024-01-01T09:47:18,LedgerSystem,complete
+7,E.4 - Reconcile Batch,2024-01-01T09:47:20,BatchSystem,start
+7,E.4.1 - Aggregate Transactions,2024-01-01T09:47:21,BatchSystem,start
+7,E.4.2 - Generate Batch Report,2024-01-01T09:47:22,ReportSystem,start
+7,E.4.1 - Aggregate Transactions,2024-01-01T09:47:25,BatchSystem,complete
+7,E.4.2 - Generate Batch Report,2024-01-01T09:47:29,ReportSystem,complete
+7,E.4 - Reconcile Batch,2024-01-01T09:47:30,BatchSystem,complete
+7,E - Notification & Reconciliation,2024-01-01T09:47:32,Orchestrator,complete
+8,A - Validate Payment,2024-01-01T10:00:00,Orchestrator,start
+8,A - Validate Payment,2024-01-01T10:00:02,Orchestrator,complete
+8,A.1 - Basic Validation,2024-01-01T10:00:03,Validator,start
+8,A.1.1 - Check Card Number,2024-01-01T10:00:05,Validator,start
+8,A.1.1 - Check Card Number,2024-01-01T10:00:06,Validator,complete
+8,A.1.2 - Check Expiry,2024-01-01T10:00:07,Validator,start
+8,A.1.2 - Check Expiry,2024-01-01T10:00:11,Validator,complete
+8,A.1.3 - Check CVV,2024-01-01T10:00:12,Validator,start
+8,A.1.3 - Check CVV,2024-01-01T10:00:14,Validator,complete
+8,A.1 - Basic Validation,2024-01-01T10:00:17,Validator,complete
+8,A.2 - Advanced Validation,2024-01-01T10:00:20,Validator,start
+8,A.2.1 - Validate Address,2024-01-01T10:00:21,Validator,start
+8,A.2.2 - Validate Zip Code,2024-01-01T10:00:22,Validator,start
+8,A.2.1 - Validate Address,2024-01-01T10:00:24,Validator,complete
+8,A.2.2 - Validate Zip Code,2024-01-01T10:00:28,Validator,complete
+8,A.2 - Advanced Validation,2024-01-01T10:00:30,Validator,complete
+8,B - Fraud Checks,2024-01-01T10:00:32,FraudOrchestrator,start
+8,B.1 - Run Fraud Engine,2024-01-01T10:00:35,FraudSystem,start
+8,B.1 - Run Fraud Engine,2024-01-01T10:00:39,FraudSystem,complete
+8,B.2 - Fraud Notification Call (Case 8),2024-01-01T10:00:43,AsyncNotifier,start
+8,B.2 - Fraud Notification Call (Case 8),2024-01-01T10:00:46,AsyncNotifier,complete
+8,B.3 - Parallel Checks,2024-01-01T10:00:49,FraudSystem,start
+8,B.3.1 - Check Geolocation,2024-01-01T10:00:50,GeoSystem,start
+8,B.3.2 - Check Transaction History,2024-01-01T10:00:51,HistorySystem,start
+8,B.3.1 - Check Geolocation,2024-01-01T10:00:52,GeoSystem,complete
+8,B.3.2 - Check Transaction History,2024-01-01T10:00:56,HistorySystem,complete
+8,B.3 - Parallel Checks,2024-01-01T10:00:58,FraudSystem,complete
+8,B - Fraud Checks,2024-01-01T10:00:59,FraudOrchestrator,complete
+8,C - Fund Authorization,2024-01-01T10:01:01,FinanceSystem,start
+8,C.1 - Bank API Call (Case 8),2024-01-01T10:01:05,BankSystem,start
+8,C.1 - Bank API Call (Case 8),2024-01-01T10:01:08,BankSystem,complete
+8,C.2 - Receive Bank Response,2024-01-01T10:01:10,BankSystem,start
+8,C.2 - Receive Bank Response,2024-01-01T10:01:13,BankSystem,complete
+8,C.3 - Request Additional Info,2024-01-01T10:01:17,FinanceSystem,start
+8,C.3 - Request Additional Info,2024-01-01T10:01:18,FinanceSystem,complete
+8,C.3 - Request Additional Info,2024-01-01T10:01:19,FinanceSystem,complete
+8,C.3 - Request Additional Info,2024-01-01T10:01:23,FinanceSystem,start
+8,C.3 - Request Additional Info,2024-01-01T10:01:27,FinanceSystem,complete
+8,C - Fund Authorization,2024-01-01T10:01:29,FinanceSystem,complete
+8,D - Charge Card,2024-01-01T10:01:33,ChargeSystem,start
+8,D.1 - Charge Request (Case 8),2024-01-01T10:01:35,ChargeSystem,start
+8,D.1 - Charge Request (Case 8),2024-01-01T10:01:38,ChargeSystem,complete
+8,D.2 - Receive Charge Response,2024-01-01T10:01:40,ChargeSystem,start
+8,D.2 - Receive Charge Response,2024-01-01T10:01:42,ChargeSystem,complete
+8,D - Charge Card,2024-01-01T10:01:45,ChargeSystem,complete
+8,E - Notification & Reconciliation,2024-01-01T10:01:48,Orchestrator,start
+8,E.1 - Customer Notification (Case 8),2024-01-01T10:01:50,Notifier,start
+8,E.1 - Customer Notification (Case 8),2024-01-01T10:01:52,Notifier,complete
+8,E.2 - Merchant Notification (Case 8),2024-01-01T10:01:55,Notifier,start
+8,E.2 - Merchant Notification (Case 8),2024-01-01T10:01:59,Notifier,complete
+8,E.3 - Update Ledger,2024-01-01T10:02:02,LedgerSystem,start
+8,E.3.1 - Insert Transaction Record,2024-01-01T10:02:04,LedgerSystem,start
+8,E.3.1 - Insert Transaction Record,2024-01-01T10:02:08,LedgerSystem,complete
+8,E.3.2 - Close Ledger Entry,2024-01-01T10:02:11,LedgerSystem,start
+8,E.3.2 - Close Ledger Entry,2024-01-01T10:02:14,LedgerSystem,complete
+8,E.3 - Update Ledger,2024-01-01T10:02:15,LedgerSystem,complete
+8,E.4 - Reconcile Batch,2024-01-01T10:02:17,BatchSystem,start
+8,E.4.1 - Aggregate Transactions,2024-01-01T10:02:18,BatchSystem,start
+8,E.4.2 - Generate Batch Report,2024-01-01T10:02:19,ReportSystem,start
+8,E.4.1 - Aggregate Transactions,2024-01-01T10:02:20,BatchSystem,complete
+8,E.4.2 - Generate Batch Report,2024-01-01T10:02:22,ReportSystem,complete
+8,E.4 - Reconcile Batch,2024-01-01T10:02:25,BatchSystem,complete
+8,E - Notification & Reconciliation,2024-01-01T10:02:28,Orchestrator,complete
+9,A - Validate Payment,2024-01-01T10:15:00,Orchestrator,start
+9,A - Validate Payment,2024-01-01T10:15:04,Orchestrator,complete
+9,A.1 - Basic Validation,2024-01-01T10:15:05,Validator,start
+9,A.1.1 - Check Card Number,2024-01-01T10:15:07,Validator,start
+9,A.1.1 - Check Card Number,2024-01-01T10:15:08,Validator,complete
+9,A.1.2 - Check Expiry,2024-01-01T10:15:09,Validator,start
+9,A.1.2 - Check Expiry,2024-01-01T10:15:13,Validator,complete
+9,A.1.3 - Check CVV,2024-01-01T10:15:17,Validator,start
+9,A.1.3 - Check CVV,2024-01-01T10:15:18,Validator,complete
+9,A.1 - Basic Validation,2024-01-01T10:15:19,Validator,complete
+9,A.2 - Advanced Validation,2024-01-01T10:15:23,Validator,start
+9,A.2.1 - Validate Address,2024-01-01T10:15:24,Validator,start
+9,A.2.2 - Validate Zip Code,2024-01-01T10:15:25,Validator,start
+9,A.2.1 - Validate Address,2024-01-01T10:15:26,Validator,complete
+9,A.2.2 - Validate Zip Code,2024-01-01T10:15:28,Validator,complete
+9,A.2 - Advanced Validation,2024-01-01T10:15:31,Validator,complete
+9,B - Fraud Checks,2024-01-01T10:15:34,FraudOrchestrator,start
+9,B.1 - Run Fraud Engine,2024-01-01T10:15:38,FraudSystem,start
+9,B.1 - Run Fraud Engine,2024-01-01T10:15:40,FraudSystem,complete
+9,B.2 - Fraud Notification Call (Case 9),2024-01-01T10:15:44,AsyncNotifier,start
+9,B.2 - Fraud Notification Call (Case 9),2024-01-01T10:15:45,AsyncNotifier,complete
+9,B.3 - Parallel Checks,2024-01-01T10:15:49,FraudSystem,start
+9,B.3.1 - Check Geolocation,2024-01-01T10:15:50,GeoSystem,start
+9,B.3.2 - Check Transaction History,2024-01-01T10:15:51,HistorySystem,start
+9,B.3.1 - Check Geolocation,2024-01-01T10:15:53,GeoSystem,complete
+9,B.3.2 - Check Transaction History,2024-01-01T10:15:55,HistorySystem,complete
+9,B.3 - Parallel Checks,2024-01-01T10:15:58,FraudSystem,complete
+9,B - Fraud Checks,2024-01-01T10:16:02,FraudOrchestrator,complete
+9,C - Fund Authorization,2024-01-01T10:16:05,FinanceSystem,start
+9,C.1 - Bank API Call (Case 9),2024-01-01T10:16:06,BankSystem,start
+9,C.1 - Bank API Call (Case 9),2024-01-01T10:16:07,BankSystem,complete
+9,C.2 - Receive Bank Response,2024-01-01T10:16:10,BankSystem,start
+9,C.2 - Receive Bank Response,2024-01-01T10:16:14,BankSystem,complete
+9,C.3 - Request Additional Info,2024-01-01T10:16:16,FinanceSystem,start
+9,C.3 - Request Additional Info,2024-01-01T10:16:19,FinanceSystem,complete
+9,C.3 - Request Additional Info,2024-01-01T10:16:20,FinanceSystem,complete
+9,C.3 - Request Additional Info,2024-01-01T10:16:24,FinanceSystem,start
+9,C.3 - Request Additional Info,2024-01-01T10:16:26,FinanceSystem,complete
+9,C - Fund Authorization,2024-01-01T10:16:27,FinanceSystem,complete
+9,D - Charge Card,2024-01-01T10:16:30,ChargeSystem,start
+9,D.1 - Charge Request (Case 9),2024-01-01T10:16:33,ChargeSystem,start
+9,D.1 - Charge Request (Case 9),2024-01-01T10:16:35,ChargeSystem,complete
+9,D.2 - Receive Charge Response,2024-01-01T10:16:39,ChargeSystem,start
+9,D.2 - Receive Charge Response,2024-01-01T10:16:41,ChargeSystem,complete
+9,D.3 - Handle Charge Error,2024-01-01T10:16:43,ErrorHandler,start
+9,D.3 - Handle Charge Error,2024-01-01T10:16:47,ErrorHandler,complete
+9,D.1 - Charge Request Retry (Case 9),2024-01-01T10:16:48,ChargeSystem,start
+9,D.1 - Charge Request Retry (Case 9),2024-01-01T10:16:52,ChargeSystem,complete
+9,D.2 - Receive Charge Response Retry,2024-01-01T10:16:54,ChargeSystem,start
+9,D.2 - Receive Charge Response Retry,2024-01-01T10:16:58,ChargeSystem,complete
+9,D - Charge Card,2024-01-01T10:16:59,ChargeSystem,complete
+9,E - Notification & Reconciliation,2024-01-01T10:17:03,Orchestrator,start
+9,E.1 - Customer Notification (Case 9),2024-01-01T10:17:04,Notifier,start
+9,E.1 - Customer Notification (Case 9),2024-01-01T10:17:08,Notifier,complete
+9,E.2 - Merchant Notification (Case 9),2024-01-01T10:17:12,Notifier,start
+9,E.2 - Merchant Notification (Case 9),2024-01-01T10:17:14,Notifier,complete
+9,E.3 - Update Ledger,2024-01-01T10:17:17,LedgerSystem,start
+9,E.3.1 - Insert Transaction Record,2024-01-01T10:17:21,LedgerSystem,start
+9,E.3.1 - Insert Transaction Record,2024-01-01T10:17:23,LedgerSystem,complete
+9,E.3.2 - Close Ledger Entry,2024-01-01T10:17:26,LedgerSystem,start
+9,E.3.2 - Close Ledger Entry,2024-01-01T10:17:28,LedgerSystem,complete
+9,E.3 - Update Ledger,2024-01-01T10:17:31,LedgerSystem,complete
+9,E.4 - Reconcile Batch,2024-01-01T10:17:35,BatchSystem,start
+9,E.4.1 - Aggregate Transactions,2024-01-01T10:17:36,BatchSystem,start
+9,E.4.2 - Generate Batch Report,2024-01-01T10:17:37,ReportSystem,start
+9,E.4.1 - Aggregate Transactions,2024-01-01T10:17:41,BatchSystem,complete
+9,E.4.2 - Generate Batch Report,2024-01-01T10:17:43,ReportSystem,complete
+9,E.4 - Reconcile Batch,2024-01-01T10:17:45,BatchSystem,complete
+9,E - Notification & Reconciliation,2024-01-01T10:17:48,Orchestrator,complete
+10,A - Validate Payment,2024-01-01T10:30:00,Orchestrator,start
+10,A - Validate Payment,2024-01-01T10:30:04,Orchestrator,complete
+10,A.1 - Basic Validation,2024-01-01T10:30:07,Validator,start
+10,A.1.1 - Check Card Number,2024-01-01T10:30:10,Validator,start
+10,A.1.1 - Check Card Number,2024-01-01T10:30:12,Validator,complete
+10,A.1.2 - Check Expiry,2024-01-01T10:30:16,Validator,start
+10,A.1.2 - Check Expiry,2024-01-01T10:30:19,Validator,complete
+10,A.1.3 - Check CVV,2024-01-01T10:30:21,Validator,start
+10,A.1.3 - Check CVV,2024-01-01T10:30:25,Validator,complete
+10,A.1 - Basic Validation,2024-01-01T10:30:29,Validator,complete
+10,A.2 - Advanced Validation,2024-01-01T10:30:33,Validator,start
+10,A.2.1 - Validate Address,2024-01-01T10:30:34,Validator,start
+10,A.2.2 - Validate Zip Code,2024-01-01T10:30:35,Validator,start
+10,A.2.1 - Validate Address,2024-01-01T10:30:39,Validator,complete
+10,A.2.2 - Validate Zip Code,2024-01-01T10:30:43,Validator,complete
+10,A.2 - Advanced Validation,2024-01-01T10:30:44,Validator,complete
+10,B - Fraud Checks,2024-01-01T10:30:48,FraudOrchestrator,start
+10,B.1 - Run Fraud Engine,2024-01-01T10:30:52,FraudSystem,start
+10,B.1 - Run Fraud Engine,2024-01-01T10:30:53,FraudSystem,complete
+10,B.2 - Fraud Notification Call (Case 10),2024-01-01T10:30:55,AsyncNotifier,start
+10,B.2 - Fraud Notification Call (Case 10),2024-01-01T10:30:58,AsyncNotifier,complete
+10,B.3 - Parallel Checks,2024-01-01T10:31:02,FraudSystem,start
+10,B.3.1 - Check Geolocation,2024-01-01T10:31:03,GeoSystem,start
+10,B.3.2 - Check Transaction History,2024-01-01T10:31:04,HistorySystem,start
+10,B.3.1 - Check Geolocation,2024-01-01T10:31:05,GeoSystem,complete
+10,B.3.2 - Check Transaction History,2024-01-01T10:31:06,HistorySystem,complete
+10,B.3 - Parallel Checks,2024-01-01T10:31:07,FraudSystem,complete
+10,B - Fraud Checks,2024-01-01T10:31:11,FraudOrchestrator,complete
+10,C - Fund Authorization,2024-01-01T10:31:14,FinanceSystem,start
+10,C.1 - Bank API Call (Case 10),2024-01-01T10:31:16,BankSystem,start
+10,C.1 - Bank API Call (Case 10),2024-01-01T10:31:17,BankSystem,complete
+10,C.2 - Receive Bank Response,2024-01-01T10:31:19,BankSystem,start
+10,C.2 - Receive Bank Response,2024-01-01T10:31:21,BankSystem,complete
+10,C.3 - Request Additional Info,2024-01-01T10:31:22,FinanceSystem,start
+10,C.3 - Request Additional Info,2024-01-01T10:31:25,FinanceSystem,complete
+10,C.3 - Request Additional Info,2024-01-01T10:31:28,FinanceSystem,complete
+10,C - Fund Authorization,2024-01-01T10:31:29,FinanceSystem,complete
+10,D - Charge Card,2024-01-01T10:31:33,ChargeSystem,start
+10,D.1 - Charge Request (Case 10),2024-01-01T10:31:35,ChargeSystem,start
+10,D.1 - Charge Request (Case 10),2024-01-01T10:31:36,ChargeSystem,complete
+10,D.2 - Receive Charge Response,2024-01-01T10:31:37,ChargeSystem,start
+10,D.2 - Receive Charge Response,2024-01-01T10:31:40,ChargeSystem,complete
+10,D - Charge Card,2024-01-01T10:31:43,ChargeSystem,complete
+10,E - Notification & Reconciliation,2024-01-01T10:31:45,Orchestrator,start
+10,E.1 - Customer Notification (Case 10),2024-01-01T10:31:47,Notifier,start
+10,E.1 - Customer Notification (Case 10),2024-01-01T10:31:49,Notifier,complete
+10,E.2 - Merchant Notification (Case 10),2024-01-01T10:31:52,Notifier,start
+10,E.2 - Merchant Notification (Case 10),2024-01-01T10:31:55,Notifier,complete
+10,E.3 - Update Ledger,2024-01-01T10:31:57,LedgerSystem,start
+10,E.3.1 - Insert Transaction Record,2024-01-01T10:32:00,LedgerSystem,start
+10,E.3.1 - Insert Transaction Record,2024-01-01T10:32:03,LedgerSystem,complete
+10,E.3.2 - Close Ledger Entry,2024-01-01T10:32:06,LedgerSystem,start
+10,E.3.2 - Close Ledger Entry,2024-01-01T10:32:10,LedgerSystem,complete
+10,E.3 - Update Ledger,2024-01-01T10:32:11,LedgerSystem,complete
+10,E.4 - Reconcile Batch,2024-01-01T10:32:13,BatchSystem,start
+10,E.4.1 - Aggregate Transactions,2024-01-01T10:32:14,BatchSystem,start
+10,E.4.2 - Generate Batch Report,2024-01-01T10:32:15,ReportSystem,start
+10,E.4.1 - Aggregate Transactions,2024-01-01T10:32:19,BatchSystem,complete
+10,E.4.2 - Generate Batch Report,2024-01-01T10:32:22,ReportSystem,complete
+10,E.4 - Reconcile Batch,2024-01-01T10:32:26,BatchSystem,complete
+10,E - Notification & Reconciliation,2024-01-01T10:32:28,Orchestrator,complete
+11,A - Validate Payment,2024-01-01T10:45:00,Orchestrator,start
+11,A - Validate Payment,2024-01-01T10:45:03,Orchestrator,complete
+11,A.1 - Basic Validation,2024-01-01T10:45:05,Validator,start
+11,A.1.1 - Check Card Number,2024-01-01T10:45:09,Validator,start
+11,A.1.1 - Check Card Number,2024-01-01T10:45:12,Validator,complete
+11,A.1.2 - Check Expiry,2024-01-01T10:45:16,Validator,start
+11,A.1.2 - Check Expiry,2024-01-01T10:45:19,Validator,complete
+11,A.1.3 - Check CVV,2024-01-01T10:45:22,Validator,start
+11,A.1.3 - Check CVV,2024-01-01T10:45:23,Validator,complete
+11,A.1.1 - Check Card Number,2024-01-01T10:45:27,Validator,start
+11,A.1.1 - Check Card Number,2024-01-01T10:45:31,Validator,complete
+11,A.1.1 - Check Card Number,2024-01-01T10:45:32,Validator,start
+11,A.1.1 - Check Card Number,2024-01-01T10:45:33,Validator,complete
+11,A.1 - Basic Validation,2024-01-01T10:45:36,Validator,complete
+11,A.2 - Advanced Validation,2024-01-01T10:45:40,Validator,start
+11,A.2.1 - Validate Address,2024-01-01T10:45:41,Validator,start
+11,A.2.2 - Validate Zip Code,2024-01-01T10:45:42,Validator,start
+11,A.2.1 - Validate Address,2024-01-01T10:45:43,Validator,complete
+11,A.2.2 - Validate Zip Code,2024-01-01T10:45:44,Validator,complete
+11,A.2 - Advanced Validation,2024-01-01T10:45:45,Validator,complete
+11,B - Fraud Checks,2024-01-01T10:45:48,FraudOrchestrator,start
+11,B.1 - Run Fraud Engine,2024-01-01T10:45:50,FraudSystem,start
+11,B.1 - Run Fraud Engine,2024-01-01T10:45:53,FraudSystem,complete
+11,B.2 - Fraud Notification Call (Case 11),2024-01-01T10:45:54,AsyncNotifier,start
+11,B.2 - Fraud Notification Call (Case 11),2024-01-01T10:45:56,AsyncNotifier,complete
+11,B.3 - Parallel Checks,2024-01-01T10:45:59,FraudSystem,start
+11,B.3.1 - Check Geolocation,2024-01-01T10:46:00,GeoSystem,start
+11,B.3.2 - Check Transaction History,2024-01-01T10:46:01,HistorySystem,start
+11,B.3.1 - Check Geolocation,2024-01-01T10:46:04,GeoSystem,complete
+11,B.3.2 - Check Transaction History,2024-01-01T10:46:05,HistorySystem,complete
+11,B.3 - Parallel Checks,2024-01-01T10:46:07,FraudSystem,complete
+11,B - Fraud Checks,2024-01-01T10:46:11,FraudOrchestrator,complete
+11,C - Fund Authorization,2024-01-01T10:46:15,FinanceSystem,start
+11,C.1 - Bank API Call (Case 11),2024-01-01T10:46:19,BankSystem,start
+11,C.1 - Bank API Call (Case 11),2024-01-01T10:46:23,BankSystem,complete
+11,C.2 - Receive Bank Response,2024-01-01T10:46:27,BankSystem,start
+11,C.2 - Receive Bank Response,2024-01-01T10:46:30,BankSystem,complete
+11,C - Fund Authorization,2024-01-01T10:46:33,FinanceSystem,complete
+11,D - Charge Card,2024-01-01T10:46:36,ChargeSystem,start
+11,D.1 - Charge Request (Case 11),2024-01-01T10:46:40,ChargeSystem,start
+11,D.1 - Charge Request (Case 11),2024-01-01T10:46:42,ChargeSystem,complete
+11,D.2 - Receive Charge Response,2024-01-01T10:46:45,ChargeSystem,start
+11,D.2 - Receive Charge Response,2024-01-01T10:46:49,ChargeSystem,complete
+11,D - Charge Card,2024-01-01T10:46:52,ChargeSystem,complete
+11,E - Notification & Reconciliation,2024-01-01T10:46:55,Orchestrator,start
+11,E.1 - Customer Notification (Case 11),2024-01-01T10:46:56,Notifier,start
+11,E.1 - Customer Notification (Case 11),2024-01-01T10:47:00,Notifier,complete
+11,E.2 - Merchant Notification (Case 11),2024-01-01T10:47:04,Notifier,start
+11,E.2 - Merchant Notification (Case 11),2024-01-01T10:47:08,Notifier,complete
+11,E.3 - Update Ledger,2024-01-01T10:47:10,LedgerSystem,start
+11,E.3.1 - Insert Transaction Record,2024-01-01T10:47:12,LedgerSystem,start
+11,E.3.1 - Insert Transaction Record,2024-01-01T10:47:16,LedgerSystem,complete
+11,E.3.2 - Close Ledger Entry,2024-01-01T10:47:18,LedgerSystem,start
+11,E.3.2 - Close Ledger Entry,2024-01-01T10:47:19,LedgerSystem,complete
+11,E.3 - Update Ledger,2024-01-01T10:47:21,LedgerSystem,complete
+11,E.4 - Reconcile Batch,2024-01-01T10:47:23,BatchSystem,start
+11,E.4.1 - Aggregate Transactions,2024-01-01T10:47:24,BatchSystem,start
+11,E.4.2 - Generate Batch Report,2024-01-01T10:47:25,ReportSystem,start
+11,E.4.1 - Aggregate Transactions,2024-01-01T10:47:27,BatchSystem,complete
+11,E.4.2 - Generate Batch Report,2024-01-01T10:47:31,ReportSystem,complete
+11,E.4 - Reconcile Batch,2024-01-01T10:47:32,BatchSystem,complete
+11,E - Notification & Reconciliation,2024-01-01T10:47:34,Orchestrator,complete
+12,A - Validate Payment,2024-01-01T11:00:00,Orchestrator,start
+12,A - Validate Payment,2024-01-01T11:00:03,Orchestrator,complete
+12,A.1 - Basic Validation,2024-01-01T11:00:04,Validator,start
+12,A.1.1 - Check Card Number,2024-01-01T11:00:05,Validator,start
+12,A.1.1 - Check Card Number,2024-01-01T11:00:06,Validator,complete
+12,A.1.2 - Check Expiry,2024-01-01T11:00:10,Validator,start
+12,A.1.2 - Check Expiry,2024-01-01T11:00:14,Validator,complete
+12,A.1.3 - Check CVV,2024-01-01T11:00:18,Validator,start
+12,A.1.3 - Check CVV,2024-01-01T11:00:20,Validator,complete
+12,A.1 - Basic Validation,2024-01-01T11:00:21,Validator,complete
+12,A.2 - Advanced Validation,2024-01-01T11:00:22,Validator,start
+12,A.2.1 - Validate Address,2024-01-01T11:00:23,Validator,start
+12,A.2.2 - Validate Zip Code,2024-01-01T11:00:24,Validator,start
+12,A.2.1 - Validate Address,2024-01-01T11:00:25,Validator,complete
+12,A.2.2 - Validate Zip Code,2024-01-01T11:00:29,Validator,complete
+12,A.2 - Advanced Validation,2024-01-01T11:00:31,Validator,complete
+12,B - Fraud Checks,2024-01-01T11:00:33,FraudOrchestrator,start
+12,B.1 - Run Fraud Engine,2024-01-01T11:00:35,FraudSystem,start
+12,B.1 - Run Fraud Engine,2024-01-01T11:00:37,FraudSystem,complete
+12,B.2 - Fraud Notification Call (Case 12),2024-01-01T11:00:39,AsyncNotifier,start
+12,B.2 - Fraud Notification Call (Case 12),2024-01-01T11:00:41,AsyncNotifier,complete
+12,B.3 - Parallel Checks,2024-01-01T11:00:43,FraudSystem,start
+12,B.3.1 - Check Geolocation,2024-01-01T11:00:44,GeoSystem,start
+12,B.3.2 - Check Transaction History,2024-01-01T11:00:45,HistorySystem,start
+12,B.3.1 - Check Geolocation,2024-01-01T11:00:47,GeoSystem,complete
+12,B.3.2 - Check Transaction History,2024-01-01T11:00:49,HistorySystem,complete
+12,B.3 - Parallel Checks,2024-01-01T11:00:52,FraudSystem,complete
+12,B - Fraud Checks,2024-01-01T11:00:53,FraudOrchestrator,complete
+12,C - Fund Authorization,2024-01-01T11:00:55,FinanceSystem,start
+12,C.1 - Bank API Call (Case 12),2024-01-01T11:00:57,BankSystem,start
+12,C.1 - Bank API Call (Case 12),2024-01-01T11:01:01,BankSystem,complete
+12,C.2 - Receive Bank Response,2024-01-01T11:01:02,BankSystem,start
+12,C.2 - Receive Bank Response,2024-01-01T11:01:04,BankSystem,complete
+12,C - Fund Authorization,2024-01-01T11:01:07,FinanceSystem,complete
+12,D - Charge Card,2024-01-01T11:01:09,ChargeSystem,start
+12,D.1 - Charge Request (Case 12),2024-01-01T11:01:12,ChargeSystem,start
+12,D.1 - Charge Request (Case 12),2024-01-01T11:01:13,ChargeSystem,complete
+12,D.2 - Receive Charge Response,2024-01-01T11:01:15,ChargeSystem,start
+12,D.2 - Receive Charge Response,2024-01-01T11:01:17,ChargeSystem,complete
+12,D - Charge Card,2024-01-01T11:01:21,ChargeSystem,complete
+12,E - Notification & Reconciliation,2024-01-01T11:01:25,Orchestrator,start
+12,E.1 - Customer Notification (Case 12),2024-01-01T11:01:29,Notifier,start
+12,E.1 - Customer Notification (Case 12),2024-01-01T11:01:31,Notifier,complete
+12,E.2 - Merchant Notification (Case 12),2024-01-01T11:01:35,Notifier,start
+12,E.2 - Merchant Notification (Case 12),2024-01-01T11:01:38,Notifier,complete
+12,E.3 - Update Ledger,2024-01-01T11:01:39,LedgerSystem,start
+12,E.3.1 - Insert Transaction Record,2024-01-01T11:01:41,LedgerSystem,start
+12,E.3.1 - Insert Transaction Record,2024-01-01T11:01:45,LedgerSystem,complete
+12,E.3.2 - Close Ledger Entry,2024-01-01T11:01:49,LedgerSystem,start
+12,E.3.2 - Close Ledger Entry,2024-01-01T11:01:50,LedgerSystem,complete
+12,E.3 - Update Ledger,2024-01-01T11:01:51,LedgerSystem,complete
+12,E.4 - Reconcile Batch,2024-01-01T11:01:52,BatchSystem,start
+12,E.4.1 - Aggregate Transactions,2024-01-01T11:01:53,BatchSystem,start
+12,E.4.2 - Generate Batch Report,2024-01-01T11:01:54,ReportSystem,start
+12,E.4.1 - Aggregate Transactions,2024-01-01T11:01:57,BatchSystem,complete
+12,E.4.2 - Generate Batch Report,2024-01-01T11:02:00,ReportSystem,complete
+12,E.4 - Reconcile Batch,2024-01-01T11:02:04,BatchSystem,complete
+12,E - Notification & Reconciliation,2024-01-01T11:02:08,Orchestrator,complete
+13,A - Validate Payment,2024-01-01T11:15:00,Orchestrator,start
+13,A - Validate Payment,2024-01-01T11:15:04,Orchestrator,complete
+13,A.1 - Basic Validation,2024-01-01T11:15:07,Validator,start
+13,A.1.1 - Check Card Number,2024-01-01T11:15:11,Validator,start
+13,A.1.1 - Check Card Number,2024-01-01T11:15:12,Validator,complete
+13,A.1.2 - Check Expiry,2024-01-01T11:15:16,Validator,start
+13,A.1.2 - Check Expiry,2024-01-01T11:15:18,Validator,complete
+13,A.1.3 - Check CVV,2024-01-01T11:15:22,Validator,start
+13,A.1.3 - Check CVV,2024-01-01T11:15:26,Validator,complete
+13,A.1.1 - Check Card Number,2024-01-01T11:15:27,Validator,start
+13,A.1.1 - Check Card Number,2024-01-01T11:15:30,Validator,complete
+13,A.1.1 - Check Card Number,2024-01-01T11:15:31,Validator,start
+13,A.1.1 - Check Card Number,2024-01-01T11:15:33,Validator,complete
+13,A.1.1 - Check Card Number,2024-01-01T11:15:35,Validator,start
+13,A.1.1 - Check Card Number,2024-01-01T11:15:38,Validator,complete
+13,A.1 - Basic Validation,2024-01-01T11:15:42,Validator,complete
+13,A.2 - Advanced Validation,2024-01-01T11:15:44,Validator,start
+13,A.2.1 - Validate Address,2024-01-01T11:15:45,Validator,start
+13,A.2.2 - Validate Zip Code,2024-01-01T11:15:46,Validator,start
+13,A.2.1 - Validate Address,2024-01-01T11:15:47,Validator,complete
+13,A.2.2 - Validate Zip Code,2024-01-01T11:15:49,Validator,complete
+13,A.2 - Advanced Validation,2024-01-01T11:15:51,Validator,complete
+13,B - Fraud Checks,2024-01-01T11:15:55,FraudOrchestrator,start
+13,B.1 - Run Fraud Engine,2024-01-01T11:15:56,FraudSystem,start
+13,B.1 - Run Fraud Engine,2024-01-01T11:15:59,FraudSystem,complete
+13,B.2 - Fraud Notification Call (Case 13),2024-01-01T11:16:00,AsyncNotifier,start
+13,B.2 - Fraud Notification Call (Case 13),2024-01-01T11:16:04,AsyncNotifier,complete
+13,B.3 - Parallel Checks,2024-01-01T11:16:08,FraudSystem,start
+13,B.3.1 - Check Geolocation,2024-01-01T11:16:09,GeoSystem,start
+13,B.3.2 - Check Transaction History,2024-01-01T11:16:10,HistorySystem,start
+13,B.3.1 - Check Geolocation,2024-01-01T11:16:14,GeoSystem,complete
+13,B.3.2 - Check Transaction History,2024-01-01T11:16:16,HistorySystem,complete
+13,B.3 - Parallel Checks,2024-01-01T11:16:19,FraudSystem,complete
+13,B - Fraud Checks,2024-01-01T11:16:20,FraudOrchestrator,complete
+13,C - Fund Authorization,2024-01-01T11:16:22,FinanceSystem,start
+13,C.1 - Bank API Call (Case 13),2024-01-01T11:16:24,BankSystem,start
+13,C.1 - Bank API Call (Case 13),2024-01-01T11:16:26,BankSystem,complete
+13,C.2 - Receive Bank Response,2024-01-01T11:16:30,BankSystem,start
+13,C.2 - Receive Bank Response,2024-01-01T11:16:31,BankSystem,complete
+13,C.3 - Request Additional Info,2024-01-01T11:16:33,FinanceSystem,start
+13,C.3 - Request Additional Info,2024-01-01T11:16:34,FinanceSystem,complete
+13,C.3 - Request Additional Info,2024-01-01T11:16:38,FinanceSystem,start
+13,C.3 - Request Additional Info,2024-01-01T11:16:41,FinanceSystem,complete
+13,C.3 - Request Additional Info,2024-01-01T11:16:43,FinanceSystem,start
+13,C.3 - Request Additional Info,2024-01-01T11:16:47,FinanceSystem,complete
+13,C - Fund Authorization,2024-01-01T11:16:48,FinanceSystem,complete
+13,D - Charge Card,2024-01-01T11:16:52,ChargeSystem,start
+13,D.1 - Charge Request (Case 13),2024-01-01T11:16:55,ChargeSystem,start
+13,D.1 - Charge Request (Case 13),2024-01-01T11:16:56,ChargeSystem,complete
+13,D.2 - Receive Charge Response,2024-01-01T11:16:58,ChargeSystem,start
+13,D.2 - Receive Charge Response,2024-01-01T11:17:00,ChargeSystem,complete
+13,D.3 - Handle Charge Error,2024-01-01T11:17:01,ErrorHandler,start
+13,D.3 - Handle Charge Error,2024-01-01T11:17:02,ErrorHandler,complete
+13,D.1 - Charge Request Retry (Case 13),2024-01-01T11:17:05,ChargeSystem,start
+13,D.1 - Charge Request Retry (Case 13),2024-01-01T11:17:06,ChargeSystem,complete
+13,D.2 - Receive Charge Response Retry,2024-01-01T11:17:10,ChargeSystem,start
+13,D.2 - Receive Charge Response Retry,2024-01-01T11:17:13,ChargeSystem,complete
+13,D - Charge Card,2024-01-01T11:17:15,ChargeSystem,complete
+13,E - Notification & Reconciliation,2024-01-01T11:17:17,Orchestrator,start
+13,E.1 - Customer Notification (Case 13),2024-01-01T11:17:20,Notifier,start
+13,E.1 - Customer Notification (Case 13),2024-01-01T11:17:23,Notifier,complete
+13,E.2 - Merchant Notification (Case 13),2024-01-01T11:17:27,Notifier,start
+13,E.2 - Merchant Notification (Case 13),2024-01-01T11:17:30,Notifier,complete
+13,E.3 - Update Ledger,2024-01-01T11:17:33,LedgerSystem,start
+13,E.3.1 - Insert Transaction Record,2024-01-01T11:17:34,LedgerSystem,start
+13,E.3.1 - Insert Transaction Record,2024-01-01T11:17:35,LedgerSystem,complete
+13,E.3.2 - Close Ledger Entry,2024-01-01T11:17:38,LedgerSystem,start
+13,E.3.2 - Close Ledger Entry,2024-01-01T11:17:40,LedgerSystem,complete
+13,E.3 - Update Ledger,2024-01-01T11:17:43,LedgerSystem,complete
+13,E.4 - Reconcile Batch,2024-01-01T11:17:44,BatchSystem,start
+13,E.4.1 - Aggregate Transactions,2024-01-01T11:17:45,BatchSystem,start
+13,E.4.2 - Generate Batch Report,2024-01-01T11:17:46,ReportSystem,start
+13,E.4.1 - Aggregate Transactions,2024-01-01T11:17:49,BatchSystem,complete
+13,E.4.2 - Generate Batch Report,2024-01-01T11:17:50,ReportSystem,complete
+13,E.4 - Reconcile Batch,2024-01-01T11:17:51,BatchSystem,complete
+13,E - Notification & Reconciliation,2024-01-01T11:17:52,Orchestrator,complete
+14,A - Validate Payment,2024-01-01T11:30:00,Orchestrator,start
+14,A - Validate Payment,2024-01-01T11:30:01,Orchestrator,complete
+14,A.1 - Basic Validation,2024-01-01T11:30:02,Validator,start
+14,A.1.1 - Check Card Number,2024-01-01T11:30:04,Validator,start
+14,A.1.1 - Check Card Number,2024-01-01T11:30:05,Validator,complete
+14,A.1.2 - Check Expiry,2024-01-01T11:30:08,Validator,start
+14,A.1.2 - Check Expiry,2024-01-01T11:30:10,Validator,complete
+14,A.1.3 - Check CVV,2024-01-01T11:30:11,Validator,start
+14,A.1.3 - Check CVV,2024-01-01T11:30:12,Validator,complete
+14,A.1.1 - Check Card Number,2024-01-01T11:30:16,Validator,start
+14,A.1.1 - Check Card Number,2024-01-01T11:30:18,Validator,complete
+14,A.1.1 - Check Card Number,2024-01-01T11:30:19,Validator,start
+14,A.1.1 - Check Card Number,2024-01-01T11:30:21,Validator,complete
+14,A.1.1 - Check Card Number,2024-01-01T11:30:22,Validator,start
+14,A.1.1 - Check Card Number,2024-01-01T11:30:23,Validator,complete
+14,A.1 - Basic Validation,2024-01-01T11:30:27,Validator,complete
+14,A.2 - Advanced Validation,2024-01-01T11:30:31,Validator,start
+14,A.2.1 - Validate Address,2024-01-01T11:30:32,Validator,start
+14,A.2.2 - Validate Zip Code,2024-01-01T11:30:33,Validator,start
+14,A.2.1 - Validate Address,2024-01-01T11:30:34,Validator,complete
+14,A.2.2 - Validate Zip Code,2024-01-01T11:30:38,Validator,complete
+14,A.2 - Advanced Validation,2024-01-01T11:30:41,Validator,complete
+14,B - Fraud Checks,2024-01-01T11:30:45,FraudOrchestrator,start
+14,B.1 - Run Fraud Engine,2024-01-01T11:30:47,FraudSystem,start
+14,B.1 - Run Fraud Engine,2024-01-01T11:30:48,FraudSystem,complete
+14,B.2 - Fraud Notification Call (Case 14),2024-01-01T11:30:52,AsyncNotifier,start
+14,B.2 - Fraud Notification Call (Case 14),2024-01-01T11:30:55,AsyncNotifier,complete
+14,B.3 - Parallel Checks,2024-01-01T11:30:56,FraudSystem,start
+14,B.3.1 - Check Geolocation,2024-01-01T11:30:57,GeoSystem,start
+14,B.3.2 - Check Transaction History,2024-01-01T11:30:58,HistorySystem,start
+14,B.3.1 - Check Geolocation,2024-01-01T11:31:00,GeoSystem,complete
+14,B.3.2 - Check Transaction History,2024-01-01T11:31:01,HistorySystem,complete
+14,B.3 - Parallel Checks,2024-01-01T11:31:04,FraudSystem,complete
+14,B - Fraud Checks,2024-01-01T11:31:08,FraudOrchestrator,complete
+14,C - Fund Authorization,2024-01-01T11:31:09,FinanceSystem,start
+14,C.1 - Bank API Call (Case 14),2024-01-01T11:31:12,BankSystem,start
+14,C.1 - Bank API Call (Case 14),2024-01-01T11:31:14,BankSystem,complete
+14,C.2 - Receive Bank Response,2024-01-01T11:31:18,BankSystem,start
+14,C.2 - Receive Bank Response,2024-01-01T11:31:20,BankSystem,complete
+14,C.3 - Request Additional Info,2024-01-01T11:31:23,FinanceSystem,start
+14,C.3 - Request Additional Info,2024-01-01T11:31:25,FinanceSystem,complete
+14,C.3 - Request Additional Info,2024-01-01T11:31:26,FinanceSystem,start
+14,C.3 - Request Additional Info,2024-01-01T11:31:30,FinanceSystem,complete
+14,C.3 - Request Additional Info,2024-01-01T11:31:33,FinanceSystem,start
+14,C - Fund Authorization,2024-01-01T11:31:37,FinanceSystem,complete
+14,D - Charge Card,2024-01-01T11:31:40,ChargeSystem,start
+14,D.1 - Charge Request (Case 14),2024-01-01T11:31:42,ChargeSystem,start
+14,D.1 - Charge Request (Case 14),2024-01-01T11:31:44,ChargeSystem,complete
+14,D.2 - Receive Charge Response,2024-01-01T11:31:46,ChargeSystem,start
+14,D.2 - Receive Charge Response,2024-01-01T11:31:47,ChargeSystem,complete
+14,D - Charge Card,2024-01-01T11:31:50,ChargeSystem,complete
+14,E - Notification & Reconciliation,2024-01-01T11:31:53,Orchestrator,start
+14,E.1 - Customer Notification (Case 14),2024-01-01T11:31:55,Notifier,start
+14,E.1 - Customer Notification (Case 14),2024-01-01T11:31:56,Notifier,complete
+14,E.2 - Merchant Notification (Case 14),2024-01-01T11:32:00,Notifier,start
+14,E.2 - Merchant Notification (Case 14),2024-01-01T11:32:04,Notifier,complete
+14,E.3 - Update Ledger,2024-01-01T11:32:06,LedgerSystem,start
+14,E.3.1 - Insert Transaction Record,2024-01-01T11:32:09,LedgerSystem,start
+14,E.3.1 - Insert Transaction Record,2024-01-01T11:32:12,LedgerSystem,complete
+14,E.3.2 - Close Ledger Entry,2024-01-01T11:32:15,LedgerSystem,start
+14,E.3.2 - Close Ledger Entry,2024-01-01T11:32:18,LedgerSystem,complete
+14,E.3 - Update Ledger,2024-01-01T11:32:21,LedgerSystem,complete
+14,E.4 - Reconcile Batch,2024-01-01T11:32:24,BatchSystem,start
+14,E.4.1 - Aggregate Transactions,2024-01-01T11:32:25,BatchSystem,start
+14,E.4.2 - Generate Batch Report,2024-01-01T11:32:26,ReportSystem,start
+14,E.4.1 - Aggregate Transactions,2024-01-01T11:32:27,BatchSystem,complete
+14,E.4.2 - Generate Batch Report,2024-01-01T11:32:28,ReportSystem,complete
+14,E.4 - Reconcile Batch,2024-01-01T11:32:31,BatchSystem,complete
+14,E - Notification & Reconciliation,2024-01-01T11:32:32,Orchestrator,complete
+15,A - Validate Payment,2024-01-01T11:45:00,Orchestrator,start
+15,A - Validate Payment,2024-01-01T11:45:03,Orchestrator,complete
+15,A.1 - Basic Validation,2024-01-01T11:45:04,Validator,start
+15,A.1.1 - Check Card Number,2024-01-01T11:45:07,Validator,start
+15,A.1.1 - Check Card Number,2024-01-01T11:45:08,Validator,complete
+15,A.1.2 - Check Expiry,2024-01-01T11:45:12,Validator,start
+15,A.1.2 - Check Expiry,2024-01-01T11:45:15,Validator,complete
+15,A.1.3 - Check CVV,2024-01-01T11:45:18,Validator,start
+15,A.1.3 - Check CVV,2024-01-01T11:45:19,Validator,complete
+15,A.1.1 - Check Card Number,2024-01-01T11:45:22,Validator,start
+15,A.1.1 - Check Card Number,2024-01-01T11:45:26,Validator,complete
+15,A.1.1 - Check Card Number,2024-01-01T11:45:30,Validator,start
+15,A.1.1 - Check Card Number,2024-01-01T11:45:31,Validator,complete
+15,A.1 - Basic Validation,2024-01-01T11:45:35,Validator,complete
+15,A.2 - Advanced Validation,2024-01-01T11:45:37,Validator,start
+15,A.2.1 - Validate Address,2024-01-01T11:45:38,Validator,start
+15,A.2.2 - Validate Zip Code,2024-01-01T11:45:39,Validator,start
+15,A.2.1 - Validate Address,2024-01-01T11:45:42,Validator,complete
+15,A.2.2 - Validate Zip Code,2024-01-01T11:45:43,Validator,complete
+15,A.2 - Advanced Validation,2024-01-01T11:45:46,Validator,complete
+15,B - Fraud Checks,2024-01-01T11:45:48,FraudOrchestrator,start
+15,B.1 - Run Fraud Engine,2024-01-01T11:45:51,FraudSystem,start
+15,B.1 - Run Fraud Engine,2024-01-01T11:45:54,FraudSystem,complete
+15,B.2 - Fraud Notification Call (Case 15),2024-01-01T11:45:57,AsyncNotifier,start
+15,B.2 - Fraud Notification Call (Case 15),2024-01-01T11:46:00,AsyncNotifier,complete
+15,B.3 - Parallel Checks,2024-01-01T11:46:02,FraudSystem,start
+15,B.3.1 - Check Geolocation,2024-01-01T11:46:03,GeoSystem,start
+15,B.3.2 - Check Transaction History,2024-01-01T11:46:04,HistorySystem,start
+15,B.3.1 - Check Geolocation,2024-01-01T11:46:05,GeoSystem,complete
+15,B.3.2 - Check Transaction History,2024-01-01T11:46:08,HistorySystem,complete
+15,B.3 - Parallel Checks,2024-01-01T11:46:09,FraudSystem,complete
+15,B - Fraud Checks,2024-01-01T11:46:13,FraudOrchestrator,complete
+15,C - Fund Authorization,2024-01-01T11:46:16,FinanceSystem,start
+15,C.1 - Bank API Call (Case 15),2024-01-01T11:46:19,BankSystem,start
+15,C.1 - Bank API Call (Case 15),2024-01-01T11:46:20,BankSystem,complete
+15,C.2 - Receive Bank Response,2024-01-01T11:46:22,BankSystem,start
+15,C.2 - Receive Bank Response,2024-01-01T11:46:24,BankSystem,complete
+15,C.3 - Request Additional Info,2024-01-01T11:46:28,FinanceSystem,start
+15,C.3 - Request Additional Info,2024-01-01T11:46:32,FinanceSystem,complete
+15,C.3 - Request Additional Info,2024-01-01T11:46:34,FinanceSystem,complete
+15,C.3 - Request Additional Info,2024-01-01T11:46:35,FinanceSystem,start
+15,C.3 - Request Additional Info,2024-01-01T11:46:36,FinanceSystem,complete
+15,C - Fund Authorization,2024-01-01T11:46:40,FinanceSystem,complete
+15,D - Charge Card,2024-01-01T11:46:44,ChargeSystem,start
+15,D.1 - Charge Request (Case 15),2024-01-01T11:46:45,ChargeSystem,start
+15,D.1 - Charge Request (Case 15),2024-01-01T11:46:49,ChargeSystem,complete
+15,D.2 - Receive Charge Response,2024-01-01T11:46:52,ChargeSystem,start
+15,D.2 - Receive Charge Response,2024-01-01T11:46:56,ChargeSystem,complete
+15,D - Charge Card,2024-01-01T11:47:00,ChargeSystem,complete
+15,E - Notification & Reconciliation,2024-01-01T11:47:04,Orchestrator,start
+15,E.1 - Customer Notification (Case 15),2024-01-01T11:47:07,Notifier,start
+15,E.1 - Customer Notification (Case 15),2024-01-01T11:47:09,Notifier,complete
+15,E.2 - Merchant Notification (Case 15),2024-01-01T11:47:12,Notifier,start
+15,E.2 - Merchant Notification (Case 15),2024-01-01T11:47:16,Notifier,complete
+15,E.3 - Update Ledger,2024-01-01T11:47:19,LedgerSystem,start
+15,E.3.1 - Insert Transaction Record,2024-01-01T11:47:22,LedgerSystem,start
+15,E.3.1 - Insert Transaction Record,2024-01-01T11:47:25,LedgerSystem,complete
+15,E.3.2 - Close Ledger Entry,2024-01-01T11:47:27,LedgerSystem,start
+15,E.3.2 - Close Ledger Entry,2024-01-01T11:47:29,LedgerSystem,complete
+15,E.3 - Update Ledger,2024-01-01T11:47:33,LedgerSystem,complete
+15,E.4 - Reconcile Batch,2024-01-01T11:47:36,BatchSystem,start
+15,E.4.1 - Aggregate Transactions,2024-01-01T11:47:37,BatchSystem,start
+15,E.4.2 - Generate Batch Report,2024-01-01T11:47:38,ReportSystem,start
+15,E.4.1 - Aggregate Transactions,2024-01-01T11:47:40,BatchSystem,complete
+15,E.4.2 - Generate Batch Report,2024-01-01T11:47:44,ReportSystem,complete
+15,E.4 - Reconcile Batch,2024-01-01T11:47:45,BatchSystem,complete
+15,E - Notification & Reconciliation,2024-01-01T11:47:46,Orchestrator,complete
+16,A - Validate Payment,2024-01-01T12:00:00,Orchestrator,start
+16,A - Validate Payment,2024-01-01T12:00:04,Orchestrator,complete
+16,A.1 - Basic Validation,2024-01-01T12:00:08,Validator,start
+16,A.1.1 - Check Card Number,2024-01-01T12:00:10,Validator,start
+16,A.1.1 - Check Card Number,2024-01-01T12:00:13,Validator,complete
+16,A.1.2 - Check Expiry,2024-01-01T12:00:17,Validator,start
+16,A.1.2 - Check Expiry,2024-01-01T12:00:20,Validator,complete
+16,A.1.3 - Check CVV,2024-01-01T12:00:23,Validator,start
+16,A.1.3 - Check CVV,2024-01-01T12:00:27,Validator,complete
+16,A.1 - Basic Validation,2024-01-01T12:00:30,Validator,complete
+16,A.2 - Advanced Validation,2024-01-01T12:00:33,Validator,start
+16,A.2.1 - Validate Address,2024-01-01T12:00:34,Validator,start
+16,A.2.2 - Validate Zip Code,2024-01-01T12:00:35,Validator,start
+16,A.2.1 - Validate Address,2024-01-01T12:00:39,Validator,complete
+16,A.2.2 - Validate Zip Code,2024-01-01T12:00:42,Validator,complete
+16,A.2 - Advanced Validation,2024-01-01T12:00:45,Validator,complete
+16,B - Fraud Checks,2024-01-01T12:00:46,FraudOrchestrator,start
+16,B.1 - Run Fraud Engine,2024-01-01T12:00:50,FraudSystem,start
+16,B.1 - Run Fraud Engine,2024-01-01T12:00:53,FraudSystem,complete
+16,B.2 - Fraud Notification Call (Case 16),2024-01-01T12:00:55,AsyncNotifier,start
+16,B.2 - Fraud Notification Call (Case 16),2024-01-01T12:00:59,AsyncNotifier,complete
+16,B.3 - Parallel Checks,2024-01-01T12:01:02,FraudSystem,start
+16,B.3.1 - Check Geolocation,2024-01-01T12:01:03,GeoSystem,start
+16,B.3.2 - Check Transaction History,2024-01-01T12:01:04,HistorySystem,start
+16,B.3.1 - Check Geolocation,2024-01-01T12:01:06,GeoSystem,complete
+16,B.3.2 - Check Transaction History,2024-01-01T12:01:07,HistorySystem,complete
+16,B.3 - Parallel Checks,2024-01-01T12:01:09,FraudSystem,complete
+16,B - Fraud Checks,2024-01-01T12:01:12,FraudOrchestrator,complete
+16,C - Fund Authorization,2024-01-01T12:01:14,FinanceSystem,start
+16,C.1 - Bank API Call (Case 16),2024-01-01T12:01:17,BankSystem,start
+16,C.1 - Bank API Call (Case 16),2024-01-01T12:01:19,BankSystem,complete
+16,C.2 - Receive Bank Response,2024-01-01T12:01:22,BankSystem,start
+16,C.2 - Receive Bank Response,2024-01-01T12:01:26,BankSystem,complete
+16,C - Fund Authorization,2024-01-01T12:01:30,FinanceSystem,complete
+16,D - Charge Card,2024-01-01T12:01:31,ChargeSystem,start
+16,D.1 - Charge Request (Case 16),2024-01-01T12:01:34,ChargeSystem,start
+16,D.1 - Charge Request (Case 16),2024-01-01T12:01:35,ChargeSystem,complete
+16,D.2 - Receive Charge Response,2024-01-01T12:01:37,ChargeSystem,start
+16,D.2 - Receive Charge Response,2024-01-01T12:01:39,ChargeSystem,complete
+16,D - Charge Card,2024-01-01T12:01:43,ChargeSystem,complete
+16,E - Notification & Reconciliation,2024-01-01T12:01:44,Orchestrator,start
+16,E.1 - Customer Notification (Case 16),2024-01-01T12:01:45,Notifier,start
+16,E.1 - Customer Notification (Case 16),2024-01-01T12:01:47,Notifier,complete
+16,E.2 - Merchant Notification (Case 16),2024-01-01T12:01:50,Notifier,start
+16,E.2 - Merchant Notification (Case 16),2024-01-01T12:01:51,Notifier,complete
+16,E.3 - Update Ledger,2024-01-01T12:01:52,LedgerSystem,start
+16,E.3.1 - Insert Transaction Record,2024-01-01T12:01:53,LedgerSystem,start
+16,E.3.1 - Insert Transaction Record,2024-01-01T12:01:57,LedgerSystem,complete
+16,E.3.2 - Close Ledger Entry,2024-01-01T12:02:00,LedgerSystem,start
+16,E.3.2 - Close Ledger Entry,2024-01-01T12:02:01,LedgerSystem,complete
+16,E.3 - Update Ledger,2024-01-01T12:02:03,LedgerSystem,complete
+16,E.4 - Reconcile Batch,2024-01-01T12:02:06,BatchSystem,start
+16,E.4.1 - Aggregate Transactions,2024-01-01T12:02:07,BatchSystem,start
+16,E.4.2 - Generate Batch Report,2024-01-01T12:02:08,ReportSystem,start
+16,E.4.1 - Aggregate Transactions,2024-01-01T12:02:12,BatchSystem,complete
+16,E.4.2 - Generate Batch Report,2024-01-01T12:02:16,ReportSystem,complete
+16,E.4 - Reconcile Batch,2024-01-01T12:02:18,BatchSystem,complete
+16,E - Notification & Reconciliation,2024-01-01T12:02:20,Orchestrator,complete
+17,A - Validate Payment,2024-01-01T12:15:00,Orchestrator,start
+17,A - Validate Payment,2024-01-01T12:15:03,Orchestrator,complete
+17,A.1 - Basic Validation,2024-01-01T12:15:07,Validator,start
+17,A.1.1 - Check Card Number,2024-01-01T12:15:10,Validator,start
+17,A.1.1 - Check Card Number,2024-01-01T12:15:14,Validator,complete
+17,A.1.2 - Check Expiry,2024-01-01T12:15:16,Validator,start
+17,A.1.2 - Check Expiry,2024-01-01T12:15:18,Validator,complete
+17,A.1.3 - Check CVV,2024-01-01T12:15:21,Validator,start
+17,A.1.3 - Check CVV,2024-01-01T12:15:23,Validator,complete
+17,A.1 - Basic Validation,2024-01-01T12:15:24,Validator,complete
+17,A.2 - Advanced Validation,2024-01-01T12:15:28,Validator,start
+17,A.2.1 - Validate Address,2024-01-01T12:15:29,Validator,start
+17,A.2.2 - Validate Zip Code,2024-01-01T12:15:30,Validator,start
+17,A.2.1 - Validate Address,2024-01-01T12:15:31,Validator,complete
+17,A.2.2 - Validate Zip Code,2024-01-01T12:15:33,Validator,complete
+17,A.2 - Advanced Validation,2024-01-01T12:15:35,Validator,complete
+17,B - Fraud Checks,2024-01-01T12:15:38,FraudOrchestrator,start
+17,B.1 - Run Fraud Engine,2024-01-01T12:15:42,FraudSystem,start
+17,B.1 - Run Fraud Engine,2024-01-01T12:15:45,FraudSystem,complete
+17,B.2 - Fraud Notification Call (Case 17),2024-01-01T12:15:46,AsyncNotifier,start
+17,B.2 - Fraud Notification Call (Case 17),2024-01-01T12:15:49,AsyncNotifier,complete
+17,B.3 - Parallel Checks,2024-01-01T12:15:50,FraudSystem,start
+17,B.3.1 - Check Geolocation,2024-01-01T12:15:51,GeoSystem,start
+17,B.3.2 - Check Transaction History,2024-01-01T12:15:52,HistorySystem,start
+17,B.3.1 - Check Geolocation,2024-01-01T12:15:55,GeoSystem,complete
+17,B.3.2 - Check Transaction History,2024-01-01T12:15:57,HistorySystem,complete
+17,B.3 - Parallel Checks,2024-01-01T12:16:00,FraudSystem,complete
+17,B - Fraud Checks,2024-01-01T12:16:03,FraudOrchestrator,complete
+17,C - Fund Authorization,2024-01-01T12:16:07,FinanceSystem,start
+17,C.1 - Bank API Call (Case 17),2024-01-01T12:16:10,BankSystem,start
+17,C.1 - Bank API Call (Case 17),2024-01-01T12:16:12,BankSystem,complete
+17,C.2 - Receive Bank Response,2024-01-01T12:16:15,BankSystem,start
+17,C.2 - Receive Bank Response,2024-01-01T12:16:16,BankSystem,complete
+17,C - Fund Authorization,2024-01-01T12:16:20,FinanceSystem,complete
+17,D - Charge Card,2024-01-01T12:16:23,ChargeSystem,start
+17,D.1 - Charge Request (Case 17),2024-01-01T12:16:24,ChargeSystem,start
+17,D.1 - Charge Request (Case 17),2024-01-01T12:16:27,ChargeSystem,complete
+17,D.2 - Receive Charge Response,2024-01-01T12:16:29,ChargeSystem,start
+17,D.2 - Receive Charge Response,2024-01-01T12:16:32,ChargeSystem,complete
+17,D.3 - Handle Charge Error,2024-01-01T12:16:35,ErrorHandler,start
+17,D.3 - Handle Charge Error,2024-01-01T12:16:36,ErrorHandler,complete
+17,D.1 - Charge Request Retry (Case 17),2024-01-01T12:16:38,ChargeSystem,start
+17,D.1 - Charge Request Retry (Case 17),2024-01-01T12:16:41,ChargeSystem,complete
+17,D.2 - Receive Charge Response Retry,2024-01-01T12:16:44,ChargeSystem,start
+17,D.2 - Receive Charge Response Retry,2024-01-01T12:16:45,ChargeSystem,complete
+17,D - Charge Card,2024-01-01T12:16:49,ChargeSystem,complete
+17,E - Notification & Reconciliation,2024-01-01T12:16:53,Orchestrator,start
+17,E.1 - Customer Notification (Case 17),2024-01-01T12:16:55,Notifier,start
+17,E.1 - Customer Notification (Case 17),2024-01-01T12:16:58,Notifier,complete
+17,E.2 - Merchant Notification (Case 17),2024-01-01T12:17:01,Notifier,start
+17,E.2 - Merchant Notification (Case 17),2024-01-01T12:17:02,Notifier,complete
+17,E.3 - Update Ledger,2024-01-01T12:17:06,LedgerSystem,start
+17,E.3.1 - Insert Transaction Record,2024-01-01T12:17:10,LedgerSystem,start
+17,E.3.1 - Insert Transaction Record,2024-01-01T12:17:12,LedgerSystem,complete
+17,E.3.2 - Close Ledger Entry,2024-01-01T12:17:16,LedgerSystem,start
+17,E.3.2 - Close Ledger Entry,2024-01-01T12:17:19,LedgerSystem,complete
+17,E.3 - Update Ledger,2024-01-01T12:17:21,LedgerSystem,complete
+17,E.4 - Reconcile Batch,2024-01-01T12:17:25,BatchSystem,start
+17,E.4.1 - Aggregate Transactions,2024-01-01T12:17:26,BatchSystem,start
+17,E.4.2 - Generate Batch Report,2024-01-01T12:17:27,ReportSystem,start
+17,E.4.1 - Aggregate Transactions,2024-01-01T12:17:30,BatchSystem,complete
+17,E.4.2 - Generate Batch Report,2024-01-01T12:17:34,ReportSystem,complete
+17,E.4 - Reconcile Batch,2024-01-01T12:17:35,BatchSystem,complete
+17,E - Notification & Reconciliation,2024-01-01T12:17:36,Orchestrator,complete
+18,A - Validate Payment,2024-01-01T12:30:00,Orchestrator,start
+18,A - Validate Payment,2024-01-01T12:30:01,Orchestrator,complete
+18,A.1 - Basic Validation,2024-01-01T12:30:02,Validator,start
+18,A.1.1 - Check Card Number,2024-01-01T12:30:03,Validator,start
+18,A.1.1 - Check Card Number,2024-01-01T12:30:04,Validator,complete
+18,A.1.2 - Check Expiry,2024-01-01T12:30:06,Validator,start
+18,A.1.2 - Check Expiry,2024-01-01T12:30:10,Validator,complete
+18,A.1.3 - Check CVV,2024-01-01T12:30:14,Validator,start
+18,A.1.3 - Check CVV,2024-01-01T12:30:17,Validator,complete
+18,A.1 - Basic Validation,2024-01-01T12:30:21,Validator,complete
+18,A.2 - Advanced Validation,2024-01-01T12:30:25,Validator,start
+18,A.2.1 - Validate Address,2024-01-01T12:30:26,Validator,start
+18,A.2.2 - Validate Zip Code,2024-01-01T12:30:27,Validator,start
+18,A.2.1 - Validate Address,2024-01-01T12:30:29,Validator,complete
+18,A.2.2 - Validate Zip Code,2024-01-01T12:30:31,Validator,complete
+18,A.2 - Advanced Validation,2024-01-01T12:30:32,Validator,complete
+18,B - Fraud Checks,2024-01-01T12:30:34,FraudOrchestrator,start
+18,B.1 - Run Fraud Engine,2024-01-01T12:30:35,FraudSystem,start
+18,B.1 - Run Fraud Engine,2024-01-01T12:30:36,FraudSystem,complete
+18,B.2 - Fraud Notification Call (Case 18),2024-01-01T12:30:39,AsyncNotifier,start
+18,B.2 - Fraud Notification Call (Case 18),2024-01-01T12:30:41,AsyncNotifier,complete
+18,B.3 - Parallel Checks,2024-01-01T12:30:45,FraudSystem,start
+18,B.3.1 - Check Geolocation,2024-01-01T12:30:46,GeoSystem,start
+18,B.3.2 - Check Transaction History,2024-01-01T12:30:47,HistorySystem,start
+18,B.3.1 - Check Geolocation,2024-01-01T12:30:50,GeoSystem,complete
+18,B.3.2 - Check Transaction History,2024-01-01T12:30:54,HistorySystem,complete
+18,B.3 - Parallel Checks,2024-01-01T12:30:56,FraudSystem,complete
+18,B - Fraud Checks,2024-01-01T12:30:59,FraudOrchestrator,complete
+18,C - Fund Authorization,2024-01-01T12:31:00,FinanceSystem,start
+18,C.1 - Bank API Call (Case 18),2024-01-01T12:31:03,BankSystem,start
+18,C.1 - Bank API Call (Case 18),2024-01-01T12:31:07,BankSystem,complete
+18,C.2 - Receive Bank Response,2024-01-01T12:31:08,BankSystem,start
+18,C.2 - Receive Bank Response,2024-01-01T12:31:09,BankSystem,complete
+18,C.3 - Request Additional Info,2024-01-01T12:31:12,FinanceSystem,start
+18,C.3 - Request Additional Info,2024-01-01T12:31:13,FinanceSystem,complete
+18,C.3 - Request Additional Info,2024-01-01T12:31:15,FinanceSystem,complete
+18,C.3 - Request Additional Info,2024-01-01T12:31:18,FinanceSystem,complete
+18,C - Fund Authorization,2024-01-01T12:31:19,FinanceSystem,complete
+18,D - Charge Card,2024-01-01T12:31:20,ChargeSystem,start
+18,D.1 - Charge Request (Case 18),2024-01-01T12:31:22,ChargeSystem,start
+18,D.1 - Charge Request (Case 18),2024-01-01T12:31:26,ChargeSystem,complete
+18,D.2 - Receive Charge Response,2024-01-01T12:31:29,ChargeSystem,start
+18,D.2 - Receive Charge Response,2024-01-01T12:31:30,ChargeSystem,complete
+18,D.3 - Handle Charge Error,2024-01-01T12:31:34,ErrorHandler,start
+18,D.3 - Handle Charge Error,2024-01-01T12:31:37,ErrorHandler,complete
+18,D.1 - Charge Request Retry (Case 18),2024-01-01T12:31:38,ChargeSystem,start
+18,D.1 - Charge Request Retry (Case 18),2024-01-01T12:31:42,ChargeSystem,complete
+18,D.2 - Receive Charge Response Retry,2024-01-01T12:31:46,ChargeSystem,start
+18,D.2 - Receive Charge Response Retry,2024-01-01T12:31:50,ChargeSystem,complete
+18,D - Charge Card,2024-01-01T12:31:54,ChargeSystem,complete
+18,E - Notification & Reconciliation,2024-01-01T12:31:56,Orchestrator,start
+18,E.1 - Customer Notification (Case 18),2024-01-01T12:31:57,Notifier,start
+18,E.1 - Customer Notification (Case 18),2024-01-01T12:31:58,Notifier,complete
+18,E.2 - Merchant Notification (Case 18),2024-01-01T12:32:01,Notifier,start
+18,E.2 - Merchant Notification (Case 18),2024-01-01T12:32:05,Notifier,complete
+18,E.3 - Update Ledger,2024-01-01T12:32:08,LedgerSystem,start
+18,E.3.1 - Insert Transaction Record,2024-01-01T12:32:10,LedgerSystem,start
+18,E.3.1 - Insert Transaction Record,2024-01-01T12:32:12,LedgerSystem,complete
+18,E.3.2 - Close Ledger Entry,2024-01-01T12:32:13,LedgerSystem,start
+18,E.3.2 - Close Ledger Entry,2024-01-01T12:32:15,LedgerSystem,complete
+18,E.3 - Update Ledger,2024-01-01T12:32:17,LedgerSystem,complete
+18,E.4 - Reconcile Batch,2024-01-01T12:32:21,BatchSystem,start
+18,E.4.1 - Aggregate Transactions,2024-01-01T12:32:22,BatchSystem,start
+18,E.4.2 - Generate Batch Report,2024-01-01T12:32:23,ReportSystem,start
+18,E.4.1 - Aggregate Transactions,2024-01-01T12:32:27,BatchSystem,complete
+18,E.4.2 - Generate Batch Report,2024-01-01T12:32:31,ReportSystem,complete
+18,E.4 - Reconcile Batch,2024-01-01T12:32:33,BatchSystem,complete
+18,E - Notification & Reconciliation,2024-01-01T12:32:34,Orchestrator,complete
+19,A - Validate Payment,2024-01-01T12:45:00,Orchestrator,start
+19,A - Validate Payment,2024-01-01T12:45:02,Orchestrator,complete
+19,A.1 - Basic Validation,2024-01-01T12:45:05,Validator,start
+19,A.1.1 - Check Card Number,2024-01-01T12:45:09,Validator,start
+19,A.1.1 - Check Card Number,2024-01-01T12:45:12,Validator,complete
+19,A.1.2 - Check Expiry,2024-01-01T12:45:13,Validator,start
+19,A.1.2 - Check Expiry,2024-01-01T12:45:14,Validator,complete
+19,A.1.3 - Check CVV,2024-01-01T12:45:18,Validator,start
+19,A.1.3 - Check CVV,2024-01-01T12:45:21,Validator,complete
+19,A.1 - Basic Validation,2024-01-01T12:45:24,Validator,complete
+19,A.2 - Advanced Validation,2024-01-01T12:45:27,Validator,start
+19,A.2.1 - Validate Address,2024-01-01T12:45:28,Validator,start
+19,A.2.2 - Validate Zip Code,2024-01-01T12:45:29,Validator,start
+19,A.2.1 - Validate Address,2024-01-01T12:45:30,Validator,complete
+19,A.2.2 - Validate Zip Code,2024-01-01T12:45:31,Validator,complete
+19,A.2 - Advanced Validation,2024-01-01T12:45:32,Validator,complete
+19,B - Fraud Checks,2024-01-01T12:45:36,FraudOrchestrator,start
+19,B.1 - Run Fraud Engine,2024-01-01T12:45:40,FraudSystem,start
+19,B.1 - Run Fraud Engine,2024-01-01T12:45:41,FraudSystem,complete
+19,B.2 - Fraud Notification Call (Case 19),2024-01-01T12:45:44,AsyncNotifier,start
+19,B.2 - Fraud Notification Call (Case 19),2024-01-01T12:45:48,AsyncNotifier,complete
+19,B.3 - Parallel Checks,2024-01-01T12:45:49,FraudSystem,start
+19,B.3.1 - Check Geolocation,2024-01-01T12:45:50,GeoSystem,start
+19,B.3.2 - Check Transaction History,2024-01-01T12:45:51,HistorySystem,start
+19,B.3.1 - Check Geolocation,2024-01-01T12:45:55,GeoSystem,complete
+19,B.3.2 - Check Transaction History,2024-01-01T12:45:56,HistorySystem,complete
+19,B.3 - Parallel Checks,2024-01-01T12:45:59,FraudSystem,complete
+19,B - Fraud Checks,2024-01-01T12:46:00,FraudOrchestrator,complete
+19,C - Fund Authorization,2024-01-01T12:46:03,FinanceSystem,start
+19,C.1 - Bank API Call (Case 19),2024-01-01T12:46:05,BankSystem,start
+19,C.1 - Bank API Call (Case 19),2024-01-01T12:46:09,BankSystem,complete
+19,C.2 - Receive Bank Response,2024-01-01T12:46:10,BankSystem,start
+19,C.2 - Receive Bank Response,2024-01-01T12:46:11,BankSystem,complete
+19,C - Fund Authorization,2024-01-01T12:46:14,FinanceSystem,complete
+19,D - Charge Card,2024-01-01T12:46:16,ChargeSystem,start
+19,D.1 - Charge Request (Case 19),2024-01-01T12:46:20,ChargeSystem,start
+19,D.1 - Charge Request (Case 19),2024-01-01T12:46:24,ChargeSystem,complete
+19,D.2 - Receive Charge Response,2024-01-01T12:46:26,ChargeSystem,start
+19,D.2 - Receive Charge Response,2024-01-01T12:46:28,ChargeSystem,complete
+19,D - Charge Card,2024-01-01T12:46:32,ChargeSystem,complete
+19,E - Notification & Reconciliation,2024-01-01T12:46:34,Orchestrator,start
+19,E.1 - Customer Notification (Case 19),2024-01-01T12:46:38,Notifier,start
+19,E.1 - Customer Notification (Case 19),2024-01-01T12:46:41,Notifier,complete
+19,E.2 - Merchant Notification (Case 19),2024-01-01T12:46:45,Notifier,start
+19,E.2 - Merchant Notification (Case 19),2024-01-01T12:46:46,Notifier,complete
+19,E.3 - Update Ledger,2024-01-01T12:46:49,LedgerSystem,start
+19,E.3.1 - Insert Transaction Record,2024-01-01T12:46:53,LedgerSystem,start
+19,E.3.1 - Insert Transaction Record,2024-01-01T12:46:56,LedgerSystem,complete
+19,E.3.2 - Close Ledger Entry,2024-01-01T12:46:57,LedgerSystem,start
+19,E.3.2 - Close Ledger Entry,2024-01-01T12:46:59,LedgerSystem,complete
+19,E.3 - Update Ledger,2024-01-01T12:47:01,LedgerSystem,complete
+19,E.4 - Reconcile Batch,2024-01-01T12:47:04,BatchSystem,start
+19,E.4.1 - Aggregate Transactions,2024-01-01T12:47:05,BatchSystem,start
+19,E.4.2 - Generate Batch Report,2024-01-01T12:47:06,ReportSystem,start
+19,E.4.1 - Aggregate Transactions,2024-01-01T12:47:09,BatchSystem,complete
+19,E.4.2 - Generate Batch Report,2024-01-01T12:47:11,ReportSystem,complete
+19,E.4 - Reconcile Batch,2024-01-01T12:47:12,BatchSystem,complete
+19,E - Notification & Reconciliation,2024-01-01T12:47:16,Orchestrator,complete
+20,A - Validate Payment,2024-01-01T13:00:00,Orchestrator,start
+20,A - Validate Payment,2024-01-01T13:00:02,Orchestrator,complete
+20,A.1 - Basic Validation,2024-01-01T13:00:03,Validator,start
+20,A.1.1 - Check Card Number,2024-01-01T13:00:06,Validator,start
+20,A.1.1 - Check Card Number,2024-01-01T13:00:09,Validator,complete
+20,A.1.2 - Check Expiry,2024-01-01T13:00:11,Validator,start
+20,A.1.2 - Check Expiry,2024-01-01T13:00:14,Validator,complete
+20,A.1.3 - Check CVV,2024-01-01T13:00:18,Validator,start
+20,A.1.3 - Check CVV,2024-01-01T13:00:22,Validator,complete
+20,A.1 - Basic Validation,2024-01-01T13:00:24,Validator,complete
+20,A.2 - Advanced Validation,2024-01-01T13:00:27,Validator,start
+20,A.2.1 - Validate Address,2024-01-01T13:00:28,Validator,start
+20,A.2.2 - Validate Zip Code,2024-01-01T13:00:29,Validator,start
+20,A.2.1 - Validate Address,2024-01-01T13:00:32,Validator,complete
+20,A.2.2 - Validate Zip Code,2024-01-01T13:00:36,Validator,complete
+20,A.2 - Advanced Validation,2024-01-01T13:00:39,Validator,complete
+20,B - Fraud Checks,2024-01-01T13:00:41,FraudOrchestrator,start
+20,B.1 - Run Fraud Engine,2024-01-01T13:00:43,FraudSystem,start
+20,B.1 - Run Fraud Engine,2024-01-01T13:00:47,FraudSystem,complete
+20,B.2 - Fraud Notification Call (Case 20),2024-01-01T13:00:50,AsyncNotifier,start
+20,B.2 - Fraud Notification Call (Case 20),2024-01-01T13:00:52,AsyncNotifier,complete
+20,B.3 - Parallel Checks,2024-01-01T13:00:53,FraudSystem,start
+20,B.3.1 - Check Geolocation,2024-01-01T13:00:54,GeoSystem,start
+20,B.3.2 - Check Transaction History,2024-01-01T13:00:55,HistorySystem,start
+20,B.3.1 - Check Geolocation,2024-01-01T13:00:59,GeoSystem,complete
+20,B.3.2 - Check Transaction History,2024-01-01T13:01:01,HistorySystem,complete
+20,B.3 - Parallel Checks,2024-01-01T13:01:04,FraudSystem,complete
+20,B - Fraud Checks,2024-01-01T13:01:05,FraudOrchestrator,complete
+20,C - Fund Authorization,2024-01-01T13:01:06,FinanceSystem,start
+20,C.1 - Bank API Call (Case 20),2024-01-01T13:01:09,BankSystem,start
+20,C.1 - Bank API Call (Case 20),2024-01-01T13:01:10,BankSystem,complete
+20,C.2 - Receive Bank Response,2024-01-01T13:01:13,BankSystem,start
+20,C.2 - Receive Bank Response,2024-01-01T13:01:17,BankSystem,complete
+20,C.3 - Request Additional Info,2024-01-01T13:01:18,FinanceSystem,start
+20,C.3 - Request Additional Info,2024-01-01T13:01:19,FinanceSystem,complete
+20,C.3 - Request Additional Info,2024-01-01T13:01:21,FinanceSystem,complete
+20,C.3 - Request Additional Info,2024-01-01T13:01:23,FinanceSystem,start
+20,C.3 - Request Additional Info,2024-01-01T13:01:26,FinanceSystem,complete
+20,C - Fund Authorization,2024-01-01T13:01:29,FinanceSystem,complete
+20,D - Charge Card,2024-01-01T13:01:31,ChargeSystem,start
+20,D.1 - Charge Request (Case 20),2024-01-01T13:01:33,ChargeSystem,start
+20,D.1 - Charge Request (Case 20),2024-01-01T13:01:36,ChargeSystem,complete
+20,D.2 - Receive Charge Response,2024-01-01T13:01:37,ChargeSystem,start
+20,D.2 - Receive Charge Response,2024-01-01T13:01:39,ChargeSystem,complete
+20,D.3 - Handle Charge Error,2024-01-01T13:01:41,ErrorHandler,start
+20,D.3 - Handle Charge Error,2024-01-01T13:01:42,ErrorHandler,complete
+20,D.1 - Charge Request Retry (Case 20),2024-01-01T13:01:43,ChargeSystem,start
+20,D.1 - Charge Request Retry (Case 20),2024-01-01T13:01:47,ChargeSystem,complete
+20,D.2 - Receive Charge Response Retry,2024-01-01T13:01:49,ChargeSystem,start
+20,D.2 - Receive Charge Response Retry,2024-01-01T13:01:50,ChargeSystem,complete
+20,D - Charge Card,2024-01-01T13:01:51,ChargeSystem,complete
+20,E - Notification & Reconciliation,2024-01-01T13:01:55,Orchestrator,start
+20,E.1 - Customer Notification (Case 20),2024-01-01T13:01:57,Notifier,start
+20,E.1 - Customer Notification (Case 20),2024-01-01T13:02:00,Notifier,complete
+20,E.2 - Merchant Notification (Case 20),2024-01-01T13:02:03,Notifier,start
+20,E.2 - Merchant Notification (Case 20),2024-01-01T13:02:06,Notifier,complete
+20,E.3 - Update Ledger,2024-01-01T13:02:09,LedgerSystem,start
+20,E.3.1 - Insert Transaction Record,2024-01-01T13:02:10,LedgerSystem,start
+20,E.3.1 - Insert Transaction Record,2024-01-01T13:02:11,LedgerSystem,complete
+20,E.3.2 - Close Ledger Entry,2024-01-01T13:02:15,LedgerSystem,start
+20,E.3.2 - Close Ledger Entry,2024-01-01T13:02:17,LedgerSystem,complete
+20,E.3 - Update Ledger,2024-01-01T13:02:21,LedgerSystem,complete
+20,E.4 - Reconcile Batch,2024-01-01T13:02:25,BatchSystem,start
+20,E.4.1 - Aggregate Transactions,2024-01-01T13:02:26,BatchSystem,start
+20,E.4.2 - Generate Batch Report,2024-01-01T13:02:27,ReportSystem,start
+20,E.4.1 - Aggregate Transactions,2024-01-01T13:02:28,BatchSystem,complete
+20,E.4.2 - Generate Batch Report,2024-01-01T13:02:32,ReportSystem,complete
+20,E.4 - Reconcile Batch,2024-01-01T13:02:36,BatchSystem,complete
+20,E - Notification & Reconciliation,2024-01-01T13:02:38,Orchestrator,complete
+21,A - Validate Payment,2024-01-01T13:15:00,Orchestrator,start
+21,A - Validate Payment,2024-01-01T13:15:02,Orchestrator,complete
+21,A.1 - Basic Validation,2024-01-01T13:15:04,Validator,start
+21,A.1.1 - Check Card Number,2024-01-01T13:15:07,Validator,start
+21,A.1.1 - Check Card Number,2024-01-01T13:15:11,Validator,complete
+21,A.1.2 - Check Expiry,2024-01-01T13:15:13,Validator,start
+21,A.1.2 - Check Expiry,2024-01-01T13:15:16,Validator,complete
+21,A.1.3 - Check CVV,2024-01-01T13:15:18,Validator,start
+21,A.1.3 - Check CVV,2024-01-01T13:15:22,Validator,complete
+21,A.1 - Basic Validation,2024-01-01T13:15:25,Validator,complete
+21,A.2 - Advanced Validation,2024-01-01T13:15:28,Validator,start
+21,A.2.1 - Validate Address,2024-01-01T13:15:29,Validator,start
+21,A.2.2 - Validate Zip Code,2024-01-01T13:15:30,Validator,start
+21,A.2.1 - Validate Address,2024-01-01T13:15:34,Validator,complete
+21,A.2.2 - Validate Zip Code,2024-01-01T13:15:35,Validator,complete
+21,A.2 - Advanced Validation,2024-01-01T13:15:36,Validator,complete
+21,B - Fraud Checks,2024-01-01T13:15:40,FraudOrchestrator,start
+21,B.1 - Run Fraud Engine,2024-01-01T13:15:43,FraudSystem,start
+21,B.1 - Run Fraud Engine,2024-01-01T13:15:44,FraudSystem,complete
+21,B.2 - Fraud Notification Call (Case 21),2024-01-01T13:15:47,AsyncNotifier,start
+21,B.2 - Fraud Notification Call (Case 21),2024-01-01T13:15:51,AsyncNotifier,complete
+21,B.3 - Parallel Checks,2024-01-01T13:15:55,FraudSystem,start
+21,B.3.1 - Check Geolocation,2024-01-01T13:15:56,GeoSystem,start
+21,B.3.2 - Check Transaction History,2024-01-01T13:15:57,HistorySystem,start
+21,B.3.1 - Check Geolocation,2024-01-01T13:16:00,GeoSystem,complete
+21,B.3.2 - Check Transaction History,2024-01-01T13:16:03,HistorySystem,complete
+21,B.3 - Parallel Checks,2024-01-01T13:16:05,FraudSystem,complete
+21,B - Fraud Checks,2024-01-01T13:16:06,FraudOrchestrator,complete
+21,C - Fund Authorization,2024-01-01T13:16:09,FinanceSystem,start
+21,C.1 - Bank API Call (Case 21),2024-01-01T13:16:11,BankSystem,start
+21,C.1 - Bank API Call (Case 21),2024-01-01T13:16:14,BankSystem,complete
+21,C.2 - Receive Bank Response,2024-01-01T13:16:17,BankSystem,start
+21,C.2 - Receive Bank Response,2024-01-01T13:16:20,BankSystem,complete
+21,C - Fund Authorization,2024-01-01T13:16:22,FinanceSystem,complete
+21,D - Charge Card,2024-01-01T13:16:26,ChargeSystem,start
+21,D.1 - Charge Request (Case 21),2024-01-01T13:16:30,ChargeSystem,start
+21,D.1 - Charge Request (Case 21),2024-01-01T13:16:34,ChargeSystem,complete
+21,D.2 - Receive Charge Response,2024-01-01T13:16:35,ChargeSystem,start
+21,D.2 - Receive Charge Response,2024-01-01T13:16:36,ChargeSystem,complete
+21,D - Charge Card,2024-01-01T13:16:39,ChargeSystem,complete
+21,E - Notification & Reconciliation,2024-01-01T13:16:43,Orchestrator,start
+21,E.1 - Customer Notification (Case 21),2024-01-01T13:16:47,Notifier,start
+21,E.1 - Customer Notification (Case 21),2024-01-01T13:16:49,Notifier,complete
+21,E.2 - Merchant Notification (Case 21),2024-01-01T13:16:51,Notifier,start
+21,E.2 - Merchant Notification (Case 21),2024-01-01T13:16:55,Notifier,complete
+21,E.3 - Update Ledger,2024-01-01T13:16:56,LedgerSystem,start
+21,E.3.1 - Insert Transaction Record,2024-01-01T13:16:58,LedgerSystem,start
+21,E.3.1 - Insert Transaction Record,2024-01-01T13:17:01,LedgerSystem,complete
+21,E.3.2 - Close Ledger Entry,2024-01-01T13:17:05,LedgerSystem,start
+21,E.3.2 - Close Ledger Entry,2024-01-01T13:17:07,LedgerSystem,complete
+21,E.3 - Update Ledger,2024-01-01T13:17:11,LedgerSystem,complete
+21,E.4 - Reconcile Batch,2024-01-01T13:17:14,BatchSystem,start
+21,E.4.1 - Aggregate Transactions,2024-01-01T13:17:15,BatchSystem,start
+21,E.4.2 - Generate Batch Report,2024-01-01T13:17:16,ReportSystem,start
+21,E.4.1 - Aggregate Transactions,2024-01-01T13:17:17,BatchSystem,complete
+21,E.4.2 - Generate Batch Report,2024-01-01T13:17:18,ReportSystem,complete
+21,E.4 - Reconcile Batch,2024-01-01T13:17:20,BatchSystem,complete
+21,E - Notification & Reconciliation,2024-01-01T13:17:24,Orchestrator,complete
+22,A - Validate Payment,2024-01-01T13:30:00,Orchestrator,start
+22,A - Validate Payment,2024-01-01T13:30:02,Orchestrator,complete
+22,A.1 - Basic Validation,2024-01-01T13:30:05,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:08,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:09,Validator,complete
+22,A.1.2 - Check Expiry,2024-01-01T13:30:11,Validator,start
+22,A.1.2 - Check Expiry,2024-01-01T13:30:14,Validator,complete
+22,A.1.3 - Check CVV,2024-01-01T13:30:16,Validator,start
+22,A.1.3 - Check CVV,2024-01-01T13:30:19,Validator,complete
+22,A.1.1 - Check Card Number,2024-01-01T13:30:21,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:22,Validator,complete
+22,A.1.1 - Check Card Number,2024-01-01T13:30:25,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:28,Validator,complete
+22,A.1.1 - Check Card Number,2024-01-01T13:30:29,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:32,Validator,complete
+22,A.1.1 - Check Card Number,2024-01-01T13:30:35,Validator,start
+22,A.1.1 - Check Card Number,2024-01-01T13:30:36,Validator,complete
+22,A.1 - Basic Validation,2024-01-01T13:30:37,Validator,complete
+22,A.2 - Advanced Validation,2024-01-01T13:30:40,Validator,start
+22,A.2.1 - Validate Address,2024-01-01T13:30:41,Validator,start
+22,A.2.2 - Validate Zip Code,2024-01-01T13:30:42,Validator,start
+22,A.2.1 - Validate Address,2024-01-01T13:30:46,Validator,complete
+22,A.2.2 - Validate Zip Code,2024-01-01T13:30:47,Validator,complete
+22,A.2 - Advanced Validation,2024-01-01T13:30:50,Validator,complete
+22,B - Fraud Checks,2024-01-01T13:30:51,FraudOrchestrator,start
+22,B.1 - Run Fraud Engine,2024-01-01T13:30:52,FraudSystem,start
+22,B.1 - Run Fraud Engine,2024-01-01T13:30:54,FraudSystem,complete
+22,B.2 - Fraud Notification Call (Case 22),2024-01-01T13:30:57,AsyncNotifier,start
+22,B.2 - Fraud Notification Call (Case 22),2024-01-01T13:31:00,AsyncNotifier,complete
+22,B.3 - Parallel Checks,2024-01-01T13:31:03,FraudSystem,start
+22,B.3.1 - Check Geolocation,2024-01-01T13:31:04,GeoSystem,start
+22,B.3.2 - Check Transaction History,2024-01-01T13:31:05,HistorySystem,start
+22,B.3.1 - Check Geolocation,2024-01-01T13:31:06,GeoSystem,complete
+22,B.3.2 - Check Transaction History,2024-01-01T13:31:09,HistorySystem,complete
+22,B.3 - Parallel Checks,2024-01-01T13:31:10,FraudSystem,complete
+22,B - Fraud Checks,2024-01-01T13:31:13,FraudOrchestrator,complete
+22,C - Fund Authorization,2024-01-01T13:31:15,FinanceSystem,start
+22,C.1 - Bank API Call (Case 22),2024-01-01T13:31:17,BankSystem,start
+22,C.1 - Bank API Call (Case 22),2024-01-01T13:31:19,BankSystem,complete
+22,C.2 - Receive Bank Response,2024-01-01T13:31:20,BankSystem,start
+22,C.2 - Receive Bank Response,2024-01-01T13:31:21,BankSystem,complete
+22,C - Fund Authorization,2024-01-01T13:31:22,FinanceSystem,complete
+22,D - Charge Card,2024-01-01T13:31:25,ChargeSystem,start
+22,D.1 - Charge Request (Case 22),2024-01-01T13:31:26,ChargeSystem,start
+22,D.1 - Charge Request (Case 22),2024-01-01T13:31:28,ChargeSystem,complete
+22,D.2 - Receive Charge Response,2024-01-01T13:31:29,ChargeSystem,start
+22,D.2 - Receive Charge Response,2024-01-01T13:31:31,ChargeSystem,complete
+22,D - Charge Card,2024-01-01T13:31:34,ChargeSystem,complete
+22,E - Notification & Reconciliation,2024-01-01T13:31:38,Orchestrator,start
+22,E.1 - Customer Notification (Case 22),2024-01-01T13:31:42,Notifier,start
+22,E.1 - Customer Notification (Case 22),2024-01-01T13:31:45,Notifier,complete
+22,E.2 - Merchant Notification (Case 22),2024-01-01T13:31:46,Notifier,start
+22,E.2 - Merchant Notification (Case 22),2024-01-01T13:31:50,Notifier,complete
+22,E.3 - Update Ledger,2024-01-01T13:31:51,LedgerSystem,start
+22,E.3.1 - Insert Transaction Record,2024-01-01T13:31:54,LedgerSystem,start
+22,E.3.1 - Insert Transaction Record,2024-01-01T13:31:55,LedgerSystem,complete
+22,E.3.2 - Close Ledger Entry,2024-01-01T13:31:57,LedgerSystem,start
+22,E.3.2 - Close Ledger Entry,2024-01-01T13:31:59,LedgerSystem,complete
+22,E.3 - Update Ledger,2024-01-01T13:32:02,LedgerSystem,complete
+22,E.4 - Reconcile Batch,2024-01-01T13:32:06,BatchSystem,start
+22,E.4.1 - Aggregate Transactions,2024-01-01T13:32:07,BatchSystem,start
+22,E.4.2 - Generate Batch Report,2024-01-01T13:32:08,ReportSystem,start
+22,E.4.1 - Aggregate Transactions,2024-01-01T13:32:12,BatchSystem,complete
+22,E.4.2 - Generate Batch Report,2024-01-01T13:32:16,ReportSystem,complete
+22,E.4 - Reconcile Batch,2024-01-01T13:32:19,BatchSystem,complete
+22,E - Notification & Reconciliation,2024-01-01T13:32:21,Orchestrator,complete
+23,A - Validate Payment,2024-01-01T13:45:00,Orchestrator,start
+23,A - Validate Payment,2024-01-01T13:45:03,Orchestrator,complete
+23,A.1 - Basic Validation,2024-01-01T13:45:04,Validator,start
+23,A.1.1 - Check Card Number,2024-01-01T13:45:08,Validator,start
+23,A.1.1 - Check Card Number,2024-01-01T13:45:09,Validator,complete
+23,A.1.2 - Check Expiry,2024-01-01T13:45:10,Validator,start
+23,A.1.2 - Check Expiry,2024-01-01T13:45:14,Validator,complete
+23,A.1.3 - Check CVV,2024-01-01T13:45:17,Validator,start
+23,A.1.3 - Check CVV,2024-01-01T13:45:20,Validator,complete
+23,A.1 - Basic Validation,2024-01-01T13:45:22,Validator,complete
+23,A.2 - Advanced Validation,2024-01-01T13:45:24,Validator,start
+23,A.2.1 - Validate Address,2024-01-01T13:45:25,Validator,start
+23,A.2.2 - Validate Zip Code,2024-01-01T13:45:26,Validator,start
+23,A.2.1 - Validate Address,2024-01-01T13:45:30,Validator,complete
+23,A.2.2 - Validate Zip Code,2024-01-01T13:45:33,Validator,complete
+23,A.2 - Advanced Validation,2024-01-01T13:45:35,Validator,complete
+23,B - Fraud Checks,2024-01-01T13:45:37,FraudOrchestrator,start
+23,B.1 - Run Fraud Engine,2024-01-01T13:45:40,FraudSystem,start
+23,B.1 - Run Fraud Engine,2024-01-01T13:45:44,FraudSystem,complete
+23,B.2 - Fraud Notification Call (Case 23),2024-01-01T13:45:45,AsyncNotifier,start
+23,B.2 - Fraud Notification Call (Case 23),2024-01-01T13:45:48,AsyncNotifier,complete
+23,B.3 - Parallel Checks,2024-01-01T13:45:50,FraudSystem,start
+23,B.3.1 - Check Geolocation,2024-01-01T13:45:51,GeoSystem,start
+23,B.3.2 - Check Transaction History,2024-01-01T13:45:52,HistorySystem,start
+23,B.3.1 - Check Geolocation,2024-01-01T13:45:54,GeoSystem,complete
+23,B.3.2 - Check Transaction History,2024-01-01T13:45:58,HistorySystem,complete
+23,B.3 - Parallel Checks,2024-01-01T13:45:59,FraudSystem,complete
+23,B - Fraud Checks,2024-01-01T13:46:02,FraudOrchestrator,complete
+23,C - Fund Authorization,2024-01-01T13:46:05,FinanceSystem,start
+23,C.1 - Bank API Call (Case 23),2024-01-01T13:46:09,BankSystem,start
+23,C.1 - Bank API Call (Case 23),2024-01-01T13:46:13,BankSystem,complete
+23,C.2 - Receive Bank Response,2024-01-01T13:46:14,BankSystem,start
+23,C.2 - Receive Bank Response,2024-01-01T13:46:15,BankSystem,complete
+23,C.3 - Request Additional Info,2024-01-01T13:46:19,FinanceSystem,start
+23,C.3 - Request Additional Info,2024-01-01T13:46:20,FinanceSystem,complete
+23,C.3 - Request Additional Info,2024-01-01T13:46:21,FinanceSystem,start
+23,C.3 - Request Additional Info,2024-01-01T13:46:24,FinanceSystem,complete
+23,C.3 - Request Additional Info,2024-01-01T13:46:28,FinanceSystem,complete
+23,C - Fund Authorization,2024-01-01T13:46:29,FinanceSystem,complete
+23,D - Charge Card,2024-01-01T13:46:32,ChargeSystem,start
+23,D.1 - Charge Request (Case 23),2024-01-01T13:46:36,ChargeSystem,start
+23,D.1 - Charge Request (Case 23),2024-01-01T13:46:40,ChargeSystem,complete
+23,D.2 - Receive Charge Response,2024-01-01T13:46:44,ChargeSystem,start
+23,D.2 - Receive Charge Response,2024-01-01T13:46:46,ChargeSystem,complete
+23,D - Charge Card,2024-01-01T13:46:50,ChargeSystem,complete
+23,E - Notification & Reconciliation,2024-01-01T13:46:53,Orchestrator,start
+23,E.1 - Customer Notification (Case 23),2024-01-01T13:46:56,Notifier,start
+23,E.1 - Customer Notification (Case 23),2024-01-01T13:47:00,Notifier,complete
+23,E.2 - Merchant Notification (Case 23),2024-01-01T13:47:04,Notifier,start
+23,E.2 - Merchant Notification (Case 23),2024-01-01T13:47:05,Notifier,complete
+23,E.3 - Update Ledger,2024-01-01T13:47:09,LedgerSystem,start
+23,E.3.1 - Insert Transaction Record,2024-01-01T13:47:11,LedgerSystem,start
+23,E.3.1 - Insert Transaction Record,2024-01-01T13:47:14,LedgerSystem,complete
+23,E.3.2 - Close Ledger Entry,2024-01-01T13:47:17,LedgerSystem,start
+23,E.3.2 - Close Ledger Entry,2024-01-01T13:47:18,LedgerSystem,complete
+23,E.3 - Update Ledger,2024-01-01T13:47:22,LedgerSystem,complete
+23,E.4 - Reconcile Batch,2024-01-01T13:47:26,BatchSystem,start
+23,E.4.1 - Aggregate Transactions,2024-01-01T13:47:27,BatchSystem,start
+23,E.4.2 - Generate Batch Report,2024-01-01T13:47:28,ReportSystem,start
+23,E.4.1 - Aggregate Transactions,2024-01-01T13:47:32,BatchSystem,complete
+23,E.4.2 - Generate Batch Report,2024-01-01T13:47:34,ReportSystem,complete
+23,E.4 - Reconcile Batch,2024-01-01T13:47:38,BatchSystem,complete
+23,E - Notification & Reconciliation,2024-01-01T13:47:41,Orchestrator,complete
+24,A - Validate Payment,2024-01-01T14:00:00,Orchestrator,start
+24,A - Validate Payment,2024-01-01T14:00:03,Orchestrator,complete
+24,A.1 - Basic Validation,2024-01-01T14:00:04,Validator,start
+24,A.1.1 - Check Card Number,2024-01-01T14:00:08,Validator,start
+24,A.1.1 - Check Card Number,2024-01-01T14:00:12,Validator,complete
+24,A.1.2 - Check Expiry,2024-01-01T14:00:16,Validator,start
+24,A.1.2 - Check Expiry,2024-01-01T14:00:20,Validator,complete
+24,A.1.3 - Check CVV,2024-01-01T14:00:23,Validator,start
+24,A.1.3 - Check CVV,2024-01-01T14:00:27,Validator,complete
+24,A.1 - Basic Validation,2024-01-01T14:00:31,Validator,complete
+24,A.2 - Advanced Validation,2024-01-01T14:00:34,Validator,start
+24,A.2.1 - Validate Address,2024-01-01T14:00:35,Validator,start
+24,A.2.2 - Validate Zip Code,2024-01-01T14:00:36,Validator,start
+24,A.2.1 - Validate Address,2024-01-01T14:00:37,Validator,complete
+24,A.2.2 - Validate Zip Code,2024-01-01T14:00:39,Validator,complete
+24,A.2 - Advanced Validation,2024-01-01T14:00:43,Validator,complete
+24,B - Fraud Checks,2024-01-01T14:00:45,FraudOrchestrator,start
+24,B.1 - Run Fraud Engine,2024-01-01T14:00:49,FraudSystem,start
+24,B.1 - Run Fraud Engine,2024-01-01T14:00:53,FraudSystem,complete
+24,B.2 - Fraud Notification Call (Case 24),2024-01-01T14:00:56,AsyncNotifier,start
+24,B.2 - Fraud Notification Call (Case 24),2024-01-01T14:01:00,AsyncNotifier,complete
+24,B.3 - Parallel Checks,2024-01-01T14:01:01,FraudSystem,start
+24,B.3.1 - Check Geolocation,2024-01-01T14:01:02,GeoSystem,start
+24,B.3.2 - Check Transaction History,2024-01-01T14:01:03,HistorySystem,start
+24,B.3.1 - Check Geolocation,2024-01-01T14:01:07,GeoSystem,complete
+24,B.3.2 - Check Transaction History,2024-01-01T14:01:10,HistorySystem,complete
+24,B.3 - Parallel Checks,2024-01-01T14:01:14,FraudSystem,complete
+24,B - Fraud Checks,2024-01-01T14:01:15,FraudOrchestrator,complete
+24,C - Fund Authorization,2024-01-01T14:01:18,FinanceSystem,start
+24,C.1 - Bank API Call (Case 24),2024-01-01T14:01:20,BankSystem,start
+24,C.1 - Bank API Call (Case 24),2024-01-01T14:01:21,BankSystem,complete
+24,C.2 - Receive Bank Response,2024-01-01T14:01:24,BankSystem,start
+24,C.2 - Receive Bank Response,2024-01-01T14:01:26,BankSystem,complete
+24,C - Fund Authorization,2024-01-01T14:01:28,FinanceSystem,complete
+24,D - Charge Card,2024-01-01T14:01:30,ChargeSystem,start
+24,D.1 - Charge Request (Case 24),2024-01-01T14:01:34,ChargeSystem,start
+24,D.1 - Charge Request (Case 24),2024-01-01T14:01:37,ChargeSystem,complete
+24,D.2 - Receive Charge Response,2024-01-01T14:01:39,ChargeSystem,start
+24,D.2 - Receive Charge Response,2024-01-01T14:01:43,ChargeSystem,complete
+24,D - Charge Card,2024-01-01T14:01:46,ChargeSystem,complete
+24,E - Notification & Reconciliation,2024-01-01T14:01:50,Orchestrator,start
+24,E.1 - Customer Notification (Case 24),2024-01-01T14:01:54,Notifier,start
+24,E.1 - Customer Notification (Case 24),2024-01-01T14:01:56,Notifier,complete
+24,E.2 - Merchant Notification (Case 24),2024-01-01T14:02:00,Notifier,start
+24,E.2 - Merchant Notification (Case 24),2024-01-01T14:02:01,Notifier,complete
+24,E.3 - Update Ledger,2024-01-01T14:02:05,LedgerSystem,start
+24,E.3.1 - Insert Transaction Record,2024-01-01T14:02:08,LedgerSystem,start
+24,E.3.1 - Insert Transaction Record,2024-01-01T14:02:09,LedgerSystem,complete
+24,E.3.2 - Close Ledger Entry,2024-01-01T14:02:11,LedgerSystem,start
+24,E.3.2 - Close Ledger Entry,2024-01-01T14:02:14,LedgerSystem,complete
+24,E.3 - Update Ledger,2024-01-01T14:02:17,LedgerSystem,complete
+24,E.4 - Reconcile Batch,2024-01-01T14:02:19,BatchSystem,start
+24,E.4.1 - Aggregate Transactions,2024-01-01T14:02:20,BatchSystem,start
+24,E.4.2 - Generate Batch Report,2024-01-01T14:02:21,ReportSystem,start
+24,E.4.1 - Aggregate Transactions,2024-01-01T14:02:23,BatchSystem,complete
+24,E.4.2 - Generate Batch Report,2024-01-01T14:02:24,ReportSystem,complete
+24,E.4 - Reconcile Batch,2024-01-01T14:02:28,BatchSystem,complete
+24,E - Notification & Reconciliation,2024-01-01T14:02:29,Orchestrator,complete
+25,A - Validate Payment,2024-01-01T14:15:00,Orchestrator,start
+25,A - Validate Payment,2024-01-01T14:15:03,Orchestrator,complete
+25,A.1 - Basic Validation,2024-01-01T14:15:07,Validator,start
+25,A.1.1 - Check Card Number,2024-01-01T14:15:08,Validator,start
+25,A.1.1 - Check Card Number,2024-01-01T14:15:12,Validator,complete
+25,A.1.2 - Check Expiry,2024-01-01T14:15:13,Validator,start
+25,A.1.2 - Check Expiry,2024-01-01T14:15:17,Validator,complete
+25,A.1.3 - Check CVV,2024-01-01T14:15:19,Validator,start
+25,A.1.3 - Check CVV,2024-01-01T14:15:22,Validator,complete
+25,A.1 - Basic Validation,2024-01-01T14:15:24,Validator,complete
+25,A.2 - Advanced Validation,2024-01-01T14:15:25,Validator,start
+25,A.2.1 - Validate Address,2024-01-01T14:15:26,Validator,start
+25,A.2.2 - Validate Zip Code,2024-01-01T14:15:27,Validator,start
+25,A.2.1 - Validate Address,2024-01-01T14:15:29,Validator,complete
+25,A.2.2 - Validate Zip Code,2024-01-01T14:15:33,Validator,complete
+25,A.2 - Advanced Validation,2024-01-01T14:15:34,Validator,complete
+25,B - Fraud Checks,2024-01-01T14:15:35,FraudOrchestrator,start
+25,B.1 - Run Fraud Engine,2024-01-01T14:15:37,FraudSystem,start
+25,B.1 - Run Fraud Engine,2024-01-01T14:15:38,FraudSystem,complete
+25,B.2 - Fraud Notification Call (Case 25),2024-01-01T14:15:39,AsyncNotifier,start
+25,B.2 - Fraud Notification Call (Case 25),2024-01-01T14:15:42,AsyncNotifier,complete
+25,B.3 - Parallel Checks,2024-01-01T14:15:46,FraudSystem,start
+25,B.3.1 - Check Geolocation,2024-01-01T14:15:47,GeoSystem,start
+25,B.3.2 - Check Transaction History,2024-01-01T14:15:48,HistorySystem,start
+25,B.3.1 - Check Geolocation,2024-01-01T14:15:52,GeoSystem,complete
+25,B.3.2 - Check Transaction History,2024-01-01T14:15:54,HistorySystem,complete
+25,B.3 - Parallel Checks,2024-01-01T14:15:57,FraudSystem,complete
+25,B - Fraud Checks,2024-01-01T14:15:59,FraudOrchestrator,complete
+25,C - Fund Authorization,2024-01-01T14:16:03,FinanceSystem,start
+25,C.1 - Bank API Call (Case 25),2024-01-01T14:16:07,BankSystem,start
+25,C.1 - Bank API Call (Case 25),2024-01-01T14:16:09,BankSystem,complete
+25,C.2 - Receive Bank Response,2024-01-01T14:16:12,BankSystem,start
+25,C.2 - Receive Bank Response,2024-01-01T14:16:15,BankSystem,complete
+25,C - Fund Authorization,2024-01-01T14:16:16,FinanceSystem,complete
+25,D - Charge Card,2024-01-01T14:16:20,ChargeSystem,start
+25,D.1 - Charge Request (Case 25),2024-01-01T14:16:24,ChargeSystem,start
+25,D.1 - Charge Request (Case 25),2024-01-01T14:16:26,ChargeSystem,complete
+25,D.2 - Receive Charge Response,2024-01-01T14:16:28,ChargeSystem,start
+25,D.2 - Receive Charge Response,2024-01-01T14:16:32,ChargeSystem,complete
+25,D - Charge Card,2024-01-01T14:16:35,ChargeSystem,complete
+25,E - Notification & Reconciliation,2024-01-01T14:16:39,Orchestrator,start
+25,E.1 - Customer Notification (Case 25),2024-01-01T14:16:42,Notifier,start
+25,E.1 - Customer Notification (Case 25),2024-01-01T14:16:45,Notifier,complete
+25,E.2 - Merchant Notification (Case 25),2024-01-01T14:16:48,Notifier,start
+25,E.2 - Merchant Notification (Case 25),2024-01-01T14:16:51,Notifier,complete
+25,E.3 - Update Ledger,2024-01-01T14:16:55,LedgerSystem,start
+25,E.3.1 - Insert Transaction Record,2024-01-01T14:16:56,LedgerSystem,start
+25,E.3.1 - Insert Transaction Record,2024-01-01T14:16:59,LedgerSystem,complete
+25,E.3.2 - Close Ledger Entry,2024-01-01T14:17:00,LedgerSystem,start
+25,E.3.2 - Close Ledger Entry,2024-01-01T14:17:04,LedgerSystem,complete
+25,E.3 - Update Ledger,2024-01-01T14:17:07,LedgerSystem,complete
+25,E.4 - Reconcile Batch,2024-01-01T14:17:10,BatchSystem,start
+25,E.4.1 - Aggregate Transactions,2024-01-01T14:17:11,BatchSystem,start
+25,E.4.2 - Generate Batch Report,2024-01-01T14:17:12,ReportSystem,start
+25,E.4.1 - Aggregate Transactions,2024-01-01T14:17:13,BatchSystem,complete
+25,E.4.2 - Generate Batch Report,2024-01-01T14:17:15,ReportSystem,complete
+25,E.4 - Reconcile Batch,2024-01-01T14:17:18,BatchSystem,complete
+25,E - Notification & Reconciliation,2024-01-01T14:17:22,Orchestrator,complete
+26,A - Validate Payment,2024-01-01T14:30:00,Orchestrator,start
+26,A - Validate Payment,2024-01-01T14:30:04,Orchestrator,complete
+26,A.1 - Basic Validation,2024-01-01T14:30:06,Validator,start
+26,A.1.1 - Check Card Number,2024-01-01T14:30:10,Validator,start
+26,A.1.1 - Check Card Number,2024-01-01T14:30:11,Validator,complete
+26,A.1.2 - Check Expiry,2024-01-01T14:30:14,Validator,start
+26,A.1.2 - Check Expiry,2024-01-01T14:30:17,Validator,complete
+26,A.1.3 - Check CVV,2024-01-01T14:30:19,Validator,start
+26,A.1.3 - Check CVV,2024-01-01T14:30:20,Validator,complete
+26,A.1 - Basic Validation,2024-01-01T14:30:23,Validator,complete
+26,A.2 - Advanced Validation,2024-01-01T14:30:25,Validator,start
+26,A.2.1 - Validate Address,2024-01-01T14:30:26,Validator,start
+26,A.2.2 - Validate Zip Code,2024-01-01T14:30:27,Validator,start
+26,A.2.1 - Validate Address,2024-01-01T14:30:28,Validator,complete
+26,A.2.2 - Validate Zip Code,2024-01-01T14:30:29,Validator,complete
+26,A.2 - Advanced Validation,2024-01-01T14:30:30,Validator,complete
+26,B - Fraud Checks,2024-01-01T14:30:33,FraudOrchestrator,start
+26,B.1 - Run Fraud Engine,2024-01-01T14:30:37,FraudSystem,start
+26,B.1 - Run Fraud Engine,2024-01-01T14:30:40,FraudSystem,complete
+26,B.2 - Fraud Notification Call (Case 26),2024-01-01T14:30:42,AsyncNotifier,start
+26,B.2 - Fraud Notification Call (Case 26),2024-01-01T14:30:45,AsyncNotifier,complete
+26,B.3 - Parallel Checks,2024-01-01T14:30:47,FraudSystem,start
+26,B.3.1 - Check Geolocation,2024-01-01T14:30:48,GeoSystem,start
+26,B.3.2 - Check Transaction History,2024-01-01T14:30:49,HistorySystem,start
+26,B.3.1 - Check Geolocation,2024-01-01T14:30:50,GeoSystem,complete
+26,B.3.2 - Check Transaction History,2024-01-01T14:30:54,HistorySystem,complete
+26,B.3 - Parallel Checks,2024-01-01T14:30:55,FraudSystem,complete
+26,B - Fraud Checks,2024-01-01T14:30:59,FraudOrchestrator,complete
+26,C - Fund Authorization,2024-01-01T14:31:03,FinanceSystem,start
+26,C.1 - Bank API Call (Case 26),2024-01-01T14:31:06,BankSystem,start
+26,C.1 - Bank API Call (Case 26),2024-01-01T14:31:07,BankSystem,complete
+26,C.2 - Receive Bank Response,2024-01-01T14:31:09,BankSystem,start
+26,C.2 - Receive Bank Response,2024-01-01T14:31:12,BankSystem,complete
+26,C - Fund Authorization,2024-01-01T14:31:14,FinanceSystem,complete
+26,D - Charge Card,2024-01-01T14:31:16,ChargeSystem,start
+26,D.1 - Charge Request (Case 26),2024-01-01T14:31:18,ChargeSystem,start
+26,D.1 - Charge Request (Case 26),2024-01-01T14:31:21,ChargeSystem,complete
+26,D.2 - Receive Charge Response,2024-01-01T14:31:22,ChargeSystem,start
+26,D.2 - Receive Charge Response,2024-01-01T14:31:23,ChargeSystem,complete
+26,D - Charge Card,2024-01-01T14:31:27,ChargeSystem,complete
+26,E - Notification & Reconciliation,2024-01-01T14:31:28,Orchestrator,start
+26,E.1 - Customer Notification (Case 26),2024-01-01T14:31:32,Notifier,start
+26,E.1 - Customer Notification (Case 26),2024-01-01T14:31:35,Notifier,complete
+26,E.2 - Merchant Notification (Case 26),2024-01-01T14:31:37,Notifier,start
+26,E.2 - Merchant Notification (Case 26),2024-01-01T14:31:41,Notifier,complete
+26,E.3 - Update Ledger,2024-01-01T14:31:42,LedgerSystem,start
+26,E.3.1 - Insert Transaction Record,2024-01-01T14:31:43,LedgerSystem,start
+26,E.3.1 - Insert Transaction Record,2024-01-01T14:31:46,LedgerSystem,complete
+26,E.3.2 - Close Ledger Entry,2024-01-01T14:31:48,LedgerSystem,start
+26,E.3.2 - Close Ledger Entry,2024-01-01T14:31:49,LedgerSystem,complete
+26,E.3 - Update Ledger,2024-01-01T14:31:51,LedgerSystem,complete
+26,E.4 - Reconcile Batch,2024-01-01T14:31:53,BatchSystem,start
+26,E.4.1 - Aggregate Transactions,2024-01-01T14:31:54,BatchSystem,start
+26,E.4.2 - Generate Batch Report,2024-01-01T14:31:55,ReportSystem,start
+26,E.4.1 - Aggregate Transactions,2024-01-01T14:31:58,BatchSystem,complete
+26,E.4.2 - Generate Batch Report,2024-01-01T14:32:01,ReportSystem,complete
+26,E.4 - Reconcile Batch,2024-01-01T14:32:04,BatchSystem,complete
+26,E - Notification & Reconciliation,2024-01-01T14:32:07,Orchestrator,complete
+27,A - Validate Payment,2024-01-01T14:45:00,Orchestrator,start
+27,A - Validate Payment,2024-01-01T14:45:02,Orchestrator,complete
+27,A.1 - Basic Validation,2024-01-01T14:45:06,Validator,start
+27,A.1.1 - Check Card Number,2024-01-01T14:45:08,Validator,start
+27,A.1.1 - Check Card Number,2024-01-01T14:45:09,Validator,complete
+27,A.1.2 - Check Expiry,2024-01-01T14:45:11,Validator,start
+27,A.1.2 - Check Expiry,2024-01-01T14:45:13,Validator,complete
+27,A.1.3 - Check CVV,2024-01-01T14:45:14,Validator,start
+27,A.1.3 - Check CVV,2024-01-01T14:45:18,Validator,complete
+27,A.1.1 - Check Card Number,2024-01-01T14:45:22,Validator,start
+27,A.1.1 - Check Card Number,2024-01-01T14:45:26,Validator,complete
+27,A.1.1 - Check Card Number,2024-01-01T14:45:30,Validator,start
+27,A.1.1 - Check Card Number,2024-01-01T14:45:31,Validator,complete
+27,A.1.1 - Check Card Number,2024-01-01T14:45:34,Validator,start
+27,A.1.1 - Check Card Number,2024-01-01T14:45:36,Validator,complete
+27,A.1 - Basic Validation,2024-01-01T14:45:40,Validator,complete
+27,A.2 - Advanced Validation,2024-01-01T14:45:42,Validator,start
+27,A.2.1 - Validate Address,2024-01-01T14:45:43,Validator,start
+27,A.2.2 - Validate Zip Code,2024-01-01T14:45:44,Validator,start
+27,A.2.1 - Validate Address,2024-01-01T14:45:45,Validator,complete
+27,A.2.2 - Validate Zip Code,2024-01-01T14:45:49,Validator,complete
+27,A.2 - Advanced Validation,2024-01-01T14:45:51,Validator,complete
+27,B - Fraud Checks,2024-01-01T14:45:53,FraudOrchestrator,start
+27,B.1 - Run Fraud Engine,2024-01-01T14:45:54,FraudSystem,start
+27,B.1 - Run Fraud Engine,2024-01-01T14:45:55,FraudSystem,complete
+27,B.2 - Fraud Notification Call (Case 27),2024-01-01T14:45:57,AsyncNotifier,start
+27,B.2 - Fraud Notification Call (Case 27),2024-01-01T14:46:01,AsyncNotifier,complete
+27,B.3 - Parallel Checks,2024-01-01T14:46:04,FraudSystem,start
+27,B.3.1 - Check Geolocation,2024-01-01T14:46:05,GeoSystem,start
+27,B.3.2 - Check Transaction History,2024-01-01T14:46:06,HistorySystem,start
+27,B.3.1 - Check Geolocation,2024-01-01T14:46:07,GeoSystem,complete
+27,B.3.2 - Check Transaction History,2024-01-01T14:46:10,HistorySystem,complete
+27,B.3 - Parallel Checks,2024-01-01T14:46:14,FraudSystem,complete
+27,B - Fraud Checks,2024-01-01T14:46:15,FraudOrchestrator,complete
+27,C - Fund Authorization,2024-01-01T14:46:19,FinanceSystem,start
+27,C.1 - Bank API Call (Case 27),2024-01-01T14:46:21,BankSystem,start
+27,C.1 - Bank API Call (Case 27),2024-01-01T14:46:24,BankSystem,complete
+27,C.2 - Receive Bank Response,2024-01-01T14:46:27,BankSystem,start
+27,C.2 - Receive Bank Response,2024-01-01T14:46:28,BankSystem,complete
+27,C.3 - Request Additional Info,2024-01-01T14:46:31,FinanceSystem,start
+27,C.3 - Request Additional Info,2024-01-01T14:46:34,FinanceSystem,complete
+27,C.3 - Request Additional Info,2024-01-01T14:46:35,FinanceSystem,start
+27,C - Fund Authorization,2024-01-01T14:46:36,FinanceSystem,complete
+27,D - Charge Card,2024-01-01T14:46:37,ChargeSystem,start
+27,D.1 - Charge Request (Case 27),2024-01-01T14:46:38,ChargeSystem,start
+27,D.1 - Charge Request (Case 27),2024-01-01T14:46:40,ChargeSystem,complete
+27,D.2 - Receive Charge Response,2024-01-01T14:46:44,ChargeSystem,start
+27,D.2 - Receive Charge Response,2024-01-01T14:46:45,ChargeSystem,complete
+27,D - Charge Card,2024-01-01T14:46:47,ChargeSystem,complete
+27,E - Notification & Reconciliation,2024-01-01T14:46:50,Orchestrator,start
+27,E.1 - Customer Notification (Case 27),2024-01-01T14:46:54,Notifier,start
+27,E.1 - Customer Notification (Case 27),2024-01-01T14:46:56,Notifier,complete
+27,E.2 - Merchant Notification (Case 27),2024-01-01T14:46:58,Notifier,start
+27,E.2 - Merchant Notification (Case 27),2024-01-01T14:46:59,Notifier,complete
+27,E.3 - Update Ledger,2024-01-01T14:47:03,LedgerSystem,start
+27,E.3.1 - Insert Transaction Record,2024-01-01T14:47:07,LedgerSystem,start
+27,E.3.1 - Insert Transaction Record,2024-01-01T14:47:09,LedgerSystem,complete
+27,E.3.2 - Close Ledger Entry,2024-01-01T14:47:11,LedgerSystem,start
+27,E.3.2 - Close Ledger Entry,2024-01-01T14:47:15,LedgerSystem,complete
+27,E.3 - Update Ledger,2024-01-01T14:47:19,LedgerSystem,complete
+27,E.4 - Reconcile Batch,2024-01-01T14:47:21,BatchSystem,start
+27,E.4.1 - Aggregate Transactions,2024-01-01T14:47:22,BatchSystem,start
+27,E.4.2 - Generate Batch Report,2024-01-01T14:47:23,ReportSystem,start
+27,E.4.1 - Aggregate Transactions,2024-01-01T14:47:27,BatchSystem,complete
+27,E.4.2 - Generate Batch Report,2024-01-01T14:47:30,ReportSystem,complete
+27,E.4 - Reconcile Batch,2024-01-01T14:47:31,BatchSystem,complete
+27,E - Notification & Reconciliation,2024-01-01T14:47:34,Orchestrator,complete
+28,A - Validate Payment,2024-01-01T15:00:00,Orchestrator,start
+28,A - Validate Payment,2024-01-01T15:00:03,Orchestrator,complete
+28,A.1 - Basic Validation,2024-01-01T15:00:07,Validator,start
+28,A.1.1 - Check Card Number,2024-01-01T15:00:08,Validator,start
+28,A.1.1 - Check Card Number,2024-01-01T15:00:10,Validator,complete
+28,A.1.2 - Check Expiry,2024-01-01T15:00:13,Validator,start
+28,A.1.2 - Check Expiry,2024-01-01T15:00:15,Validator,complete
+28,A.1.3 - Check CVV,2024-01-01T15:00:17,Validator,start
+28,A.1.3 - Check CVV,2024-01-01T15:00:21,Validator,complete
+28,A.1 - Basic Validation,2024-01-01T15:00:24,Validator,complete
+28,A.2 - Advanced Validation,2024-01-01T15:00:26,Validator,start
+28,A.2.1 - Validate Address,2024-01-01T15:00:27,Validator,start
+28,A.2.2 - Validate Zip Code,2024-01-01T15:00:28,Validator,start
+28,A.2.1 - Validate Address,2024-01-01T15:00:30,Validator,complete
+28,A.2.2 - Validate Zip Code,2024-01-01T15:00:33,Validator,complete
+28,A.2 - Advanced Validation,2024-01-01T15:00:37,Validator,complete
+28,B - Fraud Checks,2024-01-01T15:00:40,FraudOrchestrator,start
+28,B.1 - Run Fraud Engine,2024-01-01T15:00:44,FraudSystem,start
+28,B.1 - Run Fraud Engine,2024-01-01T15:00:45,FraudSystem,complete
+28,B.2 - Fraud Notification Call (Case 28),2024-01-01T15:00:48,AsyncNotifier,start
+28,B.2 - Fraud Notification Call (Case 28),2024-01-01T15:00:51,AsyncNotifier,complete
+28,B.3 - Parallel Checks,2024-01-01T15:00:53,FraudSystem,start
+28,B.3.1 - Check Geolocation,2024-01-01T15:00:54,GeoSystem,start
+28,B.3.2 - Check Transaction History,2024-01-01T15:00:55,HistorySystem,start
+28,B.3.1 - Check Geolocation,2024-01-01T15:00:57,GeoSystem,complete
+28,B.3.2 - Check Transaction History,2024-01-01T15:01:00,HistorySystem,complete
+28,B.3 - Parallel Checks,2024-01-01T15:01:04,FraudSystem,complete
+28,B - Fraud Checks,2024-01-01T15:01:07,FraudOrchestrator,complete
+28,C - Fund Authorization,2024-01-01T15:01:10,FinanceSystem,start
+28,C.1 - Bank API Call (Case 28),2024-01-01T15:01:14,BankSystem,start
+28,C.1 - Bank API Call (Case 28),2024-01-01T15:01:16,BankSystem,complete
+28,C.2 - Receive Bank Response,2024-01-01T15:01:19,BankSystem,start
+28,C.2 - Receive Bank Response,2024-01-01T15:01:20,BankSystem,complete
+28,C - Fund Authorization,2024-01-01T15:01:24,FinanceSystem,complete
+28,D - Charge Card,2024-01-01T15:01:28,ChargeSystem,start
+28,D.1 - Charge Request (Case 28),2024-01-01T15:01:31,ChargeSystem,start
+28,D.1 - Charge Request (Case 28),2024-01-01T15:01:32,ChargeSystem,complete
+28,D.2 - Receive Charge Response,2024-01-01T15:01:35,ChargeSystem,start
+28,D.2 - Receive Charge Response,2024-01-01T15:01:37,ChargeSystem,complete
+28,D - Charge Card,2024-01-01T15:01:40,ChargeSystem,complete
+28,E - Notification & Reconciliation,2024-01-01T15:01:44,Orchestrator,start
+28,E.1 - Customer Notification (Case 28),2024-01-01T15:01:48,Notifier,start
+28,E.1 - Customer Notification (Case 28),2024-01-01T15:01:52,Notifier,complete
+28,E.2 - Merchant Notification (Case 28),2024-01-01T15:01:54,Notifier,start
+28,E.2 - Merchant Notification (Case 28),2024-01-01T15:01:58,Notifier,complete
+28,E.3 - Update Ledger,2024-01-01T15:02:01,LedgerSystem,start
+28,E.3.1 - Insert Transaction Record,2024-01-01T15:02:03,LedgerSystem,start
+28,E.3.1 - Insert Transaction Record,2024-01-01T15:02:06,LedgerSystem,complete
+28,E.3.2 - Close Ledger Entry,2024-01-01T15:02:10,LedgerSystem,start
+28,E.3.2 - Close Ledger Entry,2024-01-01T15:02:12,LedgerSystem,complete
+28,E.3 - Update Ledger,2024-01-01T15:02:15,LedgerSystem,complete
+28,E.4 - Reconcile Batch,2024-01-01T15:02:16,BatchSystem,start
+28,E.4.1 - Aggregate Transactions,2024-01-01T15:02:17,BatchSystem,start
+28,E.4.2 - Generate Batch Report,2024-01-01T15:02:18,ReportSystem,start
+28,E.4.1 - Aggregate Transactions,2024-01-01T15:02:19,BatchSystem,complete
+28,E.4.2 - Generate Batch Report,2024-01-01T15:02:20,ReportSystem,complete
+28,E.4 - Reconcile Batch,2024-01-01T15:02:23,BatchSystem,complete
+28,E - Notification & Reconciliation,2024-01-01T15:02:25,Orchestrator,complete
+29,A - Validate Payment,2024-01-01T15:15:00,Orchestrator,start
+29,A - Validate Payment,2024-01-01T15:15:03,Orchestrator,complete
+29,A.1 - Basic Validation,2024-01-01T15:15:05,Validator,start
+29,A.1.1 - Check Card Number,2024-01-01T15:15:06,Validator,start
+29,A.1.1 - Check Card Number,2024-01-01T15:15:10,Validator,complete
+29,A.1.2 - Check Expiry,2024-01-01T15:15:12,Validator,start
+29,A.1.2 - Check Expiry,2024-01-01T15:15:16,Validator,complete
+29,A.1.3 - Check CVV,2024-01-01T15:15:17,Validator,start
+29,A.1.3 - Check CVV,2024-01-01T15:15:18,Validator,complete
+29,A.1.1 - Check Card Number,2024-01-01T15:15:22,Validator,start
+29,A.1.1 - Check Card Number,2024-01-01T15:15:26,Validator,complete
+29,A.1.1 - Check Card Number,2024-01-01T15:15:29,Validator,start
+29,A.1.1 - Check Card Number,2024-01-01T15:15:32,Validator,complete
+29,A.1.1 - Check Card Number,2024-01-01T15:15:35,Validator,start
+29,A.1.1 - Check Card Number,2024-01-01T15:15:39,Validator,complete
+29,A.1 - Basic Validation,2024-01-01T15:15:40,Validator,complete
+29,A.2 - Advanced Validation,2024-01-01T15:15:44,Validator,start
+29,A.2.1 - Validate Address,2024-01-01T15:15:45,Validator,start
+29,A.2.2 - Validate Zip Code,2024-01-01T15:15:46,Validator,start
+29,A.2.1 - Validate Address,2024-01-01T15:15:50,Validator,complete
+29,A.2.2 - Validate Zip Code,2024-01-01T15:15:54,Validator,complete
+29,A.2 - Advanced Validation,2024-01-01T15:15:58,Validator,complete
+29,B - Fraud Checks,2024-01-01T15:16:02,FraudOrchestrator,start
+29,B.1 - Run Fraud Engine,2024-01-01T15:16:04,FraudSystem,start
+29,B.1 - Run Fraud Engine,2024-01-01T15:16:08,FraudSystem,complete
+29,B.2 - Fraud Notification Call (Case 29),2024-01-01T15:16:11,AsyncNotifier,start
+29,B.2 - Fraud Notification Call (Case 29),2024-01-01T15:16:15,AsyncNotifier,complete
+29,B.3 - Parallel Checks,2024-01-01T15:16:19,FraudSystem,start
+29,B.3.1 - Check Geolocation,2024-01-01T15:16:20,GeoSystem,start
+29,B.3.2 - Check Transaction History,2024-01-01T15:16:21,HistorySystem,start
+29,B.3.1 - Check Geolocation,2024-01-01T15:16:24,GeoSystem,complete
+29,B.3.2 - Check Transaction History,2024-01-01T15:16:28,HistorySystem,complete
+29,B.3 - Parallel Checks,2024-01-01T15:16:30,FraudSystem,complete
+29,B - Fraud Checks,2024-01-01T15:16:31,FraudOrchestrator,complete
+29,C - Fund Authorization,2024-01-01T15:16:33,FinanceSystem,start
+29,C.1 - Bank API Call (Case 29),2024-01-01T15:16:34,BankSystem,start
+29,C.1 - Bank API Call (Case 29),2024-01-01T15:16:37,BankSystem,complete
+29,C.2 - Receive Bank Response,2024-01-01T15:16:40,BankSystem,start
+29,C.2 - Receive Bank Response,2024-01-01T15:16:41,BankSystem,complete
+29,C - Fund Authorization,2024-01-01T15:16:44,FinanceSystem,complete
+29,D - Charge Card,2024-01-01T15:16:45,ChargeSystem,start
+29,D.1 - Charge Request (Case 29),2024-01-01T15:16:46,ChargeSystem,start
+29,D.1 - Charge Request (Case 29),2024-01-01T15:16:50,ChargeSystem,complete
+29,D.2 - Receive Charge Response,2024-01-01T15:16:51,ChargeSystem,start
+29,D.2 - Receive Charge Response,2024-01-01T15:16:54,ChargeSystem,complete
+29,D - Charge Card,2024-01-01T15:16:58,ChargeSystem,complete
+29,E - Notification & Reconciliation,2024-01-01T15:17:01,Orchestrator,start
+29,E.1 - Customer Notification (Case 29),2024-01-01T15:17:02,Notifier,start
+29,E.1 - Customer Notification (Case 29),2024-01-01T15:17:05,Notifier,complete
+29,E.2 - Merchant Notification (Case 29),2024-01-01T15:17:09,Notifier,start
+29,E.2 - Merchant Notification (Case 29),2024-01-01T15:17:11,Notifier,complete
+29,E.3 - Update Ledger,2024-01-01T15:17:13,LedgerSystem,start
+29,E.3.1 - Insert Transaction Record,2024-01-01T15:17:15,LedgerSystem,start
+29,E.3.1 - Insert Transaction Record,2024-01-01T15:17:19,LedgerSystem,complete
+29,E.3.2 - Close Ledger Entry,2024-01-01T15:17:22,LedgerSystem,start
+29,E.3.2 - Close Ledger Entry,2024-01-01T15:17:24,LedgerSystem,complete
+29,E.3 - Update Ledger,2024-01-01T15:17:27,LedgerSystem,complete
+29,E.4 - Reconcile Batch,2024-01-01T15:17:30,BatchSystem,start
+29,E.4.1 - Aggregate Transactions,2024-01-01T15:17:31,BatchSystem,start
+29,E.4.2 - Generate Batch Report,2024-01-01T15:17:32,ReportSystem,start
+29,E.4.1 - Aggregate Transactions,2024-01-01T15:17:33,BatchSystem,complete
+29,E.4.2 - Generate Batch Report,2024-01-01T15:17:34,ReportSystem,complete
+29,E.4 - Reconcile Batch,2024-01-01T15:17:38,BatchSystem,complete
+29,E - Notification & Reconciliation,2024-01-01T15:17:41,Orchestrator,complete
+30,A - Validate Payment,2024-01-01T15:30:00,Orchestrator,start
+30,A - Validate Payment,2024-01-01T15:30:02,Orchestrator,complete
+30,A.1 - Basic Validation,2024-01-01T15:30:04,Validator,start
+30,A.1.1 - Check Card Number,2024-01-01T15:30:07,Validator,start
+30,A.1.1 - Check Card Number,2024-01-01T15:30:09,Validator,complete
+30,A.1.2 - Check Expiry,2024-01-01T15:30:11,Validator,start
+30,A.1.2 - Check Expiry,2024-01-01T15:30:14,Validator,complete
+30,A.1.3 - Check CVV,2024-01-01T15:30:18,Validator,start
+30,A.1.3 - Check CVV,2024-01-01T15:30:21,Validator,complete
+30,A.1 - Basic Validation,2024-01-01T15:30:23,Validator,complete
+30,A.2 - Advanced Validation,2024-01-01T15:30:27,Validator,start
+30,A.2.1 - Validate Address,2024-01-01T15:30:28,Validator,start
+30,A.2.2 - Validate Zip Code,2024-01-01T15:30:29,Validator,start
+30,A.2.1 - Validate Address,2024-01-01T15:30:33,Validator,complete
+30,A.2.2 - Validate Zip Code,2024-01-01T15:30:34,Validator,complete
+30,A.2 - Advanced Validation,2024-01-01T15:30:37,Validator,complete
+30,B - Fraud Checks,2024-01-01T15:30:38,FraudOrchestrator,start
+30,B.1 - Run Fraud Engine,2024-01-01T15:30:42,FraudSystem,start
+30,B.1 - Run Fraud Engine,2024-01-01T15:30:46,FraudSystem,complete
+30,B.2 - Fraud Notification Call (Case 30),2024-01-01T15:30:48,AsyncNotifier,start
+30,B.2 - Fraud Notification Call (Case 30),2024-01-01T15:30:52,AsyncNotifier,complete
+30,B.3 - Parallel Checks,2024-01-01T15:30:54,FraudSystem,start
+30,B.3.1 - Check Geolocation,2024-01-01T15:30:55,GeoSystem,start
+30,B.3.2 - Check Transaction History,2024-01-01T15:30:56,HistorySystem,start
+30,B.3.1 - Check Geolocation,2024-01-01T15:30:57,GeoSystem,complete
+30,B.3.2 - Check Transaction History,2024-01-01T15:30:59,HistorySystem,complete
+30,B.3 - Parallel Checks,2024-01-01T15:31:00,FraudSystem,complete
+30,B - Fraud Checks,2024-01-01T15:31:04,FraudOrchestrator,complete
+30,C - Fund Authorization,2024-01-01T15:31:07,FinanceSystem,start
+30,C.1 - Bank API Call (Case 30),2024-01-01T15:31:09,BankSystem,start
+30,C.1 - Bank API Call (Case 30),2024-01-01T15:31:13,BankSystem,complete
+30,C.2 - Receive Bank Response,2024-01-01T15:31:15,BankSystem,start
+30,C.2 - Receive Bank Response,2024-01-01T15:31:19,BankSystem,complete
+30,C.3 - Request Additional Info,2024-01-01T15:31:22,FinanceSystem,start
+30,C.3 - Request Additional Info,2024-01-01T15:31:23,FinanceSystem,complete
+30,C.3 - Request Additional Info,2024-01-01T15:31:24,FinanceSystem,start
+30,C.3 - Request Additional Info,2024-01-01T15:31:28,FinanceSystem,complete
+30,C.3 - Request Additional Info,2024-01-01T15:31:31,FinanceSystem,complete
+30,C - Fund Authorization,2024-01-01T15:31:33,FinanceSystem,complete
+30,D - Charge Card,2024-01-01T15:31:37,ChargeSystem,start
+30,D.1 - Charge Request (Case 30),2024-01-01T15:31:38,ChargeSystem,start
+30,D.1 - Charge Request (Case 30),2024-01-01T15:31:40,ChargeSystem,complete
+30,D.2 - Receive Charge Response,2024-01-01T15:31:42,ChargeSystem,start
+30,D.2 - Receive Charge Response,2024-01-01T15:31:44,ChargeSystem,complete
+30,D.3 - Handle Charge Error,2024-01-01T15:31:45,ErrorHandler,start
+30,D.3 - Handle Charge Error,2024-01-01T15:31:47,ErrorHandler,complete
+30,D.1 - Charge Request Retry (Case 30),2024-01-01T15:31:51,ChargeSystem,start
+30,D.1 - Charge Request Retry (Case 30),2024-01-01T15:31:53,ChargeSystem,complete
+30,D.2 - Receive Charge Response Retry,2024-01-01T15:31:57,ChargeSystem,start
+30,D.2 - Receive Charge Response Retry,2024-01-01T15:31:59,ChargeSystem,complete
+30,D - Charge Card,2024-01-01T15:32:00,ChargeSystem,complete
+30,E - Notification & Reconciliation,2024-01-01T15:32:03,Orchestrator,start
+30,E.1 - Customer Notification (Case 30),2024-01-01T15:32:05,Notifier,start
+30,E.1 - Customer Notification (Case 30),2024-01-01T15:32:08,Notifier,complete
+30,E.2 - Merchant Notification (Case 30),2024-01-01T15:32:09,Notifier,start
+30,E.2 - Merchant Notification (Case 30),2024-01-01T15:32:13,Notifier,complete
+30,E.3 - Update Ledger,2024-01-01T15:32:16,LedgerSystem,start
+30,E.3.1 - Insert Transaction Record,2024-01-01T15:32:17,LedgerSystem,start
+30,E.3.1 - Insert Transaction Record,2024-01-01T15:32:21,LedgerSystem,complete
+30,E.3.2 - Close Ledger Entry,2024-01-01T15:32:25,LedgerSystem,start
+30,E.3.2 - Close Ledger Entry,2024-01-01T15:32:29,LedgerSystem,complete
+30,E.3 - Update Ledger,2024-01-01T15:32:30,LedgerSystem,complete
+30,E.4 - Reconcile Batch,2024-01-01T15:32:31,BatchSystem,start
+30,E.4.1 - Aggregate Transactions,2024-01-01T15:32:32,BatchSystem,start
+30,E.4.2 - Generate Batch Report,2024-01-01T15:32:33,ReportSystem,start
+30,E.4.1 - Aggregate Transactions,2024-01-01T15:32:37,BatchSystem,complete
+30,E.4.2 - Generate Batch Report,2024-01-01T15:32:40,ReportSystem,complete
+30,E.4 - Reconcile Batch,2024-01-01T15:32:44,BatchSystem,complete
+30,E - Notification & Reconciliation,2024-01-01T15:32:47,Orchestrator,complete

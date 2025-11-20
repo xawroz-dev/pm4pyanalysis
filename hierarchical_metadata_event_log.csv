@@ -1,0 +1,1202 @@
+case_id,activity,timestamp,resource,lifecycle,level_1,level_2,level_3
+Case_1,Start Validation,2024-01-01T08:10:00,System,start,A,,
+Case_1,Start Validation,2024-01-01T08:10:04,System,complete,A,,
+Case_1,Basic Checks,2024-01-01T08:10:08,System,start,A,A1,
+Case_1,Check Card Number,2024-01-01T08:10:11,System,start,A,A1,A1a
+Case_1,Check Card Number,2024-01-01T08:10:15,System,complete,A,A1,A1a
+Case_1,Check Expiry,2024-01-01T08:10:17,System,start,A,A1,A1b
+Case_1,Check Expiry,2024-01-01T08:10:21,System,complete,A,A1,A1b
+Case_1,Check CVV,2024-01-01T08:10:25,System,start,A,A1,A1c
+Case_1,Check CVV,2024-01-01T08:10:28,System,complete,A,A1,A1c
+Case_1,Basic Checks,2024-01-01T08:10:31,System,complete,A,A1,
+Case_1,Advanced Checks,2024-01-01T08:10:33,System,start,A,A2,
+Case_1,Validate Address,2024-01-01T08:10:34,System,start,A,A2,A2a
+Case_1,Validate Zip,2024-01-01T08:10:35,System,start,A,A2,A2b
+Case_1,Validate Address,2024-01-01T08:10:39,System,complete,A,A2,A2a
+Case_1,Validate Zip,2024-01-01T08:10:42,System,complete,A,A2,A2b
+Case_1,Advanced Checks,2024-01-01T08:10:46,System,complete,A,A2,
+Case_1,Fraud Checks,2024-01-01T08:10:50,System,start,B,,
+Case_1,Run Fraud Engine,2024-01-01T08:10:52,System,start,B,B1,
+Case_1,Run Fraud Engine,2024-01-01T08:10:55,System,complete,B,B1,
+Case_1,Fraud Notification Case 1,2024-01-01T08:10:57,System,start,B,B2,
+Case_1,Fraud Notification Case 1,2024-01-01T08:11:01,System,complete,B,B2,
+Case_1,Parallel Fraud Checks,2024-01-01T08:11:05,System,start,B,B3,
+Case_1,Check Geolocation,2024-01-01T08:11:06,System,start,B,B3,B3a
+Case_1,Check Transaction History,2024-01-01T08:11:07,System,start,B,B3,B3b
+Case_1,Check Geolocation,2024-01-01T08:11:08,System,complete,B,B3,B3a
+Case_1,Check Transaction History,2024-01-01T08:11:12,System,complete,B,B3,B3b
+Case_1,Parallel Fraud Checks,2024-01-01T08:11:16,System,complete,B,B3,
+Case_1,Fraud Checks,2024-01-01T08:11:20,System,complete,B,,
+Case_1,Fund Authorization,2024-01-01T08:11:21,System,start,C,,
+Case_1,Bank API Call Case 1,2024-01-01T08:11:22,System,start,C,C1,
+Case_1,Bank API Call Case 1,2024-01-01T08:11:25,System,complete,C,C1,
+Case_1,Receive Bank Response,2024-01-01T08:11:27,System,start,C,C2,
+Case_1,Receive Bank Response,2024-01-01T08:11:29,System,complete,C,C2,
+Case_1,Request Additional Info,2024-01-01T08:11:33,System,start,C,C3,
+Case_1,Request Additional Info,2024-01-01T08:11:35,System,complete,C,C3,
+Case_1,Fund Authorization,2024-01-01T08:11:37,System,complete,C,,
+Case_1,Settlement,2024-01-01T08:11:41,System,start,D,,
+Case_1,Charge Request Case 1,2024-01-01T08:11:42,System,start,D,D1,
+Case_1,Charge Request Case 1,2024-01-01T08:11:46,System,complete,D,D1,
+Case_1,Receive Charge Response,2024-01-01T08:11:50,System,start,D,D2,
+Case_1,Receive Charge Response,2024-01-01T08:11:52,System,complete,D,D2,
+Case_1,Ledger Update,2024-01-01T08:11:54,System,start,D,D4,
+Case_1,Insert Transaction Record,2024-01-01T08:11:56,System,start,D,D4,D4a
+Case_1,Insert Transaction Record,2024-01-01T08:11:59,System,complete,D,D4,D4a
+Case_1,Close Ledger Entry,2024-01-01T08:12:01,System,start,D,D4,D4b
+Case_1,Close Ledger Entry,2024-01-01T08:12:02,System,complete,D,D4,D4b
+Case_1,Ledger Update,2024-01-01T08:12:06,System,complete,D,D4,
+Case_1,Customer Notification Case 1,2024-01-01T08:12:07,System,start,D,D5,
+Case_1,Customer Notification Case 1,2024-01-01T08:12:10,System,complete,D,D5,
+Case_1,Merchant Notification Case 1,2024-01-01T08:12:14,System,start,D,D5,
+Case_1,Merchant Notification Case 1,2024-01-01T08:12:16,System,complete,D,D5,
+Case_1,Batch Reconciliation,2024-01-01T08:12:20,System,start,D,D6,
+Case_1,Aggregate Transactions,2024-01-01T08:12:21,System,start,D,D6,D6a
+Case_1,Generate Batch Report,2024-01-01T08:12:22,System,start,D,D6,D6b
+Case_1,Aggregate Transactions,2024-01-01T08:12:24,System,complete,D,D6,D6a
+Case_1,Generate Batch Report,2024-01-01T08:12:27,System,complete,D,D6,D6b
+Case_1,Batch Reconciliation,2024-01-01T08:12:30,System,complete,D,D6,
+Case_1,Settlement,2024-01-01T08:12:31,System,complete,D,,
+Case_2,Start Validation,2024-01-01T08:20:00,System,start,A,,
+Case_2,Start Validation,2024-01-01T08:20:04,System,complete,A,,
+Case_2,Basic Checks,2024-01-01T08:20:07,System,start,A,A1,
+Case_2,Check Card Number,2024-01-01T08:20:08,System,start,A,A1,A1a
+Case_2,Check Card Number,2024-01-01T08:20:12,System,complete,A,A1,A1a
+Case_2,Check Expiry,2024-01-01T08:20:16,System,start,A,A1,A1b
+Case_2,Check Expiry,2024-01-01T08:20:17,System,complete,A,A1,A1b
+Case_2,Check CVV,2024-01-01T08:20:19,System,start,A,A1,A1c
+Case_2,Check CVV,2024-01-01T08:20:23,System,complete,A,A1,A1c
+Case_2,Basic Checks,2024-01-01T08:20:26,System,complete,A,A1,
+Case_2,Advanced Checks,2024-01-01T08:20:28,System,start,A,A2,
+Case_2,Validate Address,2024-01-01T08:20:29,System,start,A,A2,A2a
+Case_2,Validate Zip,2024-01-01T08:20:30,System,start,A,A2,A2b
+Case_2,Validate Address,2024-01-01T08:20:33,System,complete,A,A2,A2a
+Case_2,Validate Zip,2024-01-01T08:20:36,System,complete,A,A2,A2b
+Case_2,Advanced Checks,2024-01-01T08:20:38,System,complete,A,A2,
+Case_2,Fraud Checks,2024-01-01T08:20:39,System,start,B,,
+Case_2,Run Fraud Engine,2024-01-01T08:20:43,System,start,B,B1,
+Case_2,Run Fraud Engine,2024-01-01T08:20:45,System,complete,B,B1,
+Case_2,Fraud Notification Case 2,2024-01-01T08:20:46,System,start,B,B2,
+Case_2,Fraud Notification Case 2,2024-01-01T08:20:50,System,complete,B,B2,
+Case_2,Parallel Fraud Checks,2024-01-01T08:20:53,System,start,B,B3,
+Case_2,Check Geolocation,2024-01-01T08:20:54,System,start,B,B3,B3a
+Case_2,Check Transaction History,2024-01-01T08:20:55,System,start,B,B3,B3b
+Case_2,Check Geolocation,2024-01-01T08:20:57,System,complete,B,B3,B3a
+Case_2,Check Transaction History,2024-01-01T08:20:59,System,complete,B,B3,B3b
+Case_2,Parallel Fraud Checks,2024-01-01T08:21:00,System,complete,B,B3,
+Case_2,Fraud Checks,2024-01-01T08:21:02,System,complete,B,,
+Case_2,Fund Authorization,2024-01-01T08:21:06,System,start,C,,
+Case_2,Bank API Call Case 2,2024-01-01T08:21:08,System,start,C,C1,
+Case_2,Bank API Call Case 2,2024-01-01T08:21:09,System,complete,C,C1,
+Case_2,Receive Bank Response,2024-01-01T08:21:13,System,start,C,C2,
+Case_2,Receive Bank Response,2024-01-01T08:21:14,System,complete,C,C2,
+Case_2,Request Additional Info,2024-01-01T08:21:18,System,start,C,C3,
+Case_2,Request Additional Info,2024-01-01T08:21:19,System,complete,C,C3,
+Case_2,Fund Authorization,2024-01-01T08:21:21,System,complete,C,,
+Case_2,Settlement,2024-01-01T08:21:23,System,start,D,,
+Case_2,Charge Request Case 2,2024-01-01T08:21:27,System,start,D,D1,
+Case_2,Charge Request Case 2,2024-01-01T08:21:29,System,complete,D,D1,
+Case_2,Receive Charge Response,2024-01-01T08:21:31,System,start,D,D2,
+Case_2,Receive Charge Response,2024-01-01T08:21:34,System,complete,D,D2,
+Case_2,Ledger Update,2024-01-01T08:21:35,System,start,D,D4,
+Case_2,Insert Transaction Record,2024-01-01T08:21:36,System,start,D,D4,D4a
+Case_2,Insert Transaction Record,2024-01-01T08:21:37,System,complete,D,D4,D4a
+Case_2,Close Ledger Entry,2024-01-01T08:21:41,System,start,D,D4,D4b
+Case_2,Close Ledger Entry,2024-01-01T08:21:45,System,complete,D,D4,D4b
+Case_2,Ledger Update,2024-01-01T08:21:47,System,complete,D,D4,
+Case_2,Customer Notification Case 2,2024-01-01T08:21:51,System,start,D,D5,
+Case_2,Customer Notification Case 2,2024-01-01T08:21:55,System,complete,D,D5,
+Case_2,Merchant Notification Case 2,2024-01-01T08:21:56,System,start,D,D5,
+Case_2,Merchant Notification Case 2,2024-01-01T08:21:58,System,complete,D,D5,
+Case_2,Batch Reconciliation,2024-01-01T08:22:02,System,start,D,D6,
+Case_2,Aggregate Transactions,2024-01-01T08:22:03,System,start,D,D6,D6a
+Case_2,Generate Batch Report,2024-01-01T08:22:04,System,start,D,D6,D6b
+Case_2,Aggregate Transactions,2024-01-01T08:22:06,System,complete,D,D6,D6a
+Case_2,Generate Batch Report,2024-01-01T08:22:07,System,complete,D,D6,D6b
+Case_2,Batch Reconciliation,2024-01-01T08:22:10,System,complete,D,D6,
+Case_2,Settlement,2024-01-01T08:22:13,System,complete,D,,
+Case_3,Start Validation,2024-01-01T08:30:00,System,start,A,,
+Case_3,Start Validation,2024-01-01T08:30:03,System,complete,A,,
+Case_3,Basic Checks,2024-01-01T08:30:07,System,start,A,A1,
+Case_3,Check Card Number,2024-01-01T08:30:10,System,start,A,A1,A1a
+Case_3,Check Card Number,2024-01-01T08:30:14,System,complete,A,A1,A1a
+Case_3,Check Expiry,2024-01-01T08:30:18,System,start,A,A1,A1b
+Case_3,Check Expiry,2024-01-01T08:30:21,System,complete,A,A1,A1b
+Case_3,Check CVV,2024-01-01T08:30:25,System,start,A,A1,A1c
+Case_3,Check CVV,2024-01-01T08:30:27,System,complete,A,A1,A1c
+Case_3,Basic Checks,2024-01-01T08:30:28,System,complete,A,A1,
+Case_3,Advanced Checks,2024-01-01T08:30:30,System,start,A,A2,
+Case_3,Validate Address,2024-01-01T08:30:31,System,start,A,A2,A2a
+Case_3,Validate Zip,2024-01-01T08:30:32,System,start,A,A2,A2b
+Case_3,Validate Address,2024-01-01T08:30:33,System,complete,A,A2,A2a
+Case_3,Validate Zip,2024-01-01T08:30:34,System,complete,A,A2,A2b
+Case_3,Advanced Checks,2024-01-01T08:30:35,System,complete,A,A2,
+Case_3,Fraud Checks,2024-01-01T08:30:38,System,start,B,,
+Case_3,Run Fraud Engine,2024-01-01T08:30:42,System,start,B,B1,
+Case_3,Run Fraud Engine,2024-01-01T08:30:43,System,complete,B,B1,
+Case_3,Fraud Notification Case 3,2024-01-01T08:30:46,System,start,B,B2,
+Case_3,Fraud Notification Case 3,2024-01-01T08:30:47,System,complete,B,B2,
+Case_3,Parallel Fraud Checks,2024-01-01T08:30:50,System,start,B,B3,
+Case_3,Check Geolocation,2024-01-01T08:30:51,System,start,B,B3,B3a
+Case_3,Check Transaction History,2024-01-01T08:30:52,System,start,B,B3,B3b
+Case_3,Check Geolocation,2024-01-01T08:30:56,System,complete,B,B3,B3a
+Case_3,Check Transaction History,2024-01-01T08:31:00,System,complete,B,B3,B3b
+Case_3,Parallel Fraud Checks,2024-01-01T08:31:04,System,complete,B,B3,
+Case_3,Fraud Checks,2024-01-01T08:31:05,System,complete,B,,
+Case_3,Fund Authorization,2024-01-01T08:31:09,System,start,C,,
+Case_3,Bank API Call Case 3,2024-01-01T08:31:12,System,start,C,C1,
+Case_3,Bank API Call Case 3,2024-01-01T08:31:15,System,complete,C,C1,
+Case_3,Receive Bank Response,2024-01-01T08:31:16,System,start,C,C2,
+Case_3,Receive Bank Response,2024-01-01T08:31:17,System,complete,C,C2,
+Case_3,Request Additional Info,2024-01-01T08:31:21,System,start,C,C3,
+Case_3,Request Additional Info,2024-01-01T08:31:25,System,complete,C,C3,
+Case_3,Fund Authorization,2024-01-01T08:31:27,System,complete,C,,
+Case_3,Settlement,2024-01-01T08:31:28,System,start,D,,
+Case_3,Charge Request Case 3,2024-01-01T08:31:32,System,start,D,D1,
+Case_3,Charge Request Case 3,2024-01-01T08:31:35,System,complete,D,D1,
+Case_3,Receive Charge Response,2024-01-01T08:31:38,System,start,D,D2,
+Case_3,Receive Charge Response,2024-01-01T08:31:40,System,complete,D,D2,
+Case_3,Ledger Update,2024-01-01T08:31:42,System,start,D,D4,
+Case_3,Insert Transaction Record,2024-01-01T08:31:44,System,start,D,D4,D4a
+Case_3,Insert Transaction Record,2024-01-01T08:31:45,System,complete,D,D4,D4a
+Case_3,Close Ledger Entry,2024-01-01T08:31:49,System,start,D,D4,D4b
+Case_3,Close Ledger Entry,2024-01-01T08:31:51,System,complete,D,D4,D4b
+Case_3,Ledger Update,2024-01-01T08:31:54,System,complete,D,D4,
+Case_3,Customer Notification Case 3,2024-01-01T08:31:56,System,start,D,D5,
+Case_3,Customer Notification Case 3,2024-01-01T08:31:58,System,complete,D,D5,
+Case_3,Merchant Notification Case 3,2024-01-01T08:31:59,System,start,D,D5,
+Case_3,Merchant Notification Case 3,2024-01-01T08:32:00,System,complete,D,D5,
+Case_3,Batch Reconciliation,2024-01-01T08:32:02,System,start,D,D6,
+Case_3,Aggregate Transactions,2024-01-01T08:32:03,System,start,D,D6,D6a
+Case_3,Generate Batch Report,2024-01-01T08:32:04,System,start,D,D6,D6b
+Case_3,Aggregate Transactions,2024-01-01T08:32:07,System,complete,D,D6,D6a
+Case_3,Generate Batch Report,2024-01-01T08:32:11,System,complete,D,D6,D6b
+Case_3,Batch Reconciliation,2024-01-01T08:32:14,System,complete,D,D6,
+Case_3,Settlement,2024-01-01T08:32:15,System,complete,D,,
+Case_4,Start Validation,2024-01-01T08:40:00,System,start,A,,
+Case_4,Start Validation,2024-01-01T08:40:04,System,complete,A,,
+Case_4,Basic Checks,2024-01-01T08:40:06,System,start,A,A1,
+Case_4,Check Card Number,2024-01-01T08:40:08,System,start,A,A1,A1a
+Case_4,Check Card Number,2024-01-01T08:40:10,System,complete,A,A1,A1a
+Case_4,Check Expiry,2024-01-01T08:40:14,System,start,A,A1,A1b
+Case_4,Check Expiry,2024-01-01T08:40:15,System,complete,A,A1,A1b
+Case_4,Check CVV,2024-01-01T08:40:16,System,start,A,A1,A1c
+Case_4,Check CVV,2024-01-01T08:40:20,System,complete,A,A1,A1c
+Case_4,Basic Checks,2024-01-01T08:40:24,System,complete,A,A1,
+Case_4,Advanced Checks,2024-01-01T08:40:27,System,start,A,A2,
+Case_4,Validate Address,2024-01-01T08:40:28,System,start,A,A2,A2a
+Case_4,Validate Zip,2024-01-01T08:40:29,System,start,A,A2,A2b
+Case_4,Validate Address,2024-01-01T08:40:30,System,complete,A,A2,A2a
+Case_4,Validate Zip,2024-01-01T08:40:34,System,complete,A,A2,A2b
+Case_4,Advanced Checks,2024-01-01T08:40:35,System,complete,A,A2,
+Case_4,Fraud Checks,2024-01-01T08:40:39,System,start,B,,
+Case_4,Run Fraud Engine,2024-01-01T08:40:42,System,start,B,B1,
+Case_4,Run Fraud Engine,2024-01-01T08:40:46,System,complete,B,B1,
+Case_4,Fraud Notification Case 4,2024-01-01T08:40:49,System,start,B,B2,
+Case_4,Fraud Notification Case 4,2024-01-01T08:40:53,System,complete,B,B2,
+Case_4,Parallel Fraud Checks,2024-01-01T08:40:56,System,start,B,B3,
+Case_4,Check Geolocation,2024-01-01T08:40:57,System,start,B,B3,B3a
+Case_4,Check Transaction History,2024-01-01T08:40:58,System,start,B,B3,B3b
+Case_4,Check Geolocation,2024-01-01T08:41:02,System,complete,B,B3,B3a
+Case_4,Check Transaction History,2024-01-01T08:41:03,System,complete,B,B3,B3b
+Case_4,Parallel Fraud Checks,2024-01-01T08:41:05,System,complete,B,B3,
+Case_4,Fraud Checks,2024-01-01T08:41:08,System,complete,B,,
+Case_4,Fund Authorization,2024-01-01T08:41:12,System,start,C,,
+Case_4,Bank API Call Case 4,2024-01-01T08:41:15,System,start,C,C1,
+Case_4,Bank API Call Case 4,2024-01-01T08:41:16,System,complete,C,C1,
+Case_4,Receive Bank Response,2024-01-01T08:41:19,System,start,C,C2,
+Case_4,Receive Bank Response,2024-01-01T08:41:22,System,complete,C,C2,
+Case_4,Fund Authorization,2024-01-01T08:41:23,System,complete,C,,
+Case_4,Settlement,2024-01-01T08:41:25,System,start,D,,
+Case_4,Charge Request Case 4,2024-01-01T08:41:28,System,start,D,D1,
+Case_4,Charge Request Case 4,2024-01-01T08:41:30,System,complete,D,D1,
+Case_4,Receive Charge Response,2024-01-01T08:41:31,System,start,D,D2,
+Case_4,Receive Charge Response,2024-01-01T08:41:34,System,complete,D,D2,
+Case_4,Ledger Update,2024-01-01T08:41:35,System,start,D,D4,
+Case_4,Insert Transaction Record,2024-01-01T08:41:38,System,start,D,D4,D4a
+Case_4,Insert Transaction Record,2024-01-01T08:41:41,System,complete,D,D4,D4a
+Case_4,Close Ledger Entry,2024-01-01T08:41:42,System,start,D,D4,D4b
+Case_4,Close Ledger Entry,2024-01-01T08:41:46,System,complete,D,D4,D4b
+Case_4,Ledger Update,2024-01-01T08:41:49,System,complete,D,D4,
+Case_4,Customer Notification Case 4,2024-01-01T08:41:52,System,start,D,D5,
+Case_4,Customer Notification Case 4,2024-01-01T08:41:55,System,complete,D,D5,
+Case_4,Merchant Notification Case 4,2024-01-01T08:41:56,System,start,D,D5,
+Case_4,Merchant Notification Case 4,2024-01-01T08:41:59,System,complete,D,D5,
+Case_4,Batch Reconciliation,2024-01-01T08:42:01,System,start,D,D6,
+Case_4,Aggregate Transactions,2024-01-01T08:42:02,System,start,D,D6,D6a
+Case_4,Generate Batch Report,2024-01-01T08:42:03,System,start,D,D6,D6b
+Case_4,Aggregate Transactions,2024-01-01T08:42:05,System,complete,D,D6,D6a
+Case_4,Generate Batch Report,2024-01-01T08:42:08,System,complete,D,D6,D6b
+Case_4,Batch Reconciliation,2024-01-01T08:42:09,System,complete,D,D6,
+Case_4,Settlement,2024-01-01T08:42:12,System,complete,D,,
+Case_5,Start Validation,2024-01-01T08:50:00,System,start,A,,
+Case_5,Start Validation,2024-01-01T08:50:01,System,complete,A,,
+Case_5,Basic Checks,2024-01-01T08:50:03,System,start,A,A1,
+Case_5,Check Card Number,2024-01-01T08:50:07,System,start,A,A1,A1a
+Case_5,Check Card Number,2024-01-01T08:50:09,System,complete,A,A1,A1a
+Case_5,Check Expiry,2024-01-01T08:50:13,System,start,A,A1,A1b
+Case_5,Check Expiry,2024-01-01T08:50:16,System,complete,A,A1,A1b
+Case_5,Check CVV,2024-01-01T08:50:18,System,start,A,A1,A1c
+Case_5,Check CVV,2024-01-01T08:50:19,System,complete,A,A1,A1c
+Case_5,Basic Checks,2024-01-01T08:50:20,System,complete,A,A1,
+Case_5,Advanced Checks,2024-01-01T08:50:23,System,start,A,A2,
+Case_5,Validate Address,2024-01-01T08:50:24,System,start,A,A2,A2a
+Case_5,Validate Zip,2024-01-01T08:50:25,System,start,A,A2,A2b
+Case_5,Validate Address,2024-01-01T08:50:26,System,complete,A,A2,A2a
+Case_5,Validate Zip,2024-01-01T08:50:29,System,complete,A,A2,A2b
+Case_5,Advanced Checks,2024-01-01T08:50:30,System,complete,A,A2,
+Case_5,Fraud Checks,2024-01-01T08:50:32,System,start,B,,
+Case_5,Run Fraud Engine,2024-01-01T08:50:35,System,start,B,B1,
+Case_5,Run Fraud Engine,2024-01-01T08:50:37,System,complete,B,B1,
+Case_5,Fraud Notification Case 5,2024-01-01T08:50:41,System,start,B,B2,
+Case_5,Fraud Notification Case 5,2024-01-01T08:50:45,System,complete,B,B2,
+Case_5,Parallel Fraud Checks,2024-01-01T08:50:46,System,start,B,B3,
+Case_5,Check Geolocation,2024-01-01T08:50:47,System,start,B,B3,B3a
+Case_5,Check Transaction History,2024-01-01T08:50:48,System,start,B,B3,B3b
+Case_5,Check Geolocation,2024-01-01T08:50:52,System,complete,B,B3,B3a
+Case_5,Check Transaction History,2024-01-01T08:50:54,System,complete,B,B3,B3b
+Case_5,Parallel Fraud Checks,2024-01-01T08:50:58,System,complete,B,B3,
+Case_5,Fraud Checks,2024-01-01T08:50:59,System,complete,B,,
+Case_5,Fund Authorization,2024-01-01T08:51:01,System,start,C,,
+Case_5,Bank API Call Case 5,2024-01-01T08:51:02,System,start,C,C1,
+Case_5,Bank API Call Case 5,2024-01-01T08:51:05,System,complete,C,C1,
+Case_5,Receive Bank Response,2024-01-01T08:51:07,System,start,C,C2,
+Case_5,Receive Bank Response,2024-01-01T08:51:08,System,complete,C,C2,
+Case_5,Request Additional Info,2024-01-01T08:51:10,System,start,C,C3,
+Case_5,Request Additional Info,2024-01-01T08:51:14,System,complete,C,C3,
+Case_5,Request Additional Info,2024-01-01T08:51:16,System,complete,C,C3,
+Case_5,Fund Authorization,2024-01-01T08:51:19,System,complete,C,,
+Case_5,Settlement,2024-01-01T08:51:22,System,start,D,,
+Case_5,Charge Request Case 5,2024-01-01T08:51:26,System,start,D,D1,
+Case_5,Charge Request Case 5,2024-01-01T08:51:28,System,complete,D,D1,
+Case_5,Receive Charge Response,2024-01-01T08:51:31,System,start,D,D2,
+Case_5,Receive Charge Response,2024-01-01T08:51:33,System,complete,D,D2,
+Case_5,Ledger Update,2024-01-01T08:51:35,System,start,D,D4,
+Case_5,Insert Transaction Record,2024-01-01T08:51:38,System,start,D,D4,D4a
+Case_5,Insert Transaction Record,2024-01-01T08:51:39,System,complete,D,D4,D4a
+Case_5,Close Ledger Entry,2024-01-01T08:51:41,System,start,D,D4,D4b
+Case_5,Close Ledger Entry,2024-01-01T08:51:45,System,complete,D,D4,D4b
+Case_5,Ledger Update,2024-01-01T08:51:47,System,complete,D,D4,
+Case_5,Customer Notification Case 5,2024-01-01T08:51:50,System,start,D,D5,
+Case_5,Customer Notification Case 5,2024-01-01T08:51:53,System,complete,D,D5,
+Case_5,Merchant Notification Case 5,2024-01-01T08:51:56,System,start,D,D5,
+Case_5,Merchant Notification Case 5,2024-01-01T08:51:57,System,complete,D,D5,
+Case_5,Batch Reconciliation,2024-01-01T08:52:00,System,start,D,D6,
+Case_5,Aggregate Transactions,2024-01-01T08:52:01,System,start,D,D6,D6a
+Case_5,Generate Batch Report,2024-01-01T08:52:02,System,start,D,D6,D6b
+Case_5,Aggregate Transactions,2024-01-01T08:52:03,System,complete,D,D6,D6a
+Case_5,Generate Batch Report,2024-01-01T08:52:07,System,complete,D,D6,D6b
+Case_5,Batch Reconciliation,2024-01-01T08:52:08,System,complete,D,D6,
+Case_5,Settlement,2024-01-01T08:52:10,System,complete,D,,
+Case_6,Start Validation,2024-01-01T09:00:00,System,start,A,,
+Case_6,Start Validation,2024-01-01T09:00:01,System,complete,A,,
+Case_6,Basic Checks,2024-01-01T09:00:05,System,start,A,A1,
+Case_6,Check Card Number,2024-01-01T09:00:06,System,start,A,A1,A1a
+Case_6,Check Card Number,2024-01-01T09:00:09,System,complete,A,A1,A1a
+Case_6,Check Expiry,2024-01-01T09:00:12,System,start,A,A1,A1b
+Case_6,Check Expiry,2024-01-01T09:00:14,System,complete,A,A1,A1b
+Case_6,Check CVV,2024-01-01T09:00:18,System,start,A,A1,A1c
+Case_6,Check CVV,2024-01-01T09:00:20,System,complete,A,A1,A1c
+Case_6,Basic Checks,2024-01-01T09:00:21,System,complete,A,A1,
+Case_6,Advanced Checks,2024-01-01T09:00:25,System,start,A,A2,
+Case_6,Validate Address,2024-01-01T09:00:26,System,start,A,A2,A2a
+Case_6,Validate Zip,2024-01-01T09:00:27,System,start,A,A2,A2b
+Case_6,Validate Address,2024-01-01T09:00:29,System,complete,A,A2,A2a
+Case_6,Validate Zip,2024-01-01T09:00:30,System,complete,A,A2,A2b
+Case_6,Advanced Checks,2024-01-01T09:00:34,System,complete,A,A2,
+Case_6,Fraud Checks,2024-01-01T09:00:38,System,start,B,,
+Case_6,Run Fraud Engine,2024-01-01T09:00:39,System,start,B,B1,
+Case_6,Run Fraud Engine,2024-01-01T09:00:43,System,complete,B,B1,
+Case_6,Fraud Notification Case 6,2024-01-01T09:00:45,System,start,B,B2,
+Case_6,Fraud Notification Case 6,2024-01-01T09:00:47,System,complete,B,B2,
+Case_6,Parallel Fraud Checks,2024-01-01T09:00:51,System,start,B,B3,
+Case_6,Check Geolocation,2024-01-01T09:00:52,System,start,B,B3,B3a
+Case_6,Check Transaction History,2024-01-01T09:00:53,System,start,B,B3,B3b
+Case_6,Check Geolocation,2024-01-01T09:00:55,System,complete,B,B3,B3a
+Case_6,Check Transaction History,2024-01-01T09:00:57,System,complete,B,B3,B3b
+Case_6,Parallel Fraud Checks,2024-01-01T09:01:00,System,complete,B,B3,
+Case_6,Fraud Checks,2024-01-01T09:01:01,System,complete,B,,
+Case_6,Fund Authorization,2024-01-01T09:01:04,System,start,C,,
+Case_6,Bank API Call Case 6,2024-01-01T09:01:07,System,start,C,C1,
+Case_6,Bank API Call Case 6,2024-01-01T09:01:10,System,complete,C,C1,
+Case_6,Receive Bank Response,2024-01-01T09:01:11,System,start,C,C2,
+Case_6,Receive Bank Response,2024-01-01T09:01:15,System,complete,C,C2,
+Case_6,Request Additional Info,2024-01-01T09:01:18,System,start,C,C3,
+Case_6,Request Additional Info,2024-01-01T09:01:19,System,complete,C,C3,
+Case_6,Request Additional Info,2024-01-01T09:01:22,System,start,C,C3,
+Case_6,Fund Authorization,2024-01-01T09:01:23,System,complete,C,,
+Case_6,Settlement,2024-01-01T09:01:24,System,start,D,,
+Case_6,Charge Request Case 6,2024-01-01T09:01:25,System,start,D,D1,
+Case_6,Charge Request Case 6,2024-01-01T09:01:27,System,complete,D,D1,
+Case_6,Receive Charge Response,2024-01-01T09:01:31,System,start,D,D2,
+Case_6,Receive Charge Response,2024-01-01T09:01:34,System,complete,D,D2,
+Case_6,Ledger Update,2024-01-01T09:01:38,System,start,D,D4,
+Case_6,Insert Transaction Record,2024-01-01T09:01:40,System,start,D,D4,D4a
+Case_6,Insert Transaction Record,2024-01-01T09:01:42,System,complete,D,D4,D4a
+Case_6,Close Ledger Entry,2024-01-01T09:01:45,System,start,D,D4,D4b
+Case_6,Close Ledger Entry,2024-01-01T09:01:47,System,complete,D,D4,D4b
+Case_6,Ledger Update,2024-01-01T09:01:50,System,complete,D,D4,
+Case_6,Customer Notification Case 6,2024-01-01T09:01:54,System,start,D,D5,
+Case_6,Customer Notification Case 6,2024-01-01T09:01:56,System,complete,D,D5,
+Case_6,Merchant Notification Case 6,2024-01-01T09:01:58,System,start,D,D5,
+Case_6,Merchant Notification Case 6,2024-01-01T09:02:01,System,complete,D,D5,
+Case_6,Batch Reconciliation,2024-01-01T09:02:04,System,start,D,D6,
+Case_6,Aggregate Transactions,2024-01-01T09:02:05,System,start,D,D6,D6a
+Case_6,Generate Batch Report,2024-01-01T09:02:06,System,start,D,D6,D6b
+Case_6,Aggregate Transactions,2024-01-01T09:02:09,System,complete,D,D6,D6a
+Case_6,Generate Batch Report,2024-01-01T09:02:13,System,complete,D,D6,D6b
+Case_6,Batch Reconciliation,2024-01-01T09:02:15,System,complete,D,D6,
+Case_6,Settlement,2024-01-01T09:02:16,System,complete,D,,
+Case_7,Start Validation,2024-01-01T09:10:00,System,start,A,,
+Case_7,Start Validation,2024-01-01T09:10:01,System,complete,A,,
+Case_7,Basic Checks,2024-01-01T09:10:03,System,start,A,A1,
+Case_7,Check Card Number,2024-01-01T09:10:06,System,start,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:07,System,complete,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:10,System,start,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:11,System,complete,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:12,System,start,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:13,System,complete,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:15,System,start,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:17,System,complete,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:20,System,start,A,A1,A1a
+Case_7,Check Card Number,2024-01-01T09:10:24,System,complete,A,A1,A1a
+Case_7,Check Expiry,2024-01-01T09:10:27,System,start,A,A1,A1b
+Case_7,Check Expiry,2024-01-01T09:10:30,System,complete,A,A1,A1b
+Case_7,Check CVV,2024-01-01T09:10:33,System,start,A,A1,A1c
+Case_7,Check CVV,2024-01-01T09:10:34,System,complete,A,A1,A1c
+Case_7,Basic Checks,2024-01-01T09:10:38,System,complete,A,A1,
+Case_7,Advanced Checks,2024-01-01T09:10:39,System,start,A,A2,
+Case_7,Validate Address,2024-01-01T09:10:40,System,start,A,A2,A2a
+Case_7,Validate Zip,2024-01-01T09:10:41,System,start,A,A2,A2b
+Case_7,Validate Address,2024-01-01T09:10:43,System,complete,A,A2,A2a
+Case_7,Validate Zip,2024-01-01T09:10:44,System,complete,A,A2,A2b
+Case_7,Advanced Checks,2024-01-01T09:10:45,System,complete,A,A2,
+Case_7,Fraud Checks,2024-01-01T09:10:49,System,start,B,,
+Case_7,Run Fraud Engine,2024-01-01T09:10:53,System,start,B,B1,
+Case_7,Run Fraud Engine,2024-01-01T09:10:56,System,complete,B,B1,
+Case_7,Fraud Notification Case 7,2024-01-01T09:11:00,System,start,B,B2,
+Case_7,Fraud Notification Case 7,2024-01-01T09:11:01,System,complete,B,B2,
+Case_7,Parallel Fraud Checks,2024-01-01T09:11:03,System,start,B,B3,
+Case_7,Check Geolocation,2024-01-01T09:11:04,System,start,B,B3,B3a
+Case_7,Check Transaction History,2024-01-01T09:11:05,System,start,B,B3,B3b
+Case_7,Check Geolocation,2024-01-01T09:11:07,System,complete,B,B3,B3a
+Case_7,Check Transaction History,2024-01-01T09:11:11,System,complete,B,B3,B3b
+Case_7,Parallel Fraud Checks,2024-01-01T09:11:12,System,complete,B,B3,
+Case_7,Fraud Checks,2024-01-01T09:11:15,System,complete,B,,
+Case_7,Fund Authorization,2024-01-01T09:11:17,System,start,C,,
+Case_7,Bank API Call Case 7,2024-01-01T09:11:21,System,start,C,C1,
+Case_7,Bank API Call Case 7,2024-01-01T09:11:22,System,complete,C,C1,
+Case_7,Receive Bank Response,2024-01-01T09:11:23,System,start,C,C2,
+Case_7,Receive Bank Response,2024-01-01T09:11:24,System,complete,C,C2,
+Case_7,Request Additional Info,2024-01-01T09:11:25,System,start,C,C3,
+Case_7,Request Additional Info,2024-01-01T09:11:29,System,complete,C,C3,
+Case_7,Fund Authorization,2024-01-01T09:11:30,System,complete,C,,
+Case_7,Settlement,2024-01-01T09:11:32,System,start,D,,
+Case_7,Charge Request Case 7,2024-01-01T09:11:36,System,start,D,D1,
+Case_7,Charge Request Case 7,2024-01-01T09:11:37,System,complete,D,D1,
+Case_7,Receive Charge Response,2024-01-01T09:11:41,System,start,D,D2,
+Case_7,Receive Charge Response,2024-01-01T09:11:45,System,complete,D,D2,
+Case_7,Ledger Update,2024-01-01T09:11:47,System,start,D,D4,
+Case_7,Insert Transaction Record,2024-01-01T09:11:51,System,start,D,D4,D4a
+Case_7,Insert Transaction Record,2024-01-01T09:11:52,System,complete,D,D4,D4a
+Case_7,Close Ledger Entry,2024-01-01T09:11:54,System,start,D,D4,D4b
+Case_7,Close Ledger Entry,2024-01-01T09:11:57,System,complete,D,D4,D4b
+Case_7,Ledger Update,2024-01-01T09:11:59,System,complete,D,D4,
+Case_7,Customer Notification Case 7,2024-01-01T09:12:00,System,start,D,D5,
+Case_7,Customer Notification Case 7,2024-01-01T09:12:02,System,complete,D,D5,
+Case_7,Merchant Notification Case 7,2024-01-01T09:12:06,System,start,D,D5,
+Case_7,Merchant Notification Case 7,2024-01-01T09:12:09,System,complete,D,D5,
+Case_7,Batch Reconciliation,2024-01-01T09:12:11,System,start,D,D6,
+Case_7,Aggregate Transactions,2024-01-01T09:12:12,System,start,D,D6,D6a
+Case_7,Generate Batch Report,2024-01-01T09:12:13,System,start,D,D6,D6b
+Case_7,Aggregate Transactions,2024-01-01T09:12:17,System,complete,D,D6,D6a
+Case_7,Generate Batch Report,2024-01-01T09:12:19,System,complete,D,D6,D6b
+Case_7,Batch Reconciliation,2024-01-01T09:12:23,System,complete,D,D6,
+Case_7,Settlement,2024-01-01T09:12:26,System,complete,D,,
+Case_8,Start Validation,2024-01-01T09:20:00,System,start,A,,
+Case_8,Start Validation,2024-01-01T09:20:01,System,complete,A,,
+Case_8,Basic Checks,2024-01-01T09:20:02,System,start,A,A1,
+Case_8,Check Card Number,2024-01-01T09:20:04,System,start,A,A1,A1a
+Case_8,Check Card Number,2024-01-01T09:20:08,System,complete,A,A1,A1a
+Case_8,Check Expiry,2024-01-01T09:20:10,System,start,A,A1,A1b
+Case_8,Check Expiry,2024-01-01T09:20:13,System,complete,A,A1,A1b
+Case_8,Check CVV,2024-01-01T09:20:14,System,start,A,A1,A1c
+Case_8,Check CVV,2024-01-01T09:20:16,System,complete,A,A1,A1c
+Case_8,Basic Checks,2024-01-01T09:20:19,System,complete,A,A1,
+Case_8,Advanced Checks,2024-01-01T09:20:22,System,start,A,A2,
+Case_8,Validate Address,2024-01-01T09:20:23,System,start,A,A2,A2a
+Case_8,Validate Zip,2024-01-01T09:20:24,System,start,A,A2,A2b
+Case_8,Validate Address,2024-01-01T09:20:25,System,complete,A,A2,A2a
+Case_8,Validate Zip,2024-01-01T09:20:28,System,complete,A,A2,A2b
+Case_8,Advanced Checks,2024-01-01T09:20:29,System,complete,A,A2,
+Case_8,Fraud Checks,2024-01-01T09:20:31,System,start,B,,
+Case_8,Run Fraud Engine,2024-01-01T09:20:32,System,start,B,B1,
+Case_8,Run Fraud Engine,2024-01-01T09:20:34,System,complete,B,B1,
+Case_8,Fraud Notification Case 8,2024-01-01T09:20:37,System,start,B,B2,
+Case_8,Fraud Notification Case 8,2024-01-01T09:20:40,System,complete,B,B2,
+Case_8,Parallel Fraud Checks,2024-01-01T09:20:41,System,start,B,B3,
+Case_8,Check Geolocation,2024-01-01T09:20:42,System,start,B,B3,B3a
+Case_8,Check Transaction History,2024-01-01T09:20:43,System,start,B,B3,B3b
+Case_8,Check Geolocation,2024-01-01T09:20:45,System,complete,B,B3,B3a
+Case_8,Check Transaction History,2024-01-01T09:20:47,System,complete,B,B3,B3b
+Case_8,Parallel Fraud Checks,2024-01-01T09:20:49,System,complete,B,B3,
+Case_8,Fraud Checks,2024-01-01T09:20:52,System,complete,B,,
+Case_8,Fund Authorization,2024-01-01T09:20:56,System,start,C,,
+Case_8,Bank API Call Case 8,2024-01-01T09:20:57,System,start,C,C1,
+Case_8,Bank API Call Case 8,2024-01-01T09:21:00,System,complete,C,C1,
+Case_8,Receive Bank Response,2024-01-01T09:21:01,System,start,C,C2,
+Case_8,Receive Bank Response,2024-01-01T09:21:03,System,complete,C,C2,
+Case_8,Fund Authorization,2024-01-01T09:21:04,System,complete,C,,
+Case_8,Settlement,2024-01-01T09:21:06,System,start,D,,
+Case_8,Charge Request Case 8,2024-01-01T09:21:07,System,start,D,D1,
+Case_8,Charge Request Case 8,2024-01-01T09:21:09,System,complete,D,D1,
+Case_8,Receive Charge Response,2024-01-01T09:21:11,System,start,D,D2,
+Case_8,Receive Charge Response,2024-01-01T09:21:15,System,complete,D,D2,
+Case_8,Handle Charge Error,2024-01-01T09:21:18,System,start,D,D3,
+Case_8,Handle Charge Error,2024-01-01T09:21:19,System,complete,D,D3,
+Case_8,Charge Request Retry Case 8,2024-01-01T09:21:22,System,start,D,D1,
+Case_8,Charge Request Retry Case 8,2024-01-01T09:21:25,System,complete,D,D1,
+Case_8,Receive Charge Response Retry,2024-01-01T09:21:28,System,start,D,D2,
+Case_8,Receive Charge Response Retry,2024-01-01T09:21:31,System,complete,D,D2,
+Case_8,Ledger Update,2024-01-01T09:21:32,System,start,D,D4,
+Case_8,Insert Transaction Record,2024-01-01T09:21:33,System,start,D,D4,D4a
+Case_8,Insert Transaction Record,2024-01-01T09:21:34,System,complete,D,D4,D4a
+Case_8,Close Ledger Entry,2024-01-01T09:21:36,System,start,D,D4,D4b
+Case_8,Close Ledger Entry,2024-01-01T09:21:40,System,complete,D,D4,D4b
+Case_8,Ledger Update,2024-01-01T09:21:41,System,complete,D,D4,
+Case_8,Customer Notification Case 8,2024-01-01T09:21:44,System,start,D,D5,
+Case_8,Customer Notification Case 8,2024-01-01T09:21:47,System,complete,D,D5,
+Case_8,Merchant Notification Case 8,2024-01-01T09:21:48,System,start,D,D5,
+Case_8,Merchant Notification Case 8,2024-01-01T09:21:50,System,complete,D,D5,
+Case_8,Batch Reconciliation,2024-01-01T09:21:51,System,start,D,D6,
+Case_8,Aggregate Transactions,2024-01-01T09:21:52,System,start,D,D6,D6a
+Case_8,Generate Batch Report,2024-01-01T09:21:53,System,start,D,D6,D6b
+Case_8,Aggregate Transactions,2024-01-01T09:21:55,System,complete,D,D6,D6a
+Case_8,Generate Batch Report,2024-01-01T09:21:59,System,complete,D,D6,D6b
+Case_8,Batch Reconciliation,2024-01-01T09:22:03,System,complete,D,D6,
+Case_8,Settlement,2024-01-01T09:22:07,System,complete,D,,
+Case_9,Start Validation,2024-01-01T09:30:00,System,start,A,,
+Case_9,Start Validation,2024-01-01T09:30:01,System,complete,A,,
+Case_9,Basic Checks,2024-01-01T09:30:05,System,start,A,A1,
+Case_9,Check Card Number,2024-01-01T09:30:09,System,start,A,A1,A1a
+Case_9,Check Card Number,2024-01-01T09:30:13,System,complete,A,A1,A1a
+Case_9,Check Expiry,2024-01-01T09:30:17,System,start,A,A1,A1b
+Case_9,Check Expiry,2024-01-01T09:30:19,System,complete,A,A1,A1b
+Case_9,Check CVV,2024-01-01T09:30:20,System,start,A,A1,A1c
+Case_9,Check CVV,2024-01-01T09:30:21,System,complete,A,A1,A1c
+Case_9,Basic Checks,2024-01-01T09:30:25,System,complete,A,A1,
+Case_9,Advanced Checks,2024-01-01T09:30:28,System,start,A,A2,
+Case_9,Validate Address,2024-01-01T09:30:29,System,start,A,A2,A2a
+Case_9,Validate Zip,2024-01-01T09:30:30,System,start,A,A2,A2b
+Case_9,Validate Address,2024-01-01T09:30:33,System,complete,A,A2,A2a
+Case_9,Validate Zip,2024-01-01T09:30:34,System,complete,A,A2,A2b
+Case_9,Advanced Checks,2024-01-01T09:30:38,System,complete,A,A2,
+Case_9,Fraud Checks,2024-01-01T09:30:39,System,start,B,,
+Case_9,Run Fraud Engine,2024-01-01T09:30:43,System,start,B,B1,
+Case_9,Run Fraud Engine,2024-01-01T09:30:44,System,complete,B,B1,
+Case_9,Fraud Notification Case 9,2024-01-01T09:30:48,System,start,B,B2,
+Case_9,Fraud Notification Case 9,2024-01-01T09:30:52,System,complete,B,B2,
+Case_9,Parallel Fraud Checks,2024-01-01T09:30:54,System,start,B,B3,
+Case_9,Check Geolocation,2024-01-01T09:30:55,System,start,B,B3,B3a
+Case_9,Check Transaction History,2024-01-01T09:30:56,System,start,B,B3,B3b
+Case_9,Check Geolocation,2024-01-01T09:30:58,System,complete,B,B3,B3a
+Case_9,Check Transaction History,2024-01-01T09:30:59,System,complete,B,B3,B3b
+Case_9,Parallel Fraud Checks,2024-01-01T09:31:00,System,complete,B,B3,
+Case_9,Fraud Checks,2024-01-01T09:31:01,System,complete,B,,
+Case_9,Fund Authorization,2024-01-01T09:31:04,System,start,C,,
+Case_9,Bank API Call Case 9,2024-01-01T09:31:08,System,start,C,C1,
+Case_9,Bank API Call Case 9,2024-01-01T09:31:10,System,complete,C,C1,
+Case_9,Receive Bank Response,2024-01-01T09:31:13,System,start,C,C2,
+Case_9,Receive Bank Response,2024-01-01T09:31:15,System,complete,C,C2,
+Case_9,Fund Authorization,2024-01-01T09:31:16,System,complete,C,,
+Case_9,Settlement,2024-01-01T09:31:20,System,start,D,,
+Case_9,Charge Request Case 9,2024-01-01T09:31:22,System,start,D,D1,
+Case_9,Charge Request Case 9,2024-01-01T09:31:26,System,complete,D,D1,
+Case_9,Receive Charge Response,2024-01-01T09:31:30,System,start,D,D2,
+Case_9,Receive Charge Response,2024-01-01T09:31:34,System,complete,D,D2,
+Case_9,Ledger Update,2024-01-01T09:31:37,System,start,D,D4,
+Case_9,Insert Transaction Record,2024-01-01T09:31:38,System,start,D,D4,D4a
+Case_9,Insert Transaction Record,2024-01-01T09:31:40,System,complete,D,D4,D4a
+Case_9,Close Ledger Entry,2024-01-01T09:31:43,System,start,D,D4,D4b
+Case_9,Close Ledger Entry,2024-01-01T09:31:46,System,complete,D,D4,D4b
+Case_9,Ledger Update,2024-01-01T09:31:50,System,complete,D,D4,
+Case_9,Customer Notification Case 9,2024-01-01T09:31:53,System,start,D,D5,
+Case_9,Customer Notification Case 9,2024-01-01T09:31:55,System,complete,D,D5,
+Case_9,Merchant Notification Case 9,2024-01-01T09:31:58,System,start,D,D5,
+Case_9,Merchant Notification Case 9,2024-01-01T09:31:59,System,complete,D,D5,
+Case_9,Batch Reconciliation,2024-01-01T09:32:02,System,start,D,D6,
+Case_9,Aggregate Transactions,2024-01-01T09:32:03,System,start,D,D6,D6a
+Case_9,Generate Batch Report,2024-01-01T09:32:04,System,start,D,D6,D6b
+Case_9,Aggregate Transactions,2024-01-01T09:32:05,System,complete,D,D6,D6a
+Case_9,Generate Batch Report,2024-01-01T09:32:07,System,complete,D,D6,D6b
+Case_9,Batch Reconciliation,2024-01-01T09:32:08,System,complete,D,D6,
+Case_9,Settlement,2024-01-01T09:32:12,System,complete,D,,
+Case_10,Start Validation,2024-01-01T09:40:00,System,start,A,,
+Case_10,Start Validation,2024-01-01T09:40:04,System,complete,A,,
+Case_10,Basic Checks,2024-01-01T09:40:08,System,start,A,A1,
+Case_10,Check Card Number,2024-01-01T09:40:11,System,start,A,A1,A1a
+Case_10,Check Card Number,2024-01-01T09:40:13,System,complete,A,A1,A1a
+Case_10,Check Card Number,2024-01-01T09:40:15,System,start,A,A1,A1a
+Case_10,Check Card Number,2024-01-01T09:40:17,System,complete,A,A1,A1a
+Case_10,Check Card Number,2024-01-01T09:40:18,System,start,A,A1,A1a
+Case_10,Check Card Number,2024-01-01T09:40:20,System,complete,A,A1,A1a
+Case_10,Check Expiry,2024-01-01T09:40:21,System,start,A,A1,A1b
+Case_10,Check Expiry,2024-01-01T09:40:22,System,complete,A,A1,A1b
+Case_10,Check CVV,2024-01-01T09:40:24,System,start,A,A1,A1c
+Case_10,Check CVV,2024-01-01T09:40:25,System,complete,A,A1,A1c
+Case_10,Basic Checks,2024-01-01T09:40:29,System,complete,A,A1,
+Case_10,Advanced Checks,2024-01-01T09:40:32,System,start,A,A2,
+Case_10,Validate Address,2024-01-01T09:40:33,System,start,A,A2,A2a
+Case_10,Validate Zip,2024-01-01T09:40:34,System,start,A,A2,A2b
+Case_10,Validate Address,2024-01-01T09:40:35,System,complete,A,A2,A2a
+Case_10,Validate Zip,2024-01-01T09:40:36,System,complete,A,A2,A2b
+Case_10,Advanced Checks,2024-01-01T09:40:40,System,complete,A,A2,
+Case_10,Fraud Checks,2024-01-01T09:40:44,System,start,B,,
+Case_10,Run Fraud Engine,2024-01-01T09:40:46,System,start,B,B1,
+Case_10,Run Fraud Engine,2024-01-01T09:40:48,System,complete,B,B1,
+Case_10,Fraud Notification Case 10,2024-01-01T09:40:50,System,start,B,B2,
+Case_10,Fraud Notification Case 10,2024-01-01T09:40:51,System,complete,B,B2,
+Case_10,Parallel Fraud Checks,2024-01-01T09:40:53,System,start,B,B3,
+Case_10,Check Geolocation,2024-01-01T09:40:54,System,start,B,B3,B3a
+Case_10,Check Transaction History,2024-01-01T09:40:55,System,start,B,B3,B3b
+Case_10,Check Geolocation,2024-01-01T09:40:56,System,complete,B,B3,B3a
+Case_10,Check Transaction History,2024-01-01T09:40:59,System,complete,B,B3,B3b
+Case_10,Parallel Fraud Checks,2024-01-01T09:41:03,System,complete,B,B3,
+Case_10,Fraud Checks,2024-01-01T09:41:07,System,complete,B,,
+Case_10,Fund Authorization,2024-01-01T09:41:11,System,start,C,,
+Case_10,Bank API Call Case 10,2024-01-01T09:41:13,System,start,C,C1,
+Case_10,Bank API Call Case 10,2024-01-01T09:41:15,System,complete,C,C1,
+Case_10,Receive Bank Response,2024-01-01T09:41:16,System,start,C,C2,
+Case_10,Receive Bank Response,2024-01-01T09:41:17,System,complete,C,C2,
+Case_10,Fund Authorization,2024-01-01T09:41:21,System,complete,C,,
+Case_10,Settlement,2024-01-01T09:41:22,System,start,D,,
+Case_10,Charge Request Case 10,2024-01-01T09:41:25,System,start,D,D1,
+Case_10,Charge Request Case 10,2024-01-01T09:41:28,System,complete,D,D1,
+Case_10,Receive Charge Response,2024-01-01T09:41:31,System,start,D,D2,
+Case_10,Receive Charge Response,2024-01-01T09:41:34,System,complete,D,D2,
+Case_10,Ledger Update,2024-01-01T09:41:35,System,start,D,D4,
+Case_10,Insert Transaction Record,2024-01-01T09:41:39,System,start,D,D4,D4a
+Case_10,Insert Transaction Record,2024-01-01T09:41:43,System,complete,D,D4,D4a
+Case_10,Close Ledger Entry,2024-01-01T09:41:45,System,start,D,D4,D4b
+Case_10,Close Ledger Entry,2024-01-01T09:41:48,System,complete,D,D4,D4b
+Case_10,Ledger Update,2024-01-01T09:41:52,System,complete,D,D4,
+Case_10,Customer Notification Case 10,2024-01-01T09:41:54,System,start,D,D5,
+Case_10,Customer Notification Case 10,2024-01-01T09:41:55,System,complete,D,D5,
+Case_10,Merchant Notification Case 10,2024-01-01T09:41:59,System,start,D,D5,
+Case_10,Merchant Notification Case 10,2024-01-01T09:42:00,System,complete,D,D5,
+Case_10,Batch Reconciliation,2024-01-01T09:42:04,System,start,D,D6,
+Case_10,Aggregate Transactions,2024-01-01T09:42:05,System,start,D,D6,D6a
+Case_10,Generate Batch Report,2024-01-01T09:42:06,System,start,D,D6,D6b
+Case_10,Aggregate Transactions,2024-01-01T09:42:09,System,complete,D,D6,D6a
+Case_10,Generate Batch Report,2024-01-01T09:42:13,System,complete,D,D6,D6b
+Case_10,Batch Reconciliation,2024-01-01T09:42:14,System,complete,D,D6,
+Case_10,Settlement,2024-01-01T09:42:16,System,complete,D,,
+Case_11,Start Validation,2024-01-01T09:50:00,System,start,A,,
+Case_11,Start Validation,2024-01-01T09:50:03,System,complete,A,,
+Case_11,Basic Checks,2024-01-01T09:50:05,System,start,A,A1,
+Case_11,Check Card Number,2024-01-01T09:50:06,System,start,A,A1,A1a
+Case_11,Check Card Number,2024-01-01T09:50:10,System,complete,A,A1,A1a
+Case_11,Check Expiry,2024-01-01T09:50:13,System,start,A,A1,A1b
+Case_11,Check Expiry,2024-01-01T09:50:14,System,complete,A,A1,A1b
+Case_11,Check CVV,2024-01-01T09:50:18,System,start,A,A1,A1c
+Case_11,Check CVV,2024-01-01T09:50:21,System,complete,A,A1,A1c
+Case_11,Basic Checks,2024-01-01T09:50:23,System,complete,A,A1,
+Case_11,Advanced Checks,2024-01-01T09:50:27,System,start,A,A2,
+Case_11,Validate Address,2024-01-01T09:50:28,System,start,A,A2,A2a
+Case_11,Validate Zip,2024-01-01T09:50:29,System,start,A,A2,A2b
+Case_11,Validate Address,2024-01-01T09:50:33,System,complete,A,A2,A2a
+Case_11,Validate Zip,2024-01-01T09:50:34,System,complete,A,A2,A2b
+Case_11,Advanced Checks,2024-01-01T09:50:35,System,complete,A,A2,
+Case_11,Fraud Checks,2024-01-01T09:50:36,System,start,B,,
+Case_11,Run Fraud Engine,2024-01-01T09:50:40,System,start,B,B1,
+Case_11,Run Fraud Engine,2024-01-01T09:50:41,System,complete,B,B1,
+Case_11,Fraud Notification Case 11,2024-01-01T09:50:45,System,start,B,B2,
+Case_11,Fraud Notification Case 11,2024-01-01T09:50:48,System,complete,B,B2,
+Case_11,Parallel Fraud Checks,2024-01-01T09:50:49,System,start,B,B3,
+Case_11,Check Geolocation,2024-01-01T09:50:50,System,start,B,B3,B3a
+Case_11,Check Transaction History,2024-01-01T09:50:51,System,start,B,B3,B3b
+Case_11,Check Geolocation,2024-01-01T09:50:54,System,complete,B,B3,B3a
+Case_11,Check Transaction History,2024-01-01T09:50:55,System,complete,B,B3,B3b
+Case_11,Parallel Fraud Checks,2024-01-01T09:50:57,System,complete,B,B3,
+Case_11,Fraud Checks,2024-01-01T09:50:58,System,complete,B,,
+Case_11,Fund Authorization,2024-01-01T09:51:02,System,start,C,,
+Case_11,Bank API Call Case 11,2024-01-01T09:51:04,System,start,C,C1,
+Case_11,Bank API Call Case 11,2024-01-01T09:51:08,System,complete,C,C1,
+Case_11,Receive Bank Response,2024-01-01T09:51:09,System,start,C,C2,
+Case_11,Receive Bank Response,2024-01-01T09:51:11,System,complete,C,C2,
+Case_11,Request Additional Info,2024-01-01T09:51:15,System,start,C,C3,
+Case_11,Request Additional Info,2024-01-01T09:51:19,System,complete,C,C3,
+Case_11,Request Additional Info,2024-01-01T09:51:20,System,complete,C,C3,
+Case_11,Fund Authorization,2024-01-01T09:51:21,System,complete,C,,
+Case_11,Settlement,2024-01-01T09:51:23,System,start,D,,
+Case_11,Charge Request Case 11,2024-01-01T09:51:24,System,start,D,D1,
+Case_11,Charge Request Case 11,2024-01-01T09:51:25,System,complete,D,D1,
+Case_11,Receive Charge Response,2024-01-01T09:51:29,System,start,D,D2,
+Case_11,Receive Charge Response,2024-01-01T09:51:30,System,complete,D,D2,
+Case_11,Ledger Update,2024-01-01T09:51:31,System,start,D,D4,
+Case_11,Insert Transaction Record,2024-01-01T09:51:35,System,start,D,D4,D4a
+Case_11,Insert Transaction Record,2024-01-01T09:51:39,System,complete,D,D4,D4a
+Case_11,Close Ledger Entry,2024-01-01T09:51:40,System,start,D,D4,D4b
+Case_11,Close Ledger Entry,2024-01-01T09:51:41,System,complete,D,D4,D4b
+Case_11,Ledger Update,2024-01-01T09:51:44,System,complete,D,D4,
+Case_11,Customer Notification Case 11,2024-01-01T09:51:48,System,start,D,D5,
+Case_11,Customer Notification Case 11,2024-01-01T09:51:50,System,complete,D,D5,
+Case_11,Merchant Notification Case 11,2024-01-01T09:51:52,System,start,D,D5,
+Case_11,Merchant Notification Case 11,2024-01-01T09:51:54,System,complete,D,D5,
+Case_11,Batch Reconciliation,2024-01-01T09:51:56,System,start,D,D6,
+Case_11,Aggregate Transactions,2024-01-01T09:51:57,System,start,D,D6,D6a
+Case_11,Generate Batch Report,2024-01-01T09:51:58,System,start,D,D6,D6b
+Case_11,Aggregate Transactions,2024-01-01T09:52:02,System,complete,D,D6,D6a
+Case_11,Generate Batch Report,2024-01-01T09:52:05,System,complete,D,D6,D6b
+Case_11,Batch Reconciliation,2024-01-01T09:52:06,System,complete,D,D6,
+Case_11,Settlement,2024-01-01T09:52:10,System,complete,D,,
+Case_12,Start Validation,2024-01-01T10:00:00,System,start,A,,
+Case_12,Start Validation,2024-01-01T10:00:04,System,complete,A,,
+Case_12,Basic Checks,2024-01-01T10:00:05,System,start,A,A1,
+Case_12,Check Card Number,2024-01-01T10:00:06,System,start,A,A1,A1a
+Case_12,Check Card Number,2024-01-01T10:00:08,System,complete,A,A1,A1a
+Case_12,Check Expiry,2024-01-01T10:00:11,System,start,A,A1,A1b
+Case_12,Check Expiry,2024-01-01T10:00:14,System,complete,A,A1,A1b
+Case_12,Check CVV,2024-01-01T10:00:18,System,start,A,A1,A1c
+Case_12,Check CVV,2024-01-01T10:00:19,System,complete,A,A1,A1c
+Case_12,Basic Checks,2024-01-01T10:00:22,System,complete,A,A1,
+Case_12,Advanced Checks,2024-01-01T10:00:26,System,start,A,A2,
+Case_12,Validate Address,2024-01-01T10:00:27,System,start,A,A2,A2a
+Case_12,Validate Zip,2024-01-01T10:00:28,System,start,A,A2,A2b
+Case_12,Validate Address,2024-01-01T10:00:29,System,complete,A,A2,A2a
+Case_12,Validate Zip,2024-01-01T10:00:33,System,complete,A,A2,A2b
+Case_12,Advanced Checks,2024-01-01T10:00:35,System,complete,A,A2,
+Case_12,Fraud Checks,2024-01-01T10:00:38,System,start,B,,
+Case_12,Run Fraud Engine,2024-01-01T10:00:39,System,start,B,B1,
+Case_12,Run Fraud Engine,2024-01-01T10:00:41,System,complete,B,B1,
+Case_12,Fraud Notification Case 12,2024-01-01T10:00:42,System,start,B,B2,
+Case_12,Fraud Notification Case 12,2024-01-01T10:00:46,System,complete,B,B2,
+Case_12,Parallel Fraud Checks,2024-01-01T10:00:50,System,start,B,B3,
+Case_12,Check Geolocation,2024-01-01T10:00:51,System,start,B,B3,B3a
+Case_12,Check Transaction History,2024-01-01T10:00:52,System,start,B,B3,B3b
+Case_12,Check Geolocation,2024-01-01T10:00:56,System,complete,B,B3,B3a
+Case_12,Check Transaction History,2024-01-01T10:00:58,System,complete,B,B3,B3b
+Case_12,Parallel Fraud Checks,2024-01-01T10:01:02,System,complete,B,B3,
+Case_12,Fraud Checks,2024-01-01T10:01:05,System,complete,B,,
+Case_12,Fund Authorization,2024-01-01T10:01:07,System,start,C,,
+Case_12,Bank API Call Case 12,2024-01-01T10:01:11,System,start,C,C1,
+Case_12,Bank API Call Case 12,2024-01-01T10:01:14,System,complete,C,C1,
+Case_12,Receive Bank Response,2024-01-01T10:01:18,System,start,C,C2,
+Case_12,Receive Bank Response,2024-01-01T10:01:22,System,complete,C,C2,
+Case_12,Fund Authorization,2024-01-01T10:01:25,System,complete,C,,
+Case_12,Settlement,2024-01-01T10:01:27,System,start,D,,
+Case_12,Charge Request Case 12,2024-01-01T10:01:31,System,start,D,D1,
+Case_12,Charge Request Case 12,2024-01-01T10:01:33,System,complete,D,D1,
+Case_12,Receive Charge Response,2024-01-01T10:01:35,System,start,D,D2,
+Case_12,Receive Charge Response,2024-01-01T10:01:36,System,complete,D,D2,
+Case_12,Ledger Update,2024-01-01T10:01:39,System,start,D,D4,
+Case_12,Insert Transaction Record,2024-01-01T10:01:41,System,start,D,D4,D4a
+Case_12,Insert Transaction Record,2024-01-01T10:01:43,System,complete,D,D4,D4a
+Case_12,Close Ledger Entry,2024-01-01T10:01:46,System,start,D,D4,D4b
+Case_12,Close Ledger Entry,2024-01-01T10:01:47,System,complete,D,D4,D4b
+Case_12,Ledger Update,2024-01-01T10:01:51,System,complete,D,D4,
+Case_12,Customer Notification Case 12,2024-01-01T10:01:54,System,start,D,D5,
+Case_12,Customer Notification Case 12,2024-01-01T10:01:56,System,complete,D,D5,
+Case_12,Merchant Notification Case 12,2024-01-01T10:01:57,System,start,D,D5,
+Case_12,Merchant Notification Case 12,2024-01-01T10:01:59,System,complete,D,D5,
+Case_12,Batch Reconciliation,2024-01-01T10:02:00,System,start,D,D6,
+Case_12,Aggregate Transactions,2024-01-01T10:02:01,System,start,D,D6,D6a
+Case_12,Generate Batch Report,2024-01-01T10:02:02,System,start,D,D6,D6b
+Case_12,Aggregate Transactions,2024-01-01T10:02:04,System,complete,D,D6,D6a
+Case_12,Generate Batch Report,2024-01-01T10:02:06,System,complete,D,D6,D6b
+Case_12,Batch Reconciliation,2024-01-01T10:02:07,System,complete,D,D6,
+Case_12,Settlement,2024-01-01T10:02:09,System,complete,D,,
+Case_13,Start Validation,2024-01-01T10:10:00,System,start,A,,
+Case_13,Start Validation,2024-01-01T10:10:04,System,complete,A,,
+Case_13,Basic Checks,2024-01-01T10:10:07,System,start,A,A1,
+Case_13,Check Card Number,2024-01-01T10:10:09,System,start,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:10,System,complete,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:12,System,start,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:15,System,complete,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:18,System,start,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:20,System,complete,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:23,System,start,A,A1,A1a
+Case_13,Check Card Number,2024-01-01T10:10:27,System,complete,A,A1,A1a
+Case_13,Check Expiry,2024-01-01T10:10:29,System,start,A,A1,A1b
+Case_13,Check Expiry,2024-01-01T10:10:31,System,complete,A,A1,A1b
+Case_13,Check CVV,2024-01-01T10:10:35,System,start,A,A1,A1c
+Case_13,Check CVV,2024-01-01T10:10:39,System,complete,A,A1,A1c
+Case_13,Basic Checks,2024-01-01T10:10:41,System,complete,A,A1,
+Case_13,Advanced Checks,2024-01-01T10:10:44,System,start,A,A2,
+Case_13,Validate Address,2024-01-01T10:10:45,System,start,A,A2,A2a
+Case_13,Validate Zip,2024-01-01T10:10:46,System,start,A,A2,A2b
+Case_13,Validate Address,2024-01-01T10:10:50,System,complete,A,A2,A2a
+Case_13,Validate Zip,2024-01-01T10:10:54,System,complete,A,A2,A2b
+Case_13,Advanced Checks,2024-01-01T10:10:57,System,complete,A,A2,
+Case_13,Fraud Checks,2024-01-01T10:10:59,System,start,B,,
+Case_13,Run Fraud Engine,2024-01-01T10:11:02,System,start,B,B1,
+Case_13,Run Fraud Engine,2024-01-01T10:11:05,System,complete,B,B1,
+Case_13,Fraud Notification Case 13,2024-01-01T10:11:08,System,start,B,B2,
+Case_13,Fraud Notification Case 13,2024-01-01T10:11:12,System,complete,B,B2,
+Case_13,Parallel Fraud Checks,2024-01-01T10:11:15,System,start,B,B3,
+Case_13,Check Geolocation,2024-01-01T10:11:16,System,start,B,B3,B3a
+Case_13,Check Transaction History,2024-01-01T10:11:17,System,start,B,B3,B3b
+Case_13,Check Geolocation,2024-01-01T10:11:18,System,complete,B,B3,B3a
+Case_13,Check Transaction History,2024-01-01T10:11:20,System,complete,B,B3,B3b
+Case_13,Parallel Fraud Checks,2024-01-01T10:11:22,System,complete,B,B3,
+Case_13,Fraud Checks,2024-01-01T10:11:23,System,complete,B,,
+Case_13,Fund Authorization,2024-01-01T10:11:25,System,start,C,,
+Case_13,Bank API Call Case 13,2024-01-01T10:11:28,System,start,C,C1,
+Case_13,Bank API Call Case 13,2024-01-01T10:11:31,System,complete,C,C1,
+Case_13,Receive Bank Response,2024-01-01T10:11:33,System,start,C,C2,
+Case_13,Receive Bank Response,2024-01-01T10:11:34,System,complete,C,C2,
+Case_13,Fund Authorization,2024-01-01T10:11:37,System,complete,C,,
+Case_13,Settlement,2024-01-01T10:11:40,System,start,D,,
+Case_13,Charge Request Case 13,2024-01-01T10:11:41,System,start,D,D1,
+Case_13,Charge Request Case 13,2024-01-01T10:11:45,System,complete,D,D1,
+Case_13,Receive Charge Response,2024-01-01T10:11:48,System,start,D,D2,
+Case_13,Receive Charge Response,2024-01-01T10:11:51,System,complete,D,D2,
+Case_13,Ledger Update,2024-01-01T10:11:52,System,start,D,D4,
+Case_13,Insert Transaction Record,2024-01-01T10:11:54,System,start,D,D4,D4a
+Case_13,Insert Transaction Record,2024-01-01T10:11:58,System,complete,D,D4,D4a
+Case_13,Close Ledger Entry,2024-01-01T10:12:00,System,start,D,D4,D4b
+Case_13,Close Ledger Entry,2024-01-01T10:12:02,System,complete,D,D4,D4b
+Case_13,Ledger Update,2024-01-01T10:12:06,System,complete,D,D4,
+Case_13,Customer Notification Case 13,2024-01-01T10:12:10,System,start,D,D5,
+Case_13,Customer Notification Case 13,2024-01-01T10:12:13,System,complete,D,D5,
+Case_13,Merchant Notification Case 13,2024-01-01T10:12:16,System,start,D,D5,
+Case_13,Merchant Notification Case 13,2024-01-01T10:12:19,System,complete,D,D5,
+Case_13,Batch Reconciliation,2024-01-01T10:12:21,System,start,D,D6,
+Case_13,Aggregate Transactions,2024-01-01T10:12:22,System,start,D,D6,D6a
+Case_13,Generate Batch Report,2024-01-01T10:12:23,System,start,D,D6,D6b
+Case_13,Aggregate Transactions,2024-01-01T10:12:26,System,complete,D,D6,D6a
+Case_13,Generate Batch Report,2024-01-01T10:12:29,System,complete,D,D6,D6b
+Case_13,Batch Reconciliation,2024-01-01T10:12:33,System,complete,D,D6,
+Case_13,Settlement,2024-01-01T10:12:34,System,complete,D,,
+Case_14,Start Validation,2024-01-01T10:20:00,System,start,A,,
+Case_14,Start Validation,2024-01-01T10:20:01,System,complete,A,,
+Case_14,Basic Checks,2024-01-01T10:20:04,System,start,A,A1,
+Case_14,Check Card Number,2024-01-01T10:20:05,System,start,A,A1,A1a
+Case_14,Check Card Number,2024-01-01T10:20:08,System,complete,A,A1,A1a
+Case_14,Check Expiry,2024-01-01T10:20:11,System,start,A,A1,A1b
+Case_14,Check Expiry,2024-01-01T10:20:13,System,complete,A,A1,A1b
+Case_14,Check CVV,2024-01-01T10:20:17,System,start,A,A1,A1c
+Case_14,Check CVV,2024-01-01T10:20:18,System,complete,A,A1,A1c
+Case_14,Basic Checks,2024-01-01T10:20:21,System,complete,A,A1,
+Case_14,Advanced Checks,2024-01-01T10:20:23,System,start,A,A2,
+Case_14,Validate Address,2024-01-01T10:20:24,System,start,A,A2,A2a
+Case_14,Validate Zip,2024-01-01T10:20:25,System,start,A,A2,A2b
+Case_14,Validate Address,2024-01-01T10:20:28,System,complete,A,A2,A2a
+Case_14,Validate Zip,2024-01-01T10:20:30,System,complete,A,A2,A2b
+Case_14,Advanced Checks,2024-01-01T10:20:32,System,complete,A,A2,
+Case_14,Fraud Checks,2024-01-01T10:20:35,System,start,B,,
+Case_14,Run Fraud Engine,2024-01-01T10:20:36,System,start,B,B1,
+Case_14,Run Fraud Engine,2024-01-01T10:20:39,System,complete,B,B1,
+Case_14,Fraud Notification Case 14,2024-01-01T10:20:43,System,start,B,B2,
+Case_14,Fraud Notification Case 14,2024-01-01T10:20:46,System,complete,B,B2,
+Case_14,Parallel Fraud Checks,2024-01-01T10:20:49,System,start,B,B3,
+Case_14,Check Geolocation,2024-01-01T10:20:50,System,start,B,B3,B3a
+Case_14,Check Transaction History,2024-01-01T10:20:51,System,start,B,B3,B3b
+Case_14,Check Geolocation,2024-01-01T10:20:55,System,complete,B,B3,B3a
+Case_14,Check Transaction History,2024-01-01T10:20:58,System,complete,B,B3,B3b
+Case_14,Parallel Fraud Checks,2024-01-01T10:21:00,System,complete,B,B3,
+Case_14,Fraud Checks,2024-01-01T10:21:03,System,complete,B,,
+Case_14,Fund Authorization,2024-01-01T10:21:04,System,start,C,,
+Case_14,Bank API Call Case 14,2024-01-01T10:21:08,System,start,C,C1,
+Case_14,Bank API Call Case 14,2024-01-01T10:21:10,System,complete,C,C1,
+Case_14,Receive Bank Response,2024-01-01T10:21:11,System,start,C,C2,
+Case_14,Receive Bank Response,2024-01-01T10:21:14,System,complete,C,C2,
+Case_14,Fund Authorization,2024-01-01T10:21:15,System,complete,C,,
+Case_14,Settlement,2024-01-01T10:21:18,System,start,D,,
+Case_14,Charge Request Case 14,2024-01-01T10:21:22,System,start,D,D1,
+Case_14,Charge Request Case 14,2024-01-01T10:21:25,System,complete,D,D1,
+Case_14,Receive Charge Response,2024-01-01T10:21:26,System,start,D,D2,
+Case_14,Receive Charge Response,2024-01-01T10:21:30,System,complete,D,D2,
+Case_14,Ledger Update,2024-01-01T10:21:31,System,start,D,D4,
+Case_14,Insert Transaction Record,2024-01-01T10:21:34,System,start,D,D4,D4a
+Case_14,Insert Transaction Record,2024-01-01T10:21:35,System,complete,D,D4,D4a
+Case_14,Close Ledger Entry,2024-01-01T10:21:36,System,start,D,D4,D4b
+Case_14,Close Ledger Entry,2024-01-01T10:21:37,System,complete,D,D4,D4b
+Case_14,Ledger Update,2024-01-01T10:21:41,System,complete,D,D4,
+Case_14,Customer Notification Case 14,2024-01-01T10:21:42,System,start,D,D5,
+Case_14,Customer Notification Case 14,2024-01-01T10:21:43,System,complete,D,D5,
+Case_14,Merchant Notification Case 14,2024-01-01T10:21:47,System,start,D,D5,
+Case_14,Merchant Notification Case 14,2024-01-01T10:21:49,System,complete,D,D5,
+Case_14,Batch Reconciliation,2024-01-01T10:21:53,System,start,D,D6,
+Case_14,Aggregate Transactions,2024-01-01T10:21:54,System,start,D,D6,D6a
+Case_14,Generate Batch Report,2024-01-01T10:21:55,System,start,D,D6,D6b
+Case_14,Aggregate Transactions,2024-01-01T10:21:59,System,complete,D,D6,D6a
+Case_14,Generate Batch Report,2024-01-01T10:22:02,System,complete,D,D6,D6b
+Case_14,Batch Reconciliation,2024-01-01T10:22:03,System,complete,D,D6,
+Case_14,Settlement,2024-01-01T10:22:04,System,complete,D,,
+Case_15,Start Validation,2024-01-01T10:30:00,System,start,A,,
+Case_15,Start Validation,2024-01-01T10:30:03,System,complete,A,,
+Case_15,Basic Checks,2024-01-01T10:30:05,System,start,A,A1,
+Case_15,Check Card Number,2024-01-01T10:30:09,System,start,A,A1,A1a
+Case_15,Check Card Number,2024-01-01T10:30:11,System,complete,A,A1,A1a
+Case_15,Check Expiry,2024-01-01T10:30:13,System,start,A,A1,A1b
+Case_15,Check Expiry,2024-01-01T10:30:16,System,complete,A,A1,A1b
+Case_15,Check CVV,2024-01-01T10:30:18,System,start,A,A1,A1c
+Case_15,Check CVV,2024-01-01T10:30:22,System,complete,A,A1,A1c
+Case_15,Basic Checks,2024-01-01T10:30:25,System,complete,A,A1,
+Case_15,Advanced Checks,2024-01-01T10:30:29,System,start,A,A2,
+Case_15,Validate Address,2024-01-01T10:30:30,System,start,A,A2,A2a
+Case_15,Validate Zip,2024-01-01T10:30:31,System,start,A,A2,A2b
+Case_15,Validate Address,2024-01-01T10:30:34,System,complete,A,A2,A2a
+Case_15,Validate Zip,2024-01-01T10:30:36,System,complete,A,A2,A2b
+Case_15,Advanced Checks,2024-01-01T10:30:39,System,complete,A,A2,
+Case_15,Fraud Checks,2024-01-01T10:30:41,System,start,B,,
+Case_15,Run Fraud Engine,2024-01-01T10:30:44,System,start,B,B1,
+Case_15,Run Fraud Engine,2024-01-01T10:30:47,System,complete,B,B1,
+Case_15,Fraud Notification Case 15,2024-01-01T10:30:49,System,start,B,B2,
+Case_15,Fraud Notification Case 15,2024-01-01T10:30:51,System,complete,B,B2,
+Case_15,Parallel Fraud Checks,2024-01-01T10:30:52,System,start,B,B3,
+Case_15,Check Geolocation,2024-01-01T10:30:53,System,start,B,B3,B3a
+Case_15,Check Transaction History,2024-01-01T10:30:54,System,start,B,B3,B3b
+Case_15,Check Geolocation,2024-01-01T10:30:58,System,complete,B,B3,B3a
+Case_15,Check Transaction History,2024-01-01T10:30:59,System,complete,B,B3,B3b
+Case_15,Parallel Fraud Checks,2024-01-01T10:31:02,System,complete,B,B3,
+Case_15,Fraud Checks,2024-01-01T10:31:03,System,complete,B,,
+Case_15,Fund Authorization,2024-01-01T10:31:06,System,start,C,,
+Case_15,Bank API Call Case 15,2024-01-01T10:31:08,System,start,C,C1,
+Case_15,Bank API Call Case 15,2024-01-01T10:31:11,System,complete,C,C1,
+Case_15,Receive Bank Response,2024-01-01T10:31:13,System,start,C,C2,
+Case_15,Receive Bank Response,2024-01-01T10:31:14,System,complete,C,C2,
+Case_15,Fund Authorization,2024-01-01T10:31:18,System,complete,C,,
+Case_15,Settlement,2024-01-01T10:31:21,System,start,D,,
+Case_15,Charge Request Case 15,2024-01-01T10:31:24,System,start,D,D1,
+Case_15,Charge Request Case 15,2024-01-01T10:31:27,System,complete,D,D1,
+Case_15,Receive Charge Response,2024-01-01T10:31:31,System,start,D,D2,
+Case_15,Receive Charge Response,2024-01-01T10:31:34,System,complete,D,D2,
+Case_15,Handle Charge Error,2024-01-01T10:31:38,System,start,D,D3,
+Case_15,Handle Charge Error,2024-01-01T10:31:40,System,complete,D,D3,
+Case_15,Charge Request Retry Case 15,2024-01-01T10:31:44,System,start,D,D1,
+Case_15,Charge Request Retry Case 15,2024-01-01T10:31:48,System,complete,D,D1,
+Case_15,Receive Charge Response Retry,2024-01-01T10:31:50,System,start,D,D2,
+Case_15,Receive Charge Response Retry,2024-01-01T10:31:52,System,complete,D,D2,
+Case_15,Ledger Update,2024-01-01T10:31:53,System,start,D,D4,
+Case_15,Insert Transaction Record,2024-01-01T10:31:54,System,start,D,D4,D4a
+Case_15,Insert Transaction Record,2024-01-01T10:31:56,System,complete,D,D4,D4a
+Case_15,Close Ledger Entry,2024-01-01T10:31:58,System,start,D,D4,D4b
+Case_15,Close Ledger Entry,2024-01-01T10:32:02,System,complete,D,D4,D4b
+Case_15,Ledger Update,2024-01-01T10:32:04,System,complete,D,D4,
+Case_15,Customer Notification Case 15,2024-01-01T10:32:05,System,start,D,D5,
+Case_15,Customer Notification Case 15,2024-01-01T10:32:09,System,complete,D,D5,
+Case_15,Merchant Notification Case 15,2024-01-01T10:32:12,System,start,D,D5,
+Case_15,Merchant Notification Case 15,2024-01-01T10:32:14,System,complete,D,D5,
+Case_15,Batch Reconciliation,2024-01-01T10:32:15,System,start,D,D6,
+Case_15,Aggregate Transactions,2024-01-01T10:32:16,System,start,D,D6,D6a
+Case_15,Generate Batch Report,2024-01-01T10:32:17,System,start,D,D6,D6b
+Case_15,Aggregate Transactions,2024-01-01T10:32:18,System,complete,D,D6,D6a
+Case_15,Generate Batch Report,2024-01-01T10:32:20,System,complete,D,D6,D6b
+Case_15,Batch Reconciliation,2024-01-01T10:32:22,System,complete,D,D6,
+Case_15,Settlement,2024-01-01T10:32:23,System,complete,D,,
+Case_16,Start Validation,2024-01-01T10:40:00,System,start,A,,
+Case_16,Start Validation,2024-01-01T10:40:01,System,complete,A,,
+Case_16,Basic Checks,2024-01-01T10:40:03,System,start,A,A1,
+Case_16,Check Card Number,2024-01-01T10:40:06,System,start,A,A1,A1a
+Case_16,Check Card Number,2024-01-01T10:40:08,System,complete,A,A1,A1a
+Case_16,Check Expiry,2024-01-01T10:40:11,System,start,A,A1,A1b
+Case_16,Check Expiry,2024-01-01T10:40:12,System,complete,A,A1,A1b
+Case_16,Check CVV,2024-01-01T10:40:15,System,start,A,A1,A1c
+Case_16,Check CVV,2024-01-01T10:40:19,System,complete,A,A1,A1c
+Case_16,Basic Checks,2024-01-01T10:40:22,System,complete,A,A1,
+Case_16,Advanced Checks,2024-01-01T10:40:24,System,start,A,A2,
+Case_16,Validate Address,2024-01-01T10:40:25,System,start,A,A2,A2a
+Case_16,Validate Zip,2024-01-01T10:40:26,System,start,A,A2,A2b
+Case_16,Validate Address,2024-01-01T10:40:29,System,complete,A,A2,A2a
+Case_16,Validate Zip,2024-01-01T10:40:33,System,complete,A,A2,A2b
+Case_16,Advanced Checks,2024-01-01T10:40:37,System,complete,A,A2,
+Case_16,Fraud Checks,2024-01-01T10:40:39,System,start,B,,
+Case_16,Run Fraud Engine,2024-01-01T10:40:41,System,start,B,B1,
+Case_16,Run Fraud Engine,2024-01-01T10:40:44,System,complete,B,B1,
+Case_16,Fraud Notification Case 16,2024-01-01T10:40:47,System,start,B,B2,
+Case_16,Fraud Notification Case 16,2024-01-01T10:40:50,System,complete,B,B2,
+Case_16,Parallel Fraud Checks,2024-01-01T10:40:52,System,start,B,B3,
+Case_16,Check Geolocation,2024-01-01T10:40:53,System,start,B,B3,B3a
+Case_16,Check Transaction History,2024-01-01T10:40:54,System,start,B,B3,B3b
+Case_16,Check Geolocation,2024-01-01T10:40:58,System,complete,B,B3,B3a
+Case_16,Check Transaction History,2024-01-01T10:41:01,System,complete,B,B3,B3b
+Case_16,Parallel Fraud Checks,2024-01-01T10:41:02,System,complete,B,B3,
+Case_16,Fraud Checks,2024-01-01T10:41:05,System,complete,B,,
+Case_16,Fund Authorization,2024-01-01T10:41:07,System,start,C,,
+Case_16,Bank API Call Case 16,2024-01-01T10:41:08,System,start,C,C1,
+Case_16,Bank API Call Case 16,2024-01-01T10:41:11,System,complete,C,C1,
+Case_16,Receive Bank Response,2024-01-01T10:41:13,System,start,C,C2,
+Case_16,Receive Bank Response,2024-01-01T10:41:17,System,complete,C,C2,
+Case_16,Request Additional Info,2024-01-01T10:41:20,System,start,C,C3,
+Case_16,Request Additional Info,2024-01-01T10:41:23,System,complete,C,C3,
+Case_16,Request Additional Info,2024-01-01T10:41:25,System,complete,C,C3,
+Case_16,Fund Authorization,2024-01-01T10:41:27,System,complete,C,,
+Case_16,Settlement,2024-01-01T10:41:29,System,start,D,,
+Case_16,Charge Request Case 16,2024-01-01T10:41:33,System,start,D,D1,
+Case_16,Charge Request Case 16,2024-01-01T10:41:37,System,complete,D,D1,
+Case_16,Receive Charge Response,2024-01-01T10:41:41,System,start,D,D2,
+Case_16,Receive Charge Response,2024-01-01T10:41:45,System,complete,D,D2,
+Case_16,Handle Charge Error,2024-01-01T10:41:49,System,start,D,D3,
+Case_16,Handle Charge Error,2024-01-01T10:41:53,System,complete,D,D3,
+Case_16,Charge Request Retry Case 16,2024-01-01T10:41:54,System,start,D,D1,
+Case_16,Charge Request Retry Case 16,2024-01-01T10:41:56,System,complete,D,D1,
+Case_16,Receive Charge Response Retry,2024-01-01T10:41:59,System,start,D,D2,
+Case_16,Receive Charge Response Retry,2024-01-01T10:42:02,System,complete,D,D2,
+Case_16,Ledger Update,2024-01-01T10:42:03,System,start,D,D4,
+Case_16,Insert Transaction Record,2024-01-01T10:42:07,System,start,D,D4,D4a
+Case_16,Insert Transaction Record,2024-01-01T10:42:08,System,complete,D,D4,D4a
+Case_16,Close Ledger Entry,2024-01-01T10:42:09,System,start,D,D4,D4b
+Case_16,Close Ledger Entry,2024-01-01T10:42:13,System,complete,D,D4,D4b
+Case_16,Ledger Update,2024-01-01T10:42:16,System,complete,D,D4,
+Case_16,Customer Notification Case 16,2024-01-01T10:42:17,System,start,D,D5,
+Case_16,Customer Notification Case 16,2024-01-01T10:42:20,System,complete,D,D5,
+Case_16,Merchant Notification Case 16,2024-01-01T10:42:22,System,start,D,D5,
+Case_16,Merchant Notification Case 16,2024-01-01T10:42:23,System,complete,D,D5,
+Case_16,Batch Reconciliation,2024-01-01T10:42:27,System,start,D,D6,
+Case_16,Aggregate Transactions,2024-01-01T10:42:28,System,start,D,D6,D6a
+Case_16,Generate Batch Report,2024-01-01T10:42:29,System,start,D,D6,D6b
+Case_16,Aggregate Transactions,2024-01-01T10:42:30,System,complete,D,D6,D6a
+Case_16,Generate Batch Report,2024-01-01T10:42:33,System,complete,D,D6,D6b
+Case_16,Batch Reconciliation,2024-01-01T10:42:34,System,complete,D,D6,
+Case_16,Settlement,2024-01-01T10:42:35,System,complete,D,,
+Case_17,Start Validation,2024-01-01T10:50:00,System,start,A,,
+Case_17,Start Validation,2024-01-01T10:50:01,System,complete,A,,
+Case_17,Basic Checks,2024-01-01T10:50:02,System,start,A,A1,
+Case_17,Check Card Number,2024-01-01T10:50:06,System,start,A,A1,A1a
+Case_17,Check Card Number,2024-01-01T10:50:10,System,complete,A,A1,A1a
+Case_17,Check Expiry,2024-01-01T10:50:11,System,start,A,A1,A1b
+Case_17,Check Expiry,2024-01-01T10:50:15,System,complete,A,A1,A1b
+Case_17,Check CVV,2024-01-01T10:50:17,System,start,A,A1,A1c
+Case_17,Check CVV,2024-01-01T10:50:21,System,complete,A,A1,A1c
+Case_17,Basic Checks,2024-01-01T10:50:23,System,complete,A,A1,
+Case_17,Advanced Checks,2024-01-01T10:50:26,System,start,A,A2,
+Case_17,Validate Address,2024-01-01T10:50:27,System,start,A,A2,A2a
+Case_17,Validate Zip,2024-01-01T10:50:28,System,start,A,A2,A2b
+Case_17,Validate Address,2024-01-01T10:50:32,System,complete,A,A2,A2a
+Case_17,Validate Zip,2024-01-01T10:50:34,System,complete,A,A2,A2b
+Case_17,Advanced Checks,2024-01-01T10:50:35,System,complete,A,A2,
+Case_17,Fraud Checks,2024-01-01T10:50:38,System,start,B,,
+Case_17,Run Fraud Engine,2024-01-01T10:50:42,System,start,B,B1,
+Case_17,Run Fraud Engine,2024-01-01T10:50:45,System,complete,B,B1,
+Case_17,Fraud Notification Case 17,2024-01-01T10:50:46,System,start,B,B2,
+Case_17,Fraud Notification Case 17,2024-01-01T10:50:47,System,complete,B,B2,
+Case_17,Parallel Fraud Checks,2024-01-01T10:50:50,System,start,B,B3,
+Case_17,Check Geolocation,2024-01-01T10:50:51,System,start,B,B3,B3a
+Case_17,Check Transaction History,2024-01-01T10:50:52,System,start,B,B3,B3b
+Case_17,Check Geolocation,2024-01-01T10:50:55,System,complete,B,B3,B3a
+Case_17,Check Transaction History,2024-01-01T10:50:59,System,complete,B,B3,B3b
+Case_17,Parallel Fraud Checks,2024-01-01T10:51:00,System,complete,B,B3,
+Case_17,Fraud Checks,2024-01-01T10:51:01,System,complete,B,,
+Case_17,Fund Authorization,2024-01-01T10:51:04,System,start,C,,
+Case_17,Bank API Call Case 17,2024-01-01T10:51:07,System,start,C,C1,
+Case_17,Bank API Call Case 17,2024-01-01T10:51:08,System,complete,C,C1,
+Case_17,Receive Bank Response,2024-01-01T10:51:09,System,start,C,C2,
+Case_17,Receive Bank Response,2024-01-01T10:51:10,System,complete,C,C2,
+Case_17,Fund Authorization,2024-01-01T10:51:13,System,complete,C,,
+Case_17,Settlement,2024-01-01T10:51:17,System,start,D,,
+Case_17,Charge Request Case 17,2024-01-01T10:51:19,System,start,D,D1,
+Case_17,Charge Request Case 17,2024-01-01T10:51:20,System,complete,D,D1,
+Case_17,Receive Charge Response,2024-01-01T10:51:21,System,start,D,D2,
+Case_17,Receive Charge Response,2024-01-01T10:51:25,System,complete,D,D2,
+Case_17,Ledger Update,2024-01-01T10:51:26,System,start,D,D4,
+Case_17,Insert Transaction Record,2024-01-01T10:51:28,System,start,D,D4,D4a
+Case_17,Insert Transaction Record,2024-01-01T10:51:32,System,complete,D,D4,D4a
+Case_17,Close Ledger Entry,2024-01-01T10:51:36,System,start,D,D4,D4b
+Case_17,Close Ledger Entry,2024-01-01T10:51:37,System,complete,D,D4,D4b
+Case_17,Ledger Update,2024-01-01T10:51:39,System,complete,D,D4,
+Case_17,Customer Notification Case 17,2024-01-01T10:51:41,System,start,D,D5,
+Case_17,Customer Notification Case 17,2024-01-01T10:51:44,System,complete,D,D5,
+Case_17,Merchant Notification Case 17,2024-01-01T10:51:45,System,start,D,D5,
+Case_17,Merchant Notification Case 17,2024-01-01T10:51:46,System,complete,D,D5,
+Case_17,Batch Reconciliation,2024-01-01T10:51:47,System,start,D,D6,
+Case_17,Aggregate Transactions,2024-01-01T10:51:48,System,start,D,D6,D6a
+Case_17,Generate Batch Report,2024-01-01T10:51:49,System,start,D,D6,D6b
+Case_17,Aggregate Transactions,2024-01-01T10:51:51,System,complete,D,D6,D6a
+Case_17,Generate Batch Report,2024-01-01T10:51:52,System,complete,D,D6,D6b
+Case_17,Batch Reconciliation,2024-01-01T10:51:55,System,complete,D,D6,
+Case_17,Settlement,2024-01-01T10:51:59,System,complete,D,,
+Case_18,Start Validation,2024-01-01T11:00:00,System,start,A,,
+Case_18,Start Validation,2024-01-01T11:00:03,System,complete,A,,
+Case_18,Basic Checks,2024-01-01T11:00:04,System,start,A,A1,
+Case_18,Check Card Number,2024-01-01T11:00:07,System,start,A,A1,A1a
+Case_18,Check Card Number,2024-01-01T11:00:08,System,complete,A,A1,A1a
+Case_18,Check Card Number,2024-01-01T11:00:09,System,start,A,A1,A1a
+Case_18,Check Card Number,2024-01-01T11:00:13,System,complete,A,A1,A1a
+Case_18,Check Card Number,2024-01-01T11:00:14,System,start,A,A1,A1a
+Case_18,Check Card Number,2024-01-01T11:00:17,System,complete,A,A1,A1a
+Case_18,Check Expiry,2024-01-01T11:00:18,System,start,A,A1,A1b
+Case_18,Check Expiry,2024-01-01T11:00:22,System,complete,A,A1,A1b
+Case_18,Check CVV,2024-01-01T11:00:23,System,start,A,A1,A1c
+Case_18,Check CVV,2024-01-01T11:00:26,System,complete,A,A1,A1c
+Case_18,Basic Checks,2024-01-01T11:00:28,System,complete,A,A1,
+Case_18,Advanced Checks,2024-01-01T11:00:29,System,start,A,A2,
+Case_18,Validate Address,2024-01-01T11:00:30,System,start,A,A2,A2a
+Case_18,Validate Zip,2024-01-01T11:00:31,System,start,A,A2,A2b
+Case_18,Validate Address,2024-01-01T11:00:33,System,complete,A,A2,A2a
+Case_18,Validate Zip,2024-01-01T11:00:36,System,complete,A,A2,A2b
+Case_18,Advanced Checks,2024-01-01T11:00:38,System,complete,A,A2,
+Case_18,Fraud Checks,2024-01-01T11:00:39,System,start,B,,
+Case_18,Run Fraud Engine,2024-01-01T11:00:42,System,start,B,B1,
+Case_18,Run Fraud Engine,2024-01-01T11:00:44,System,complete,B,B1,
+Case_18,Fraud Notification Case 18,2024-01-01T11:00:46,System,start,B,B2,
+Case_18,Fraud Notification Case 18,2024-01-01T11:00:48,System,complete,B,B2,
+Case_18,Parallel Fraud Checks,2024-01-01T11:00:51,System,start,B,B3,
+Case_18,Check Geolocation,2024-01-01T11:00:52,System,start,B,B3,B3a
+Case_18,Check Transaction History,2024-01-01T11:00:53,System,start,B,B3,B3b
+Case_18,Check Geolocation,2024-01-01T11:00:55,System,complete,B,B3,B3a
+Case_18,Check Transaction History,2024-01-01T11:00:59,System,complete,B,B3,B3b
+Case_18,Parallel Fraud Checks,2024-01-01T11:01:01,System,complete,B,B3,
+Case_18,Fraud Checks,2024-01-01T11:01:05,System,complete,B,,
+Case_18,Fund Authorization,2024-01-01T11:01:06,System,start,C,,
+Case_18,Bank API Call Case 18,2024-01-01T11:01:09,System,start,C,C1,
+Case_18,Bank API Call Case 18,2024-01-01T11:01:10,System,complete,C,C1,
+Case_18,Receive Bank Response,2024-01-01T11:01:12,System,start,C,C2,
+Case_18,Receive Bank Response,2024-01-01T11:01:15,System,complete,C,C2,
+Case_18,Fund Authorization,2024-01-01T11:01:18,System,complete,C,,
+Case_18,Settlement,2024-01-01T11:01:19,System,start,D,,
+Case_18,Charge Request Case 18,2024-01-01T11:01:23,System,start,D,D1,
+Case_18,Charge Request Case 18,2024-01-01T11:01:27,System,complete,D,D1,
+Case_18,Receive Charge Response,2024-01-01T11:01:30,System,start,D,D2,
+Case_18,Receive Charge Response,2024-01-01T11:01:33,System,complete,D,D2,
+Case_18,Handle Charge Error,2024-01-01T11:01:34,System,start,D,D3,
+Case_18,Handle Charge Error,2024-01-01T11:01:37,System,complete,D,D3,
+Case_18,Charge Request Retry Case 18,2024-01-01T11:01:41,System,start,D,D1,
+Case_18,Charge Request Retry Case 18,2024-01-01T11:01:45,System,complete,D,D1,
+Case_18,Receive Charge Response Retry,2024-01-01T11:01:47,System,start,D,D2,
+Case_18,Receive Charge Response Retry,2024-01-01T11:01:49,System,complete,D,D2,
+Case_18,Ledger Update,2024-01-01T11:01:53,System,start,D,D4,
+Case_18,Insert Transaction Record,2024-01-01T11:01:56,System,start,D,D4,D4a
+Case_18,Insert Transaction Record,2024-01-01T11:01:59,System,complete,D,D4,D4a
+Case_18,Close Ledger Entry,2024-01-01T11:02:03,System,start,D,D4,D4b
+Case_18,Close Ledger Entry,2024-01-01T11:02:04,System,complete,D,D4,D4b
+Case_18,Ledger Update,2024-01-01T11:02:08,System,complete,D,D4,
+Case_18,Customer Notification Case 18,2024-01-01T11:02:11,System,start,D,D5,
+Case_18,Customer Notification Case 18,2024-01-01T11:02:12,System,complete,D,D5,
+Case_18,Merchant Notification Case 18,2024-01-01T11:02:15,System,start,D,D5,
+Case_18,Merchant Notification Case 18,2024-01-01T11:02:19,System,complete,D,D5,
+Case_18,Batch Reconciliation,2024-01-01T11:02:21,System,start,D,D6,
+Case_18,Aggregate Transactions,2024-01-01T11:02:22,System,start,D,D6,D6a
+Case_18,Generate Batch Report,2024-01-01T11:02:23,System,start,D,D6,D6b
+Case_18,Aggregate Transactions,2024-01-01T11:02:24,System,complete,D,D6,D6a
+Case_18,Generate Batch Report,2024-01-01T11:02:26,System,complete,D,D6,D6b
+Case_18,Batch Reconciliation,2024-01-01T11:02:28,System,complete,D,D6,
+Case_18,Settlement,2024-01-01T11:02:29,System,complete,D,,
+Case_19,Start Validation,2024-01-01T11:10:00,System,start,A,,
+Case_19,Start Validation,2024-01-01T11:10:03,System,complete,A,,
+Case_19,Basic Checks,2024-01-01T11:10:07,System,start,A,A1,
+Case_19,Check Card Number,2024-01-01T11:10:09,System,start,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:13,System,complete,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:15,System,start,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:16,System,complete,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:18,System,start,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:21,System,complete,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:22,System,start,A,A1,A1a
+Case_19,Check Card Number,2024-01-01T11:10:23,System,complete,A,A1,A1a
+Case_19,Check Expiry,2024-01-01T11:10:26,System,start,A,A1,A1b
+Case_19,Check Expiry,2024-01-01T11:10:28,System,complete,A,A1,A1b
+Case_19,Check CVV,2024-01-01T11:10:30,System,start,A,A1,A1c
+Case_19,Check CVV,2024-01-01T11:10:33,System,complete,A,A1,A1c
+Case_19,Basic Checks,2024-01-01T11:10:36,System,complete,A,A1,
+Case_19,Advanced Checks,2024-01-01T11:10:38,System,start,A,A2,
+Case_19,Validate Address,2024-01-01T11:10:39,System,start,A,A2,A2a
+Case_19,Validate Zip,2024-01-01T11:10:40,System,start,A,A2,A2b
+Case_19,Validate Address,2024-01-01T11:10:41,System,complete,A,A2,A2a
+Case_19,Validate Zip,2024-01-01T11:10:42,System,complete,A,A2,A2b
+Case_19,Advanced Checks,2024-01-01T11:10:46,System,complete,A,A2,
+Case_19,Fraud Checks,2024-01-01T11:10:49,System,start,B,,
+Case_19,Run Fraud Engine,2024-01-01T11:10:53,System,start,B,B1,
+Case_19,Run Fraud Engine,2024-01-01T11:10:54,System,complete,B,B1,
+Case_19,Fraud Notification Case 19,2024-01-01T11:10:56,System,start,B,B2,
+Case_19,Fraud Notification Case 19,2024-01-01T11:10:57,System,complete,B,B2,
+Case_19,Parallel Fraud Checks,2024-01-01T11:11:01,System,start,B,B3,
+Case_19,Check Geolocation,2024-01-01T11:11:02,System,start,B,B3,B3a
+Case_19,Check Transaction History,2024-01-01T11:11:03,System,start,B,B3,B3b
+Case_19,Check Geolocation,2024-01-01T11:11:05,System,complete,B,B3,B3a
+Case_19,Check Transaction History,2024-01-01T11:11:06,System,complete,B,B3,B3b
+Case_19,Parallel Fraud Checks,2024-01-01T11:11:10,System,complete,B,B3,
+Case_19,Fraud Checks,2024-01-01T11:11:11,System,complete,B,,
+Case_19,Fund Authorization,2024-01-01T11:11:13,System,start,C,,
+Case_19,Bank API Call Case 19,2024-01-01T11:11:17,System,start,C,C1,
+Case_19,Bank API Call Case 19,2024-01-01T11:11:20,System,complete,C,C1,
+Case_19,Receive Bank Response,2024-01-01T11:11:21,System,start,C,C2,
+Case_19,Receive Bank Response,2024-01-01T11:11:22,System,complete,C,C2,
+Case_19,Request Additional Info,2024-01-01T11:11:24,System,start,C,C3,
+Case_19,Request Additional Info,2024-01-01T11:11:25,System,complete,C,C3,
+Case_19,Request Additional Info,2024-01-01T11:11:28,System,start,C,C3,
+Case_19,Fund Authorization,2024-01-01T11:11:31,System,complete,C,,
+Case_19,Settlement,2024-01-01T11:11:34,System,start,D,,
+Case_19,Charge Request Case 19,2024-01-01T11:11:36,System,start,D,D1,
+Case_19,Charge Request Case 19,2024-01-01T11:11:39,System,complete,D,D1,
+Case_19,Receive Charge Response,2024-01-01T11:11:43,System,start,D,D2,
+Case_19,Receive Charge Response,2024-01-01T11:11:47,System,complete,D,D2,
+Case_19,Ledger Update,2024-01-01T11:11:49,System,start,D,D4,
+Case_19,Insert Transaction Record,2024-01-01T11:11:50,System,start,D,D4,D4a
+Case_19,Insert Transaction Record,2024-01-01T11:11:52,System,complete,D,D4,D4a
+Case_19,Close Ledger Entry,2024-01-01T11:11:53,System,start,D,D4,D4b
+Case_19,Close Ledger Entry,2024-01-01T11:11:55,System,complete,D,D4,D4b
+Case_19,Ledger Update,2024-01-01T11:11:58,System,complete,D,D4,
+Case_19,Customer Notification Case 19,2024-01-01T11:12:02,System,start,D,D5,
+Case_19,Customer Notification Case 19,2024-01-01T11:12:06,System,complete,D,D5,
+Case_19,Merchant Notification Case 19,2024-01-01T11:12:10,System,start,D,D5,
+Case_19,Merchant Notification Case 19,2024-01-01T11:12:11,System,complete,D,D5,
+Case_19,Batch Reconciliation,2024-01-01T11:12:12,System,start,D,D6,
+Case_19,Aggregate Transactions,2024-01-01T11:12:13,System,start,D,D6,D6a
+Case_19,Generate Batch Report,2024-01-01T11:12:14,System,start,D,D6,D6b
+Case_19,Aggregate Transactions,2024-01-01T11:12:16,System,complete,D,D6,D6a
+Case_19,Generate Batch Report,2024-01-01T11:12:18,System,complete,D,D6,D6b
+Case_19,Batch Reconciliation,2024-01-01T11:12:19,System,complete,D,D6,
+Case_19,Settlement,2024-01-01T11:12:22,System,complete,D,,
+Case_20,Start Validation,2024-01-01T11:20:00,System,start,A,,
+Case_20,Start Validation,2024-01-01T11:20:04,System,complete,A,,
+Case_20,Basic Checks,2024-01-01T11:20:05,System,start,A,A1,
+Case_20,Check Card Number,2024-01-01T11:20:08,System,start,A,A1,A1a
+Case_20,Check Card Number,2024-01-01T11:20:12,System,complete,A,A1,A1a
+Case_20,Check Expiry,2024-01-01T11:20:13,System,start,A,A1,A1b
+Case_20,Check Expiry,2024-01-01T11:20:16,System,complete,A,A1,A1b
+Case_20,Check CVV,2024-01-01T11:20:20,System,start,A,A1,A1c
+Case_20,Check CVV,2024-01-01T11:20:21,System,complete,A,A1,A1c
+Case_20,Basic Checks,2024-01-01T11:20:22,System,complete,A,A1,
+Case_20,Advanced Checks,2024-01-01T11:20:26,System,start,A,A2,
+Case_20,Validate Address,2024-01-01T11:20:27,System,start,A,A2,A2a
+Case_20,Validate Zip,2024-01-01T11:20:28,System,start,A,A2,A2b
+Case_20,Validate Address,2024-01-01T11:20:32,System,complete,A,A2,A2a
+Case_20,Validate Zip,2024-01-01T11:20:35,System,complete,A,A2,A2b
+Case_20,Advanced Checks,2024-01-01T11:20:36,System,complete,A,A2,
+Case_20,Fraud Checks,2024-01-01T11:20:39,System,start,B,,
+Case_20,Run Fraud Engine,2024-01-01T11:20:41,System,start,B,B1,
+Case_20,Run Fraud Engine,2024-01-01T11:20:43,System,complete,B,B1,
+Case_20,Fraud Notification Case 20,2024-01-01T11:20:46,System,start,B,B2,
+Case_20,Fraud Notification Case 20,2024-01-01T11:20:47,System,complete,B,B2,
+Case_20,Parallel Fraud Checks,2024-01-01T11:20:49,System,start,B,B3,
+Case_20,Check Geolocation,2024-01-01T11:20:50,System,start,B,B3,B3a
+Case_20,Check Transaction History,2024-01-01T11:20:51,System,start,B,B3,B3b
+Case_20,Check Geolocation,2024-01-01T11:20:52,System,complete,B,B3,B3a
+Case_20,Check Transaction History,2024-01-01T11:20:56,System,complete,B,B3,B3b
+Case_20,Parallel Fraud Checks,2024-01-01T11:20:58,System,complete,B,B3,
+Case_20,Fraud Checks,2024-01-01T11:20:59,System,complete,B,,
+Case_20,Fund Authorization,2024-01-01T11:21:03,System,start,C,,
+Case_20,Bank API Call Case 20,2024-01-01T11:21:06,System,start,C,C1,
+Case_20,Bank API Call Case 20,2024-01-01T11:21:09,System,complete,C,C1,
+Case_20,Receive Bank Response,2024-01-01T11:21:10,System,start,C,C2,
+Case_20,Receive Bank Response,2024-01-01T11:21:13,System,complete,C,C2,
+Case_20,Fund Authorization,2024-01-01T11:21:15,System,complete,C,,
+Case_20,Settlement,2024-01-01T11:21:19,System,start,D,,
+Case_20,Charge Request Case 20,2024-01-01T11:21:22,System,start,D,D1,
+Case_20,Charge Request Case 20,2024-01-01T11:21:26,System,complete,D,D1,
+Case_20,Receive Charge Response,2024-01-01T11:21:27,System,start,D,D2,
+Case_20,Receive Charge Response,2024-01-01T11:21:31,System,complete,D,D2,
+Case_20,Handle Charge Error,2024-01-01T11:21:33,System,start,D,D3,
+Case_20,Handle Charge Error,2024-01-01T11:21:35,System,complete,D,D3,
+Case_20,Charge Request Retry Case 20,2024-01-01T11:21:39,System,start,D,D1,
+Case_20,Charge Request Retry Case 20,2024-01-01T11:21:42,System,complete,D,D1,
+Case_20,Receive Charge Response Retry,2024-01-01T11:21:43,System,start,D,D2,
+Case_20,Receive Charge Response Retry,2024-01-01T11:21:45,System,complete,D,D2,
+Case_20,Ledger Update,2024-01-01T11:21:48,System,start,D,D4,
+Case_20,Insert Transaction Record,2024-01-01T11:21:49,System,start,D,D4,D4a
+Case_20,Insert Transaction Record,2024-01-01T11:21:51,System,complete,D,D4,D4a
+Case_20,Close Ledger Entry,2024-01-01T11:21:53,System,start,D,D4,D4b
+Case_20,Close Ledger Entry,2024-01-01T11:21:55,System,complete,D,D4,D4b
+Case_20,Ledger Update,2024-01-01T11:21:57,System,complete,D,D4,
+Case_20,Customer Notification Case 20,2024-01-01T11:21:59,System,start,D,D5,
+Case_20,Customer Notification Case 20,2024-01-01T11:22:02,System,complete,D,D5,
+Case_20,Merchant Notification Case 20,2024-01-01T11:22:05,System,start,D,D5,
+Case_20,Merchant Notification Case 20,2024-01-01T11:22:07,System,complete,D,D5,
+Case_20,Batch Reconciliation,2024-01-01T11:22:08,System,start,D,D6,
+Case_20,Aggregate Transactions,2024-01-01T11:22:09,System,start,D,D6,D6a
+Case_20,Generate Batch Report,2024-01-01T11:22:10,System,start,D,D6,D6b
+Case_20,Aggregate Transactions,2024-01-01T11:22:12,System,complete,D,D6,D6a
+Case_20,Generate Batch Report,2024-01-01T11:22:13,System,complete,D,D6,D6b
+Case_20,Batch Reconciliation,2024-01-01T11:22:17,System,complete,D,D6,
+Case_20,Settlement,2024-01-01T11:22:18,System,complete,D,,
