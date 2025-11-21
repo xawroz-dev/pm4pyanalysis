@@ -1,0 +1,10 @@
+BENCHMARK RESULTS (1000 Journeys, 4 Apps, 5 Events/App = 20000 Events)
+================================================================================
+Test Date: 2025-11-21 12:19:33
+================================================================================
+
+networkx: FAILED
+neo4j: FAILED
+memgraph: FAILED
+arangodb: FAILED
+arangodb: FAILED

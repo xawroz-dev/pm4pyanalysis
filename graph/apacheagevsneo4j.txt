@@ -1,0 +1,79 @@
+This is a deep technical breakdown of why **Apache AGE** struggles with high-frequency event stitching (Ingest + Stitch loop) while **Neo4j** handles it with ease.
+
+The fundamental difference lies in **Native Graph Storage vs. Relational Wrapper**.
+
+### 1. The Core Architecture: Pointers vs. Joins
+
+This is the single biggest reason for the performance difference.
+
+#### **Apache AGE (The "Wrapper" Approach)**
+Apache AGE is an extension **on top of PostgreSQL**. It does not have its own storage engine.
+* **Storage:** It stores Nodes and Edges as rows in standard PostgreSQL tables (specifically, it uses JSONB columns to store properties).
+* **Traversal:** When you run a Cypher query like `(A)-[:LINK]->(B)`, AGE translates this into a **SQL Query**.
+* **The Bottleneck:** To move from Node A to Node B, Postgres must perform an **Index Lookup** (B-Tree scan) to find the row for Node B.
+    * 1 Hop = 1 Index Scan.
+    * 4 Hops = 4 Nested Index Scans (Joins).
+    * As your table grows to millions of events, these index lookups become slower ($O(\log N)$).
+
+#### **Neo4j (The "Native" Approach)**
+Neo4j uses **Index-Free Adjacency**.
+* **Storage:** Nodes and Relationships are stored as fixed-size records on disk.
+* **The Magic:** Node A physically stores the **memory address** (pointer) of its first relationship. That relationship stores the memory address of Node B.
+* **The Speed:** To move from Node A to Node B, the engine simply "chases the pointer" in RAM.
+    * It does **not** look up an index.
+    * It does **not** scan a table.
+    * Traversal speed is constant ($O(1)$), regardless of whether you have 1 thousand or 1 billion events.
+
+
+
+---
+
+### 2. The `MERGE` Concurrency Problem
+
+Your pipeline relies heavily on `MERGE` (Create if not exists). This is where AGE hits a wall under high load.
+
+#### **Apache AGE (`MERGE` is expensive)**
+When you run `MERGE (e:Event {id: '123'})` in AGE:
+1.  **Translation:** It converts Cypher to SQL.
+2.  **Locking:** It must lock the underlying Postgres table row to prevent duplicates.
+3.  **JSONB Parsing:** It has to parse the JSONB column to check properties.
+4.  **MVCC Overhead:** Postgres uses Multi-Version Concurrency Control. High-volume upserts create "bloat" (dead tuples) that the autovacuum daemon must clean up. If you ingest too fast, the table bloats, and index scans slow down.
+
+#### **Neo4j (`MERGE` is optimized)**
+Neo4j's `MERGE` uses specific graph locks on the **Node ID Index** only.
+1.  **Unique Constraints:** When you set `CREATE CONSTRAINT FOR (e:Event) REQUIRE e.id IS UNIQUE`, Neo4j creates a Lucene-based or native index.
+2.  **Locking:** It locks only that specific index entry, not a table page.
+3.  **Throughput:** Because it doesn't have the overhead of SQL parsing, MVCC, and JSONB decoding, it can handle tens of thousands of `MERGE` operations per second.
+
+---
+
+### 3. The Traversal Complexity (Variable Length Paths)
+
+Your stitching logic uses `MATCH (start)-[:HAS_KEY*..4]-(end)`. This is a **Variable Length Path** query.
+
+* **In Neo4j:** The engine just "walks" the pointers. It hops from Event -> Key -> Event -> Key instantly. It is CPU-bound and extremely cache-friendly.
+* **In Apache AGE:** This translates to a **Recursive Common Table Expression (CTE)** in SQL.
+    * Postgres has to join the `edge` table to the `vertex` table, then join the result back to the `edge` table, repeat 4 times.
+    * If your `events` table has 10 million rows, doing 4 self-joins on a 10-million-row table is mathematically heavy, consuming massive amounts of RAM and Temp Space.
+
+### 4. Summary Comparison
+
+| Feature | Apache AGE (Postgres) | Neo4j (Native) | Impact on Your Project |
+| :--- | :--- | :--- | :--- |
+| **Storage** | Rows in Tables (JSONB) | Linked Lists (Fixed Size) | **Neo4j** is faster for traversal. |
+| **Traversal** | SQL JOINs (Index Scans) | Pointer Chasing (Direct RAM) | **Neo4j** scales; AGE slows down as data grows. |
+| **Clustering** | Recursive SQL CTE | Graph Algorithms (WCC) | **Neo4j** stitching is near-instant. |
+| **Ingestion** | High MVCC/Lock Overhead | Optimized Write Ahead Log | **Neo4j** handles higher concurrency. |
+| **Maturity** | Incubating (Newer) | Mature (Enterprise Standard) | **Neo4j** has better query planner optimization. |
+
+### Conclusion: Why AGE might "Not Work" for you
+
+Apache AGE is fantastic if:
+1.  Your data is primarily relational (tables).
+2.  You only need *occasional* graph queries.
+3.  Your graph size is small to medium (< 5 million nodes).
+
+**However, for your use case (High-Frequency Ingestion + Real-Time Stitching of Millions of Events):**
+Apache AGE essentially forces Postgres to do things it wasn't designed to do at high speed (Recursive Joins on JSONB data). The "Traffic Jam" you saw in the logs (taking 30 minutes) was Postgres trying to manage millions of row locks and index lookups simultaneously.
+
+**Neo4j** works because it treats the data as a graph natively from the moment it hits the disk.

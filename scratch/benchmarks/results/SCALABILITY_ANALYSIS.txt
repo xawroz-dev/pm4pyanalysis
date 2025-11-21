@@ -1,0 +1,141 @@
+=== APACHE_AGE ===
+Error running apache_age: Error running apache_age: Traceback (most recent call last):
+  File "C:\Users\admin\.gemini\antigravity\scratch\benchmarks\solutions\apache_age\main.py", line 289, in <module>
+    jm.setup()
+  File "C:\Users\admin\.gemini\antigravity\scratch\benchmarks\solutions\apache_age\main.py", line 33, in setup
+    self.connect()
+  File "C:\Users\admin\.gemini\antigravity\scratch\benchmarks\solutions\apache_age\main.py", line 20, in connect
+    self.conn = psycopg2.connect(**self.db_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5436 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5436 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+
+=== ARANGODB ===
+Error running arangodb: cannot import name 'ArangoClient' from 'arango' (C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\arango\__init__.py)
+
+=== MEMGRAPH ===
+Error running memgraph: Error running memgraph: Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_async_compat\network\_bolt_socket.py", line 498, in _connect_secure
+    s.connect(resolved_address)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_bolt_socket.py", line 329, in connect
+    s = cls._connect_secure(
+        ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_async_compat\network\_bolt_socket.py", line 521, in _connect_secure
+    raise ServiceUnavailable(
+neo4j.exceptions.ServiceUnavailable: Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\admin\.gemini\antigravity\scratch\benchmarks\solutions\memgraph\main.py", line 176, in <module>
+    EVENTS_PER_JOURNEY = 5
+    ^^^^^^^^^^
+  File "C:\Users\admin\.gemini\antigravity\scratch\benchmarks\solutions\memgraph\main.py", line 26, in clean
+    
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\work\session.py", line 305, in run
+    self._connect(self._config.default_access_mode)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\work\session.py", line 126, in _connect
+    super()._connect(
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\work\workspace.py", line 181, in _connect
+    self._connection = self._pool.acquire(**acquire_kwargs_)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_pool.py", line 678, in acquire
+    return self._acquire(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_pool.py", line 418, in _acquire
+    return connection_creator()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_pool.py", line 231, in connection_creator
+    connection = self.opener(
+                 ^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_pool.py", line 638, in opener
+    return Bolt.open(
+           ^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_bolt.py", line 367, in open
+    s, protocol_version = BoltSocket.connect(
+                          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\neo4j\_sync\io\_bolt_socket.py", line 376, in connect
+    raise ServiceUnavailable(
+neo4j.exceptions.ServiceUnavailable: Couldn't connect to localhost:7688 (resolved to ('[::1]:7688', '127.0.0.1:7688')):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+
+
+=== NEO4J ===
+Starting Benchmark: Neo4j
+[Generator] Generating 1000 journeys with 4 apps, 5 events each...
+[Generator] Ingesting 20000 events...
+[Generator] Ingestion complete in 2.52 seconds.
+Ingestion Time: 2.52s
+Processing Time: 44.52s
+Total Time: 47.04s
+
+[Validation] Validating random sample of journeys...
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 4
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 0
+[Validation] Result: 0/20 passed.
+
+
+=== NETWORKX ===
+Starting Benchmark: NetworkX
+[Generator] Generating 1000 journeys with 4 apps, 5 events each...
+[Generator] Ingesting 20000 events...
+[Generator] Ingestion complete in 191.72 seconds.
+Ingestion Time: 191.72s
+Processing Time: 25.64s
+Total Time: 217.36s
+
+[Validation] Validating random sample of journeys...
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event 0
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event 2
+  [FAIL] Journey not found for event c
+  [FAIL] Journey not found for event c
+[Validation] Result: 0/20 passed.
+
+

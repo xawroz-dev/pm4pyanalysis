@@ -1,0 +1,4 @@
+BENCHMARK RESULTS (20k Journeys, 4 Apps, 5 Events/App = 400k Events)
+================================================================
+networkx: Ingestion=6.67s, Processing=2.00s, Total=8.68s
+apache_age: FAILED
