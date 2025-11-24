@@ -1,0 +1,12 @@
+================================================================================
+Journey Stitching Performance Comparison
+Test: 10000 journeys, 5 events each (5000 total events)
+================================================================================
+
+Solution                  Ingest       Process      Total        Validation
+--------------------------------------------------------------------------------
+Apache AGE                1.15s        92.76s       93.91s       PASSED
+Neo4j                     0.45s        26.05s       26.50s       PASSED
+ArangoDB                  5.02s        88.00s       93.02s       UNKNOWN
+Memgraph                  0.44s        10.80s       11.24s       PASSED
+NetworkX                  5.67s        1.35s        7.03s        PASSED

@@ -1,0 +1,9 @@
+{
+  "total_events": 25000,
+  "ingest_time": 154.51157188415527,
+  "process_time": 66.57846593856812,
+  "total_time": 221.0900378227234,
+  "ingest_throughput": 161.80017907489608,
+  "process_throughput": 375.49678634932013,
+  "overall_throughput": 113.07610350153247
+}

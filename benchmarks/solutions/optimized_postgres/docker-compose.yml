@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: optimized_postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: >
+      postgres -c shared_buffers=2GB -c work_mem=256MB -c maintenance_work_mem=512MB -c effective_cache_size=4GB -c max_connections=200
+
+volumes:
+  postgres_data:

@@ -1,0 +1,145 @@
+================================================================================
+COMPREHENSIVE DATABASE BENCHMARK RESULTS
+================================================================================
+
+Timestamp: 2025-11-23 19:18:45
+Configuration: 1000 journeys ¡Á 5 apps ¡Á 1 events = 5,000 total events
+
+================================================================================
+
+PERFORMANCE SUMMARY
+================================================================================
+
+Solution                  Status       Time         Throughput     
+--------------------------------------------------------------------------------
+Neo4j                     [OK] Success     0.05s          0 events/sec
+Memgraph                  [OK] Success     0.05s          0 events/sec
+FalkorDB                  [OK] Success     0.04s          0 events/sec
+ArangoDB                  [OK] Success     0.04s          0 events/sec
+NetworkX                  [OK] Success     0.04s          0 events/sec
+Apache AGE                [FAIL] Failed     4.27s   N/A            
+Optimized PostgreSQL      [FAIL] Failed     4.29s   N/A            
+
+================================================================================
+
+
+================================================================================
+APACHE AGE
+================================================================================
+
+Description: Graph extension for PostgreSQL
+Status: failed
+Time: 4.27s
+
+Error: Unknown error
+
+Error Output:
+--------------------------------------------------------------------------------
+AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\pool.py", line 59, in __init__
+    self._connect()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\pool.py", line 63, in _connect
+    conn = psycopg2.connect(*self._args, **self._kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5436 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5436 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+--------------------------------------------------------------------------------
+
+================================================================================
+OPTIMIZED POSTGRESQL
+================================================================================
+
+Description: Hybrid in-memory + PostgreSQL
+Status: failed
+Time: 4.29s
+
+Error: Unknown error
+
+Error Output:
+--------------------------------------------------------------------------------
+AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\pool.py", line 59, in __init__
+    self._connect()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\pool.py", line 63, in _connect
+    conn = psycopg2.connect(*self._args, **self._kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python312\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+--------------------------------------------------------------------------------
+
+================================================================================
+NEO4J
+================================================================================
+
+Description: Native graph database
+Status: success
+Time: 0.05s
+
+Output:
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+================================================================================
+MEMGRAPH
+================================================================================
+
+Description: In-memory graph database
+Status: success
+Time: 0.05s
+
+Output:
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+================================================================================
+FALKORDB
+================================================================================
+
+Description: Redis graph module
+Status: success
+Time: 0.04s
+
+Output:
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+================================================================================
+ARANGODB
+================================================================================
+
+Description: Multi-model database
+Status: success
+Time: 0.04s
+
+Output:
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+================================================================================
+NETWORKX
+================================================================================
+
+Description: Python graph library
+Status: success
+Time: 0.04s
+
+Output:
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
