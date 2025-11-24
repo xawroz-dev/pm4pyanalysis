@@ -1,14 +1,412 @@
-================================================================================
-COMPREHENSIVE DATABASE BENCHMARK RESULTS
-================================================================================
+Short answer: you’re not crazy, and you’re not alone. 🙂
+Apache AGE *can* be fast for some 1–2 hop traversals, but with the way it’s architected (and the way your code is currently using it), it’s very easy to end up 10–100× slower than Neo4j.
 
-Timestamp: 2025-11-23 19:09:52
-Configuration: 1000 journeys �� 5 apps �� 1 events = 5,000 total events
+I’ll split this into:
 
-================================================================================
+1. **Why AGE is slower than Neo4j in general (architecture)**
+2. **Specific things in *your* code that are probably killing performance**
+3. **Concrete optimizations you can try in AGE**
+4. **Why the “AGE is faster for 1–2 level scans” papers don’t match your experience**
 
-PERFORMANCE SUMMARY
-================================================================================
+---
 
-Solution                  Status       Time         Throughput     
---------------------------------------------------------------------------------
+## 1. Why Apache AGE can be much slower than Neo4j
+
+### 1.1. AGE is an extension on top of PostgreSQL, not a native graph engine
+
+AGE stores graph data in underlying Postgres tables – one table per vertex label and per edge label, with a `properties` column (agtype/JSON-like) for attributes. Every Cypher query is actually:
+
+```sql
+SELECT * 
+FROM cypher('graph_name', $$ MATCH (...) RETURN ... $$)
+AS (cols ...);
+```
+
+Under the hood that means:
+
+* query text parsing (SQL, then embedded Cypher),
+* planning using the **Postgres** optimizer,
+* executing joins over those label and edge tables,
+* converting between `agtype` and Postgres types.
+
+Neo4j, by contrast, uses a native, pointer-based store and an engine optimized specifically for graph traversals (adjacency lists + in-memory cache, no JSON property indirection). For traversal-heavy workloads, pointer-chasing in RAM beats row + JSON processing almost every time.([DEV Community][1])
+
+So even before we look at your code, AGE starts with:
+
+* extra planning overhead per query,
+* more CPU and memory per property access,
+* and it relies on generic Postgres indexes instead of graph-specific data structures.
+
+### 1.2. Cypher on AGE is noticeably slower than equivalent SQL
+
+This isn’t just you; there are public reports that:
+
+* a Cypher query on AGE was **15× slower** than the equivalent SQL on the same Postgres instance, for a non-trivial query.([GitHub][2])
+* another benchmark found a **40× difference** between using AGE for a particular traversal and using plain Postgres recursive CTEs for the same logical operation.([Medium][3])
+
+AGE is improving, but it’s still young compared to Neo4j’s engine, and the Cypher→SQL translation layer adds overhead that Neo4j doesn’t have.
+
+### 1.3. Indexes are *not* created automatically
+
+By default, AGE doesn’t create any indexes for your graph. You have to explicitly add:
+
+* B-tree indexes on vertex/edge `id`,
+* B-tree indexes on `start_id` / `end_id` for edge labels,
+* optional GIN/B-tree expression indexes on frequently used properties.([Microsoft Learn][4])
+
+Without these, every `MATCH` step can degenerate into big sequential scans over the label/edge tables, which explodes for your event-stitching workload.
+
+### 1.4. Ingestion path matters a lot
+
+Naively creating vertices/edges via Cypher (`CREATE` / `MERGE`) is much slower than bulk inserting directly into the underlying tables or using specialized loaders. There are reports of **up to 1000× faster** edge creation when inserting directly into the AGE backing tables instead of Cypher.([AlibabaCloud][5])
+
+Microsoft’s AGE performance best-practices doc also strongly recommends using a bulk loader (AGEFreighter) / `COPY` for large ingest, not hand-rolled Cypher UNWINDs.([Microsoft Learn][4])
+
+Neo4j has had a *lot* of tuning around bulk ingestion (`LOAD CSV`, `neo4j-admin import`, etc.), so out-of-the-box it’s usually better at high-volume writes.
+
+---
+
+## 2. Things in *your* code that are probably making AGE much slower
+
+Looking at your script, here are the big red flags.
+
+### 2.1. No indexes on edge labels (`HAS_KEY`, `PART_OF`)
+
+In `setup()` you create:
+
+```python
+for label in ["Event", "Correlation", "Journey"]:
+    CREATE INDEX ... ON "benchmark_graph"."{label}" USING GIN (properties);
+    CREATE INDEX ... ON "benchmark_graph"."{label}" ((properties->>'id'));
+```
+
+You **do not** create indexes on **edge tables** at all.
+
+But almost every query in your workload uses edges:
+
+* `MATCH (e:Event {status: 'NEW'})-[:HAS_KEY]->(c:Correlation)`
+* `MATCH (c:Correlation)-[:PART_OF]->(j:Journey)`
+* `MATCH (j)<-[:PART_OF]-(:Correlation)<-[:HAS_KEY]-(all_e:Event)`
+
+Best practice for AGE is to add B-tree indexes on `id`, `start_id`, and `end_id` for each edge table (HAS_KEY, PART_OF, etc.):([Microsoft Learn][4])
+
+```sql
+-- For edges
+CREATE INDEX IF NOT EXISTS "idx_HAS_KEY_start"
+ON "benchmark_graph"."HAS_KEY" USING BTREE (start_id);
+
+CREATE INDEX IF NOT EXISTS "idx_HAS_KEY_end"
+ON "benchmark_graph"."HAS_KEY" USING BTREE (end_id);
+
+CREATE INDEX IF NOT EXISTS "idx_PART_OF_start"
+ON "benchmark_graph"."PART_OF" USING BTREE (start_id);
+
+CREATE INDEX IF NOT EXISTS "idx_PART_OF_end"
+ON "benchmark_graph"."PART_OF" USING BTREE (end_id);
+```
+
+Without these, every hop across an edge label is likely doing a sequential scan over the whole edge table. For “1–2 hop” traversals on a big graph, **this alone** can easily turn “fast” into “unusable”.
+
+### 2.2. No index on `Event.status = 'NEW'`
+
+Your main processing loop starts with:
+
+```cypher
+MATCH (e:Event {status: 'NEW'})
+WITH e LIMIT 5000
+MATCH (e)-[:HAS_KEY]->(c:Correlation)
+RETURN e.id, collect(c.id)
+```
+
+You only added an index on `id`, not on `status`. So finding `status = 'NEW'` events is probably a sequential scan over the entire `Event` table *every time you grab a batch*.
+
+On a growing dataset, that’s brutal.
+
+You’d want at least:
+
+```sql
+CREATE INDEX IF NOT EXISTS "idx_Event_status"
+ON "benchmark_graph"."Event"
+USING BTREE (agtype_access_operator(VARIADIC ARRAY[properties, '"status"'::agtype]));
+```
+
+or even a partial index if almost everything is `PROCESSED`:
+
+```sql
+CREATE INDEX IF NOT EXISTS "idx_Event_status_new"
+ON "benchmark_graph"."Event"
+USING BTREE (agtype_access_operator(VARIADIC ARRAY[properties, '"status"'::agtype]))
+WHERE agtype_access_operator(VARIADIC ARRAY[properties, '"status"'::agtype]) = '"NEW"'::agtype;
+```
+
+The Azure docs explicitly show this pattern (BTREE on a specific key inside `properties`).([Microsoft Learn][4])
+
+### 2.3. `LOAD 'age';` and `SET search_path` on *every* query
+
+In `_execute_cypher` you do:
+
+```python
+with conn.cursor() as cursor:
+    cursor.execute("LOAD 'age';")
+    cursor.execute("SET search_path = ag_catalog, '$user', public;")
+    full_query = f"SELECT * FROM cypher('{self.graph_name}', $$ {query} $$) as ({cols});"
+    cursor.execute(full_query)
+```
+
+You’re paying the cost of:
+
+* loading the extension and
+* changing the search path
+
+**for every single Cypher query**, even within the same connection.
+
+You only need to do that **once per connection/session**. After that, the extension is loaded and the search path is set for the life of that connection.
+
+This overhead is small per query, but your benchmark fires a *lot* of queries (many batches, many steps), so it adds up.
+
+### 2.4. Huge `UNWIND` literals built in Python
+
+In ingestion you do:
+
+```python
+batch_cypher = self._to_cypher_list(batch_data)
+
+query_create = f"""
+    UNWIND {batch_cypher} as row
+    CREATE (:Event {{
+        id: row.id, 
+        status: row.status, 
+        created_at: row.created_at,
+        payload: row.payload
+    }})
+"""
+```
+
+`batch_cypher` is a giant literal containing all events in the batch. That means:
+
+* Python serializes to JSON,
+* you regex-hack the keys,
+* AGE/Postgres then has to parse a very large query with a huge literal array.
+
+This is similar to Neo4j’s `UNWIND` pattern, but Postgres’s parser / planner simply isn’t as tuned for big inline literals as Neo4j’s engine is.
+
+The recommended AGE approach for large loads is **not** to hand-roll JSON arrays but to use CSV + `COPY` via a loader such as **AGEFreighter**, which pushes data into the underlying tables directly and uses `COPY` under the covers (they show 725K cases + 2.8M relationships loaded in 83s).([Microsoft Learn][4])
+
+### 2.5. No edge-level optimizations for ingestion
+
+For correlations you do:
+
+```cypher
+UNWIND {batch} as row
+MATCH (e:Event {id: row.id})
+UNWIND row.correlation_ids as cid
+MERGE (c:Correlation {id: cid})
+MERGE (e)-[:HAS_KEY]->(c)
+```
+
+This pattern (lots of `MERGE` per batch) is precisely where AGE is weakest: edge creation via Cypher is significantly slower than inserting edges directly into the AGE backing tables or using loaders. There’s a GitHub discussion where inserting edges via underlying tables was about **1000× faster** for large datasets.([AlibabaCloud][5])
+
+Neo4j’s `MERGE` on edges is heavily optimized; AGE’s implementation is much more generic.
+
+### 2.6. A lot of work pushed into Cypher, then back out into Python
+
+Your `process_events` pipeline does:
+
+1. Fetch NEW events + CIDs (Cypher).
+2. Fetch existing journeys for those CIDs (Cypher).
+3. Do union-find in Python.
+4. Create/merge journeys (Cypher).
+5. Link CIDs to journeys (Cypher).
+6. Mark events PROCESSED (Cypher).
+
+Each step is a separate roundtrip + planning + execution. Neo4j is simply faster at this style of graph update because:
+
+* it keeps more state in memory,
+* traverses adjacency lists more directly,
+* and its Cypher engine is mature and optimized for this type of workload.
+
+AGE, via Postgres, is paying a lot more overhead per step.
+
+---
+
+## 3. What you can do to optimize AGE for this workload
+
+I’ll keep this focused on changes that are realistic to try, not “rewrite everything”.
+
+### 3.1. Fix indexing first (this is huge)
+
+Add indexes for:
+
+**Vertices**
+
+```sql
+-- You already have id + GIN(properties); keep those.
+
+-- Add status index for Event:
+CREATE INDEX IF NOT EXISTS "idx_Event_status"
+ON "benchmark_graph"."Event"
+USING BTREE (agtype_access_operator(VARIADIC ARRAY[properties, '"status"'::agtype]));
+```
+
+**Edges**
+
+```sql
+-- HAS_KEY edges
+CREATE INDEX IF NOT EXISTS "idx_HAS_KEY_start"
+ON "benchmark_graph"."HAS_KEY" USING BTREE (start_id);
+
+CREATE INDEX IF NOT EXISTS "idx_HAS_KEY_end"
+ON "benchmark_graph"."HAS_KEY" USING BTREE (end_id);
+
+-- PART_OF edges
+CREATE INDEX IF NOT EXISTS "idx_PART_OF_start"
+ON "benchmark_graph"."PART_OF" USING BTREE (start_id);
+
+CREATE INDEX IF NOT EXISTS "idx_PART_OF_end"
+ON "benchmark_graph"."PART_OF" USING BTREE (end_id);
+```
+
+Then, use AGE’s EXPLAIN to confirm index usage:
+
+```sql
+SELECT * FROM cypher('benchmark_graph', $$
+  EXPLAIN
+  MATCH (e:Event {status:'NEW'})
+  WITH e LIMIT 5000
+  MATCH (e)-[:HAS_KEY]->(c:Correlation)
+  RETURN e, c
+$$) AS (plan text);
+```
+
+The Azure guide explicitly shows how to use `EXPLAIN` for Cypher and stresses that without indexes, you’ll get sequential scans.([Microsoft Learn][4])
+
+### 3.2. Load AGE once per connection, not per query
+
+Refactor `_get_connection` to set up AGE only once per connection:
+
+```python
+def _get_connection(self):
+    conn = self.connection_pool.getconn()
+    conn.autocommit = True
+    # Run AGE init once per connection
+    if not getattr(conn, "_age_initialized", False):
+        with conn.cursor() as cur:
+            cur.execute("LOAD 'age';")
+            cur.execute("SET search_path = ag_catalog, '$user', public;")
+        conn._age_initialized = True
+    return conn
+```
+
+Then remove the `LOAD` / `SET search_path` calls from `_execute_cypher`. That removes two extra SQL roundtrips and some extension overhead for every Cypher query.
+
+### 3.3. Consider a faster ingestion path
+
+If ingestion time is a big part of your 100× gap, you have options:
+
+1. **Bulk load via AGEFreighter**
+   AGEFreighter is built specifically to push large datasets into AGE efficiently using `COPY` and optimized SQL patterns, instead of hand-rolled UNWINDs.([Microsoft Learn][4])
+
+2. **Insert into underlying tables directly**
+   Advanced approach: the Alibaba and GitHub docs show patterns to:
+
+   * generate vertex IDs using helper functions,
+   * insert into `graph."Label"` tables directly (vertices) and `"Label"` edge tables with `start_id`/`end_id`,
+   * then set the AGE sequences correctly.([AlibabaCloud][5])
+
+   That’s more work, but it can give you *orders of magnitude* speedup for initial ingestion.
+
+Even if you keep your current approach, you might want to:
+
+* reduce batch size just enough to keep Cypher parse time manageable,
+* or load events into plain Postgres tables first, then build the graph in bulk with SQL.
+
+### 3.4. Tune your queries & maybe push some logic into SQL
+
+A few ideas:
+
+* **Combine some steps**: e.g., instead of:
+
+  1. find NEW events + CIDs,
+  2. then find journeys for those CIDs,
+
+  you might be able to do:
+
+  ```cypher
+  MATCH (e:Event {status:'NEW'})-[:HAS_KEY]->(c:Correlation)
+  OPTIONAL MATCH (c)-[:PART_OF]->(j:Journey)
+  RETURN e.id, collect(DISTINCT c.id), collect(DISTINCT j.id)
+  ```
+
+  That’s still not free, but it reduces roundtrips.
+
+* **Leverage SQL directly**: you’re essentially working with a bipartite graph Event–Correlation and then a Correlation–Journey mapping. You could store the same relationships in plain tables:
+
+  ```sql
+  event(id, status, payload, ...)
+  correlation_event(event_id, cid)
+  correlation_journey(cid, journey_id)
+  ```
+
+  and do the union-find using these tables instead of Cypher, or even use recursive CTEs. Workloads where you do global connectivity/WCC over huge datasets are often faster in pure SQL than through AGE’s Cypher layer (that’s exactly what the 40× benchmark showed).([Medium][3])
+
+Even if you keep AGE as the source of truth, you can mirror the edges into relational tables just for the stitching engine.
+
+### 3.5. General Postgres tuning
+
+Because AGE rides on Postgres, the usual knobs matter:
+
+* `shared_buffers`, `work_mem`, `effective_cache_size`,
+* `max_parallel_workers_per_gather` etc.
+
+If your graph is big and Postgres is running with tiny defaults (e.g., Docker with low memory), everything will suffer.
+
+---
+
+## 4. Why the “AGE is faster for 1–2 level scans” papers don’t match what you see
+
+Those positive results are usually under *very specific* conditions:
+
+* The graph is mostly static (few writes).
+
+* Data is pre-loaded via a fast path, with proper indexes on vertex/edge tables.
+
+* Queries are **read-only**, focusing on traversals like:
+
+  ```cypher
+  MATCH (a:Case {id: 123})-[:REF]->(b:Case) RETURN b
+  ```
+
+* Often the comparison is: **AGE vs complex SQL joins** on the same Postgres instance, not **AGE vs Neo4j**.([Microsoft Learn][4])
+
+Your workload is different:
+
+* **Heavy writes** (lots of `CREATE` + `MERGE`),
+* **global connectivity logic** (WCC / journey merging) repeated in batches,
+* **no edge indexes**, and no index on the main filter (`status='NEW'`),
+* plus extra per-query overhead (`LOAD 'age'`, big UNWIND literals).
+
+So even though each individual pattern might be “1–2 hops”, the overall pipeline is much heavier than the micro-benchmarks those papers use. In that context, Neo4j’s specialized engine will absolutely crush a young extension running through Postgres’s SQL layer.
+
+---
+
+## Honest conclusion
+
+* You’re not obviously “using AGE wrong”, but you *are* missing some critical ingredients:
+
+  * edge indexes,
+  * property indexes on filters like `status`,
+  * avoiding `LOAD 'age'` per query,
+  * and using a proper bulk-ingest path.
+
+* Even with those, AGE may *still* be slower than Neo4j for your particular pattern (high-volume ingestion + WCC-style stitching). That’s consistent with what others have seen when pushing AGE beyond its current sweet spot.([GitHub][2])
+
+If you’d like, next step I can:
+
+* help you write the exact SQL to introspect the AGE backing tables (`\d "benchmark_graph"."Event"` etc.),
+* or rewrite your `setup()` / `_get_connection()` / index creation to a “v2” that’s as optimized as we can get in AGE, so you can re-run the benchmark and see how close we can get to Neo4j.
+
+[1]: https://dev.to/pawnsapprentice/apache-age-vs-neo4j-battle-of-the-graph-databases-2m4?utm_source=chatgpt.com "Apache AGE vs Neo4j: Battle of the Graph Databases"
+[2]: https://github.com/apache/age/issues/2194?utm_source=chatgpt.com "Major Performance Difference: SQL vs. Cypher for ..."
+[3]: https://medium.com/%40sjksingh/postgresql-showdown-complex-joins-vs-native-graph-traversals-with-apache-age-78d65f2fbdaa?utm_source=chatgpt.com "PostgreSQL Showdown: Complex Joins vs. Native Graph ..."
+[4]: https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/generative-ai-age-performance "Apache AGE Performance Best Practices - Azure Database for PostgreSQL | Microsoft Learn"
+[5]: https://www.alibabacloud.com/blog/601843 "Graph Analysis Based on PolarDB: Fast Import of Graph Data via Tables - Alibaba Cloud Community"
