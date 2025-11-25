@@ -1,0 +1,16 @@
+version: '3'
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra-bench
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=JourneyCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
