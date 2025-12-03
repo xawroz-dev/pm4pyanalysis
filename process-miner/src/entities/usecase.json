@@ -1,0 +1,46 @@
+{
+    "name": "UseCase",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name of the use case"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of the use case"
+        },
+        "prc_group": {
+            "type": "string",
+            "description": "PRC group required for access"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "draft",
+                "active",
+                "completed"
+            ],
+            "default": "draft"
+        },
+        "stitching_config": {
+            "type": "object",
+            "description": "Configuration for journey stitching"
+        },
+        "labeling_config": {
+            "type": "object",
+            "description": "Configuration for activity labeling hierarchy"
+        },
+        "original_process_url": {
+            "type": "string",
+            "description": "URL to uploaded original process document"
+        },
+        "risks_analyzed": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "required": [
+        "name"
+    ]
+}

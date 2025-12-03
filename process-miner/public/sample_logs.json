@@ -1,0 +1,58 @@
+[
+    {
+        "event_id": "EVT-001",
+        "timestamp": "2024-01-15T10:00:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Credit Increase Requested",
+        "resource": "System",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-002",
+        "timestamp": "2024-01-15T10:05:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Initial Validation",
+        "resource": "Bot-01",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-003",
+        "timestamp": "2024-01-15T10:15:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Credit Score Check",
+        "resource": "API-Gateway",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-004",
+        "timestamp": "2024-01-15T10:30:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Risk Assessment",
+        "resource": "RiskEngine",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-005",
+        "timestamp": "2024-01-15T11:00:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Manager Approval",
+        "resource": "John Doe",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-006",
+        "timestamp": "2024-01-15T11:05:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Credit Limit Set",
+        "resource": "System",
+        "amount": 5000
+    },
+    {
+        "event_id": "EVT-007",
+        "timestamp": "2024-01-15T11:10:00Z",
+        "case_id": "REQ-1001",
+        "activity": "Notification Sent",
+        "resource": "EmailService",
+        "amount": 5000
+    }
+]

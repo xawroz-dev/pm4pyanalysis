@@ -1,0 +1,56 @@
+{
+    "name": "Application",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Application name"
+        },
+        "use_case_id": {
+            "type": "string",
+            "description": "Associated use case ID"
+        },
+        "data_source": {
+            "type": "string",
+            "enum": [
+                "database",
+                "api",
+                "file_upload",
+                "streaming"
+            ],
+            "description": "Type of data source"
+        },
+        "sample_file_url": {
+            "type": "string",
+            "description": "URL to uploaded sample log file"
+        },
+        "field_mappings": {
+            "type": "object",
+            "description": "Mapping of JSON fields to process mining fields"
+        },
+        "parsed_fields": {
+            "type": "array",
+            "description": "All fields parsed from sample file",
+            "items": {
+                "type": "object"
+            }
+        },
+        "stitching_key": {
+            "type": "string",
+            "description": "Key field used for journey stitching"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "configured",
+                "active"
+            ],
+            "default": "pending"
+        }
+    },
+    "required": [
+        "name",
+        "use_case_id"
+    ]
+}

@@ -1,0 +1,114 @@
+[
+    {
+        "timestamp": "2024-02-10T09:00:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Feature Request Received",
+        "agent_name": "System",
+        "tool_used": "Jira",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T09:05:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Requirements Analysis",
+        "agent_name": "ProductOwnerAgent",
+        "tool_used": "RequirementAnalyzer",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T09:30:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Architecture Design",
+        "agent_name": "ArchitectAgent",
+        "tool_used": "DiagramGenerator",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T10:00:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Code Implementation",
+        "agent_name": "CoderAgent",
+        "tool_used": "IDE_Plugin",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T10:45:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Unit Testing",
+        "agent_name": "TestAgent",
+        "tool_used": "JestRunner",
+        "status": "failed"
+    },
+    {
+        "timestamp": "2024-02-10T10:50:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Fix Bugs",
+        "agent_name": "CoderAgent",
+        "tool_used": "IDE_Plugin",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T11:15:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Unit Testing",
+        "agent_name": "TestAgent",
+        "tool_used": "JestRunner",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T11:20:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Integration Testing",
+        "agent_name": "TestAgent",
+        "tool_used": "CypressRunner",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T11:30:00Z",
+        "task_id": "TASK-8001",
+        "activity": "Deployment",
+        "agent_name": "DevOpsAgent",
+        "tool_used": "K8sDeployer",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T13:00:00Z",
+        "task_id": "TASK-8002",
+        "activity": "Feature Request Received",
+        "agent_name": "System",
+        "tool_used": "Jira",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T13:05:00Z",
+        "task_id": "TASK-8002",
+        "activity": "Requirements Analysis",
+        "agent_name": "ProductOwnerAgent",
+        "tool_used": "RequirementAnalyzer",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T13:15:00Z",
+        "task_id": "TASK-8002",
+        "activity": "Code Implementation",
+        "agent_name": "CoderAgent",
+        "tool_used": "IDE_Plugin",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T13:45:00Z",
+        "task_id": "TASK-8002",
+        "activity": "Unit Testing",
+        "agent_name": "TestAgent",
+        "tool_used": "JestRunner",
+        "status": "success"
+    },
+    {
+        "timestamp": "2024-02-10T14:00:00Z",
+        "task_id": "TASK-8002",
+        "activity": "Deployment",
+        "agent_name": "DevOpsAgent",
+        "tool_used": "K8sDeployer",
+        "status": "success"
+    }
+]

@@ -1,0 +1,53 @@
+{
+    "name": "Variant",
+    "type": "object",
+    "properties": {
+        "use_case_id": {
+            "type": "string",
+            "description": "Associated use case ID"
+        },
+        "name": {
+            "type": "string",
+            "description": "Variant name"
+        },
+        "variant_code": {
+            "type": "string",
+            "description": "Short code like COB-01, OTC-01"
+        },
+        "activities": {
+            "type": "array",
+            "description": "Ordered list of activity names in this variant",
+            "items": {
+                "type": "string"
+            }
+        },
+        "case_count": {
+            "type": "number",
+            "description": "Number of cases following this variant"
+        },
+        "percentage": {
+            "type": "number",
+            "description": "Percentage of total cases"
+        },
+        "avg_duration": {
+            "type": "string",
+            "description": "Average duration for this variant"
+        },
+        "avg_duration_hours": {
+            "type": "number",
+            "description": "Average duration in hours"
+        },
+        "group_name": {
+            "type": "string",
+            "description": "Category group name"
+        },
+        "is_new": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "required": [
+        "use_case_id",
+        "activities"
+    ]
+}

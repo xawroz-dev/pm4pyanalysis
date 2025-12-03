@@ -1,0 +1,74 @@
+{
+    "name": "RiskControl",
+    "type": "object",
+    "properties": {
+        "use_case_id": {
+            "type": "string",
+            "description": "Associated use case ID"
+        },
+        "type": {
+            "type": "string",
+            "enum": [
+                "risk",
+                "control"
+            ],
+            "description": "Whether this is a risk or control"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the risk or control"
+        },
+        "description": {
+            "type": "string",
+            "description": "Detailed description"
+        },
+        "severity": {
+            "type": "string",
+            "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+            ],
+            "description": "Severity level"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "identified",
+                "mitigated",
+                "remediated",
+                "pending_approval"
+            ],
+            "default": "identified"
+        },
+        "associated_activity": {
+            "type": "string",
+            "description": "Associated activity or step"
+        },
+        "remediation_action": {
+            "type": "string",
+            "description": "Suggested remediation action"
+        },
+        "auto_remediate": {
+            "type": "boolean",
+            "default": false
+        },
+        "violation_count": {
+            "type": "number",
+            "description": "Number of violations detected"
+        },
+        "affected_cases": {
+            "type": "array",
+            "description": "List of affected case IDs",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "use_case_id",
+        "type",
+        "name"
+    ]
+}

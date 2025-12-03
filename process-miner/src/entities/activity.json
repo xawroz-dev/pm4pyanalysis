@@ -1,0 +1,50 @@
+{
+    "name": "Activity",
+    "type": "object",
+    "properties": {
+        "use_case_id": {
+            "type": "string",
+            "description": "Associated use case ID"
+        },
+        "original_name": {
+            "type": "string",
+            "description": "Original activity name from logs"
+        },
+        "display_name": {
+            "type": "string",
+            "description": "Renamed display name"
+        },
+        "ai_suggested_name": {
+            "type": "string",
+            "description": "AI suggested name"
+        },
+        "group_id": {
+            "type": "string",
+            "description": "Combined activity group ID"
+        },
+        "level": {
+            "type": "number",
+            "description": "Hierarchy level (1=top, 2=sub, 3=sub-sub)"
+        },
+        "parent_activity_id": {
+            "type": "string",
+            "description": "Parent activity for hierarchical labeling"
+        },
+        "application_id": {
+            "type": "string",
+            "description": "Source application ID"
+        },
+        "color": {
+            "type": "string",
+            "description": "Color for visualization"
+        },
+        "order": {
+            "type": "number",
+            "description": "Display order"
+        }
+    },
+    "required": [
+        "use_case_id",
+        "original_name"
+    ]
+}

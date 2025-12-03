@@ -1,0 +1,75 @@
+{
+    "name": "ControlViolation",
+    "type": "object",
+    "properties": {
+        "use_case_id": {
+            "type": "string"
+        },
+        "risk_control_id": {
+            "type": "string"
+        },
+        "case_id": {
+            "type": "string",
+            "description": "Process case ID"
+        },
+        "customer_id": {
+            "type": "string"
+        },
+        "violation_type": {
+            "type": "string"
+        },
+        "severity": {
+            "type": "string",
+            "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+            ]
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "activities_involved": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "journey": {
+            "type": "array",
+            "description": "Full journey of the case",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "activity": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    },
+                    "system": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "open",
+                "investigating",
+                "resolved"
+            ],
+            "default": "open"
+        }
+    },
+    "required": [
+        "use_case_id",
+        "case_id"
+    ]
+}
