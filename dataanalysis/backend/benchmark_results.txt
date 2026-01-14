@@ -1,0 +1,5 @@
+Benchmark Results
+=================
+Journeys: 100, Ingest: 0.72s, Stitch: 0.02s, Total: 0.74s
+Journeys: 1000, Ingest: 1.21s, Stitch: 0.01s, Total: 1.22s
+Journeys: 10000, Ingest: 5.35s, Stitch: 0.01s, Total: 5.36s

@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  janusgraph:
+    image: janusgraph/janusgraph:0.6.3
+    container_name: janusgraph
+    environment:
+      - JANUSGRAPH_STORAGE_BACKEND=cql
+      - JANUSGRAPH_STORAGE_HOSTNAME=cassandra
+      - JANUSGRAPH_INDEX_SEARCH_BACKEND=lucene
+      - JANUSGRAPH_INDEX_SEARCH_DIRECTORY=/var/lib/janusgraph/data/searchindex
+      - JANUSGRAPH_K8S_STORAGE_CQL_READ_CONSISTENCY_LEVEL=ONE
+      - JANUSGRAPH_K8S_STORAGE_CQL_WRITE_CONSISTENCY_LEVEL=ONE
+      - JAVA_OPTIONS=-Xms2G -Xmx4G
+    ports:
+      - "8182:8182"
+    depends_on:
+      - cassandra
+    networks:
+      - jg-network
+    healthcheck:
+      test: [ "CMD", "bin/gremlin.sh", "-e", "1+1" ]
+      interval: 20s
+      timeout: 30s
+      retries: 10
+
+  cassandra:
+    image: cassandra:3.11
+    container_name: cassandra
+    environment:
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=400M
+    ports:
+      - "9042:9042"
+      - "9160:9160"
+    networks:
+      - jg-network
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  jg-network:
