@@ -1,0 +1,88 @@
+version: '3.8'
+
+# ==============================================================================
+# JanusGraph + Cassandra Production-Ready Docker Compose
+# ==============================================================================
+# The JanusGraph 0.6.3 Docker image uses JANUS_PROPS_TEMPLATE=cql for Cassandra
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # CASSANDRA - Storage Backend
+  # ============================================================================
+  cassandra:
+    image: cassandra:3.11
+    container_name: cassandra
+    hostname: cassandra
+    environment:
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=400M
+      - CASSANDRA_CLUSTER_NAME=janusgraph-cluster
+      - CASSANDRA_DC=dc1
+      - CASSANDRA_RACK=rack1
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    networks:
+      - jg-network
+    healthcheck:
+      test: [ "CMD-SHELL", "nodetool status | grep -q 'UN'" ]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+      start_period: 90s
+    restart: unless-stopped
+
+  # ============================================================================
+  # JANUSGRAPH - Using CQL Template for Cassandra Backend
+  # ============================================================================
+  janusgraph:
+    image: janusgraph/janusgraph:0.6.3
+    container_name: janusgraph
+    hostname: janusgraph
+    environment:
+      # CRITICAL: This tells JanusGraph to use the CQL (Cassandra) template
+      JANUS_PROPS_TEMPLATE: cql
+      # Override specific properties (dot-notation with janusgraph. prefix)
+      janusgraph.storage.hostname: cassandra
+      janusgraph.storage.cql.keyspace: janusgraph
+      janusgraph.storage.cql.local-datacenter: datacenter1
+      # Cache settings
+      janusgraph.cache.db-cache: "true"
+      janusgraph.cache.db-cache-size: "0.5"
+      janusgraph.ids.block-size: "100000"
+      # JVM settings
+      JAVA_OPTIONS: -Xms1G -Xmx2G
+    ports:
+      - "8182:8182"
+    volumes:
+      - janusgraph-data:/var/lib/janusgraph/data
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - jg-network
+    healthcheck:
+      test: [ "CMD", "bin/gremlin.sh", "-e", "scripts/remote-connect.groovy" ]
+      interval: 30s
+      timeout: 60s
+      retries: 15
+      start_period: 120s
+    restart: unless-stopped
+
+# ==============================================================================
+# VOLUMES - Persistent Storage
+# ==============================================================================
+volumes:
+  cassandra-data:
+    driver: local
+  janusgraph-data:
+    driver: local
+
+# ==============================================================================
+# NETWORKS
+# ==============================================================================
+networks:
+  jg-network:
+    driver: bridge

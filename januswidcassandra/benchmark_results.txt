@@ -1,0 +1,8 @@
+Benchmark Results
+=================
+Journeys: 100, Ingest: 0.72s, Stitch: 0.02s, Total: 0.74s
+Journeys: 1000, Ingest: 1.21s, Stitch: 0.01s, Total: 1.22s
+Journeys: 10000, Ingest: 5.35s, Stitch: 0.01s, Total: 5.36s
+Usecase: benchmark_demo, Journeys: 1000, Events: 90000, Backend: CQLStoreManager.janusgraph, Ingest: 0.25s, Stitch: 0.11s, Total: 0.36s, Validation: FAILED
+Usecase: benchmark_demo, Journeys: 1000, Events: 90000, Backend: CQLStoreManager.janusgraph, Ingest: 0.23s, Stitch: 0.01s, Total: 0.24s, Validation: FAILED
+Usecase: benchmark_demo, Journeys: 1000, Events: 90000, Backend: CQLStoreManager.janusgraph, Ingest: 0.21s, Stitch: 0.01s, Total: 0.22s, Validation: FAILED

@@ -1,0 +1,108 @@
+# ==============================================================================
+# JanusGraph Server (Gremlin Server) Configuration
+# ==============================================================================
+# This file configures the Gremlin Server that exposes JanusGraph via WebSocket
+# ==============================================================================
+
+# Host and port to bind the server
+host: 0.0.0.0
+port: 8182
+
+# Thread pool sizes
+threadPoolWorker: 4
+gremlinPool: 8
+
+# Evaluator timeout (milliseconds) - max time for a script to execute
+evaluationTimeout: 180000
+
+# Channel configuration
+channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
+
+# Graph configuration
+graphs: {
+  graph: conf/janusgraph.properties
+}
+
+# Script engines configuration
+scriptEngines: {
+  gremlin-groovy: {
+    plugins: { 
+      org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin: {},
+      org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin: {},
+      org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin: {},
+      org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin: {
+        classImports: [
+          java.lang.Math
+        ],
+        methodImports: [
+          java.lang.Math#*
+        ]
+      },
+      org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin: {
+        files: [scripts/empty-sample.groovy]
+      }
+    }
+  }
+}
+
+# Serializers for different clients
+serializers:
+  - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { ioRegistries: [org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry] }}
+  - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { serializeResultToString: true }}
+  - { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0, config: { ioRegistries: [org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry] }}
+  - { className: org.apache.tinkerpop.gremlin.driver.ser.GraphBinaryMessageSerializerV1 }
+
+# Processors for handling requests
+processors:
+  - { className: org.apache.tinkerpop.gremlin.server.op.session.SessionOpProcessor, config: { sessionTimeout: 28800000 }}
+  - { className: org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor }
+
+# Operations timeout (milliseconds)
+operationTimeout: 180000
+
+# Keep-alive interval (milliseconds)
+keepAliveInterval: 120000
+
+# Max content length for requests
+maxContentLength: 10485760
+
+# Max accumulation buffer size
+maxAccumulationBufferComponents: 1024
+
+# Result iteration batch size
+resultIterationBatchSize: 64
+
+# Write buffer configuration
+writeBufferLowWaterMark: 32768
+writeBufferHighWaterMark: 65536
+
+# SSL configuration (uncomment for production)
+# ssl: {
+#   enabled: true,
+#   keyStore: server.jks,
+#   keyStorePassword: changeit
+# }
+
+# Authentication (uncomment for production)
+# authentication: {
+#   authenticator: org.apache.tinkerpop.gremlin.server.auth.SimpleAuthenticator,
+#   authenticationHandler: org.apache.tinkerpop.gremlin.server.handler.SaslAuthenticationHandler,
+#   config: {
+#     credentialsDb: conf/credentials.properties,
+#     credentialsDbLocation: /var/lib/janusgraph/data/credentials.kryo
+#   }
+# }
+
+# Metrics configuration
+metrics: {
+  consoleReporter: {enabled: false, interval: 60000},
+  csvReporter: {enabled: false, interval: 60000, fileName: /tmp/gremlin-server-metrics.csv},
+  jmxReporter: {enabled: true, domain: org.apache.tinkerpop.gremlin.server.metrics},
+  slf4jReporter: {enabled: false, interval: 60000}
+}
+
+# Strict transaction management
+strictTransactionManagement: false
+
+# Max session timeout (8 hours in milliseconds)
+maxSessionTaskQueueSize: 4096
