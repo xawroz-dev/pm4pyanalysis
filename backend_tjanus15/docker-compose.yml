@@ -1,0 +1,102 @@
+version: '3.8'
+
+# ==============================================================================
+# JanusGraph + Cassandra - Production Docker Configuration
+# ==============================================================================
+# Uses external configuration files:
+#   - conf/janusgraph.properties
+#   - conf/janusgraph-server.yaml
+#   - conf/scripts/empty-sample.groovy
+#
+# USAGE:
+#   docker-compose up -d
+#   # Wait 2-3 minutes for startup
+#   docker-compose logs -f janusgraph
+#
+# VERIFY:
+#   docker exec jg-cassandra cqlsh -e "DESCRIBE KEYSPACES"
+#   # Should show 'janusgraph' keyspace
+#
+#   docker exec jg-cassandra cqlsh -e "SELECT COUNT(*) FROM janusgraph.edgestore"
+#   # Should show row count > 0 after data ingestion
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # CASSANDRA 3.11 - Storage Backend
+  # ============================================================================
+  cassandra:
+    image: cassandra:3.11
+    container_name: jg-cassandra
+    hostname: jg-cassandra
+    environment:
+      MAX_HEAP_SIZE: 1G
+      HEAP_NEWSIZE: 200M
+      CASSANDRA_CLUSTER_NAME: JanusGraphCluster
+      CASSANDRA_ENDPOINT_SNITCH: SimpleSnitch
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - janusgraph-network
+    healthcheck:
+      test: [ "CMD-SHELL", "cqlsh -e 'SELECT now() FROM system.local' || exit 1" ]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # ============================================================================
+  # JANUSGRAPH 0.6.3 - Graph Database with Cassandra Backend
+  # ============================================================================
+  janusgraph:
+    image: janusgraph/janusgraph:0.6.3
+    container_name: jg-server
+    hostname: jg-server
+    environment:
+      # Tell JanusGraph to use our custom configuration files
+      JANUS_PROPS_TEMPLATE: cql
+      # These override values in the properties file
+      janusgraph.storage.hostname: jg-cassandra
+      janusgraph.storage.cql.keyspace: janusgraph
+      janusgraph.storage.cql.local-datacenter: datacenter1
+      # JVM settings
+      JAVA_OPTIONS: -Xms512m -Xmx1g
+    ports:
+      - "8182:8182"
+    volumes:
+      # Mount configuration files
+      - ./conf/janusgraph.properties:/etc/opt/janusgraph/janusgraph.properties
+      - ./conf/janusgraph-server.yaml:/etc/opt/janusgraph/janusgraph-server.yaml
+      - ./conf/scripts:/opt/janusgraph/scripts
+      # Persist data
+      - janusgraph_data:/var/lib/janusgraph/data
+    networks:
+      - janusgraph-network
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "bin/gremlin.sh -e scripts/empty-sample.groovy 2>/dev/null || exit 1" ]
+      interval: 30s
+      timeout: 30s
+      retries: 10
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+volumes:
+  cassandra_data:
+  janusgraph_data:
+
+
+networks:
+  janusgraph-network:
+    driver: bridge
