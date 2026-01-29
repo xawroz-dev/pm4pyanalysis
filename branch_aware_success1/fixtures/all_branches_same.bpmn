@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_1" targetNamespace="http://test.com">
+
+  <!-- TEST CASE 4: All branches need same mod -->
+  <bpmn:process id="AllBranchesNeed" name="All Branches Need Same Mod" isExecutable="true">
+    
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_Start</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:exclusiveGateway id="XOR_1">
+      <bpmn:incoming>Flow_Start</bpmn:incoming>
+      <bpmn:outgoing>Flow_B1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_B2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_B3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- All 3 branches need dataX -->
+    <bpmn:serviceTask id="Task_A" name="Task A needs dataX" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataX">${dataX}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B1</bpmn:incoming>
+      <bpmn:outgoing>Flow_End1</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_B" name="Task B needs dataX" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataX">${dataX}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B2</bpmn:incoming>
+      <bpmn:outgoing>Flow_End2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_C" name="Task C needs dataX" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataX">${dataX}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B3</bpmn:incoming>
+      <bpmn:outgoing>Flow_End3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End1"><bpmn:incoming>Flow_End1</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End2"><bpmn:incoming>Flow_End2</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End3"><bpmn:incoming>Flow_End3</bpmn:incoming></bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start" sourceRef="Start" targetRef="XOR_1"/>
+    <bpmn:sequenceFlow id="Flow_B1" sourceRef="XOR_1" targetRef="Task_A"/>
+    <bpmn:sequenceFlow id="Flow_B2" sourceRef="XOR_1" targetRef="Task_B"/>
+    <bpmn:sequenceFlow id="Flow_B3" sourceRef="XOR_1" targetRef="Task_C"/>
+    <bpmn:sequenceFlow id="Flow_End1" sourceRef="Task_A" targetRef="End1"/>
+    <bpmn:sequenceFlow id="Flow_End2" sourceRef="Task_B" targetRef="End2"/>
+    <bpmn:sequenceFlow id="Flow_End3" sourceRef="Task_C" targetRef="End3"/>
+
+  </bpmn:process>
+</bpmn:definitions>

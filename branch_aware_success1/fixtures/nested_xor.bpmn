@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_1" targetNamespace="http://test.com">
+
+  <!-- TEST CASE 2: Nested XOR gateways -->
+  <bpmn:process id="NestedXOR" name="Nested XOR Test" isExecutable="true">
+    
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_Start</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Main Gateway -->
+    <bpmn:exclusiveGateway id="Main_XOR">
+      <bpmn:incoming>Flow_Start</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToNested</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Direct</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Branch 1: Goes to nested XOR -->
+    <bpmn:exclusiveGateway id="Nested_XOR">
+      <bpmn:incoming>Flow_ToNested</bpmn:incoming>
+      <bpmn:outgoing>Flow_N1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_N2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_N3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Nested Branch 1: Needs dataA -->
+    <bpmn:serviceTask id="Task_NeedA" name="Need dataA" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataA">${dataA}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_N1</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndN1</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Nested Branch 2: Needs dataA -->
+    <bpmn:serviceTask id="Task_NeedA2" name="Need dataA also" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataA">${dataA}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_N2</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndN2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Nested Branch 3: Needs dataB (different!) -->
+    <bpmn:serviceTask id="Task_NeedB" name="Need dataB" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataB">${dataB}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_N3</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndN3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Branch 2: Direct task needs dataC -->
+    <bpmn:serviceTask id="Task_NeedC" name="Need dataC" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="dataC">${dataC}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Direct</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndDirect</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End1"><bpmn:incoming>Flow_EndN1</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End2"><bpmn:incoming>Flow_EndN2</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End3"><bpmn:incoming>Flow_EndN3</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End4"><bpmn:incoming>Flow_EndDirect</bpmn:incoming></bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start" sourceRef="Start" targetRef="Main_XOR"/>
+    <bpmn:sequenceFlow id="Flow_ToNested" sourceRef="Main_XOR" targetRef="Nested_XOR"/>
+    <bpmn:sequenceFlow id="Flow_Direct" sourceRef="Main_XOR" targetRef="Task_NeedC"/>
+    <bpmn:sequenceFlow id="Flow_N1" sourceRef="Nested_XOR" targetRef="Task_NeedA"/>
+    <bpmn:sequenceFlow id="Flow_N2" sourceRef="Nested_XOR" targetRef="Task_NeedA2"/>
+    <bpmn:sequenceFlow id="Flow_N3" sourceRef="Nested_XOR" targetRef="Task_NeedB"/>
+    <bpmn:sequenceFlow id="Flow_EndN1" sourceRef="Task_NeedA" targetRef="End1"/>
+    <bpmn:sequenceFlow id="Flow_EndN2" sourceRef="Task_NeedA2" targetRef="End2"/>
+    <bpmn:sequenceFlow id="Flow_EndN3" sourceRef="Task_NeedB" targetRef="End3"/>
+    <bpmn:sequenceFlow id="Flow_EndDirect" sourceRef="Task_NeedC" targetRef="End4"/>
+
+  </bpmn:process>
+</bpmn:definitions>

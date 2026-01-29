@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_1" targetNamespace="http://test.com">
+
+  <!-- TEST CASE 3: Long mod chain A -> B -> C -> D -> E -->
+  <bpmn:process id="ChainedMods" name="Chained Mods Test" isExecutable="true">
+    
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_Start</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:exclusiveGateway id="XOR_1">
+      <bpmn:incoming>Flow_Start</bpmn:incoming>
+      <bpmn:outgoing>Flow_B1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_B2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_B3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Branch 1: Needs the FINAL output (E) - requires full chain A->B->C->D->E -->
+    <bpmn:serviceTask id="Task_NeedE" name="Need outputE" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="outputE">${outputE}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B1</bpmn:incoming>
+      <bpmn:outgoing>Flow_End1</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Branch 2: Needs outputC - requires chain A->B->C only -->
+    <bpmn:serviceTask id="Task_NeedC" name="Need outputC" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="outputC">${outputC}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B2</bpmn:incoming>
+      <bpmn:outgoing>Flow_End2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Branch 3: Needs only initial input (no mods) -->
+    <bpmn:serviceTask id="Task_NeedInput" name="Need initial" camunda:class="com.test">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="initial">${initial}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B3</bpmn:incoming>
+      <bpmn:outgoing>Flow_End3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End1"><bpmn:incoming>Flow_End1</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End2"><bpmn:incoming>Flow_End2</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End3"><bpmn:incoming>Flow_End3</bpmn:incoming></bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start" sourceRef="Start" targetRef="XOR_1"/>
+    <bpmn:sequenceFlow id="Flow_B1" sourceRef="XOR_1" targetRef="Task_NeedE"/>
+    <bpmn:sequenceFlow id="Flow_B2" sourceRef="XOR_1" targetRef="Task_NeedC"/>
+    <bpmn:sequenceFlow id="Flow_B3" sourceRef="XOR_1" targetRef="Task_NeedInput"/>
+    <bpmn:sequenceFlow id="Flow_End1" sourceRef="Task_NeedE" targetRef="End1"/>
+    <bpmn:sequenceFlow id="Flow_End2" sourceRef="Task_NeedC" targetRef="End2"/>
+    <bpmn:sequenceFlow id="Flow_End3" sourceRef="Task_NeedInput" targetRef="End3"/>
+
+  </bpmn:process>
+</bpmn:definitions>
