@@ -1,0 +1,26 @@
+{
+  "entries": {
+    "account_number": {
+      "description": "Unique identifier for a financial account",
+      "examples": [
+        "ACC123456"
+      ],
+      "aliases": [
+        "accountNumber",
+        "ACCT_NO"
+      ]
+    },
+    "customer_name": {
+      "description": "Full name of the customer",
+      "examples": [
+        "John Doe"
+      ],
+      "aliases": [
+        "customerName",
+        "cust_name"
+      ]
+    }
+  },
+  "version": 2,
+  "last_updated": "2026-02-06T20:29:57.595308"
+}
