@@ -1,0 +1,31 @@
+Start with these primary questions:
+1. Which variants took the longest this week?
+2. Which variants included merchant evidence review yesterday?
+3. What percentage of journeys received provisional credit last Friday?
+4. Show journey DSP-10482 on July 2, 2026
+5. Which journeys exceeded 48 hours this week?
+6. Compare Variant 5 and Variant 8 this week
+7. Compare variant duration this week with last week
+8. Compare completed journeys this week with last week
+9. Which activities are taking the longest?
+10. Show process flow
+Good follow-up questions to demonstrate memory:
+1. Show journeys behind this variant
+2. Which activities make this variant long?
+3. Which variant improved most?
+4. Which variant got slower this week?
+5. Which variants include this activity?
+6. Show journeys affected by this activity
+7. Which step took the longest in this journey?
+8. Find other journeys like this
+9. Which variant does this journey follow?
+10. Open journey DSP-11934
+Best demo flow:
+1. Type: Which variants took the longest this week?
+2. Click/type: Show journeys behind this variant
+3. Click/type: Which activities make this variant long?
+4. Type: Compare variant duration this week with last week
+5. Click/type: Which variant improved most?
+6. Type: Show journey DSP-10482 on July 2, 2026
+7. Click/type: Which step took the longest in this journey?
+
