@@ -1,0 +1,400 @@
+Below is a story-ready backlog for the Journey and Variant MVP. Aggregations, KPI analysis, trends, bottlenecks and complex summaries are excluded.
+
+Priority labels:
+
+
+# Epic 1 — Confirm MVP scope
+
+| ID       | Priority | Story/task                                                          |
+| -------- | -------: | ------------------------------------------------------------------- |
+| SCOPE-01 |       P0 | Write and approve the MVP objective.                                |
+| SCOPE-02 |       P0 | Select the first one or two pilot processes.                        |
+| SCOPE-03 |       P0 | Define which hierarchy levels are supported for each pilot process. |
+| SCOPE-04 |       P0 | Create the supported-question catalogue.                            |
+| SCOPE-05 |       P0 | Create the unsupported-question catalogue.                          |
+| SCOPE-06 |       P0 | Define which variant questions are supported.                       |
+| SCOPE-07 |       P0 | Define which journey questions are supported.                       |
+| SCOPE-08 |       P0 | Decide whether variant comparison is included.                      |
+| SCOPE-09 |       P0 | Decide whether journey comparison is included.                      |
+| SCOPE-10 |       P0 | Decide whether bounded journey search is included.                  |
+| SCOPE-11 |       P0 | Define when the assistant must ask a clarification question.        |
+| SCOPE-12 |       P0 | Define allowed defaults for process, level, status and date range.  |
+| SCOPE-13 |       P0 | Define MVP success measures.                                        |
+| SCOPE-14 |       P0 | Define business, technical and support owners.                      |
+| SCOPE-15 |       P0 | Create and maintain an architecture decision log.                   |
+
+# Epic 2 — Understand the existing data
+
+| ID      | Priority | Story/task                                                            |
+| ------- | -------: | --------------------------------------------------------------------- |
+| DATA-01 |       P0 | Inventory the variant catalogue indexes and schemas.                  |
+| DATA-02 |       P0 | Inventory the journey-to-variant mapping indexes and schemas.         |
+| DATA-03 |       P0 | Inventory the journey and event indexes and schemas.                  |
+| DATA-04 |       P0 | Collect representative records from every index.                      |
+| DATA-05 |       P0 | Document which fields are mandatory, optional or unreliable.          |
+| DATA-06 |       P0 | Define the unique key for a variant.                                  |
+| DATA-07 |       P0 | Define whether journey IDs are globally unique or process-scoped.     |
+| DATA-08 |       P0 | Define the complete key for journey-to-variant membership.            |
+| DATA-09 |       P0 | Define how hierarchy node and level affect variant identity.          |
+| DATA-10 |       P0 | Document how variant activity sequences are stored.                   |
+| DATA-11 |       P0 | Document how journey events are ordered.                              |
+| DATA-12 |       P0 | Define behavior for events with identical timestamps.                 |
+| DATA-13 |       P0 | Define completed, in-progress, partial and corrected journeys.        |
+| DATA-14 |       P0 | Define how late-arriving events are handled.                          |
+| DATA-15 |       P0 | Define how journey membership changes are handled.                    |
+| DATA-16 |       P0 | Define compatibility across variant, membership and journey versions. |
+| DATA-17 |       P0 | Define freshness timestamps for each data source.                     |
+| DATA-18 |       P0 | Identify which fields can be searched.                                |
+| DATA-19 |       P0 | Identify which fields can be presented to users.                      |
+| DATA-20 |       P0 | Define data-quality validation rules.                                 |
+| DATA-21 |       P0 | Create deterministic test fixtures for each source.                   |
+
+# Epic 3 — Define safe workload limits
+
+| ID       | Priority | Story/task                                                |
+| -------- | -------: | --------------------------------------------------------- |
+| LIMIT-01 |       P0 | Define the maximum variant page size.                     |
+| LIMIT-02 |       P0 | Define the maximum journey page size.                     |
+| LIMIT-03 |       P0 | Define the maximum number of events returned per journey. |
+| LIMIT-04 |       P0 | Define the maximum batch of known journey IDs.            |
+| LIMIT-05 |       P0 | Define the maximum allowed date range.                    |
+| LIMIT-06 |       P0 | Define maximum cursor/page traversal.                     |
+| LIMIT-07 |       P0 | Define maximum multi-tool fan-out.                        |
+| LIMIT-08 |       P0 | Define tool timeouts.                                     |
+| LIMIT-09 |       P0 | Define query concurrency and rate limits.                 |
+| LIMIT-10 |       P0 | Performance-test the limits using production-like data.   |
+
+# Epic 4 — Build the structured knowledge base
+
+| ID    | Priority | Story/task                                                    |
+| ----- | -------: | ------------------------------------------------------------- |
+| KB-01 |       P0 | Define the process metadata schema.                           |
+| KB-02 |       P0 | Define the hierarchy-node metadata schema.                    |
+| KB-03 |       P0 | Define the activity metadata schema.                          |
+| KB-04 |       P0 | Define application and system metadata.                       |
+| KB-05 |       P0 | Define process, hierarchy, activity and system alias records. |
+| KB-06 |       P0 | Define variant-reference metadata.                            |
+| KB-07 |       P0 | Define journey-schema metadata.                               |
+| KB-08 |       P0 | Define membership-schema metadata.                            |
+| KB-09 |       P0 | Store the root or main-process designation explicitly.        |
+| KB-10 |       P0 | Store parent-child hierarchy relationships.                   |
+| KB-11 |       P0 | Store activity-to-hierarchy-node relationships.               |
+| KB-12 |       P0 | Store activity-to-system relationships.                       |
+| KB-13 |       P0 | Store technical index and field mappings.                     |
+| KB-14 |       P0 | Store enabled tools for each process.                         |
+| KB-15 |       P0 | Store allowed presentations for each result type.             |
+| KB-16 |       P0 | Add knowledge/configuration versioning.                       |
+| KB-17 |       P0 | Build alias collision detection.                              |
+| KB-18 |       P0 | Build broken-ID and relationship validation.                  |
+| KB-19 |       P0 | Build knowledge-package ingestion and publication.            |
+| KB-20 |       P0 | Create the first pilot-process knowledge package.             |
+| KB-21 |       P1 | Build a knowledge-package readiness report.                   |
+| KB-22 |       P1 | Build configuration rollback support.                         |
+
+# Epic 5 — Build the capability registry
+
+| ID     | Priority | Story/task                                                |
+| ------ | -------: | --------------------------------------------------------- |
+| REG-01 |       P0 | Define the common capability manifest.                    |
+| REG-02 |       P0 | Support capability types: tool, skill and presentation.   |
+| REG-03 |       P0 | Store capability ID, version, owner and lifecycle status. |
+| REG-04 |       P0 | Store supported intents and entity types.                 |
+| REG-05 |       P0 | Store required and optional inputs.                       |
+| REG-06 |       P0 | Store prohibited uses and scope restrictions.             |
+| REG-07 |       P0 | Store input and output schemas.                           |
+| REG-08 |       P0 | Store typed error schemas.                                |
+| REG-09 |       P0 | Store limits, timeout and retry policies.                 |
+| REG-10 |       P0 | Store compatible process and data versions.               |
+| REG-11 |       P0 | Store eligible presentations for each result schema.      |
+| REG-12 |       P1 | Store positive and negative usage examples.               |
+| REG-13 |       P1 | Add feature flags for optional capabilities.              |
+| REG-14 |       P1 | Build registry search for eligible capabilities.          |
+| REG-15 |       P1 | Add capability versioning and rollback.                   |
+| REG-16 |       P1 | Add registry caching and invalidation.                    |
+
+# Epic 6 — Define common request and result contracts
+
+| ID          | Priority | Story/task                                     |
+| ----------- | -------: | ---------------------------------------------- |
+| CONTRACT-01 |       P0 | Define the resolved-request context schema.    |
+| CONTRACT-02 |       P0 | Require `tenant_id` and `process_id`.          |
+| CONTRACT-03 |       P0 | Support hierarchy node and level context.      |
+| CONTRACT-04 |       P0 | Include user-access context.                   |
+| CONTRACT-05 |       P0 | Include knowledge and data versions.           |
+| CONTRACT-06 |       P0 | Record the source of every parameter.          |
+| CONTRACT-07 |       P0 | Define the standard tool-request envelope.     |
+| CONTRACT-08 |       P0 | Define the standard tool-result envelope.      |
+| CONTRACT-09 |       P0 | Define pagination and cursor metadata.         |
+| CONTRACT-10 |       P0 | Define freshness and completeness metadata.    |
+| CONTRACT-11 |       P0 | Define evidence and source-reference metadata. |
+| CONTRACT-12 |       P0 | Define warning and truncation fields.          |
+| CONTRACT-13 |       P0 | Define the standard error taxonomy.            |
+| CONTRACT-14 |       P0 | Define version-compatibility rules.            |
+| CONTRACT-15 |       P1 | Publish example requests and responses.        |
+
+# Epic 7 — Build the tool gateway
+
+| ID         | Priority | Story/task                                                   |
+| ---------- | -------: | ------------------------------------------------------------ |
+| GATEWAY-01 |       P0 | Validate all tool requests against their registered schemas. |
+| GATEWAY-02 |       P0 | Enforce tenant and process boundaries.                       |
+| GATEWAY-03 |       P0 | Enforce user authorization.                                  |
+| GATEWAY-04 |       P0 | Enforce field-level access restrictions.                     |
+| GATEWAY-05 |       P0 | Map tools to approved query templates.                       |
+| GATEWAY-06 |       P0 | Reject arbitrary Elasticsearch DSL.                          |
+| GATEWAY-07 |       P0 | Enforce page, batch, date and event limits.                  |
+| GATEWAY-08 |       P0 | Enforce timeouts and bounded retries.                        |
+| GATEWAY-09 |       P0 | Standardize data-service errors.                             |
+| GATEWAY-10 |       P0 | Add request and response tracing.                            |
+| GATEWAY-11 |       P0 | Add tool-version information to traces.                      |
+| GATEWAY-12 |       P1 | Add rate limiting.                                           |
+| GATEWAY-13 |       P1 | Add safe caching for stable reference data.                  |
+| GATEWAY-14 |       P1 | Add circuit-breaker behavior.                                |
+
+# Epic 8 — Build variant tools
+
+| ID     | Priority | Story/task                                           |
+| ------ | -------: | ---------------------------------------------------- |
+| VAR-01 |       P1 | Implement `process_context_get`.                     |
+| VAR-02 |       P1 | Implement `variant_catalog_search`.                  |
+| VAR-03 |       P1 | Support paginated variant listing.                   |
+| VAR-04 |       P1 | Support variant lookup by canonical ID.              |
+| VAR-05 |       P1 | Support variant lookup by approved name or alias.    |
+| VAR-06 |       P1 | Implement `variant_get`.                             |
+| VAR-07 |       P1 | Return process, hierarchy and level context.         |
+| VAR-08 |       P1 | Return variant sequence or signature information.    |
+| VAR-09 |       P1 | Translate activity IDs to business labels.           |
+| VAR-10 |       P1 | Return unknown-activity warnings.                    |
+| VAR-11 |       P1 | Handle missing and inactive variants.                |
+| VAR-12 |       P1 | Handle version mismatches.                           |
+| VAR-13 |       P1 | Create variant-tool contract tests.                  |
+| VAR-14 |       P1 | Create variant-tool performance tests.               |
+| VAR-15 |       P2 | Implement deterministic `variant_structure_compare`. |
+
+# Epic 9 — Build membership tools
+
+| ID        | Priority | Story/task                                        |
+| --------- | -------: | ------------------------------------------------- |
+| MEMBER-01 |       P1 | Implement `journey_membership_by_variant`.        |
+| MEMBER-02 |       P1 | Return a bounded page of journey IDs.             |
+| MEMBER-03 |       P1 | Support approved date and status filters.         |
+| MEMBER-04 |       P1 | Include hierarchy node and level in every result. |
+| MEMBER-05 |       P1 | Include membership version and freshness.         |
+| MEMBER-06 |       P1 | Implement `variant_membership_by_journey`.        |
+| MEMBER-07 |       P1 | Handle no membership.                             |
+| MEMBER-08 |       P1 | Handle multiple or conflicting memberships.       |
+| MEMBER-09 |       P1 | Handle missing variant or journey references.     |
+| MEMBER-10 |       P1 | Implement stable cursor pagination.               |
+| MEMBER-11 |       P1 | Create forward-lookup contract tests.             |
+| MEMBER-12 |       P1 | Create reverse-lookup contract tests.             |
+| MEMBER-13 |       P1 | Create membership performance tests.              |
+
+# Epic 10 — Build journey tools
+
+| ID         | Priority | Story/task                                           |
+| ---------- | -------: | ---------------------------------------------------- |
+| JOURNEY-01 |       P1 | Implement `journey_get`.                             |
+| JOURNEY-02 |       P1 | Return ordered journey events.                       |
+| JOURNEY-03 |       P1 | Translate activity IDs to business labels.           |
+| JOURNEY-04 |       P1 | Return journey status and completeness.              |
+| JOURNEY-05 |       P1 | Return permitted journey attributes.                 |
+| JOURNEY-06 |       P1 | Apply the configured event limit.                    |
+| JOURNEY-07 |       P1 | Return truncation and missing-event warnings.        |
+| JOURNEY-08 |       P1 | Handle in-progress journeys.                         |
+| JOURNEY-09 |       P1 | Handle corrected or partially available journeys.    |
+| JOURNEY-10 |       P1 | Create journey-detail contract tests.                |
+| JOURNEY-11 |       P1 | Create journey-detail performance tests.             |
+| JOURNEY-12 |       P2 | Implement bounded `journey_get_batch`.               |
+| JOURNEY-13 |       P2 | Implement whitelisted `journey_search`.              |
+| JOURNEY-14 |       P2 | Implement deterministic `journey_structure_compare`. |
+
+# Epic 11 — Build assistant reasoning skills
+
+| ID    | Priority | Story/task                                            |
+| ----- | -------: | ----------------------------------------------------- |
+| AI-01 |       P1 | Implement conversation-context management.            |
+| AI-02 |       P1 | Implement supported-intent classification.            |
+| AI-03 |       P1 | Detect unsupported aggregate and analytical requests. |
+| AI-04 |       P1 | Implement process-scope resolution.                   |
+| AI-05 |       P1 | Implement hierarchy node and level resolution.        |
+| AI-06 |       P1 | Implement variant entity resolution.                  |
+| AI-07 |       P1 | Implement journey reference resolution.               |
+| AI-08 |       P1 | Implement activity and system resolution.             |
+| AI-09 |       P1 | Support exact names and technical IDs.                |
+| AI-10 |       P1 | Support approved aliases and abbreviations.           |
+| AI-11 |       P1 | Support fuzzy and semantic candidate matching.        |
+| AI-12 |       P1 | Validate semantic matches against canonical records.  |
+| AI-13 |       P1 | Define confidence and ambiguity thresholds.           |
+| AI-14 |       P1 | Return alternative candidates when ambiguous.         |
+| AI-15 |       P1 | Implement focused clarification questions.            |
+| AI-16 |       P1 | Extract required tool parameters.                     |
+| AI-17 |       P1 | Track the source of extracted/defaulted parameters.   |
+| AI-18 |       P1 | Implement registry-based tool selection.              |
+| AI-19 |       P1 | Implement approved variant-to-journey tool chaining.  |
+| AI-20 |       P1 | Implement approved journey-to-variant tool chaining.  |
+| AI-21 |       P1 | Enforce maximum tool-chain fan-out.                   |
+| AI-22 |       P1 | Validate tool results before answering.               |
+| AI-23 |       P1 | Implement grounded business-language responses.       |
+| AI-24 |       P1 | Implement no-result responses.                        |
+| AI-25 |       P1 | Implement unsupported-request responses.              |
+| AI-26 |       P1 | Implement stable follow-up references.                |
+| AI-27 |       P1 | Support “open the first journey.”                     |
+| AI-28 |       P1 | Support “show its variant.”                           |
+| AI-29 |       P1 | Support “next page.”                                  |
+| AI-30 |       P1 | Handle expired references and cursors.                |
+
+# Epic 12 — Build presentations
+
+| ID      | Priority | Story/task                                            |
+| ------- | -------: | ----------------------------------------------------- |
+| VIEW-01 |       P1 | Define normalized view-result schemas.                |
+| VIEW-02 |       P1 | Define the presentation manifest.                     |
+| VIEW-03 |       P1 | Implement presentation-selection rules.               |
+| VIEW-04 |       P1 | Build the paginated variant-list view.                |
+| VIEW-05 |       P1 | Build the variant-detail view.                        |
+| VIEW-06 |       P1 | Build the variant-path view.                          |
+| VIEW-07 |       P1 | Build the paginated journey-list view.                |
+| VIEW-08 |       P1 | Build the journey timeline.                           |
+| VIEW-09 |       P1 | Build an event-table fallback.                        |
+| VIEW-10 |       P1 | Build the clarification-choice view.                  |
+| VIEW-11 |       P1 | Build the no-result view.                             |
+| VIEW-12 |       P1 | Build the unsupported-request view.                   |
+| VIEW-13 |       P1 | Display process and hierarchy scope.                  |
+| VIEW-14 |       P1 | Display filters, freshness and completeness warnings. |
+| VIEW-15 |       P1 | Display pagination and continuation actions.          |
+| VIEW-16 |       P1 | Add accessibility and text alternatives.              |
+| VIEW-17 |       P2 | Build the structural variant-comparison view.         |
+| VIEW-18 |       P2 | Build the structural journey-comparison view.         |
+| VIEW-19 |       P2 | Add user presentation preferences.                    |
+
+# Epic 13 — Security and governance
+
+| ID     | Priority | Story/task                                           |
+| ------ | -------: | ---------------------------------------------------- |
+| SEC-01 |       P0 | Enforce `tenant_id + process_id` on every lookup.    |
+| SEC-02 |       P0 | Define role and attribute-based access rules.        |
+| SEC-03 |       P0 | Define permitted and restricted journey fields.      |
+| SEC-04 |       P0 | Enforce authorization outside the LLM.               |
+| SEC-05 |       P0 | Prevent cross-process data leakage.                  |
+| SEC-06 |       P0 | Prevent arbitrary query execution.                   |
+| SEC-07 |       P0 | Define audit-log requirements.                       |
+| SEC-08 |       P0 | Redact sensitive information from traces.            |
+| SEC-09 |       P0 | Define trace and conversation retention.             |
+| SEC-10 |       P1 | Test unauthorized process and field access.          |
+| SEC-11 |       P1 | Review tool descriptions for prompt-injection risks. |
+| SEC-12 |       P1 | Complete security architecture approval.             |
+
+# Epic 14 — Evaluation and testing
+
+| ID      | Priority | Story/task                                   |
+| ------- | -------: | -------------------------------------------- |
+| TEST-01 |       P0 | Create supported golden prompts.             |
+| TEST-02 |       P0 | Create unsupported aggregate prompts.        |
+| TEST-03 |       P0 | Create ambiguous process and entity prompts. |
+| TEST-04 |       P0 | Create missing-context prompts.              |
+| TEST-05 |       P0 | Create follow-up conversation prompts.       |
+| TEST-06 |       P0 | Create no-result scenarios.                  |
+| TEST-07 |       P0 | Create stale and version-mismatch scenarios. |
+| TEST-08 |       P0 | Create partial and missing-record scenarios. |
+| TEST-09 |       P0 | Define intent-classification targets.        |
+| TEST-10 |       P0 | Define entity-resolution targets.            |
+| TEST-11 |       P0 | Define clarification-quality targets.        |
+| TEST-12 |       P0 | Define exact tool-selection targets.         |
+| TEST-13 |       P0 | Define parameter-extraction targets.         |
+| TEST-14 |       P0 | Define grounding and hallucination targets.  |
+| TEST-15 |       P1 | Test pagination and cursor behavior.         |
+| TEST-16 |       P1 | Test tool and data-version compatibility.    |
+| TEST-17 |       P1 | Test every typed error.                      |
+| TEST-18 |       P1 | Test presentation selection.                 |
+| TEST-19 |       P1 | Test result warnings and visible scope.      |
+| TEST-20 |       P1 | Build automated regression execution.        |
+| TEST-21 |       P1 | Build human review for failed evaluations.   |
+| TEST-22 |       P1 | Define release-blocking thresholds.          |
+| TEST-23 |       P1 | Run load and concurrency tests.              |
+| TEST-24 |       P1 | Run end-to-end business UAT.                 |
+
+# Epic 15 — Observability and operations
+
+| ID     | Priority | Story/task                                       |
+| ------ | -------: | ------------------------------------------------ |
+| OPS-01 |       P1 | Define P50 and P95 latency targets.              |
+| OPS-02 |       P1 | Define tool availability targets.                |
+| OPS-03 |       P1 | Trace question, intent and resolved entities.    |
+| OPS-04 |       P1 | Trace clarification decisions.                   |
+| OPS-05 |       P1 | Trace tool plans, inputs and outputs.            |
+| OPS-06 |       P1 | Trace knowledge and data versions.               |
+| OPS-07 |       P1 | Monitor tool errors and timeouts.                |
+| OPS-08 |       P1 | Monitor unresolved and ambiguous terms.          |
+| OPS-09 |       P1 | Monitor missing memberships and records.         |
+| OPS-10 |       P1 | Monitor data freshness.                          |
+| OPS-11 |       P1 | Monitor unsupported-request rates.               |
+| OPS-12 |       P1 | Build operational dashboards.                    |
+| OPS-13 |       P1 | Configure alerts and escalation.                 |
+| OPS-14 |       P1 | Create incident and data-quality runbooks.       |
+| OPS-15 |       P1 | Implement configuration and capability rollback. |
+| OPS-16 |       P1 | Capture user feedback against answer traces.     |
+
+# Epic 16 — CI/CD and environments
+
+| ID        | Priority | Story/task                                            |
+| --------- | -------: | ----------------------------------------------------- |
+| DEVOPS-01 |       P1 | Create development, test and production environments. |
+| DEVOPS-02 |       P1 | Create build and deployment pipelines.                |
+| DEVOPS-03 |       P1 | Add schema and contract validation to CI.             |
+| DEVOPS-04 |       P1 | Add knowledge-package validation to CI.               |
+| DEVOPS-05 |       P1 | Add tool contract tests to CI.                        |
+| DEVOPS-06 |       P1 | Add golden-prompt regression tests to CI.             |
+| DEVOPS-07 |       P1 | Support independent tool version deployment.          |
+| DEVOPS-08 |       P1 | Support registry and configuration promotion.         |
+| DEVOPS-09 |       P1 | Add feature-flag controls.                            |
+| DEVOPS-10 |       P1 | Define rollback procedures.                           |
+
+# Epic 17 — Pilot onboarding and release
+
+| ID         | Priority | Story/task                                                   |
+| ---------- | -------: | ------------------------------------------------------------ |
+| RELEASE-01 |       P1 | Complete the pilot-process onboarding checklist.             |
+| RELEASE-02 |       P1 | Validate pilot hierarchy and aliases with the process owner. |
+| RELEASE-03 |       P1 | Validate variant sequences with the process-mining SME.      |
+| RELEASE-04 |       P1 | Validate membership behavior with the data owner.            |
+| RELEASE-05 |       P1 | Validate journey presentation with business users.           |
+| RELEASE-06 |       P1 | Complete security and governance review.                     |
+| RELEASE-07 |       P1 | Complete performance and operational readiness review.       |
+| RELEASE-08 |       P1 | Conduct end-to-end UAT.                                      |
+| RELEASE-09 |       P1 | Prepare business-user guidance.                              |
+| RELEASE-10 |       P1 | Prepare support-team documentation.                          |
+| RELEASE-11 |       P1 | Release to a limited pilot group.                            |
+| RELEASE-12 |       P1 | Review pilot feedback and defects.                           |
+| RELEASE-13 |       P1 | Approve broader MVP rollout.                                 |
+
+# Future backlog — do not include in MVP
+
+| ID     | Future item                                    |
+| ------ | ---------------------------------------------- |
+| FUT-01 | Variant counts and distribution tools.         |
+| FUT-02 | Top-N and most-common-variant tools.           |
+| FUT-03 | Journey duration and KPI tools.                |
+| FUT-04 | Trend and weekly-analysis tools.               |
+| FUT-05 | Bottleneck and root-cause tools.               |
+| FUT-06 | Policy and SOP ingestion.                      |
+| FUT-07 | Document knowledge search.                     |
+| FUT-08 | Architecture and process-schema presentation.  |
+| FUT-09 | BPMN/process-model retrieval and display.      |
+| FUT-10 | Designed-versus-discovered process comparison. |
+| FUT-11 | Conformance and deviation analysis.            |
+| FUT-12 | Governed analytical summaries.                 |
+
+## Recommended order for creating the first stories
+
+Start with these stories first:
+
+1. `SCOPE-02` — Select the pilot process.
+2. `SCOPE-04` — Approve supported questions.
+3. `SCOPE-05` — Approve unsupported questions.
+4. `DATA-06` to `DATA-17` — Resolve identifiers, relationships, versions and freshness.
+5. `CONTRACT-01` to `CONTRACT-14` — Define common contracts.
+6. `KB-01` to `KB-20` — Build the first knowledge package.
+7. `REG-01` to `REG-14` — Build the capability registry.
+8. `GATEWAY-01` to `GATEWAY-11` — Build controlled tool execution.
+9. `VAR-01` to `VAR-14` — Complete the first variant vertical slice.
+10. Add membership and journey capabilities after the variant flow works end to end.
