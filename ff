@@ -1,0 +1,26 @@
+Yes—those blue circles are Assertion nodes, and the text inside them is a relationship predicate. Your interpretation is correct.
+The current model stores the fact twice:
+(Process)-[:OPERATES_IN]->(Canada)
+And an audit representation:
+(Assertion: "OPERATES_IN → Canada")-[:SUBJECT]->(Process)
+(Assertion)-[:OBJECT]->(Canada)
+(Assertion)-[:EVIDENCED_BY]->(DocumentVersion)
+The assertion layer records which documents support the relationship, confidence, and version status. It is useful for deep auditability, but it makes the graph noisy and confusing for this POC.
+To see everything except technical assertion nodes:
+MATCH path=(source)-[relationship]->(target)
+WHERE NOT source:Assertion
+  AND NOT target:Assertion
+RETURN path
+LIMIT 500;
+For the clean business graph:
+MATCH path=(process:Process)
+  -[:OPERATES_IN|OWNED_BY|GOVERNED_BY|USES_SYSTEM]->(entity)
+RETURN path;
+My recommendation, based on your objective, is to remove Assertion nodes entirely and store provenance directly on the business relationship:
+(Process)-[:OPERATES_IN {
+    confidence: 1.0,
+    evidence_count: 4,
+    document_version_ids: [...],
+    supporting_chunk_ids: [...]
+}]->(Canada)
+That would leave only real enterprise entities as nodes and real business connections as relationships. The trade-off is that provenance becomes relationship properties instead of a separately traversable audit layer. For this demonstration, that is clearer and better aligned with your stated model.
