@@ -1,0 +1,118 @@
+flowchart LR
+
+    %% =========================
+    %% ENTERPRISE KNOWLEDGE GRAPH
+    %% =========================
+
+    subgraph KG["Enterprise Dependency Knowledge Graph"]
+
+        P1["Process<br/><b>Customer Onboarding</b><br/>PROC_ONBOARDING"]
+
+        SP1["Subprocess / Process<br/><b>Customer Verification</b><br/>PROC_CUSTOMER_VERIFY"]
+
+        P2["Process<br/><b>Loan Approval</b><br/>PROC_LOAN_APPROVAL"]
+
+        S1["System<br/><b>Onboarding CRM</b><br/>SYS_CRM"]
+
+        S2["System<br/><b>Customer 360</b><br/>SYS_CUSTOMER_360"]
+
+        S3["System<br/><b>Customer Master</b><br/>SYS_CUSTOMER_MASTER"]
+
+        S4["System<br/><b>Identity Verification</b><br/>SYS_IDENTITY"]
+
+        S5["System<br/><b>External KYC Service</b><br/>SYS_KYC"]
+
+        S6["System<br/><b>Address Validation</b><br/>SYS_ADDRESS"]
+
+        P1 -->|DEPENDS_ON_PROCESS| SP1
+        P1 -->|DIRECTLY_USES| S1
+
+        SP1 -->|DIRECTLY_USES| S2
+        P2 -->|DIRECTLY_USES| S2
+
+        S2 -->|DEPENDS_ON_SYSTEM| S3
+        S2 -->|DEPENDS_ON_SYSTEM| S4
+        S2 -->|DEPENDS_ON_SYSTEM| S6
+
+        S4 -->|DEPENDS_ON_SYSTEM| S5
+    end
+
+
+    %% =========================
+    %% USER QUESTION
+    %% =========================
+
+    Q["User question:<br/><b>What is impacted if<br/>Customer Master goes down?</b>"]
+
+
+    %% =========================
+    %% RAG-ONLY RETRIEVAL
+    %% =========================
+
+    subgraph RAG["RAG-Only Retrieval"]
+
+        R1["Search chunks mentioning<br/><b>Customer Master</b>"]
+
+        R2["Finds Customer 360 documentation:<br/><b>Customer 360 depends on Customer Master</b>"]
+
+        R3["Likely answer:<br/><b>Customer 360 is impacted</b>"]
+
+        R4["May miss:<br/>Customer Verification<br/>Customer Onboarding<br/>Loan Approval"]
+
+        R1 --> R2
+        R2 --> R3
+        R3 --> R4
+    end
+
+
+    %% =========================
+    %% GRAPH-ENHANCED RETRIEVAL
+    %% =========================
+
+    subgraph GRAG["Graph-Enhanced RAG"]
+
+        G1["Resolve entity:<br/><b>SYS_CUSTOMER_MASTER</b>"]
+
+        G2["Traverse reverse dependencies"]
+
+        G3["Customer Master<br/>← Customer 360"]
+
+        G4["Customer 360<br/>← Customer Verification<br/>← Customer Onboarding"]
+
+        G5["Customer 360<br/>← Loan Approval"]
+
+        G6["Complete impact result:<br/><b>Customer 360</b><br/><b>Customer Verification</b><br/><b>Customer Onboarding</b><br/><b>Loan Approval</b>"]
+
+        G7["Use discovered IDs to retrieve<br/>supporting content from RAG"]
+
+        G1 --> G2
+        G2 --> G3
+        G3 --> G4
+        G3 --> G5
+        G4 --> G6
+        G5 --> G6
+        G6 --> G7
+    end
+
+
+    Q --> R1
+    Q --> G1
+
+    S3 -.->|Starting graph entity| G1
+
+
+    %% =========================
+    %% STYLING
+    %% =========================
+
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827
+    classDef system fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#111827
+    classDef question fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827
+    classDef limitation fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#111827
+    classDef solution fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827
+
+    class P1,SP1,P2 process
+    class S1,S2,S3,S4,S5,S6 system
+    class Q question
+    class R1,R2,R3,R4 limitation
+    class G1,G2,G3,G4,G5,G6,G7 solution
